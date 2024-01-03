@@ -3,13 +3,13 @@ title: "Einsum"
 description: "Einsum Tutorial"
 author:
   - name: Felipe Dias
-    url: xxx
+    url: https://fmenegui.github.io/posts/2024-01-02-einsum
 date: 01-02-2024
 categories: [tutorial, Python, PyTorch] # self-defined categories
 citation: 
   url: xxx
 image: il.jpg
-draft: false # setting this to `true` will prevent your post from appearing on your listing page until you're ready!
+draft: true # setting this to `true` will prevent your post from appearing on your listing page until you're ready!
 ---
 
 # Introduction
