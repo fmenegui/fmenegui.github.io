@@ -1,0 +1,10 @@
+---
+title: "Felipe Dias"
+---
+
+
+Hello! I'm **Felipe Meneguitti Dias**, a  Data Scientist and Researcher from Brazil 🇧🇷. 
+
+---
+
+[About me](about.qmd) | [My Blog](posts.qmd) | [Resume](cv.md)

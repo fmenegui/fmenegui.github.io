@@ -1,0 +1,21 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Felipe Dias"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: About
+      - href: cv.md
+        text: Resume
+      - posts.qmd
+
+format:
+  html:
+    theme: minty
+    css: styles.css
+    toc: true
