@@ -4,7 +4,7 @@
     "href": "posts.html",
     "title": "Blog",
     "section": "",
-    "text": "Einsum\n\n\n\ntutorial\n\n\nPython\n\n\nPyTorch\n\n\n\nEinsum Tutorial\n\n\n\nFelipe Dias\n\n\nJan 2, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "No matching items"
   },
   {
     "objectID": "index.html",
@@ -47,27 +47,6 @@
     "title": "Felipe Meneguitti Dias",
     "section": "",
     "text": "Artificial Intelligence-Driven Screening System for Rapid Image-Based Classification of 12-Lead ECG Exams\nIEEE Access, 2023 | Journal article\nDOI: 10.1109/ACCESS.2023.3328538\nFelipe Meneguitti Dias; Estela Ribeiro; Ramon Alfredo Moreno; Adèle Helena Ribeiro; Nelson Samesima; Carlos Alberto Pastore; Jose Eduardo Krieger; Marco Antonio Gutierrez\nBlood Pressure Estimation From Photoplethysmography by Considering Intra- and Inter-Subject Variabilities: Guidelines for a Fair Assessment\nIEEE Access, 2023 | Journal article\nDOI: 10.1109/ACCESS.2023.3284458\nThiago Bulhões Da Silva Costa; Felipe Meneguitti Dias; Diego Armando Cardona Cardenas; Marcelo Arruda Fiuza De Toledo; Daniel Mário De Lima; Jose Eduardo Krieger; Marco Antonio Gutierrez\nA Machine Learning Approach to Predict Arterial Blood Pressure from Photoplethysmography Signal\nComputing in Cardiology, 2022 | Conference paper\nDOI: 10.22489/CinC.2022.238\nDias, F.M.; Costa, T.B.S.; Cardenas, D.A.C.; Toledo, M.A.F.; Krieger, J.E.; Gutierrez, M.A.\nArrhythmia classification from single-lead ECG signals using the inter-patient paradigm\nComputer Methods and Programs in Biomedicine, 2021 | Journal article\nDOI: 10.1016/j.cmpb.2021.105948\nFelipe Meneguitti Dias; Henrique L.M. Monteiro; Thales Wulfert Cabral; Rayen Naji; Michael Kuehni; Eduardo José"
-  },
-  {
-    "objectID": "posts/2024-01-02-einsum/index.html",
-    "href": "posts/2024-01-02-einsum/index.html",
-    "title": "Einsum",
-    "section": "",
-    "text": "Einstein summation notation, commonly denoted as einsum, is a powerful tool for performing optimized matrix operations. It allows us to avoid using unnecessary for loops and simplifies complex matrix manipulations, making code more readable and efficient.\nEinsum is available in different libraries, such as Numpy, PyTorch and Tensorflow."
-  },
-  {
-    "objectID": "posts/2024-01-02-einsum/index.html#matrix-notation",
-    "href": "posts/2024-01-02-einsum/index.html#matrix-notation",
-    "title": "Einsum",
-    "section": "Matrix notation",
-    "text": "Matrix notation\nBefore diving deeper into einsum, let’s briefly review some matrix terminology. Consider a matrix A with 3 rows and 3 columns, represented as follows:\nA = [\n    a11 a12 a13\n    a21 a22 a23\n    a31 a32 a33\n]\nThis matrix is commonly described as a 3x3 matrix, indicating it has 3 rows and 3 columns.\nWe can denote the element in the first row and first column as a11 and the element in the second row and third column as a2,3.\nMore generally, we can represent the element in the i-th row and j-th column as aij. This notation is applicable to any N-dimensional tensor. For example, in the case of a one-dimensional vector v, we can denote the element at position i as vi."
-  },
-  {
-    "objectID": "posts/2024-01-02-einsum/index.html#intuition",
-    "href": "posts/2024-01-02-einsum/index.html#intuition",
-    "title": "Einsum",
-    "section": "Intuition",
-    "text": "Intuition\nThe einsum can make two operations over tensors: multiplication and summation.\nWe will try to understand the mechanism on how this notation perfom these two operations.\n\nMultiplication\nLet’s consider another 3x3 matrix called B. We can create a third matrix, C, which contains elements derived from the multiplication of corresponding elements in A and B.\nFor instance, c11 = a11 * b11. In general, cij = aij * bij, meaning that the value in the i-th row and j-th column of C (cij) is obtained by multiplying the i-th row and j-th column of A (aij) by the i-th row and j-th column of B (bij).\nimport numpy as np\n\nA = np.random.random((3, 3))\nB = np.random.random((3, 3))\n\nC = np.multiply(A, B)\nAlternatively, you can achieve the same operation using einsum notation:\nimport numpy as np\n\nA = np.random.random((3, 3))\nB = np.random.random((3, 3))\n\nC = np.einsum('ij,ij-&gt;ij', A, B)\nThe einsum notation structure resembles cij = aij * bij, as shown below:\ncij = aij * bij\nnp.einsum(‘ij,ij-&gt;ij’, A, B)\nThis structure follows a specific pattern: first, you specify indices for each of your inputs separated by commas (we have two inputs: A and B), as in ‘ij,ij’. Then, you add an arrow to indicate the beginning of the output definition (-&gt;). Finally, you add the indices of the outputs, in this case, ‘ij’. Overall, it appears as ‘ij,ij-&gt;ij’. Einsum performs the multiplication of corresponding elements (aij and bij in this case).\nWe can also understand the einsum notation by thinking in terms of for loops:\nC = np.zeros((3,3))\nfor i in range(3):\n    for j in range(3):\n        C[i, j] = A[i, j] * B[i, j]\nNow, let’s consider another example where we multiply the vector v = [1, 2, 3] element-wise by the vector p = [4, 5, 6] using einsum notation.\nThinking in terms of math notation, we would have zi = vi * pi.\nUsing einsum:\nv = np.array([1, 2, 3])\np = np.array([4, 5, 6])\n\nz = np.einsum('i,i-&gt;i', v, p)\nIn our for-loop analogy:\nv = np.array([1, 2, 3])\np = np.array([4, 5, 6])\nz = np.zeros(3)\nfor i in range(3):\n  z[i] = v[i]*p[i]\nNow, let’s explore what happens when we use ‘i,j’ instead of ‘i,i’ in the einsum notation for our vectors v and p:\nIn this scenario, we introduce one index for vector v (denoted as i) and another index for vector p (denoted as j). The einsum operation will perform element-wise multiplication, combing each element of v with every element of p. \nConsider vector v with a size of 3 and vector p with the same size of 3. When we use ‘i,j’ in einsum, we end up with 9 possible combinations: v0 * p0, v0 * p1, v0 * p2, v1 * p0, v1 * p1, v1 * p2, v2 * p0, v2 * p1, and v2 * p2.\nThe einsum operation organizes these combinations into a 3x3 matrix, where each element cij corresponds to the product of vi and pj.\nTo illustrate this with a for loop analogy:\nfor i in range(3):\n    for j in range(3):\n        c[i, j] = v[i] * p[j]\nIn einsum notation, we would write:\nnp.einsum('i,j-&gt;ij', v,p)\n\n\nSummation"
   },
   {
     "objectID": "about.html",
