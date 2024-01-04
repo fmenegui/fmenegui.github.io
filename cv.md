@@ -1,7 +1,7 @@
 # Felipe Meneguitti Dias
 
 📧 [f.meneguittidias@gmail.com](mailto:f.meneguittidias@gmail.com)  
-🔗 LinkedIn: [felipe-meneguitti-dias-312570b3](https://www.linkedin.com/in/felipe-meneguitti-dias-312570b3)  
+🔗 LinkedIn: [felipe-meneguitti-dias-312570b3](https://www.linkedin.com/in/felipe-meneguitti-dias-312570b3/?locale=en_US)  
 🎓 Google Scholar: [QYW9cngAAAAJ](https://scholar.google.com.br/citations?user=QYW9cngAAAAJ&hl=en)
 
 Data Scientist and Researcher specialized in signal processing, computer vision, and machine learning.
