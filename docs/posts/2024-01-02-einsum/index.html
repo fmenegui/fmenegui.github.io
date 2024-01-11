@@ -97,6 +97,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -198,11 +200,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#summation" id="toc-summation" class="nav-link" data-scroll-target="#summation">Summation</a></li>
   </ul></li>
   </ul></li>
+  <li><a href="#einsum-blog" id="toc-einsum-blog" class="nav-link" data-scroll-target="#einsum-blog">einsum : blog</a></li>
+  <li><a href="#introduction-1" id="toc-introduction-1" class="nav-link" data-scroll-target="#introduction-1">Introduction</a></li>
+  <li><a href="#what-is-einsum-1" id="toc-what-is-einsum-1" class="nav-link" data-scroll-target="#what-is-einsum-1">What is <code>einsum</code>?</a>
+  <ul class="collapse">
+  <li><a href="#matrix-notation-1" id="toc-matrix-notation-1" class="nav-link" data-scroll-target="#matrix-notation-1">Matrix notation</a></li>
+  <li><a href="#intuition-1" id="toc-intuition-1" class="nav-link" data-scroll-target="#intuition-1">Intuition</a>
+  <ul class="collapse">
+  <li><a href="#multiplication-1" id="toc-multiplication-1" class="nav-link" data-scroll-target="#multiplication-1">Multiplication</a></li>
+  <li><a href="#summation-1" id="toc-summation-1" class="nav-link" data-scroll-target="#summation-1">Summation</a></li>
+  </ul></li>
+  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block" id="quarto-document-content">
+<main class="content quarto-banner-title-block page-columns page-full" id="quarto-document-content">
 
 
 
@@ -278,13 +292,189 @@ np.einsum(‘<strong><span style="color: blue; font-weight: bold;">ij</span></st
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        c[i, j] <span class="op">=</span> v[i] <span class="op">*</span> p[j]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In einsum notation, we would write:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>np.einsum(<span class="st">'i,j-&gt;ij'</span>, v,p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>np.einsum(<span class="st">'i,j-&gt;ij'</span>, v, p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="summation" class="level3">
 <h3 class="anchored" data-anchor-id="summation">Summation</h3>
-
-
+<p>As expectected by the same, the <code>einsum</code> is also able to perfom summing operation. It is actually where this operator shines the most.</p>
+<p>The sum is perfomed over an index and the notation to indicate the sum over that index is to ommit it in the output part of the einsum.</p>
+<p>For example, consider the identify operation, i.e., given a vector a: c_i = a_i for every i. We can denote this operation using einsum using `c = np.einsum(‘i-&gt;i’, a). But we actually want to sum the elements of a. How would you do that?</p>
+<p>In math notation, the sum is expressed as following: c = sum_i a_i</p>
+<p>Observe that in the math notation there is no index in the output (c). In einsum, it is the same: c = np.einsum(‘i-&gt;’, a). In this case, ‘i’ represent the index of the input (a_i), ‘-&gt;’ indicates the start of the output definition and the absence of the ‘i’ in the output indicates that there is a sum over that index (sum_i)</p>
+<hr>
 </section>
+</section>
+</section>
+<section id="einsum-blog" class="level1">
+<h1>einsum : blog</h1>
+</section>
+<section id="introduction-1" class="level1">
+<h1>Introduction</h1>
+<p>Einstein summation notation, commonly denoted as <code>einsum</code>, is a powerful tool for performing optimized matrix operations. It allows us to avoid using unnecessary for loops and simplifies complex matrix manipulations, making code more readable and efficient.</p>
+<p>Einsum is available in different libraries, such as <a href="https://numpy.org/doc/stable/reference/generated/numpy.einsum.html">Numpy</a>, <a href="https://pytorch.org/docs/stable/generated/torch.einsum.html">PyTorch</a> and <a href="https://www.tensorflow.org/api_docs/python/tf/einsum">Tensorflow</a>.</p>
+</section>
+<section id="what-is-einsum-1" class="level1 page-columns page-full">
+<h1>What is <code>einsum</code>?</h1>
+<section id="matrix-notation-1" class="level2">
+<h2 class="anchored" data-anchor-id="matrix-notation-1">Matrix notation</h2>
+<p>Before diving deeper into <code>einsum</code>, let’s briefly review some matrix terminology. Consider a matrix <span class="math inline">\(A\)</span> with 3 rows and 3 columns, represented as follows:</p>
+$$ A =
+<span class="math display">\[\begin{bmatrix}
+    a_{11} &amp; a_{12} &amp; a_{13} \\
+    a_{21} &amp; a_{22} &amp; a_{23} \\
+    a_{31} &amp; a_{32} &amp; a_{33} \\
+\end{bmatrix}\]</span>
+<p>$$</p>
+<p>This matrix is commonly described as a 3x3 matrix, indicating it has 3 rows and 3 columns.</p>
+<p>We can denote the element in the first row and first column as <span class="math inline">\(a_{11}\)</span> and the element in the second row and third column as <span class="math inline">\(a_{23}\)</span>.</p>
+<p>More generally, we can represent the element in the <span class="math inline">\(i\)</span>-th row and <span class="math inline">\(j\)</span>-th column as <span class="math inline">\(a_{ij}\)</span>. This notation is applicable to any <span class="math inline">\(N\)</span>-dimensional tensor. For example, in the case of a one dimensional vector <span class="math inline">\(v\)</span>, we can denote the element at position <span class="math inline">\(i\)</span> as <span class="math inline">\(v_i\)</span>.</p>
+</section>
+<section id="intuition-1" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="intuition-1">Intuition</h2>
+<p>The <code>einsum</code> can make two operations over tensors: <strong>multiplication</strong> and <strong>summation</strong>.</p>
+<p>We will try to understand the mechanism on how this notation perfom these two operations.</p>
+<section id="multiplication-1" class="level3">
+<h3 class="anchored" data-anchor-id="multiplication-1">Multiplication</h3>
+<p>Let’s consider another 3x3 matrix called <span class="math inline">\(B\)</span>. We can create a third matrix, <span class="math inline">\(C\)</span>, which contains elements derived from the multiplication of corresponding elements in <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>.</p>
+<p>For instance, <span class="math inline">\(c_{11} = a_{11} * b_{11}\)</span>. In general, <span class="math inline">\(c_{ij} = a_{ij} * b_{ij}\)</span>, meaning that the value in the <span class="math inline">\(i\)</span>-th row and <span class="math inline">\(j\)</span>-th column of <span class="math inline">\(C\)</span> (<span class="math inline">\(c_{ij}\)</span>) is obtained by multiplying the <span class="math inline">\(i\)</span>-th row and <span class="math inline">\(j\)</span>-th column of <span class="math inline">\(A\)</span> (<span class="math inline">\(a_{ij}\)</span>) by the <span class="math inline">\(i\)</span>-th row and <span class="math inline">\(j\)</span>-th column of <span class="math inline">\(B\)</span> (<span class="math inline">\(b_{ij}\)</span>).</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.random.random((<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> np.random.random((<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> np.multiply(A, B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Alternatively, you can achieve the same operation using <code>einsum</code> notation:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.random.random((<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> np.random.random((<span class="dv">3</span>, <span class="dv">3</span>))</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> np.einsum(<span class="st">'ij,ij-&gt;ij'</span>, A, B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>einsum</code> notation structure resembles <span class="math inline">\(c_{ij} = a_{ij} * b_{ij}\)</span>, as shown below:</p>
+<p><strong>cij</strong> = <strong>aij</strong> * <strong>bij</strong></p>
+<p>np.einsum(‘<strong>ij</strong>,<strong>ij</strong>-&gt;<strong>ij</strong>’, <strong>A</strong>,<strong>B</strong>)</p>
+<p>This structure follows a specific pattern: first, you specify indices for each of your inputs separated by commas (we have two inputs: <code>A</code> and <code>B</code>), as in <code>‘ij,ij’</code> . Then, you add an arrow to indicate the beginning of the output definition (<code>-&gt;</code>). Finally, you add the indices of the outputs, in this case, <code>‘ij’.</code> Overall, it appears as <code>‘ij,ij-&gt;ij’</code> .</p>
+<p><code>einsum</code> performs the multiplication of corresponding elements (<span class="math inline">\(a_{ij}\)</span> and <span class="math inline">\(b_{ij}\)</span> in this case).</p>
+<p>We can also understand the <code>einsum</code> notation by thinking in terms of <code>for loops</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> np.zeros((<span class="dv">3</span>,<span class="dv">3</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        C[i, j] <span class="op">=</span> A[i, j] <span class="op">*</span> B[i, j]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now, let’s consider another example where we multiply the vector <span class="math inline">\(v = [1, 2, 3]\)</span> element-wise by the vector <span class="math inline">\(p = [4, 5, 6]\)</span> using <code>einsum</code> notation.</p>
+<p>Thinking in terms of math notation, we would have <span class="math inline">\(z_i = v_i * p_i\)</span>.</p>
+<p>Using <code>einsum</code>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.array([<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>])</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> np.einsum(<span class="st">'i,i-&gt;i'</span>, v, p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In our <code>for-loop</code> analogy:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>v <span class="op">=</span> np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.array([<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>])</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> np.zeros(<span class="dv">3</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  z[i] <span class="op">=</span> v[i]<span class="op">*</span>p[i]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now, let’s explore what happens when we use <code>‘i,j’</code> instead of <code>‘i,i’</code> in the <code>einsum</code> notation for our vectors <code>v</code> and <code>p</code>:</p>
+<p>In this scenario, we introduce one index for vector <code>v</code> (denoted as <code>i</code>) and another index for vector <code>p</code> (denoted as <code>j</code>). The einsum operation will perform element-wise multiplication, combing each element of <code>v</code> with every element of <code>p</code>.</p>
+<p>Consider vector <code>v</code> with a size of 3 and vector <code>p</code> with the same size of 3. When we use <code>‘i,j’</code> in <code>einsum</code>, we end up with <strong>9</strong> possible combinations:</p>
+<ol type="1">
+<li><span class="math inline">\(v_0 * p_0 = 4\)</span></li>
+<li><span class="math inline">\(v_0 * p_1 = 5\)</span></li>
+<li><span class="math inline">\(v_0 * p_2 = 6\)</span></li>
+<li><span class="math inline">\(v_1 * p_0 = 8\)</span></li>
+<li><span class="math inline">\(v_1 * p_1 = 10\)</span></li>
+<li><span class="math inline">\(v_1 * p_2 = 12\)</span></li>
+<li><span class="math inline">\(v_2 * p_0 = 12\)</span></li>
+<li><span class="math inline">\(v_2 * p_1 = 15\)</span></li>
+<li><span class="math inline">\(v_2 * p_2 = 18\)</span></li>
+</ol>
+<p>The <code>einsum</code> operation organizes these combinations into a 3x3 matrix, where each element <span class="math inline">\(c_{ij}\)</span> corresponds to the product of <span class="math inline">\(v_i\)</span> and <span class="math inline">\(p_j\)</span>.</p>
+<p>To illustrate this with a for loop analogy:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        c[i, j] <span class="op">=</span> v[i] <span class="op">*</span> p[j]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In <code>einsum</code> notation, we would write:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>np.einsum(<span class="st">'i,j-&gt;ij'</span>, v, p)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="summation-1" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="summation-1">Summation</h3>
+<p>As expected by the same, the <code>einsum</code> is also able to perform summing operation. It is actually where this operator shines the most.</p>
+<p>The sum is performed over an index and the notation to indicate the sum over that index is to ommit it in the output part of the <code>einsum</code>.</p>
+<p>For example, consider the identify operation, i.e., given a vector <span class="math inline">\(c_i = a_i\)</span> <span class="math inline">\(~ \forall i\)</span>. We can denote this operation using <code>einsum</code> using <code>c = np.einsum(‘i-&gt;i’, a)</code>. But we actually want to sum the elements of <span class="math inline">\(a\)</span>. How would you do that?</p>
+<p>In math notation, the sum is expressed as following: <span class="math inline">\(c = \sum_i a_i\)</span></p>
+<p>Observe that in the math notation there is no index in the output (<span class="math inline">\(c\)</span>). In <code>einsum</code>, it is the same: <code>c = np.einsum(‘i-&gt;’, a)</code>. In this case, <code>‘i’</code> represent the index of the input (<span class="math inline">\(a_i\)</span>), indicates the start of the output definition and the absence of the <code>‘i’</code> in the output indicates that there is a sum over that index (<span class="math inline">\(\sum_i\)</span>)</p>
+<p>Analogoly, we could sum all the elements of a matrix <span class="math inline">\(A\)</span> using <code>einsum</code> as follows: <code>np.einsum('ij-&gt;', A)</code>.</p>
+<p>Let us try to implement <strong>matrix multiplication</strong> using <code>einsum</code></p>
+<p>First, we will recap the concept of <strong>matrix multiplication</strong>. Consider a 2x3 matrix <span class="math inline">\(A\)</span> and a 3x2 matrix <span class="math inline">\(B\)</span>:</p>
+$$ A =
+<span class="math display">\[\begin{bmatrix}
+    a_{11} &amp; a_{12} &amp; a_{13} \\
+    a_{21} &amp; a_{22} &amp; a_{23} \\
+\end{bmatrix}\]</span>
+<p>$$</p>
+$$ B =
+<span class="math display">\[\begin{bmatrix}
+    b_{11} &amp; b_{12}  \\
+    b_{21} &amp; b_{22}  \\
+    b_{31} &amp; b_{32}  \\
+\end{bmatrix}\]</span>
+<p>$$</p>
+<p>The multiplication of <span class="math inline">\(A\)</span> for <span class="math inline">\(B\)</span> is <span class="math inline">\(C\)</span> = <span class="math inline">\(A\)</span> <span class="math inline">\(B\)</span></p>
+<p><span class="math display">\[C = \begin{bmatrix}
+    a_{11} &amp; a_{12} &amp; a_{13} \\
+    a_{21} &amp; a_{22} &amp; a_{23} \\
+\end{bmatrix} \begin{bmatrix}
+    b_{11} &amp; b_{12}  \\
+    b_{21} &amp; b_{22}  \\
+    b_{31} &amp; b_{32}  \\
+\end{bmatrix}\]</span></p>
+<p>The element of the first row and second column of <span class="math inline">\(C\)</span> is:</p>
+<p><span class="math inline">\(c_{12} = \sum _j a_{1j}b_{j2} = a_{11}b_{11} + a_{12}b_{21} + a_{13}b_{31}\)</span></p>
+<p>More generally, the <span class="math inline">\(i\)</span>-row row and <span class="math inline">\(j\)</span>-column of C is:</p>
+<p><span class="math inline">\(c_{ik} = \sum_j a_{ij} b_{jk}\)</span></p>
+<p>We can represent this operation with <code>einsum</code> by: <code>C = np.einsum('ij,jk-&gt;ik', A, B)</code></p>
+<aside>
+<p>📖 To better intuitivelly understand matrix multiplication use: <a href="http://matrixmultiplication.xyz/">http://matrixmultiplication.xyz</a></p>
+</aside>
+</section>
+</section>
+<section id="practice" class="level2">
+<h2 class="anchored" data-anchor-id="practice">Practice</h2>
+<p>Let us use our knowledge in <code>einsum</code> in practice with some exercises:</p>
+<ul>
+<li><ol type="1">
+<li>Use <code>einsum</code> to make the transpose of a given matrix <span class="math inline">\(A\)</span>:</li>
+</ol>
+<p>The matrix of <span class="math inline">\(A = [a_{ij}]\)</span> has its transpose(commonly denoted as <span class="math inline">\(A^\intercal\)</span> ) defined as <span class="math inline">\(A^\intercal  = [a_{ji}]\)</span></p>
+<p>So if <span class="math inline">\(C = A^\intercal\)</span>, <span class="math inline">\(c_{ij} = a_{ji}\)</span>, we could use the following <code>einsum</code></p>
+<p><code>C = np.einsum('ij-&gt;ji', A)</code></p></li>
+<li><ol start="2" type="1">
+<li>Calculate the trace of a given square matrix <span class="math inline">\(A\)</span>, i.e., the sum of the elements of the diagonal</li>
+</ol>
+<p>Given a square matrix (for example a 2x2 matrix):</p>
+<p><span class="math display">\[
+  A = \begin{bmatrix}
+      a_{11} &amp; a_{12}  \\
+      a_{21} &amp; a_{22}  \\
+  \end{bmatrix}
+  \]</span></p>
+<p>The trace of <span class="math inline">\(A\)</span> is the sum of the elements of the diagonal of <span class="math inline">\(A\)</span>, i.e., <span class="math inline">\(a_{11} + a_{22}\)</span></p>
+<p>In math notation, <span class="math inline">\(Tr(A) = \sum_i a_{ii}\)</span></p>
+<p>Using <code>einsum</code>, we could do: <code>np.einsum('ii→’, A)</code></p></li>
+<li><ol start="3" type="1">
+<li>Calculate the euclidian norm of a vector <span class="math inline">\(v\)</span></li>
+</ol>
+<p>The euclidian norm of the vector <span class="math inline">\(v\)</span> is <span class="math inline">\(||v|| = \sqrt{v_0^2 + v_1^2 + \cdots + v_n^2} = \sqrt{\sum _i v_i * v_i}\)</span></p>
+<p>Using <code>einsum</code> we could do: <code>np.sqrt(p.einsum('i,i-&gt;', v, v))</code></p></li>
+<li><ol start="4" type="1">
+<li>Calculate the batch matrix multiplication between <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span></li>
+</ol>
+<p>The matrix multiplication of <span class="math inline">\(A\)</span> (<span class="math inline">\(p \times h\)</span>) and <span class="math inline">\(B (h \times u)\)</span>, in math notation is defined as follows:</p>
+<p><span class="math inline">\(C = A B\)</span></p>
+<p><span class="math inline">\(c_{ik} = \sum_j a_{ij} b_{jk}\)</span></p>
+<p>Consider a batch of matrices <span class="math inline">\(A\)</span> with size n: <span class="math inline">\(A_{n,p,h}\)</span> and a batch of matrices <span class="math inline">\(B\)</span> also with size <span class="math inline">\(n\)</span>: <span class="math inline">\(B_{n,h,u}\)</span></p>
+<p>How would we multiply <span class="math inline">\(A\)</span> with <span class="math inline">\(B\)</span> ?</p>
+<p>We could not use <code>np.einsum('ij,jk-&gt;ik', A, B)</code> as before (<span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> have another dimension).</p>
+<p>This batch matrix multiplication (bmm) could be defined in math notation as:</p>
+<p><span class="math inline">\(c_{nik} = \sum_j a_{nij} b_{njk}\)</span></p>
+<p>Using <code>einsum</code>: <code>np.einsum('nij,njk→nik, A, B)</code></p></li>
+</ul>
+
+
 </section>
 </section>
 
