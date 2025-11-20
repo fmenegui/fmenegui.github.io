@@ -35,6 +35,83 @@
     "text": "Selected Publications\n\nExploring the limitations of blood pressure estimation using the photoplethysmography signal.\nPhysiological Measurement, 2025.\nDOI: https://doi.org/10.1088/1361-6579/adcb86\nArtificial Intelligence-Driven Screening System for Rapid Image-Based Classification of 12-Lead ECG Exams: A Promising Solution for Emergency Room Prioritization.\nIEEE Access, 2023.\nDOI: https://doi.org/10.1109/ACCESS.2023.3328538\nBlood Pressure Estimation From Photoplethysmography by Considering Intra- and Inter-Subject Variabilities: Guidelines for a Fair Assessment.\nIEEE Access, 2023.\nDOI: https://doi.org/10.1109/ACCESS.2023.3284458\nA Machine Learning Approach to Predict Arterial Blood Pressure from Photoplethysmography Signal.\nComputing in Cardiology, 2022.\nDOI: https://doi.org/10.22489/CinC.2022.238\nArrhythmia classification from single-lead ECG signals using the inter-patient paradigm.\nComputer Methods and Programs in Biomedicine, 2021.\nDOI: https://doi.org/10.1016/j.cmpb.2021.105948"
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Home",
+    "section": "",
+    "text": "Welcome"
+  },
+  {
+    "objectID": "learning/miscellaneous/index.html",
+    "href": "learning/miscellaneous/index.html",
+    "title": "Miscellaneous Study Material",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\nDescription\n\n\n\n\n\n\nEinsum Tutorial\n\n\nBrief introduction to Einsum\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "learning/hands_on_torch/01_intro.html",
+    "href": "learning/hands_on_torch/01_intro.html",
+    "title": "Intro",
+    "section": "",
+    "text": "oi"
+  },
+  {
+    "objectID": "learning/ab_testing/index.html",
+    "href": "learning/ab_testing/index.html",
+    "title": "A/B Testing",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\nDescription\n\n\n\n\n\n\nIntroduction to A/B testing\n\n\nBrief introduction to A/B testing\n\n\n\n\nWhy do we randomize?\n\n\nImportance of randomization\n\n\n\n\nAverage Treatment Effect\n\n\nAverage Treatment Effect\n\n\n\n\nHypothesis-driven Product Development\n\n\nHypothesis-driven Product Development\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "learning/ab_testing/04_hdpd.html",
+    "href": "learning/ab_testing/04_hdpd.html",
+    "title": "Hypothesis-driven Product Development",
+    "section": "",
+    "text": "In our previous posts, we introduced A/B testing, highlighted why randomization is essential, and discussed how we can measure the effect of a treatment in an A/B testing context. Today we move into Hypothesis-driven Product Development, which shifts the traditional product workflow from simply having an idea, implementing it, and checking results to a structured process where ideas are tested through experimentation and validated with measurable evidence."
+  },
+  {
+    "objectID": "learning/ab_testing/04_hdpd.html#good-metrics",
+    "href": "learning/ab_testing/04_hdpd.html#good-metrics",
+    "title": "Hypothesis-driven Product Development",
+    "section": "Good metrics",
+    "text": "Good metrics\nA metric is good when it can be compared across time and, for business contexts, when it is connected to financial performance or user behavior. Examples include:\n\nCTR (Click Through Rate)\nCVR (Conversion Rate)\n\nThese metrics help guide decisions because changes in them reflect real impact on the business."
+  },
+  {
+    "objectID": "learning/ab_testing/04_hdpd.html#vanity-metrics",
+    "href": "learning/ab_testing/04_hdpd.html#vanity-metrics",
+    "title": "Hypothesis-driven Product Development",
+    "section": "Vanity metrics",
+    "text": "Vanity metrics\nMetrics are usually created to support meaningful decisions. However, some metrics look impressive but do not help with practical decision making. These are known as “vanity metrics”. For example, the total number of users who have ever created an account may be useful for marketing announcements, such as saying a product reached one million users, but it does not help you decide how to improve the product."
+  },
+  {
+    "objectID": "learning/ab_testing/02_randomization.html",
+    "href": "learning/ab_testing/02_randomization.html",
+    "title": "Why do we randomize?",
+    "section": "",
+    "text": "Introduction\nIn our previous post, Introduction to A/B Testing, we discussed how A/B testing can be used to assess whether a given modification causes a change in a variable of interest. For example, whether increasing the size of the shopping cart icon increases sales.\nWe also said that A/B testing involves splitting website traffic into the current version (A or control) and the modified version (B or treatment), and that this split needs to be random. But why?\n\n\nConfounding factors\nTo understand the importance of randomization, we need to talk briefly about confounding factors.\nSuppose we want to evaluate whether a medication improves survival from COVID-19. However, other variables can affect survival. For instance, younger people are more likely to survive than older people. If we give the medication only to younger people and withhold it from older people, the treated group may appear to have higher survival, not because the medication works, but because it contains younger patients who are intrinsically more likely to survive.\nSimilarly, clinicians might be tempted to give the medication only to high-risk patients. High-risk patients are, by definition, more likely to die. In that case, if we compare the treated group with the untreated group, the treated group might show lower survival, that could lead to a mistaken conclusion that the medication is ineffective. The poorer outcome could simply reflect the greater baseline risk in the treated group.\nThese scenarios illustrate confounding variables, which variables that can affect both the treatment (the modification) and the observed outcome (survival). This is represented in Figure 1.\n\n\n\nFigure 1: Confounding: a third variable influences both treatment assignment and outcome.\n\n\nThis is one of the reasons by we need to randomize, because similar profile of subjects would go to the treatment and control groups, that would eliminate what is so called selection bias\n\n\nCeteris Paribus\nCeteris Paribus: “All other things being equal”\nCeteris Paribus is a latin word that describes the situation between two groups that have all of the characterincts being the same, except for your provided modifcation. In our COVID medication, a Ceteris Paribus situation would make the treatment and control groups having the same characteriscts (similar age profile, similar sex profile, etc), except for the medication which is being provided in the treatment group.\nWhat technique provide this Ceteris Paribus scenario: RANDOMIZATION."
+  },
+  {
+    "objectID": "learning/ab_testing/01_intro.html",
+    "href": "learning/ab_testing/01_intro.html",
+    "title": "Introduction to A/B testing",
+    "section": "",
+    "text": "Introduction\nSuppose you run an online store and want to improve sales. You then have an idea to enlarge the shopping-cart button. After deploying the change, sales increase (see Figure 1).\n\n\n\nFigure 1: Sales trend after introducing the cart-size change.\n\n\nDid your modification cause the increase in sales?\nNot necessarily. Several other factors could explain the rise, such as seasonality. For instance, if you implemented the change in early December, sales might climb simply because it’s close to Christmas, when people tend to buy more.\nTo argue that your modification caused the increase, we first need a clear notion of causality.\n\n\nWhat is causality?\nCorrelation is about variables moving together. Causality is about changing in one variable producing changes in another.\nIn broad terms, two variables (A) and (B) are correlated when changes in one tend to be associated with changes in the other (see Figure 2). Correlation alone does not establish a cause–effect relationship.\n\n\n\nFigure 2: An illustration of variables moving together (correlation).\n\n\nTwo things can be correlated without either causing the other. This is called spurious correlation.\nA classic spurious correlation example is shown in Figure 3:\n(A=) “Air quality in Union City, Tennessee” and (B=) “Number of movies featuring Orlando Bloom.” They are correlated, but there is no plausible causal link between them.\n\n\n\nFigure 3: A spurious correlation example: unrelated variables that co-vary.\n\n\nCausality, on the other hand, concerns cause and consequence: if we change (A), what happens to (B)?\nConsider Figure 4. An oven’s temperature (B) is controlled by a dial (A). A thermometer (C) responds to the temperature. Turning the dial (A) changes the temperature (B), and the temperature (B) moves the thermometer (C). Thus, (A B C). Here, (A) and (C) are correlated because of the causal chain, but (A) does not act directly on (C). The effect is mediated by (B).\n\n\n\nFigure 4: Correlation via a causal chain (mediation).\n\n\nWith this foundation, we can now discuss A/B testing.\n\n\nWhat is A/B testing?\nA/B testing is a practical way to evaluate causality. It helps answer questions like: Did increasing the cart size cause higher sales?\nIn an A/B test you create two variants of the same experience. In our website example:\n\nA (control): the current website.\nB (treatment): the website with your proposed change.\n\nSee Figure 5.\n\n\n\nFigure 5: A/B test with a control (A) and a treatment (B).\n\n\nTo assess whether the modification improves sales, you randomly split incoming traffic between A and B. Because assignment is random, the two groups tend to be similar on both observed and unobserved factors. Any persistent difference in outcomes (e.g., conversion rate, revenue per session) is then can be attributable to the modification itself.\nIn short, A/B testing provides a clean comparison between “before/without change” (A) and “with change” (B) under randomization, offering strong evidence about whether your change causes an improvement.\nA/B tests are the only model-free way to show causality."
+  },
+  {
+    "objectID": "learning/ab_testing/03_ate.html",
+    "href": "learning/ab_testing/03_ate.html",
+    "title": "Average Treatment Effect",
+    "section": "",
+    "text": "Recap\nIn previous posts, Introduction to A/B Testing and Importance of Randomization, we introduced A/B testing and why randomization is such an important step. Now we want to discuss how we can measure the effect of our proposed modification (the treatment).\n\n\nAverage Treatment Effect (ATE)\nThe Average Treatment Effect (ATE) measures the expected effect of a proposed treatment. In our COVID-19 example from Importance of Randomization, where we assess whether a medication improves survival. The ATE, in this case, would be the increase in the survival rate.\nConsider a subject \\(i\\) with two potential outcomes: \\(Y_i^{(1)}\\) if treated and \\(Y_i^{(0)}\\) if not treated. The individual treatment effect is: \\[\nY_i^{(1)} - Y_i^{(0)}\n\\] If subject \\(i\\) actually received the treatment, we do not observe \\(Y_i^{(0)}\\). This unobserved outcome is the counterfactual.\nThe population Average Treatment Effect (ATE) is: \\[\n\\mathrm{ATE} = \\mathbb{E}\\!\\left[Y^{(1)} - Y^{(0)}\\right] = \\sum _j^N (Y_j^{(1)} - Y_j^{(0)})\n\\]\nBecause the counterfactual for each individual is unobserved, we estimate the ATE by comparing randomized groups. If we randomize \\(N\\) subjects to treatment and \\(N\\) to control, a consistent estimator is:\n\\[\n\\widehat{\\mathrm{ATE}} = \\overline{Y}^{(1)} - \\overline{Y}^{(0)}\n\\] the difference in average outcomes between the treated and control groups. With sufficiently large \\(N\\), randomization makes the groups comparable, allowing us to estimate the ATE without observing individual counterfactuals."
+  },
+  {
+    "objectID": "learning/hands_on_torch/index.html",
+    "href": "learning/hands_on_torch/index.html",
+    "title": "Hands-On Machine Learning with Scikit-Learn and PyTorch",
+    "section": "",
+    "text": "Order By\n       Default\n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\nDescription\n\n\n\n\n\n\nIntro\n\n\nResumo curto para o card/listing.\n\n\n\n\n\n\nNo matching items"
+  },
+  {
     "objectID": "learning/miscellaneous/01_einsum.html",
     "href": "learning/miscellaneous/01_einsum.html",
     "title": "Einsum Tutorial",
@@ -61,76 +138,6 @@
     "title": "Einsum Tutorial",
     "section": "Practice",
     "text": "Practice\n\n1. Transpose a matrix\nThe transpose of \\(A = [a_{ij}]\\) is \\(A^{\\mathsf{T}} = [a_{ji}]\\).\nUsing einsum:\nC = np.einsum(\"ij-&gt;ji\", A)\n\n\n2. Compute the trace of a square matrix\nFor a square matrix:\n\\[\nA = \\begin{bmatrix}\na_{11} & a_{12} \\\\\na_{21} & a_{22}\n\\end{bmatrix}\n\\]\nThe trace is:\n\\[\n\\operatorname{Tr}(A) = \\sum_i a_{ii}\n\\]\nUsing einsum:\ntr = np.einsum(\"ii-&gt;\", A)\n\n\n3. Compute the Euclidean norm of a vector\n\\[\n\\|v\\| = \\sqrt{\\sum_i v_i v_i}\n\\]\nUsing einsum:\nnorm = np.sqrt(np.einsum(\"i,i-&gt;\", v, v))\n\n\n4. Batch matrix multiplication\nLet \\(A\\) be a batch of matrices with shape \\((n, p, h)\\) and \\(B\\) be a batch of matrices with shape \\((n, h, u)\\).\nThe batch product is:\n\\[\nc_{nik} = \\sum_j a_{nij} b_{njk}\n\\]\nUsing einsum:\nC = np.einsum(\"nij,njk-&gt;nik\", A, B)"
-  },
-  {
-    "objectID": "learning/hands_on_torch/index.html",
-    "href": "learning/hands_on_torch/index.html",
-    "title": "Hands-On Machine Learning with Scikit-Learn and PyTorch",
-    "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\nDescription\n\n\n\n\n\n\nIntro\n\n\nResumo curto para o card/listing.\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "learning/ab_testing/03_ate.html",
-    "href": "learning/ab_testing/03_ate.html",
-    "title": "Average Treatment Effect",
-    "section": "",
-    "text": "Recap\nIn previous posts, Introduction to A/B Testing and Importance of Randomization, we introduced A/B testing and why randomization is such an important step. Now we want to discuss how we can measure the effect of our proposed modification (the treatment).\n\n\nAverage Treatment Effect (ATE)\nThe Average Treatment Effect (ATE) measures the expected effect of a proposed treatment. In our COVID-19 example from Importance of Randomization, where we assess whether a medication improves survival. The ATE, in this case, would be the increase in the survival rate.\nConsider a subject \\(i\\) with two potential outcomes: \\(Y_i^{(1)}\\) if treated and \\(Y_i^{(0)}\\) if not treated. The individual treatment effect is: \\[\nY_i^{(1)} - Y_i^{(0)}\n\\] If subject \\(i\\) actually received the treatment, we do not observe \\(Y_i^{(0)}\\). This unobserved outcome is the counterfactual.\nThe population Average Treatment Effect (ATE) is: \\[\n\\mathrm{ATE} = \\mathbb{E}\\!\\left[Y^{(1)} - Y^{(0)}\\right] = \\sum _j^N (Y_j^{(1)} - Y_j^{(0)})\n\\]\nBecause the counterfactual for each individual is unobserved, we estimate the ATE by comparing randomized groups. If we randomize \\(N\\) subjects to treatment and \\(N\\) to control, a consistent estimator is:\n\\[\n\\widehat{\\mathrm{ATE}} = \\overline{Y}^{(1)} - \\overline{Y}^{(0)}\n\\] the difference in average outcomes between the treated and control groups. With sufficiently large \\(N\\), randomization makes the groups comparable, allowing us to estimate the ATE without observing individual counterfactuals."
-  },
-  {
-    "objectID": "learning/ab_testing/01_intro.html",
-    "href": "learning/ab_testing/01_intro.html",
-    "title": "Introduction to A/B testing",
-    "section": "",
-    "text": "Introduction\nSuppose you run an online store and want to improve sales. You then have an idea to enlarge the shopping-cart button. After deploying the change, sales increase (see Figure 1).\n\n\n\nFigure 1: Sales trend after introducing the cart-size change.\n\n\nDid your modification cause the increase in sales?\nNot necessarily. Several other factors could explain the rise, such as seasonality. For instance, if you implemented the change in early December, sales might climb simply because it’s close to Christmas, when people tend to buy more.\nTo argue that your modification caused the increase, we first need a clear notion of causality.\n\n\nWhat is causality?\nCorrelation is about variables moving together. Causality is about changing in one variable producing changes in another.\nIn broad terms, two variables (A) and (B) are correlated when changes in one tend to be associated with changes in the other (see Figure 2). Correlation alone does not establish a cause–effect relationship.\n\n\n\nFigure 2: An illustration of variables moving together (correlation).\n\n\nTwo things can be correlated without either causing the other. This is called spurious correlation.\nA classic spurious correlation example is shown in Figure 3:\n(A=) “Air quality in Union City, Tennessee” and (B=) “Number of movies featuring Orlando Bloom.” They are correlated, but there is no plausible causal link between them.\n\n\n\nFigure 3: A spurious correlation example: unrelated variables that co-vary.\n\n\nCausality, on the other hand, concerns cause and consequence: if we change (A), what happens to (B)?\nConsider Figure 4. An oven’s temperature (B) is controlled by a dial (A). A thermometer (C) responds to the temperature. Turning the dial (A) changes the temperature (B), and the temperature (B) moves the thermometer (C). Thus, (A B C). Here, (A) and (C) are correlated because of the causal chain, but (A) does not act directly on (C). The effect is mediated by (B).\n\n\n\nFigure 4: Correlation via a causal chain (mediation).\n\n\nWith this foundation, we can now discuss A/B testing.\n\n\nWhat is A/B testing?\nA/B testing is a practical way to evaluate causality. It helps answer questions like: Did increasing the cart size cause higher sales?\nIn an A/B test you create two variants of the same experience. In our website example:\n\nA (control): the current website.\nB (treatment): the website with your proposed change.\n\nSee Figure 5.\n\n\n\nFigure 5: A/B test with a control (A) and a treatment (B).\n\n\nTo assess whether the modification improves sales, you randomly split incoming traffic between A and B. Because assignment is random, the two groups tend to be similar on both observed and unobserved factors. Any persistent difference in outcomes (e.g., conversion rate, revenue per session) is then can be attributable to the modification itself.\nIn short, A/B testing provides a clean comparison between “before/without change” (A) and “with change” (B) under randomization, offering strong evidence about whether your change causes an improvement.\nA/B tests are the only model-free way to show causality."
-  },
-  {
-    "objectID": "learning/ab_testing/02_randomization.html",
-    "href": "learning/ab_testing/02_randomization.html",
-    "title": "Why do we randomize?",
-    "section": "",
-    "text": "Introduction\nIn our previous post, Introduction to A/B Testing, we discussed how A/B testing can be used to assess whether a given modification causes a change in a variable of interest. For example, whether increasing the size of the shopping cart icon increases sales.\nWe also said that A/B testing involves splitting website traffic into the current version (A or control) and the modified version (B or treatment), and that this split needs to be random. But why?\n\n\nConfounding factors\nTo understand the importance of randomization, we need to talk briefly about confounding factors.\nSuppose we want to evaluate whether a medication improves survival from COVID-19. However, other variables can affect survival. For instance, younger people are more likely to survive than older people. If we give the medication only to younger people and withhold it from older people, the treated group may appear to have higher survival, not because the medication works, but because it contains younger patients who are intrinsically more likely to survive.\nSimilarly, clinicians might be tempted to give the medication only to high-risk patients. High-risk patients are, by definition, more likely to die. In that case, if we compare the treated group with the untreated group, the treated group might show lower survival, that could lead to a mistaken conclusion that the medication is ineffective. The poorer outcome could simply reflect the greater baseline risk in the treated group.\nThese scenarios illustrate confounding variables, which variables that can affect both the treatment (the modification) and the observed outcome (survival). This is represented in Figure 1.\n\n\n\nFigure 1: Confounding: a third variable influences both treatment assignment and outcome.\n\n\nThis is one of the reasons by we need to randomize, because similar profile of subjects would go to the treatment and control groups, that would eliminate what is so called selection bias\n\n\nCeteris Paribus\nCeteris Paribus: “All other things being equal”\nCeteris Paribus is a latin word that describes the situation between two groups that have all of the characterincts being the same, except for your provided modifcation. In our COVID medication, a Ceteris Paribus situation would make the treatment and control groups having the same characteriscts (similar age profile, similar sex profile, etc), except for the medication which is being provided in the treatment group.\nWhat technique provide this Ceteris Paribus scenario: RANDOMIZATION."
-  },
-  {
-    "objectID": "learning/ab_testing/04_hdpd.html",
-    "href": "learning/ab_testing/04_hdpd.html",
-    "title": "Hypothesis-driven Product Development",
-    "section": "",
-    "text": "In our previous posts, we introduced A/B testing, highlighted why randomization is essential, and discussed how we can measure the effect of a treatment in an A/B testing context. Today we move into Hypothesis-driven Product Development, which shifts the traditional product workflow from simply having an idea, implementing it, and checking results to a structured process where ideas are tested through experimentation and validated with measurable evidence."
-  },
-  {
-    "objectID": "learning/ab_testing/04_hdpd.html#good-metrics",
-    "href": "learning/ab_testing/04_hdpd.html#good-metrics",
-    "title": "Hypothesis-driven Product Development",
-    "section": "Good metrics",
-    "text": "Good metrics\nA metric is good when it can be compared across time and, for business contexts, when it is connected to financial performance or user behavior. Examples include:\n\nCTR (Click Through Rate)\nCVR (Conversion Rate)\n\nThese metrics help guide decisions because changes in them reflect real impact on the business."
-  },
-  {
-    "objectID": "learning/ab_testing/04_hdpd.html#vanity-metrics",
-    "href": "learning/ab_testing/04_hdpd.html#vanity-metrics",
-    "title": "Hypothesis-driven Product Development",
-    "section": "Vanity metrics",
-    "text": "Vanity metrics\nMetrics are usually created to support meaningful decisions. However, some metrics look impressive but do not help with practical decision making. These are known as “vanity metrics”. For example, the total number of users who have ever created an account may be useful for marketing announcements, such as saying a product reached one million users, but it does not help you decide how to improve the product."
-  },
-  {
-    "objectID": "learning/ab_testing/index.html",
-    "href": "learning/ab_testing/index.html",
-    "title": "A/B Testing",
-    "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\nDescription\n\n\n\n\n\n\nIntroduction to A/B testing\n\n\nBrief introduction to A/B testing\n\n\n\n\nWhy do we randomize?\n\n\nImportance of randomization\n\n\n\n\nAverage Treatment Effect\n\n\nAverage Treatment Effect\n\n\n\n\nHypothesis-driven Product Development\n\n\nHypothesis-driven Product Development\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "learning/hands_on_torch/01_intro.html",
-    "href": "learning/hands_on_torch/01_intro.html",
-    "title": "Intro",
-    "section": "",
-    "text": "oi"
-  },
-  {
-    "objectID": "learning/miscellaneous/index.html",
-    "href": "learning/miscellaneous/index.html",
-    "title": "Miscellaneous Study Material",
-    "section": "",
-    "text": "Order By\n       Default\n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\nDescription\n\n\n\n\n\n\nEinsum Tutorial\n\n\nBrief introduction to Einsum\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "blog/index.html",

@@ -1,8 +1,8 @@
 [
   {
-    "listing": "/learning/hands_on_torch/index.html",
+    "listing": "/learning/miscellaneous/index.html",
     "items": [
-      "/learning/hands_on_torch/01_intro.html"
+      "/learning/miscellaneous/01_einsum.html"
     ]
   },
   {
@@ -15,9 +15,9 @@
     ]
   },
   {
-    "listing": "/learning/miscellaneous/index.html",
+    "listing": "/learning/hands_on_torch/index.html",
     "items": [
-      "/learning/miscellaneous/01_einsum.html"
+      "/learning/hands_on_torch/01_intro.html"
     ]
   },
   {
