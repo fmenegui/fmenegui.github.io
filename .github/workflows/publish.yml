@@ -1,29 +1,42 @@
-# Quarto build directory
-/_site/
+name: Publish Quarto Website
 
-# Quarto cache
-/.quarto/
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
 
-# Python virtual environments
-.venv/
-venv/
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
 
-# R / knitr
-.Rproj.user/
-.Rhistory
-.RData
-.Ruserdata
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
 
-# Jupyter notebooks
-.ipynb_checkpoints/
-*.ipynb.tmp
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-# OS / editor files
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
+      - name: Setup Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
 
-# Node modules (if using JS)
-node_modules/
+      - name: Setup Pandoc
+        uses: pandoc/actions/setup@v1
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Render site
+        run: quarto render
+
+      - name: Publish to GitHub Pages
+        uses: quarto-dev/quarto-actions/publish@v2
+        with:
+          target: gh-pages
