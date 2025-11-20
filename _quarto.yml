@@ -9,7 +9,7 @@ website:
   navbar:
     left:
       - text: Home
-        href: home/index.qmd
+        href: index.qmd
       - text: CV
         href: cv/cv.qmd      
       - text: Blog
