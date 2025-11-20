@@ -1,0 +1,10 @@
+---
+title: "Miscellaneous Study Material"
+summary: "General study material for different useful topics"
+listing:
+  contents: .
+  sort: "path"           # respeita 01-, 02- ...
+  type: table            # grid|table|default
+  fields: [title, description]
+---
+

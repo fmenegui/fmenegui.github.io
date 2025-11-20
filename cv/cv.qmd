@@ -1,0 +1,78 @@
+---
+title: "Curriculum Vitae"
+page-layout: full
+toc: false
+# opcional: banner no topo
+# title-block-banner: true
+---
+
+<div class="cv-header d-flex flex-wrap items-center gap-2">
+  <h1 class="m-0">Felipe Meneguitti Dias</h1>
+  <p class="lead m-0 flex-basis-100">Data Scientist & Researcher — Signal Processing · Computer Vision · Machine Learning</p>
+</div>
+
+<!-- contatos com ícones -->
+<div class="cv-links mt-3">
+  <a href="mailto:f.meneguittidias@gmail.com" class="cv-badge">
+    <i class="bi bi-envelope"></i> Email
+  </a>
+  <a href="https://www.linkedin.com/in/felipe-meneguitti-dias-312570b3/?locale=en_US" class="cv-badge">
+    <i class="bi bi-linkedin"></i> LinkedIn
+  </a>
+  <a href="https://scholar.google.com/citations?user=Xr5khtoAAAAJ&hl" class="cv-badge">
+    <i class="ai ai-google-scholar"></i> Google Scholar
+  </a>
+  <a href="https://orcid.org/0000-0001-7778-4606" class="cv-badge">
+    <i class="ai ai-orcid"></i> ORCID
+  </a>
+</div>
+
+---
+
+## Experience
+**Heart Institute (InCor-HCFMUSP) — Brazil**  
+*Research and Development (R&D) Engineer* (2020–Present)  
+- Developed and refined ML/DL models for automated electrocardiogram classification.  
+- Deployed models in hospital facilities to improve diagnostic workflows.
+
+## Education
+**University of São Paulo — Brazil**  
+*Ph.D., Electrical Engineering* (2021–2025)  
+Thesis: *Application of Deep Learning to Biomedical Signals* — Advisor: Marco Antonio Gutierrez
+
+**Federal University of Juiz de Fora — Brazil**  
+*M.S., Electrical Engineering* (2018–2020)  
+Thesis: *Methodology for Monitoring Large Structures Using Visual Descriptors*
+
+**Illinois Institute of Technology — USA**  
+*B.S., Electrical Engineering* (2015–2016)
+
+**Federal University of Juiz de Fora — Brazil**  
+*B.S., Electronic Engineering* (2012–2017)  
+Thesis: *Integration of Infrared and Visual Imaging for Equipment Inspection*
+
+## Awards
+- **1st Place — George B. Moody PhysioNet Challenge**, 2024  
+- **Science Without Borders Scholarship**, 2015  
+- **Bronze Medal — Brazilian Physics Olympiad**, 2011
+
+## Selected Publications
+- **Exploring the limitations of blood pressure estimation using the photoplethysmography signal.**  
+  *Physiological Measurement*, 2025.  
+  DOI: <https://doi.org/10.1088/1361-6579/adcb86>
+
+- **Artificial Intelligence-Driven Screening System for Rapid Image-Based Classification of 12-Lead ECG Exams: A Promising Solution for Emergency Room Prioritization.**  
+  *IEEE Access*, 2023.  
+  DOI: <https://doi.org/10.1109/ACCESS.2023.3328538>
+
+- **Blood Pressure Estimation From Photoplethysmography by Considering Intra- and Inter-Subject Variabilities: Guidelines for a Fair Assessment.**  
+  *IEEE Access*, 2023.  
+  DOI: <https://doi.org/10.1109/ACCESS.2023.3284458>
+
+- **A Machine Learning Approach to Predict Arterial Blood Pressure from Photoplethysmography Signal.**  
+  *Computing in Cardiology*, 2022.  
+  DOI: <https://doi.org/10.22489/CinC.2022.238>
+
+- **Arrhythmia classification from single-lead ECG signals using the inter-patient paradigm.**  
+  *Computer Methods and Programs in Biomedicine*, 2021.  
+  DOI: <https://doi.org/10.1016/j.cmpb.2021.105948>

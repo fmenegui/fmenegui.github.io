@@ -1,0 +1,32 @@
+---
+title: "Average Treatment Effect"
+date: 2025-11-12
+categories: [ab-testing, study]
+description: "Average Treatment Effect"
+---
+
+# Recap
+
+In previous posts, [Introduction to A/B Testing](01_intro.qmd) and [Importance of Randomization](02_randomization.qmd), we introduced A/B testing and why randomization is such an important step. Now we want to discuss how we can measure the effect of our proposed modification (the treatment).
+
+# Average Treatment Effect (ATE)
+
+The **Average Treatment Effect (ATE)** measures the expected effect of a proposed treatment. In our COVID-19 example from [Importance of Randomization](02_randomization.qmd), where we assess whether a medication improves survival. The ATE, in this case, would be the increase in the survival rate.
+
+Consider a subject $i$ with two potential outcomes: $Y_i^{(1)}$ if treated and $Y_i^{(0)}$ if not treated. The individual treatment effect is:
+$$
+Y_i^{(1)} - Y_i^{(0)}
+$$
+If subject $i$ actually received the treatment, we do not observe $Y_i^{(0)}$. This unobserved outcome is the **counterfactual**.
+
+The population Average Treatment Effect (ATE) is:
+$$
+\mathrm{ATE} = \mathbb{E}\!\left[Y^{(1)} - Y^{(0)}\right] = \sum _j^N (Y_j^{(1)} - Y_j^{(0)})
+$$
+
+Because the counterfactual for each individual is unobserved, we estimate the ATE by comparing randomized groups. If we randomize $N$ subjects to treatment and $N$ to control, a consistent estimator is:
+
+$$
+\widehat{\mathrm{ATE}} = \overline{Y}^{(1)} - \overline{Y}^{(0)}
+$$
+the difference in average outcomes between the treated and control groups. With sufficiently large $N$, randomization makes the groups comparable, allowing us to estimate the ATE without observing individual counterfactuals.

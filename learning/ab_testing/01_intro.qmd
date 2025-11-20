@@ -1,0 +1,65 @@
+---
+title: "Introduction to A/B testing"
+date: 2025-11-12
+categories: [ab testing, study]
+description: "Brief introduction to A/B testing"
+---
+
+# Introduction
+
+Suppose you run an online store and want to improve sales. You then have an idea to enlarge the shopping-cart button. After deploying the change, sales increase (see @fig-mod).
+
+![Sales trend after introducing the cart-size change.](images/modification_inclusion.svg){#fig-mod fig-cap="Sales after the cart-size change." width=60%}
+
+Did your modification **cause** the increase in sales?
+
+**Not necessarily**. Several other factors could explain the rise, such as **seasonality**. For instance, if you implemented the change in early December, sales might climb simply because it’s close to Christmas, when people tend to buy more.
+
+To argue that your modification caused the increase, we first need a clear notion of **causality**.
+
+# What is causality?
+
+Correlation is about variables moving together. Causality is about changing in one variable producing changes in another.
+
+In broad terms, two variables \(A\) and \(B\) are **correlated** when changes in one tend to be associated with changes in the other (see @fig-corr). Correlation alone does not establish a cause–effect relationship.
+
+![An illustration of variables moving together (correlation).](images/correlation_example.svg){#fig-corr fig-cap="Correlation: variables co-vary without implying cause and effect." width=50%}
+
+Two things can be correlated without either causing the other. This is called **spurious correlation**. 
+
+A classic spurious correlation example is shown in @fig-spurious:  
+\(A=\) “Air quality in Union City, Tennessee” and \(B=\) “Number of movies featuring Orlando Bloom.” They are correlated, but there is no plausible causal link between them. 
+
+![A spurious correlation example: unrelated variables that co-vary.](images/5850_air-quality-in-union-city-tennessee_correlates-with_the-number-of-movies-orlando-bloom-appeared-in.svg){#fig-spurious
+  fig-cap="Spurious correlation: air quality vs. movies with Orlando Bloom—clearly unrelated."
+  fig-attr="[Source: Tyler Vigen — Spurious Correlations](https://www.tylervigen.com/spurious-correlations)"
+  width=80%
+  fig-alt="Two unrelated time series that appear correlated."
+}
+
+Causality, on the other hand, concerns **cause and consequence**: if we change \(A\), what happens to \(B\)?
+
+Consider @fig-chain. An oven’s temperature \(B\) is controlled by a dial \(A\). A thermometer \(C\) responds to the temperature. Turning the dial \(A\) changes the temperature \(B\), and the temperature \(B\) moves the thermometer \(C\). Thus, \(A \rightarrow B \rightarrow C\). Here, \(A\) and \(C\) are **correlated** because of the causal chain, but \(A\) does not act **directly** on \(C\). The effect is **mediated** by \(B\).
+
+![Correlation via a causal chain (mediation).](images/correlation_and_causality.svg){#fig-chain fig-cap="Causal chain: A (dial) → B (temperature) → C (thermometer). A and C are correlated via B." width=60%}
+
+With this foundation, we can now discuss A/B testing.
+
+# What is A/B testing?
+
+**A/B testing** is a practical way to evaluate causality. It helps answer questions like: *Did increasing the cart size cause higher sales?*
+
+In an A/B test you create two variants of the same experience. In our website example:
+
+- **A (control)**: the current website.
+- **B (treatment)**: the website with your proposed change.
+
+See @fig-ab.
+
+![A/B test with a control (A) and a treatment (B).](images/intro_ab_testing.svg){#fig-ab fig-cap="Parallel variants: A (control) vs. B (treatment)." width=60%}
+
+To assess whether the modification improves sales, you **randomly** split incoming traffic between A and B. Because assignment is random, the two groups tend to be similar on both observed and unobserved factors. Any persistent difference in outcomes (e.g., conversion rate, revenue per session) is then can be attributable to the modification itself.
+
+In short, A/B testing provides a clean comparison between “before/without change” (A) and “with change” (B) under randomization, offering strong evidence about whether your change **causes** an improvement.
+
+A/B tests are the only model-free way to show causality.

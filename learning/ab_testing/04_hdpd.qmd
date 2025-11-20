@@ -1,0 +1,37 @@
+---
+title: "Hypothesis-driven Product Development"
+date: 2025-11-12
+categories: [Hypothesis-driven Product Development, Hypothesis, study]
+description: "Hypothesis-driven Product Development"
+---
+
+# Recap
+
+In our previous posts, we introduced A/B testing, highlighted why randomization is essential, and discussed how we can measure the effect of a treatment in an A/B testing context. Today we move into Hypothesis-driven Product Development, which shifts the traditional product workflow from simply having an idea, implementing it, and checking results to a structured process where ideas are tested through experimentation and validated with measurable evidence.
+
+# Hypothesis
+
+What is a hypothesis? In simple terms, a hypothesis is an idea you believe might be true. For instance, you might have the hypothesis that ingesting sugar does not affect your blood glucose levels. 
+
+More important than the idea itself is the fact that a hypothesis must be testable. In the example above, you could measure your glucose level, ingest sugar, measure it again, and evaluate whether your hypothesis holds.
+
+A simple definition is: **A hypothesis is an idea that can be measured and tested**.
+
+# Metrics
+
+Metrics are numbers used to measure something that happened.
+
+They are important because they allow us to follow how an experiment is progressing. For instance, imagine you are an F1 engineer monitoring the performance of a race car driver. One of your metrics could be the lap time. If this metric increases, it means the driver is going slower. Many factors can influence lap time, such as rain or worn tires, but the metric still reflects a real change in performance.
+
+## Good metrics
+
+A metric is good when it can be compared across time and, for business contexts, when it is connected to financial performance or user behavior. Examples include:
+
+- CTR (Click Through Rate)
+- CVR (Conversion Rate)
+
+These metrics help guide decisions because changes in them reflect real impact on the business.
+
+## Vanity metrics
+
+Metrics are usually created to support meaningful decisions. However, some metrics look impressive but do not help with practical decision making. These are known as "vanity metrics". For example, the total number of users who have ever created an account may be useful for marketing announcements, such as saying a product reached one million users, but it does not help you decide how to improve the product.

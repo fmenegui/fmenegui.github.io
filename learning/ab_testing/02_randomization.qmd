@@ -1,0 +1,35 @@
+---
+title: "Why do we randomize?"
+date: 2025-11-12
+categories: [ab-testing, study]
+description: "Importance of randomization"
+---
+
+# Introduction
+
+In our previous post,  [Introduction to A/B Testing](01_intro.qmd), we discussed how A/B testing can be used to assess whether a given modification causes a change in a variable of interest. For example, whether increasing the size of the shopping cart icon increases sales.
+
+We also said that A/B testing involves splitting website traffic into the current version (A or control) and the modified version (B or treatment), and that this split needs to be **random**. But why?
+
+# Confounding factors
+
+To understand the importance of randomization, we need to talk briefly about **confounding factors**.
+
+Suppose we want to evaluate whether a medication improves survival from COVID-19. However, other variables can affect survival. For instance, younger people are more likely to survive than older people. If we give the medication only to younger people and withhold it from older people, the treated group may appear to have higher survival, not because the medication works, but because it contains younger patients who are intrinsically more likely to survive.
+
+Similarly, clinicians might be tempted to give the medication only to high-risk patients. High-risk patients are, by definition, more likely to die. In that case, if we compare the treated group with the untreated group, the treated group might show lower survival, that could lead to a mistaken conclusion that the medication is ineffective. The poorer outcome could simply reflect the greater baseline risk in the treated group.
+
+These scenarios illustrate **confounding variables**, which variables that can affect both the treatment (the modification) and the observed outcome (survival). This is represented in @fig-confounding.
+
+![Confounding: a third variable influences both treatment assignment and outcome.](images/confouding.svg){#fig-confounding fig-cap="A confounder affects both treatment and outcome, biasing naive comparisons." width=50%}
+
+This is one of the reasons by we need to **randomize**, because similar profile of subjects would go to the treatment and control groups, that would eliminate what is so called *selection bias*
+
+# *Ceteris Paribus*
+
+*Ceteris Paribus*: "All other things being equal"
+
+*Ceteris Paribus* is a latin word that describes the situation between two groups that have all of the characterincts being the same, except for your provided modifcation.
+In our COVID medication, a *Ceteris Paribus* situation would make the treatment and control groups having the same characteriscts (similar age profile, similar sex profile, etc), except for the medication which is being provided in the treatment group.
+
+What technique provide this *Ceteris Paribus* scenario: **RANDOMIZATION**.

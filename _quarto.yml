@@ -1,0 +1,51 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Felipe Dias"
+  description: ""
+  search: true
+  navbar:
+    left:
+      - text: Home
+        href: home/index.qmd
+      - text: CV
+        href: cv/cv.qmd      
+      - text: Blog
+        href: blog/index.qmd
+      - text: Learning
+        menu:
+          - text: Hands-On Machine Learning with Scikit-Learn and PyTorch
+            href: learning/hands_on_torch/index.qmd
+          - text: A/B testing
+            href: learning/ab_testing/index.qmd
+          - text: Miscellaneous
+            href: learning/miscellaneous/index.qmd
+  page-footer:
+    left: "© Felipe Dias"
+    right: ""
+
+# format:
+#   html:
+#     theme: flatly
+#     toc: true
+#     code-copy: true
+#     smooth-scroll: true
+#     lang: en
+
+format:
+  html:
+    theme: flatly
+    toc: true
+    code-copy: true
+    smooth-scroll: true
+    lang: en
+    css:
+      - https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css
+      - https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.6/css/academicons.min.css
+
+execute:
+  freeze: auto
+  echo: true
+  warning: false

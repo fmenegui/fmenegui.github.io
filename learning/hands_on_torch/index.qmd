@@ -1,0 +1,10 @@
+---
+title: "Hands-On Machine Learning with Scikit-Learn and PyTorch"
+summary: "Course overview, environment setup, and a first PyTorch tensor walkthrough."
+listing:
+  contents: .
+  sort: "path"           # respeita 01-, 02- ...
+  type: table            # grid|table|default
+  fields: [title, description]
+---
+

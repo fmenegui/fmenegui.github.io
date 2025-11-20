@@ -1,0 +1,10 @@
+---
+title: "A/B Testing"
+summary: "Learning about A/B testing"
+listing:
+  contents: .
+  sort: "path"           # respeita 01-, 02- ...
+  type: table            # grid|table|default
+  fields: [title, description]
+---
+
