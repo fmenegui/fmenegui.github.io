@@ -1,0 +1,27 @@
+[
+  {
+    "listing": "/learning/hands_on_torch/index.html",
+    "items": [
+      "/learning/hands_on_torch/01_intro.html"
+    ]
+  },
+  {
+    "listing": "/learning/ab_testing/index.html",
+    "items": [
+      "/learning/ab_testing/01_intro.html",
+      "/learning/ab_testing/02_randomization.html",
+      "/learning/ab_testing/03_ate.html",
+      "/learning/ab_testing/04_hdpd.html"
+    ]
+  },
+  {
+    "listing": "/learning/miscellaneous/index.html",
+    "items": [
+      "/learning/miscellaneous/01_einsum.html"
+    ]
+  },
+  {
+    "listing": "/blog/index.html",
+    "items": []
+  }
+]
