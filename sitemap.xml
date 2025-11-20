@@ -2,46 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://fmenegui.github.io/cv/cv.html</loc>
-    <lastmod>2025-11-20T21:49:24.798Z</lastmod>
-  </url>
-  <url>
-    <loc>https://fmenegui.github.io/learning/miscellaneous/index.html</loc>
-    <lastmod>2025-11-20T21:49:23.572Z</lastmod>
-  </url>
-  <url>
-    <loc>https://fmenegui.github.io/learning/hands_on_torch/01_intro.html</loc>
-    <lastmod>2025-11-20T21:49:22.992Z</lastmod>
-  </url>
-  <url>
-    <loc>https://fmenegui.github.io/learning/ab_testing/index.html</loc>
-    <lastmod>2025-11-20T21:49:22.431Z</lastmod>
-  </url>
-  <url>
-    <loc>https://fmenegui.github.io/learning/ab_testing/04_hdpd.html</loc>
-    <lastmod>2025-11-20T21:49:21.745Z</lastmod>
-  </url>
-  <url>
-    <loc>https://fmenegui.github.io/learning/ab_testing/02_randomization.html</loc>
-    <lastmod>2025-11-20T21:49:21.412Z</lastmod>
-  </url>
-  <url>
-    <loc>https://fmenegui.github.io/learning/ab_testing/01_intro.html</loc>
-    <lastmod>2025-11-20T21:49:22.116Z</lastmod>
-  </url>
-  <url>
-    <loc>https://fmenegui.github.io/learning/ab_testing/03_ate.html</loc>
-    <lastmod>2025-11-20T21:49:22.730Z</lastmod>
-  </url>
-  <url>
-    <loc>https://fmenegui.github.io/learning/hands_on_torch/index.html</loc>
-    <lastmod>2025-11-20T21:49:23.275Z</lastmod>
-  </url>
-  <url>
-    <loc>https://fmenegui.github.io/learning/miscellaneous/01_einsum.html</loc>
-    <lastmod>2025-11-20T21:49:23.951Z</lastmod>
+    <lastmod>2025-11-20T21:49:09.986Z</lastmod>
   </url>
   <url>
     <loc>https://fmenegui.github.io/blog/index.html</loc>
-    <lastmod>2025-11-20T21:49:24.476Z</lastmod>
+    <lastmod>2025-11-20T21:49:09.986Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmenegui.github.io/learning/hands_on_torch/01_intro.html</loc>
+    <lastmod>2025-11-20T21:49:09.987Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmenegui.github.io/learning/ab_testing/03_ate.html</loc>
+    <lastmod>2025-11-20T21:49:09.986Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmenegui.github.io/learning/ab_testing/index.html</loc>
+    <lastmod>2025-11-20T21:49:09.987Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmenegui.github.io/learning/miscellaneous/01_einsum.html</loc>
+    <lastmod>2025-11-20T21:49:09.987Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmenegui.github.io/learning/miscellaneous/index.html</loc>
+    <lastmod>2025-11-20T21:49:09.987Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmenegui.github.io/learning/ab_testing/01_intro.html</loc>
+    <lastmod>2025-11-20T21:49:09.986Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmenegui.github.io/learning/ab_testing/04_hdpd.html</loc>
+    <lastmod>2025-11-20T21:49:09.987Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmenegui.github.io/learning/ab_testing/02_randomization.html</loc>
+    <lastmod>2025-11-20T21:49:09.986Z</lastmod>
+  </url>
+  <url>
+    <loc>https://fmenegui.github.io/learning/hands_on_torch/index.html</loc>
+    <lastmod>2025-11-20T21:49:09.987Z</lastmod>
   </url>
 </urlset>
