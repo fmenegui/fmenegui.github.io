@@ -1,2 +1,0 @@
-
-Figuras em Downloads/figuras_site_pessoal
