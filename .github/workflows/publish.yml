@@ -1,0 +1,29 @@
+# Quarto build directory
+/_site/
+
+# Quarto cache
+/.quarto/
+
+# Python virtual environments
+.venv/
+venv/
+
+# R / knitr
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+*.ipynb.tmp
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Node modules (if using JS)
+node_modules/
+
