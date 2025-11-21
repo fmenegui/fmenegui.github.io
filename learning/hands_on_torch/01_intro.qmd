@@ -3,6 +3,7 @@ title: "Intro"
 date: 2025-11-12
 categories: [ml, tutorial]    
 description: "Resumo curto para o card/listing."
+draft: true
 ---
 
 # oi

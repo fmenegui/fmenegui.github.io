@@ -3,6 +3,7 @@ title: "Hypothesis-driven Product Development"
 date: 2025-11-12
 categories: [Hypothesis-driven Product Development, Hypothesis, study]
 description: "Hypothesis-driven Product Development"
+draft: true
 ---
 
 # Recap
@@ -19,9 +20,11 @@ A simple definition is: **A hypothesis is an idea that can be measured and teste
 
 # Metrics
 
-Metrics are numbers used to measure something that happened.
+Metrics can be simply defined as **Metrics are numbers used to measure something that happened.**
 
-They are important because they allow us to follow how an experiment is progressing. For instance, imagine you are an F1 engineer monitoring the performance of a race car driver. One of your metrics could be the lap time. If this metric increases, it means the driver is going slower. Many factors can influence lap time, such as rain or worn tires, but the metric still reflects a real change in performance.
+They are important because they allow us to follow how an experiment is progressing.
+
+For instance, imagine you are an F1 engineer monitoring the performance of a race car driver. One of your metrics could be the lap time. If this metric increases, it means the driver is going slower. Many factors can influence lap time, such as rain or worn tires, but the metric still reflects a real change in performance.
 
 ## Good metrics
 
@@ -32,6 +35,21 @@ A metric is good when it can be compared across time and, for business contexts,
 
 These metrics help guide decisions because changes in them reflect real impact on the business.
 
+In general, in a given experiment, you have three sorts of metrics:
+
+- OEC (Overall evaluation criteria): The most important metric
+- Secondary metrics: Important metrics, but they are not the OEC
+- Guardrail metrics: "Security" metrics, metrics that should not be comprimised by the experiment, such as loading time
+
 ## Vanity metrics
 
-Metrics are usually created to support meaningful decisions. However, some metrics look impressive but do not help with practical decision making. These are known as "vanity metrics". For example, the total number of users who have ever created an account may be useful for marketing announcements, such as saying a product reached one million users, but it does not help you decide how to improve the product.
+Metrics are usually created to support meaningful decisions. However, some metrics look impressive but do not help with practical decision making. These are known as "vanity metrics". 
+
+For example, the total number of users who have ever created an account may be useful for marketing announcements, such as saying a product reached one million users, but it does not help you decide how to improve the product.
+
+# Experiment
+
+An experiment can be defined as ** something you are going to change and how you are going to change it **
+
+For instance, in our shopping cart example, increasing the shopping cart is an experiment: you are going change the shopping cart size and you are going to change it by increasing its size.
+

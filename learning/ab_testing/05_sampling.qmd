@@ -1,0 +1,16 @@
+---
+title: "Sampling"
+date: 2025-11-21
+categories: [sampling, study]
+description: "Introduction to sampling"
+draft: true
+---
+
+# Recap
+
+In our previous post, we talked about Hypothesis-driven Product Development, where you develop in product using the flow hyphothesis, experiment, measurement of the results and decision
+
+When we make an experiment, it is not usually possible to data for every single individual of your population of interest due to cost and time it takes. For instance, an election provides you the possibility for you the assess the policial preference of your whole population. However, it is hugely expensive and demands extensive effort.
+
+Therefore, in order to properly anticipate the political preferences, polls are usually perfomed before the election so proper give the candidates how the preferences are changing along the election rally
+
