@@ -1,7 +1,61 @@
 ---
-title: "Home"
+title: ""
+toc: false
+format:
+  html:
+    theme: flatly
+    code-copy: true
 ---
 
-# Welcome
 
+<div style="display:flex; align-items:center; gap:24px; margin-top:20px;">
+<img src="images/felipe.jpg" style="width:140px; border-radius:50%;">
+<div style="font-size:1.1rem;">
+<p>Researcher focused in deep learning methods for biomedical signals.</p>
+
+<!-- ÍCONES COM HOVER -->
+<div style="margin-top:4px;">
+
+  <a href="mailto:f.meneguittidias@gmail.com" target="_blank" title="E-mail">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg"
+         style="width:26px; margin:0 6px;">
+  </a>
+
+  <a href="https://www.linkedin.com/in/felipe-meneguitti-dias-312570b3/?locale=en_US"
+     target="_blank" title="LinkedIn">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg"
+         style="width:26px; margin:0 6px;">
+  </a>
+
+  <a href="https://scholar.google.com/citations?user=Xr5khtoAAAAJ&hl"
+     target="_blank" title="Google Scholar">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/googlescholar.svg"
+         style="width:26px; margin:0 6px;">
+  </a>
+
+  <a href="https://orcid.org/0000-0001-7778-4606"
+     target="_blank" title="ORCID">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/orcid.svg"
+         style="width:26px; margin:0 6px;">
+  </a>
+
+  <a href="https://github.com/fmenegui"
+     target="_blank" title="GitHub">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg"
+         style="width:26px; margin:0 6px;">
+  </a>
+
+  <a href="/cv/cv.qmd" target="_blank" title="CV">
+    <img src=" https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@15.22.0/icons/opencv.svg"
+         style="width:26px; margin:0 6px;">
+  </a>
+
+  <a href="http://lattes.cnpq.br/3455258218368949"
+     target="_blank" title="Lattes CNPq">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/lattes.svg"
+         onerror="this.style.display='none'"
+         style="width:26px; margin:0 6px;">
+  </a>
+
+</div>
 
