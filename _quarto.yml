@@ -23,7 +23,7 @@ website:
           - text: Miscellaneous
             href: learning/miscellaneous/index.qmd
   page-footer:
-    left: "© Felipe Dias"
+    left: ""
     right: ""
 
 

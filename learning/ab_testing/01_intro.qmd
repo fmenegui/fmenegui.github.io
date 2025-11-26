@@ -13,13 +13,13 @@ Suppose you run an online store and want to improve sales. You then have an idea
 
 Did your modification **cause** the increase in sales?
 
-**Not necessarily**. Several other factors could explain the rise, such as **seasonality**. For instance, if you implemented the change in early December, sales might climb simply because it’s close to Christmas, when people tend to buy more.
+**Not necessarily**. Several other factors could explain the rise, such as **seasonality**. For instance, if you implemented the change in early December, sales might climb simply because it’s close to Christmas, when people usually buy more.
 
 To argue that your modification caused the increase, we first need a clear notion of **causality**.
 
 # What is causality?
 
-Correlation is about variables moving together. Causality is about changing in one variable producing changes in another.
+**Correlation** is about variables moving together. **Causality** is about changing in one variable producing changes in another.
 
 In broad terms, two variables \(A\) and \(B\) are **correlated** when changes in one tend to be associated with changes in the other (see @fig-corr). Correlation alone does not establish a cause–effect relationship.
 
