@@ -74,11 +74,6 @@ format:
 ```
 
 
-<!-- ::: {.rawhtml}
-{{< include html/timeline.html >}}
-::: -->
-
-
 ```{=html}
 <style>
 .timeline-wrapper {
