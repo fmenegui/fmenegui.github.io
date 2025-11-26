@@ -5,71 +5,109 @@ format:
   html:
     theme: flatly
     code-copy: true
+    smooth-scroll: true
 ---
 
-<div style="display:flex; align-items:center; gap:24px; margin-top:20px;">
-<img src="images/felipe.jpg" style="width:140px; border-radius:50%;">
-<div style="font-size:1.1rem;">
-<p>Researcher focused in deep learning methods for biomedical signals.</p>
+```{=html}
+<div style="display:flex; align-items:center; gap:32px; margin-top:20px;">
 
-<div style="margin-top:4px;">
+  <div style="text-align:center;">
+    <img src="images/felipe.jpg" style="width:140px; border-radius:50%;">
+    <div style="margin-top:10px; font-size:1.2rem; font-weight:600;">
+      Felipe Dias
+    </div>
+  </div>
 
-  <a href="mailto:f.meneguittidias@gmail.com" target="_blank" title="E-mail">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg"
-         style="width:26px; margin:0 6px;">
-  </a>
+  <div style="display:flex; flex-direction:column; justify-content:center;">
 
-  <a href="https://www.linkedin.com/in/felipe-meneguitti-dias-312570b3/?locale=en_US"
-     target="_blank" title="LinkedIn">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg"
-         style="width:26px; margin:0 6px;">
-  </a>
+    <div style="margin-bottom:10px;">
 
-  <a href="https://scholar.google.com/citations?user=Xr5khtoAAAAJ&hl"
-     target="_blank" title="Google Scholar">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/googlescholar.svg"
-         style="width:26px; margin:0 6px;">
-  </a>
+      <a href="mailto:f.meneguittidias@gmail.com" target="_blank" title="E-mail">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/gmail.svg"
+             style="width:26px; margin:0 6px;">
+      </a>
 
-  <a href="https://orcid.org/0000-0001-7778-4606"
-     target="_blank" title="ORCID">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/orcid.svg"
-         style="width:26px; margin:0 6px;">
-  </a>
+      <a href="https://www.linkedin.com/in/felipe-meneguitti-dias-312570b3/?locale=en_US"
+         target="_blank" title="LinkedIn">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg"
+             style="width:26px; margin:0 6px;">
+      </a>
 
-  <a href="https://github.com/fmenegui"
-     target="_blank" title="GitHub">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg"
-         style="width:26px; margin:0 6px;">
-  </a>
+      <a href="https://scholar.google.com/citations?user=Xr5khtoAAAAJ&hl"
+         target="_blank" title="Google Scholar">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/googlescholar.svg"
+             style="width:26px; margin:0 6px;">
+      </a>
 
-  <a href="/cv/cv.qmd" target="_blank" title="CV">
-    <img src=" https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@15.22.0/icons/opencv.svg"
-         style="width:26px; margin:0 6px;">
-  </a>
+      <a href="https://orcid.org/0000-0001-7778-4606"
+         target="_blank" title="ORCID">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/orcid.svg"
+             style="width:26px; margin:0 6px;">
+      </a>
 
-  <a href="http://lattes.cnpq.br/3455258218368949"
-     target="_blank" title="Lattes CNPq">
-    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/lattes.svg"
-         onerror="this.style.display='none'"
-         style="width:26px; margin:0 6px;">
-  </a>
-</div> <!-- fecha ícones -->
-</div> <!-- fecha bloco texto -->
-</div> <!-- fecha bloco horizontal principal -->
-<!-- 
-## Timeline -->
+      <a href="https://github.com/fmenegui"
+         target="_blank" title="GitHub">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg"
+             style="width:26px; margin:0 6px;">
+      </a>
 
-::: {.cell}
+      <a href="/cv/cv.qmd" target="_blank" title="CV">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons@15.22.0/icons/opencv.svg"
+             style="width:26px; margin:0 6px;">
+      </a>
+
+      <a href="http://lattes.cnpq.br/3455258218368949"
+         target="_blank" title="Lattes CNPq">
+        <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/lattes.svg"
+             onerror="this.style.display='none'"
+             style="width:26px; margin:0 6px;">
+      </a>
+
+    </div>
+
+    <p style="font-size:1.1rem; font-style:italic; margin:0;">
+      "Researcher focused in deep learning methods for biomedical signals."
+    </p>
+
+  </div>
+</div>
+```
+
+
+<!-- ::: {.rawhtml}
+{{< include html/timeline.html >}}
+::: -->
+
+
+```{=html}
 <style>
+.timeline-wrapper {
+  margin-top: 40px;
+}
+
+.timeline-line {
+  width: 100%;
+  height: 3px;
+  background: #dcdcdc;
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.timeline-dot {
+  width: 16px;
+  height: 16px;
+  background: white;
+  border: 3px solid #555;
+  border-radius: 50%;
+  position: absolute;
+  top: -7px;
+}
 
 .timeline-container {
   display: flex;
-  justify-content: center;
   gap: 55px;
-  margin-top: 30px;
-  overflow-x: auto;
-  padding-bottom: 25px;
+  justify-content: center;
+  padding-bottom: 20px;
 }
 
 .timeline-item {
@@ -106,28 +144,10 @@ format:
   color: #777;
   margin-top: 4px;
 }
-
-/* Linha horizontal com bolinhas (mais clean) */
-.timeline-line {
-  width: 100%;
-  height: 2px;
-  background: #e0e0e0;
-  margin: 40px 0 20px;
-  position: relative;
-}
-
-.timeline-dot {
-  width: 12px;
-  height: 12px;
-  background: #888;
-  border-radius: 50pct;
-  position: absolute;
-  top: -5px;
-}
-
 </style>
-:::
-
+<br>
+<br>
+<br>
 <div class="timeline-container">
 
 <div class="timeline-item">
@@ -166,3 +186,4 @@ format:
 </div>
 
 </div>
+```

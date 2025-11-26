@@ -26,19 +26,13 @@ website:
     left: "© Felipe Dias"
     right: ""
 
-# format:
-#   html:
-#     theme: flatly
-#     toc: true
-#     code-copy: true
-#     smooth-scroll: true
-#     lang: en
 
 format:
   html:
-    theme: flatly
-    toc: true
     code-copy: true
+    html-math-method: katex
+    allow-html: true
+    theme: flatly
     smooth-scroll: true
     lang: en
     css:
