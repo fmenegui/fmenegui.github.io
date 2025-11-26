@@ -107,8 +107,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -141,7 +155,7 @@ window.Quarto = {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.6/css/academicons.min.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -200,32 +214,7 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#what-is-einsum" id="toc-what-is-einsum" class="nav-link" data-scroll-target="#what-is-einsum">What is <code>einsum</code>?</a>
-  <ul class="collapse">
-  <li><a href="#matrix-notation" id="toc-matrix-notation" class="nav-link" data-scroll-target="#matrix-notation">Matrix notation</a></li>
-  <li><a href="#intuition" id="toc-intuition" class="nav-link" data-scroll-target="#intuition">Intuition</a>
-  <ul class="collapse">
-  <li><a href="#multiplication" id="toc-multiplication" class="nav-link" data-scroll-target="#multiplication">Multiplication</a></li>
-  <li><a href="#summation" id="toc-summation" class="nav-link" data-scroll-target="#summation">Summation</a></li>
-  <li><a href="#matrix-multiplication" id="toc-matrix-multiplication" class="nav-link" data-scroll-target="#matrix-multiplication">Matrix multiplication</a></li>
-  </ul></li>
-  <li><a href="#practice" id="toc-practice" class="nav-link" data-scroll-target="#practice">Practice</a>
-  <ul class="collapse">
-  <li><a href="#transpose-a-matrix" id="toc-transpose-a-matrix" class="nav-link" data-scroll-target="#transpose-a-matrix">1. Transpose a matrix</a></li>
-  <li><a href="#compute-the-trace-of-a-square-matrix" id="toc-compute-the-trace-of-a-square-matrix" class="nav-link" data-scroll-target="#compute-the-trace-of-a-square-matrix">2. Compute the trace of a square matrix</a></li>
-  <li><a href="#compute-the-euclidean-norm-of-a-vector" id="toc-compute-the-euclidean-norm-of-a-vector" class="nav-link" data-scroll-target="#compute-the-euclidean-norm-of-a-vector">3. Compute the Euclidean norm of a vector</a></li>
-  <li><a href="#batch-matrix-multiplication" id="toc-batch-matrix-multiplication" class="nav-link" data-scroll-target="#batch-matrix-multiplication">4. Batch matrix multiplication</a></li>
-  </ul></li>
-  </ul></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -273,17 +262,17 @@ window.Quarto = {
 <h1>What is <code>einsum</code>?</h1>
 <section id="matrix-notation" class="level2">
 <h2 class="anchored" data-anchor-id="matrix-notation">Matrix notation</h2>
-<p>Before diving deeper into <code>einsum</code>, let us briefly review some matrix terminology. Consider a matrix <span class="math inline">\(A\)</span> with three rows and three columns:</p>
-<p><span class="math display">\[
+<p>Before diving deeper into <code>einsum</code>, let us briefly review some matrix terminology. Consider a matrix <span class="math inline">A</span> with three rows and three columns:</p>
+<p><span class="math display">
 A = \begin{bmatrix}
 a_{11} &amp; a_{12} &amp; a_{13} \\
 a_{21} &amp; a_{22} &amp; a_{23} \\
 a_{31} &amp; a_{32} &amp; a_{33}
 \end{bmatrix}
-\]</span></p>
-<p>This matrix is described as a <span class="math inline">\(3 \times 3\)</span> matrix.</p>
-<p>The element in the first row and first column is <span class="math inline">\(a_{11}\)</span> and the element in the second row and third column is <span class="math inline">\(a_{23}\)</span>. In general, the element in the <span class="math inline">\(i\)</span>th row and <span class="math inline">\(j\)</span>th column is <span class="math inline">\(a_{ij}\)</span>.</p>
-<p>This notation also applies to tensors. For a one dimensional vector <span class="math inline">\(v\)</span>, the <span class="math inline">\(i\)</span>th element is denoted by <span class="math inline">\(v_i\)</span>.</p>
+</span></p>
+<p>This matrix is described as a <span class="math inline">3 \times 3</span> matrix.</p>
+<p>The element in the first row and first column is <span class="math inline">a_{11}</span> and the element in the second row and third column is <span class="math inline">a_{23}</span>. In general, the element in the <span class="math inline">i</span>th row and <span class="math inline">j</span>th column is <span class="math inline">a_{ij}</span>.</p>
+<p>This notation also applies to tensors. For a one dimensional vector <span class="math inline">v</span>, the <span class="math inline">i</span>th element is denoted by <span class="math inline">v_i</span>.</p>
 </section>
 <section id="intuition" class="level2">
 <h2 class="anchored" data-anchor-id="intuition">Intuition</h2>
@@ -291,10 +280,10 @@ a_{31} &amp; a_{32} &amp; a_{33}
 <p>We now explore the logic behind both.</p>
 <section id="multiplication" class="level3">
 <h3 class="anchored" data-anchor-id="multiplication">Multiplication</h3>
-<p>Let <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> be two <span class="math inline">\(3 \times 3\)</span> matrices. We create another matrix <span class="math inline">\(C\)</span> whose elements are obtained from elementwise multiplication:</p>
-<p><span class="math display">\[
+<p>Let <span class="math inline">A</span> and <span class="math inline">B</span> be two <span class="math inline">3 \times 3</span> matrices. We create another matrix <span class="math inline">C</span> whose elements are obtained from elementwise multiplication:</p>
+<p><span class="math display">
 c_{ij} = a_{ij} b_{ij}
-\]</span></p>
+</span></p>
 <p>Python:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.random.random((<span class="dv">3</span>, <span class="dv">3</span>))</span>
@@ -302,16 +291,16 @@ c_{ij} = a_{ij} b_{ij}
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> np.multiply(A, B)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Using einsum:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> np.einsum(<span class="st">"ij,ij-&gt;ij"</span>, A, B)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This mirrors the mathematical expression <span class="math inline">\(c_{ij} = a_{ij} b_{ij}\)</span>.</p>
+<p>This mirrors the mathematical expression <span class="math inline">c_{ij} = a_{ij} b_{ij}</span>.</p>
 <p>We can also express it as a loop:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> np.zeros((<span class="dv">3</span>, <span class="dv">3</span>))</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        C[i, j] <span class="op">=</span> A[i, j] <span class="op">*</span> B[i, j]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Let us now work with vectors. For <span class="math inline">\(v = [1, 2, 3]\)</span> and <span class="math inline">\(p = [4, 5, 6]\)</span>:</p>
-<p><span class="math display">\[
+<p>Let us now work with vectors. For <span class="math inline">v = [1, 2, 3]</span> and <span class="math inline">p = [4, 5, 6]</span>:</p>
+<p><span class="math display">
 z_i = v_i p_i
-\]</span></p>
+</span></p>
 <p>Using einsum:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> np.einsum(<span class="st">"i,i-&gt;i"</span>, v, p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Using loops:</p>
@@ -320,7 +309,7 @@ z_i = v_i p_i
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    z[i] <span class="op">=</span> v[i] <span class="op">*</span> p[i]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now consider using different indices, <code>"i,j"</code>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>np.einsum(<span class="st">"i,j-&gt;ij"</span>, v, p)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This produces all combinations <span class="math inline">\(v_i p_j\)</span> and forms a <span class="math inline">\(3 \times 3\)</span> matrix. Loop equivalent:</p>
+<p>This produces all combinations <span class="math inline">v_i p_j</span> and forms a <span class="math inline">3 \times 3</span> matrix. Loop equivalent:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>        C[i, j] <span class="op">=</span> v[i] <span class="op">*</span> p[j]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -328,22 +317,22 @@ z_i = v_i p_i
 <section id="summation" class="level3">
 <h3 class="anchored" data-anchor-id="summation">Summation</h3>
 <p><code>einsum</code> also performs summation over indices. If an index appears in the input but not in the output, the summation is applied over that index.</p>
-<p>To sum all elements of a vector <span class="math inline">\(a\)</span>:</p>
+<p>To sum all elements of a vector <span class="math inline">a</span>:</p>
 <p>Math notation:</p>
-<p><span class="math display">\[
+<p><span class="math display">
 c = \sum_i a_i
-\]</span></p>
+</span></p>
 <p>Einsum:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> np.einsum(<span class="st">"i-&gt;"</span>, a)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>To sum all elements of a matrix <span class="math inline">\(A\)</span>:</p>
+<p>To sum all elements of a matrix <span class="math inline">A</span>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>s <span class="op">=</span> np.einsum(<span class="st">"ij-&gt;"</span>, A)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="matrix-multiplication" class="level3">
 <h3 class="anchored" data-anchor-id="matrix-multiplication">Matrix multiplication</h3>
-<p>Let <span class="math inline">\(A\)</span> be a <span class="math inline">\(2 \times 3\)</span> matrix and <span class="math inline">\(B\)</span> a <span class="math inline">\(3 \times 2\)</span> matrix. Their product <span class="math inline">\(C = AB\)</span> has components:</p>
-<p><span class="math display">\[
+<p>Let <span class="math inline">A</span> be a <span class="math inline">2 \times 3</span> matrix and <span class="math inline">B</span> a <span class="math inline">3 \times 2</span> matrix. Their product <span class="math inline">C = AB</span> has components:</p>
+<p><span class="math display">
 c_{ik} = \sum_j a_{ij} b_{jk}
-\]</span></p>
+</span></p>
 <p>Einsum:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> np.einsum(<span class="st">"ij,jk-&gt;ik"</span>, A, B)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
@@ -352,41 +341,41 @@ c_{ik} = \sum_j a_{ij} b_{jk}
 <h2 class="anchored" data-anchor-id="practice">Practice</h2>
 <section id="transpose-a-matrix" class="level3">
 <h3 class="anchored" data-anchor-id="transpose-a-matrix">1. Transpose a matrix</h3>
-<p>The transpose of <span class="math inline">\(A = [a_{ij}]\)</span> is <span class="math inline">\(A^{\mathsf{T}} = [a_{ji}]\)</span>.</p>
+<p>The transpose of <span class="math inline">A = [a_{ij}]</span> is <span class="math inline">A^{\mathsf{T}} = [a_{ji}]</span>.</p>
 <p>Using einsum:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> np.einsum(<span class="st">"ij-&gt;ji"</span>, A)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="compute-the-trace-of-a-square-matrix" class="level3">
 <h3 class="anchored" data-anchor-id="compute-the-trace-of-a-square-matrix">2. Compute the trace of a square matrix</h3>
 <p>For a square matrix:</p>
-<p><span class="math display">\[
+<p><span class="math display">
 A = \begin{bmatrix}
 a_{11} &amp; a_{12} \\
 a_{21} &amp; a_{22}
 \end{bmatrix}
-\]</span></p>
+</span></p>
 <p>The trace is:</p>
-<p><span class="math display">\[
+<p><span class="math display">
 \operatorname{Tr}(A) = \sum_i a_{ii}
-\]</span></p>
+</span></p>
 <p>Using einsum:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tr <span class="op">=</span> np.einsum(<span class="st">"ii-&gt;"</span>, A)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="compute-the-euclidean-norm-of-a-vector" class="level3">
 <h3 class="anchored" data-anchor-id="compute-the-euclidean-norm-of-a-vector">3. Compute the Euclidean norm of a vector</h3>
-<p><span class="math display">\[
+<p><span class="math display">
 \|v\| = \sqrt{\sum_i v_i v_i}
-\]</span></p>
+</span></p>
 <p>Using einsum:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>norm <span class="op">=</span> np.sqrt(np.einsum(<span class="st">"i,i-&gt;"</span>, v, v))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="batch-matrix-multiplication" class="level3">
 <h3 class="anchored" data-anchor-id="batch-matrix-multiplication">4. Batch matrix multiplication</h3>
-<p>Let <span class="math inline">\(A\)</span> be a batch of matrices with shape <span class="math inline">\((n, p, h)\)</span> and <span class="math inline">\(B\)</span> be a batch of matrices with shape <span class="math inline">\((n, h, u)\)</span>.</p>
+<p>Let <span class="math inline">A</span> be a batch of matrices with shape <span class="math inline">(n, p, h)</span> and <span class="math inline">B</span> be a batch of matrices with shape <span class="math inline">(n, h, u)</span>.</p>
 <p>The batch product is:</p>
-<p><span class="math display">\[
+<p><span class="math display">
 c_{nik} = \sum_j a_{nij} b_{njk}
-\]</span></p>
+</span></p>
 <p>Using einsum:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> np.einsum(<span class="st">"nij,njk-&gt;nik"</span>, A, B)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 

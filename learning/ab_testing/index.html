@@ -101,8 +101,22 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -135,7 +149,7 @@ window.Quarto = {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.6/css/academicons.min.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -194,9 +208,7 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -256,7 +268,7 @@ Description
 </thead>
 <tbody class="list">
 
-<tr data-index="0" data-categories="YWIlMjB0ZXN0aW5nJTJDc3R1ZHk=" data-listing-date-sort="1762905600000" data-listing-file-modified-sort="1764030641081" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="523" data-listing-title-sort="Introduction to A/B testing" data-listing-filename-sort="01_intro.qmd">
+<tr data-index="0" data-categories="YWIlMjB0ZXN0aW5nJTJDc3R1ZHk=" data-listing-date-sort="1762905600000" data-listing-file-modified-sort="1764115563898" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="523" data-listing-title-sort="Introduction to A/B testing" data-listing-filename-sort="01_intro.qmd">
 <td>
 <a href="../../learning/ab_testing/01_intro.html" class="title listing-title">Introduction to A/B testing</a>
 </td>
@@ -266,7 +278,7 @@ Description
 
 </tr>
 
-<tr data-index="1" data-categories="YWItdGVzdGluZyUyQ3N0dWR5" data-listing-date-sort="1762905600000" data-listing-file-modified-sort="1764030641081" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="384" data-listing-title-sort="Why do we randomize?" data-listing-filename-sort="02_randomization.qmd">
+<tr data-index="1" data-categories="YWItdGVzdGluZyUyQ3N0dWR5" data-listing-date-sort="1762905600000" data-listing-file-modified-sort="1764115563898" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="384" data-listing-title-sort="Why do we randomize?" data-listing-filename-sort="02_randomization.qmd">
 <td>
 <a href="../../learning/ab_testing/02_randomization.html" class="title listing-title">Why do we randomize?</a>
 </td>
@@ -276,7 +288,7 @@ Description
 
 </tr>
 
-<tr data-index="2" data-categories="YWItdGVzdGluZyUyQ3N0dWR5" data-listing-date-sort="1762905600000" data-listing-file-modified-sort="1764030641081" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="203" data-listing-title-sort="Average Treatment Effect" data-listing-filename-sort="03_ate.qmd">
+<tr data-index="2" data-categories="YWItdGVzdGluZyUyQ3N0dWR5" data-listing-date-sort="1762905600000" data-listing-file-modified-sort="1764115563898" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="203" data-listing-title-sort="Average Treatment Effect" data-listing-filename-sort="03_ate.qmd">
 <td>
 <a href="../../learning/ab_testing/03_ate.html" class="title listing-title">Average Treatment Effect</a>
 </td>

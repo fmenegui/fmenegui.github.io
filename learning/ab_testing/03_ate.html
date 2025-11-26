@@ -72,8 +72,22 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -106,7 +120,7 @@ window.Quarto = {
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.6/css/academicons.min.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -165,16 +179,7 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#recap" id="toc-recap" class="nav-link active" data-scroll-target="#recap">Recap</a></li>
-  <li><a href="#average-treatment-effect-ate" id="toc-average-treatment-effect-ate" class="nav-link" data-scroll-target="#average-treatment-effect-ate">Average Treatment Effect (ATE)</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -219,16 +224,16 @@ window.Quarto = {
 <section id="average-treatment-effect-ate" class="level1">
 <h1>Average Treatment Effect (ATE)</h1>
 <p>The <strong>Average Treatment Effect (ATE)</strong> measures the expected effect of a proposed treatment. In our COVID-19 example from <a href="../../learning/ab_testing/02_randomization.html">Importance of Randomization</a>, where we assess whether a medication improves survival. The ATE, in this case, would be the increase in the survival rate.</p>
-<p>Consider a subject <span class="math inline">\(i\)</span> with two potential outcomes: <span class="math inline">\(Y_i^{(1)}\)</span> if treated and <span class="math inline">\(Y_i^{(0)}\)</span> if not treated. The individual treatment effect is: <span class="math display">\[
+<p>Consider a subject <span class="math inline">i</span> with two potential outcomes: <span class="math inline">Y_i^{(1)}</span> if treated and <span class="math inline">Y_i^{(0)}</span> if not treated. The individual treatment effect is: <span class="math display">
 Y_i^{(1)} - Y_i^{(0)}
-\]</span> If subject <span class="math inline">\(i\)</span> actually received the treatment, we do not observe <span class="math inline">\(Y_i^{(0)}\)</span>. This unobserved outcome is the <strong>counterfactual</strong>.</p>
-<p>The population Average Treatment Effect (ATE) is: <span class="math display">\[
+</span> If subject <span class="math inline">i</span> actually received the treatment, we do not observe <span class="math inline">Y_i^{(0)}</span>. This unobserved outcome is the <strong>counterfactual</strong>.</p>
+<p>The population Average Treatment Effect (ATE) is: <span class="math display">
 \mathrm{ATE} = \mathbb{E}\!\left[Y^{(1)} - Y^{(0)}\right] = \sum _j^N (Y_j^{(1)} - Y_j^{(0)})
-\]</span></p>
-<p>Because the counterfactual for each individual is unobserved, we estimate the ATE by comparing randomized groups. If we randomize <span class="math inline">\(N\)</span> subjects to treatment and <span class="math inline">\(N\)</span> to control, a consistent estimator is:</p>
-<p><span class="math display">\[
+</span></p>
+<p>Because the counterfactual for each individual is unobserved, we estimate the ATE by comparing randomized groups. If we randomize <span class="math inline">N</span> subjects to treatment and <span class="math inline">N</span> to control, a consistent estimator is:</p>
+<p><span class="math display">
 \widehat{\mathrm{ATE}} = \overline{Y}^{(1)} - \overline{Y}^{(0)}
-\]</span> the difference in average outcomes between the treated and control groups. With sufficiently large <span class="math inline">\(N\)</span>, randomization makes the groups comparable, allowing us to estimate the ATE without observing individual counterfactuals.</p>
+</span> the difference in average outcomes between the treated and control groups. With sufficiently large <span class="math inline">N</span>, randomization makes the groups comparable, allowing us to estimate the ATE without observing individual counterfactuals.</p>
 
 
 </section>
