@@ -74,7 +74,7 @@
     "href": "learning/ab_testing/index.html",
     "title": "A/B Testing",
     "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDescription\n\n\n\n\n\n\n\n\nIntroduction to A/B testing\n\n\nBrief introduction to A/B testing\n\n\n\n\n\n\nWhy do we randomize?\n\n\nImportance of randomization\n\n\n\n\n\n\nAverage Treatment Effect\n\n\nAverage Treatment Effect\n\n\n\n\n\n\nHypothesis-driven Product Development\n\n\nHypothesis-driven Product Development\n\n\n\n\n\n\nNo matching items"
+    "text": "Order By\n      Default\n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDescription\n\n\n\n\n\n\n\n\nIntroduction to A/B testing\n\n\nBrief introduction to A/B testing\n\n\n\n\n\n\nWhy do we randomize?\n\n\nImportance of randomization\n\n\n\n\n\n\nAverage Treatment Effect\n\n\nAverage Treatment Effect\n\n\n\n\n\n\nHypothesis-driven Product Development\n\n\nHypothesis-driven Product Development\n\n\n\n\n\n\nSampling\n\n\nSampling\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "learning/miscellaneous/01_einsum.html",
@@ -124,6 +124,62 @@
     "title": "Introduction to A/B testing",
     "section": "",
     "text": "Introduction\nSuppose you run an online store and want to improve sales. You then have an idea to enlarge the shopping-cart button. After deploying the change, sales increase (see Figure 1).\n\n\n\n\n\n\nFigure 1: Sales trend after introducing the cart-size change.\n\n\n\nDid your modification cause the increase in sales?\nNot necessarily. Several other factors could explain the rise, such as seasonality. For instance, if you implemented the change in early December, sales might climb simply because it’s close to Christmas, when people usually buy more.\nTo argue that your modification caused the increase, we first need a clear notion of causality.\n\n\nWhat is causality?\nCorrelation is about variables moving together. Causality is about changing in one variable producing changes in another.\nIn broad terms, two variables (A) and (B) are correlated when changes in one tend to be associated with changes in the other (see Figure 2). Correlation alone does not establish a cause–effect relationship.\n\n\n\n\n\n\nFigure 2: An illustration of variables moving together (correlation).\n\n\n\nTwo things can be correlated without either causing the other. This is called spurious correlation.\nA classic spurious correlation example is shown in Figure 3:\n(A=) “Air quality in Union City, Tennessee” and (B=) “Number of movies featuring Orlando Bloom.” They are correlated, but there is no plausible causal link between them.\n\n\n\n\n\n\nFigure 3: A spurious correlation example: unrelated variables that co-vary.\n\n\n\nCausality, on the other hand, concerns cause and consequence: if we change (A), what happens to (B)?\nConsider Figure 4. An oven’s temperature (B) is controlled by a dial (A). A thermometer (C) responds to the temperature. Turning the dial (A) changes the temperature (B), and the temperature (B) moves the thermometer (C). Thus, (A B C). Here, (A) and (C) are correlated because of the causal chain, but (A) does not act directly on (C). The effect is mediated by (B).\n\n\n\n\n\n\nFigure 4: Correlation via a causal chain (mediation).\n\n\n\nWith this foundation, we can now discuss A/B testing.\n\n\nWhat is A/B testing?\nA/B testing is a practical way to evaluate causality. It helps answer questions like: Did increasing the cart size cause higher sales?\nIn an A/B test you create two variants of the same experience. In our website example:\n\nA (control): the current website.\nB (treatment): the website with your proposed change.\n\nSee Figure 5.\n\n\n\n\n\n\nFigure 5: A/B test with a control (A) and a treatment (B).\n\n\n\nTo assess whether the modification improves sales, you randomly split incoming traffic between A and B. Because assignment is random, the two groups tend to be similar on both observed and unobserved factors. Any persistent difference in outcomes (e.g., conversion rate, revenue per session) is then can be attributable to the modification itself.\nIn short, A/B testing provides a clean comparison between “before/without change” (A) and “with change” (B) under randomization, offering strong evidence about whether your change causes an improvement.\nA/B tests are the only model-free way to show causality."
+  },
+  {
+    "objectID": "learning/ab_testing/05_sampling.html",
+    "href": "learning/ab_testing/05_sampling.html",
+    "title": "Sampling",
+    "section": "",
+    "text": "Whenever you try to learn something about a real population, a practical limitation appears. It is almost never possible to measure every individual. The cost is high and time is limited. This is why sampling is so important."
+  },
+  {
+    "objectID": "learning/ab_testing/05_sampling.html#random-variables",
+    "href": "learning/ab_testing/05_sampling.html#random-variables",
+    "title": "Sampling",
+    "section": "Random variables",
+    "text": "Random variables\nA random variable is a mathematical representation of a process that produces uncertain outcomes.\nFor example, the height of a person selected at random from a country can be represented by a random variable (X). The population has a true mean height (\\mu) and a true standard deviation (\\sigma). These values describe the distribution of (X).\nOnce we actually measure the height of a selected person, we obtain a concrete value. This observed value is called a realization. If our first sampled height is 171 cm, then (x_1 = 171). This means that 171 is the realization of the random variable (X_1).\nBefore measurement, (X_1) is random. After measurement, (x_1 = 171) is fixed.\nOBS: We use capital letters for random variables and lowercase letters for their realizations."
+  },
+  {
+    "objectID": "learning/ab_testing/05_sampling.html#expectation",
+    "href": "learning/ab_testing/05_sampling.html#expectation",
+    "title": "Sampling",
+    "section": "Expectation",
+    "text": "Expectation\nThe expectation of a random variable is its theoretical long run average. If we could repeat the random process infinitely many times, the average of all generated values would approach the expectation.\nFor the height variable (X):\n\nE[X] = \\mu\n\nThe expectation is a theoretical value defined by the population. The sample average is computed from a finite set of observed data. If the sample size grows without bound, the sample average converges to the expectation. For a finite sample, they are generally different."
+  },
+  {
+    "objectID": "learning/ab_testing/05_sampling.html#the-sample-mean",
+    "href": "learning/ab_testing/05_sampling.html#the-sample-mean",
+    "title": "Sampling",
+    "section": "The sample mean",
+    "text": "The sample mean\nThe observed sample mean is defined as:\n\n\\bar{x} = \\frac{1}{N}\\sum_{i=1}^N x_i\n\nBefore observing the data, the sample mean itself is a random variable:\n\n\\bar{X} = \\frac{1}{N}\\sum_{i=1}^N X_i\n\nThis explains why different samples produce different sample means. The randomness comes from the (X_i)."
+  },
+  {
+    "objectID": "learning/ab_testing/05_sampling.html#expectation-of-the-sample-mean",
+    "href": "learning/ab_testing/05_sampling.html#expectation-of-the-sample-mean",
+    "title": "Sampling",
+    "section": "Expectation of the sample mean",
+    "text": "Expectation of the sample mean\nEach sample will produce a different sample mean. What would be the long run average of these sample means? In other words, what is the expected value of the random variable (\\bar{X})?\n\nE[\\bar{X}] = E\\left(\\frac{1}{N}\\sum_{i=1}^N X_i\\right)\n= \\frac{1}{N}\\sum_{i=1}^N E[X_i]\n\nSince each (X_i) has mean (\\mu):\n\nE[\\bar{X}] = \\mu\n\nThe expectation of the sample mean equals the true mean of the population. This does not imply that any observed (\\bar{x}) equals (\\mu). It only guarantees that the estimator is correct on average in the long run."
+  },
+  {
+    "objectID": "learning/ab_testing/05_sampling.html#variance-of-the-sample-mean",
+    "href": "learning/ab_testing/05_sampling.html#variance-of-the-sample-mean",
+    "title": "Sampling",
+    "section": "Variance of the sample mean",
+    "text": "Variance of the sample mean\nAssuming the sampled values are independent:\n\nVar(\\bar{X}) = Var\\left(\\frac{1}{N}\\sum_{i=1}^N X_i\\right)\n= \\frac{\\sigma^2}{N}\n\nThe variability of the sample mean decreases as the sample size increases. Larger samples produce more stable estimates."
+  },
+  {
+    "objectID": "learning/ab_testing/05_sampling.html#the-central-limit-theorem",
+    "href": "learning/ab_testing/05_sampling.html#the-central-limit-theorem",
+    "title": "Sampling",
+    "section": "The Central Limit Theorem",
+    "text": "The Central Limit Theorem\nEven if the population distribution is not normal, the Central Limit Theorem states that for sufficiently large (N):\n\n\\bar{X} \\sim N\\left(\\mu, \\frac{\\sigma^2}{N}\\right)"
+  },
+  {
+    "objectID": "learning/ab_testing/05_sampling.html#how-to-estimate-mu-and-sigma",
+    "href": "learning/ab_testing/05_sampling.html#how-to-estimate-mu-and-sigma",
+    "title": "Sampling",
+    "section": "How to estimate (\\mu) and (\\sigma)?",
+    "text": "How to estimate (\\mu) and (\\sigma)?\nIn real applications, we usually have only one sample of size (N). Since the population parameters (\\mu) and (\\sigma) are unknown, we replace them with estimates from the data:\n\n\\mu \\approx \\bar{x}\n\nand\n\n\\sigma \\approx s\n\nWhere (s) is the sample standard deviation.\nUsing these estimates, we approximate the distribution of the sample mean for large (N) by:\n\n\\bar{X} \\sim N\\left(\\bar{x}, \\frac{s^2}{N}\\right)"
   },
   {
     "objectID": "learning/ab_testing/03_ate.html",
