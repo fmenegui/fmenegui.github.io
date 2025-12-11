@@ -49,88 +49,18 @@
     "text": "Introduction\nIn our previous post, Introduction to A/B Testing, we discussed how A/B testing can be used to assess whether a given modification causes a change in a variable of interest. For example, whether increasing the size of the shopping cart icon increases sales.\nWe also said that A/B testing involves splitting website traffic into the current version (A or control) and the modified version (B or treatment), and that this split needs to be random. But why?\n\n\nConfounding factors\nTo understand the importance of randomization, we need to talk briefly about confounding factors.\nSuppose we want to evaluate whether a medication improves survival from COVID-19. However, other variables can affect survival. For instance, younger people are more likely to survive than older people. If we give the medication only to younger people and withhold it from older people, the treated group may appear to have higher survival, not because the medication works, but because it contains younger patients who are intrinsically more likely to survive.\nSimilarly, clinicians might be tempted to give the medication only to high-risk patients. High-risk patients are, by definition, more likely to die. In that case, if we compare the treated group with the untreated group, the treated group might show lower survival, that could lead to a mistaken conclusion that the medication is ineffective. The poorer outcome could simply reflect the greater baseline risk in the treated group.\nThese scenarios illustrate confounding variables, which variables that can affect both the treatment (the modification) and the observed outcome (survival). This is represented in Figure 1.\n\n\n\n\n\n\nFigure 1: Confounding: a third variable influences both treatment assignment and outcome.\n\n\n\nThis is one of the reasons by we need to randomize, because similar profile of subjects would go to the treatment and control groups, that would eliminate what is so called selection bias\n\n\nCeteris Paribus\nCeteris Paribus: “All other things being equal”\nCeteris Paribus is a latin word that describes the situation between two groups that have all of the characterincts being the same, except for your provided modifcation. In our COVID medication, a Ceteris Paribus situation would make the treatment and control groups having the same characteriscts (similar age profile, similar sex profile, etc), except for the medication which is being provided in the treatment group.\nWhat technique provide this Ceteris Paribus scenario: RANDOMIZATION."
   },
   {
-    "objectID": "learning/ab_testing/04_hdpd.html",
-    "href": "learning/ab_testing/04_hdpd.html",
-    "title": "Hypothesis-driven Product Development",
+    "objectID": "learning/ab_testing/03_ate.html",
+    "href": "learning/ab_testing/03_ate.html",
+    "title": "Average Treatment Effect",
     "section": "",
-    "text": "In our previous posts, we introduced A/B testing, highlighted why randomization is essential, and discussed how we can measure the effect of a treatment in an A/B testing context.\nToday we move into Hypothesis-driven Product Development (HDPD), which shifts the traditional product workflow from simply having an idea, implementing it, and checking results to a structured process where ideas are tested through experimentation and validated with measurable evidence."
-  },
-  {
-    "objectID": "learning/ab_testing/04_hdpd.html#good-metrics",
-    "href": "learning/ab_testing/04_hdpd.html#good-metrics",
-    "title": "Hypothesis-driven Product Development",
-    "section": "Good metrics",
-    "text": "Good metrics\nA metric is good when it can be compared across time and, for business contexts, when it is connected to financial performance or user behavior. Examples:\n\nCTR (Click Through Rate)\nCVR (Conversion Rate)\n\nThese metrics help guide decisions because changes in them reflect real impact on the business.\nIn general, in a given experiment, you have three sorts of metrics:\n\nOEC (Overall evaluation criteria): The most important metric\nSecondary metrics: Important metrics, but they are not the OEC\nGuardrail metrics: “Security” metrics, metrics that should not be comprimised by the experiment, such as loading time"
-  },
-  {
-    "objectID": "learning/ab_testing/04_hdpd.html#vanity-metrics",
-    "href": "learning/ab_testing/04_hdpd.html#vanity-metrics",
-    "title": "Hypothesis-driven Product Development",
-    "section": "Vanity metrics",
-    "text": "Vanity metrics\nMetrics are usually created to support meaningful decisions. However, some metrics look impressive but do not help with practical decision making. These are known as “vanity metrics”.\nFor example, the total number of users who have ever created an account may be useful for marketing announcements, such as saying a product reached one million users, but it does not help you decide how to improve the product."
-  },
-  {
-    "objectID": "learning/ab_testing/index.html",
-    "href": "learning/ab_testing/index.html",
-    "title": "A/B Testing",
-    "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDescription\n\n\n\n\n\n\n\n\nIntroduction to A/B testing\n\n\nBrief introduction to A/B testing\n\n\n\n\n\n\nWhy do we randomize?\n\n\nImportance of randomization\n\n\n\n\n\n\nAverage Treatment Effect\n\n\nAverage Treatment Effect\n\n\n\n\n\n\nHypothesis-driven Product Development\n\n\nHypothesis-driven Product Development\n\n\n\n\n\n\nSampling\n\n\nSampling\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "learning/miscellaneous/01_einsum.html",
-    "href": "learning/miscellaneous/01_einsum.html",
-    "title": "Einsum Tutorial",
-    "section": "",
-    "text": "Einstein summation notation, commonly denoted as einsum, is a powerful tool for performing optimized matrix operations. It allows us to avoid using unnecessary for loops and simplifies complex matrix manipulations, making code more readable and efficient.\nEinsum is available in different libraries such as Numpy, PyTorch and Tensorflow."
-  },
-  {
-    "objectID": "learning/miscellaneous/01_einsum.html#matrix-notation",
-    "href": "learning/miscellaneous/01_einsum.html#matrix-notation",
-    "title": "Einsum Tutorial",
-    "section": "Matrix notation",
-    "text": "Matrix notation\nBefore diving deeper into einsum, let us briefly review some matrix terminology. Consider a matrix A with three rows and three columns:\n\nA = \\begin{bmatrix}\na_{11} & a_{12} & a_{13} \\\\\na_{21} & a_{22} & a_{23} \\\\\na_{31} & a_{32} & a_{33}\n\\end{bmatrix}\n\nThis matrix is described as a 3 \\times 3 matrix.\nThe element in the first row and first column is a_{11} and the element in the second row and third column is a_{23}. In general, the element in the ith row and jth column is a_{ij}.\nThis notation also applies to tensors. For a one dimensional vector v, the ith element is denoted by v_i."
-  },
-  {
-    "objectID": "learning/miscellaneous/01_einsum.html#intuition",
-    "href": "learning/miscellaneous/01_einsum.html#intuition",
-    "title": "Einsum Tutorial",
-    "section": "Intuition",
-    "text": "Intuition\nThe einsum operation performs two fundamental actions over tensors: multiplication and summation.\nWe now explore the logic behind both.\n\nMultiplication\nLet A and B be two 3 \\times 3 matrices. We create another matrix C whose elements are obtained from elementwise multiplication:\n\nc_{ij} = a_{ij} b_{ij}\n\nPython:\nimport numpy as np\nA = np.random.random((3, 3))\nB = np.random.random((3, 3))\nC = np.multiply(A, B)\nUsing einsum:\nC = np.einsum(\"ij,ij-&gt;ij\", A, B)\nThis mirrors the mathematical expression c_{ij} = a_{ij} b_{ij}.\nWe can also express it as a loop:\nC = np.zeros((3, 3))\nfor i in range(3):\n    for j in range(3):\n        C[i, j] = A[i, j] * B[i, j]\nLet us now work with vectors. For v = [1, 2, 3] and p = [4, 5, 6]:\n\nz_i = v_i p_i\n\nUsing einsum:\nz = np.einsum(\"i,i-&gt;i\", v, p)\nUsing loops:\nz = np.zeros(3)\nfor i in range(3):\n    z[i] = v[i] * p[i]\nNow consider using different indices, \"i,j\":\nnp.einsum(\"i,j-&gt;ij\", v, p)\nThis produces all combinations v_i p_j and forms a 3 \\times 3 matrix. Loop equivalent:\nfor i in range(3):\n    for j in range(3):\n        C[i, j] = v[i] * p[j]\n\n\nSummation\neinsum also performs summation over indices. If an index appears in the input but not in the output, the summation is applied over that index.\nTo sum all elements of a vector a:\nMath notation:\n\nc = \\sum_i a_i\n\nEinsum:\nc = np.einsum(\"i-&gt;\", a)\nTo sum all elements of a matrix A:\ns = np.einsum(\"ij-&gt;\", A)\n\n\nMatrix multiplication\nLet A be a 2 \\times 3 matrix and B a 3 \\times 2 matrix. Their product C = AB has components:\n\nc_{ik} = \\sum_j a_{ij} b_{jk}\n\nEinsum:\nC = np.einsum(\"ij,jk-&gt;ik\", A, B)"
-  },
-  {
-    "objectID": "learning/miscellaneous/01_einsum.html#practice",
-    "href": "learning/miscellaneous/01_einsum.html#practice",
-    "title": "Einsum Tutorial",
-    "section": "Practice",
-    "text": "Practice\n\n1. Transpose a matrix\nThe transpose of A = [a_{ij}] is A^{\\mathsf{T}} = [a_{ji}].\nUsing einsum:\nC = np.einsum(\"ij-&gt;ji\", A)\n\n\n2. Compute the trace of a square matrix\nFor a square matrix:\n\nA = \\begin{bmatrix}\na_{11} & a_{12} \\\\\na_{21} & a_{22}\n\\end{bmatrix}\n\nThe trace is:\n\n\\operatorname{Tr}(A) = \\sum_i a_{ii}\n\nUsing einsum:\ntr = np.einsum(\"ii-&gt;\", A)\n\n\n3. Compute the Euclidean norm of a vector\n\n\\|v\\| = \\sqrt{\\sum_i v_i v_i}\n\nUsing einsum:\nnorm = np.sqrt(np.einsum(\"i,i-&gt;\", v, v))\n\n\n4. Batch matrix multiplication\nLet A be a batch of matrices with shape (n, p, h) and B be a batch of matrices with shape (n, h, u).\nThe batch product is:\n\nc_{nik} = \\sum_j a_{nij} b_{njk}\n\nUsing einsum:\nC = np.einsum(\"nij,njk-&gt;nik\", A, B)"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Felipe Dias",
-    "section": "",
-    "text": "Felipe Dias\n    \n  \n\n  \n\n    \n\n      \n        \n      \n\n      \n        \n      \n\n      \n        \n      \n\n      \n        \n      \n\n      \n        \n      \n\n      \n        \n      \n\n      \n        \n      \n\n    \n\n    \n      \"Researcher focused in deep learning methods for biomedical signals.\"\n    \n\n  \n\n\n\n\n\n\n\n\n2012 to 2017\n\nElectronics Engineering\nUFJF\n\n\n\n2015 to 2016\n\nExchange Program\nIIT Chicago · USA\n\n\n\n2018 to 2020\n\nMSc Computer Vision\nUFJF\n\n\n\n2020-Present\n\nR&D Engineer\nInCor · HCFMUSP\n\n\n\n2021 to 2025\n\nPhD Deep Learning\nUSP"
-  },
-  {
-    "objectID": "learning/miscellaneous/index.html",
-    "href": "learning/miscellaneous/index.html",
-    "title": "Miscellaneous Study Material",
-    "section": "",
-    "text": "Order By\n      Default\n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDescription\n\n\n\n\n\n\n\n\nEinsum Tutorial\n\n\nBrief introduction to Einsum\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "learning/ab_testing/01_intro.html",
-    "href": "learning/ab_testing/01_intro.html",
-    "title": "Introduction to A/B testing",
-    "section": "",
-    "text": "Introduction\nSuppose you run an online store and want to improve sales. You then have an idea to enlarge the shopping-cart button. After deploying the change, sales increase (see Figure 1).\n\n\n\n\n\n\nFigure 1: Sales trend after introducing the cart-size change.\n\n\n\nDid your modification cause the increase in sales?\nNot necessarily. Several other factors could explain the rise, such as seasonality. For instance, if you implemented the change in early December, sales might climb simply because it’s close to Christmas, when people usually buy more.\nTo argue that your modification caused the increase, we first need a clear notion of causality.\n\n\nWhat is causality?\nCorrelation is about variables moving together. Causality is about changing in one variable producing changes in another.\nIn broad terms, two variables (A) and (B) are correlated when changes in one tend to be associated with changes in the other (see Figure 2). Correlation alone does not establish a cause–effect relationship.\n\n\n\n\n\n\nFigure 2: An illustration of variables moving together (correlation).\n\n\n\nTwo things can be correlated without either causing the other. This is called spurious correlation.\nA classic spurious correlation example is shown in Figure 3:\n(A=) “Air quality in Union City, Tennessee” and (B=) “Number of movies featuring Orlando Bloom.” They are correlated, but there is no plausible causal link between them.\n\n\n\n\n\n\nFigure 3: A spurious correlation example: unrelated variables that co-vary.\n\n\n\nCausality, on the other hand, concerns cause and consequence: if we change (A), what happens to (B)?\nConsider Figure 4. An oven’s temperature (B) is controlled by a dial (A). A thermometer (C) responds to the temperature. Turning the dial (A) changes the temperature (B), and the temperature (B) moves the thermometer (C). Thus, (A B C). Here, (A) and (C) are correlated because of the causal chain, but (A) does not act directly on (C). The effect is mediated by (B).\n\n\n\n\n\n\nFigure 4: Correlation via a causal chain (mediation).\n\n\n\nWith this foundation, we can now discuss A/B testing.\n\n\nWhat is A/B testing?\nA/B testing is a practical way to evaluate causality. It helps answer questions like: Did increasing the cart size cause higher sales?\nIn an A/B test you create two variants of the same experience. In our website example:\n\nA (control): the current website.\nB (treatment): the website with your proposed change.\n\nSee Figure 5.\n\n\n\n\n\n\nFigure 5: A/B test with a control (A) and a treatment (B).\n\n\n\nTo assess whether the modification improves sales, you randomly split incoming traffic between A and B. Because assignment is random, the two groups tend to be similar on both observed and unobserved factors. Any persistent difference in outcomes (e.g., conversion rate, revenue per session) is then can be attributable to the modification itself.\nIn short, A/B testing provides a clean comparison between “before/without change” (A) and “with change” (B) under randomization, offering strong evidence about whether your change causes an improvement.\nA/B tests are the only model-free way to show causality."
+    "text": "Recap\nIn previous posts, Introduction to A/B Testing and Importance of Randomization, we introduced A/B testing and why randomization is such an important step. Now we want to discuss how we can measure the effect of our proposed modification (the treatment).\n\n\nAverage Treatment Effect (ATE)\nThe Average Treatment Effect (ATE) measures the expected effect of a proposed treatment. In our COVID-19 example from Importance of Randomization, where we assess whether a medication improves survival. The ATE, in this case, would be the increase in the survival rate.\nConsider a subject i with two potential outcomes: Y_i^{(1)} if treated and Y_i^{(0)} if not treated. The individual treatment effect is: \nY_i^{(1)} - Y_i^{(0)}\n If subject i actually received the treatment, we do not observe Y_i^{(0)}. This unobserved outcome is the counterfactual.\nThe population Average Treatment Effect (ATE) is: \n\\mathrm{ATE} = \\mathbb{E}\\!\\left[Y^{(1)} - Y^{(0)}\\right] = \\sum _j^N (Y_j^{(1)} - Y_j^{(0)})\n\nBecause the counterfactual for each individual is unobserved, we estimate the ATE by comparing randomized groups. If we randomize N subjects to treatment and N to control, a consistent estimator is:\n\n\\widehat{\\mathrm{ATE}} = \\overline{Y}^{(1)} - \\overline{Y}^{(0)}\n the difference in average outcomes between the treated and control groups. With sufficiently large N, randomization makes the groups comparable, allowing us to estimate the ATE without observing individual counterfactuals."
   },
   {
     "objectID": "learning/ab_testing/05_sampling.html",
     "href": "learning/ab_testing/05_sampling.html",
     "title": "Sampling",
     "section": "",
-    "text": "Whenever you try to learn something about a real population, a practical limitation appears. It is almost never possible to measure every individual. The cost is high and time is limited. This is why sampling is so important."
+    "text": "Whenever you try to learn something about a real population, a practical limitation appears. It is almost never possible to measure every individual. The cost is high and time is limited. This is why sampling is so important.\n\n\n\n\n\n\nFigure 1: Getting a sample from a population."
   },
   {
     "objectID": "learning/ab_testing/05_sampling.html#random-variables",
@@ -182,11 +112,81 @@
     "text": "How to estimate (\\mu) and (\\sigma)?\nIn real applications, we usually have only one sample of size (N). Since the population parameters (\\mu) and (\\sigma) are unknown, we replace them with estimates from the data:\n\n\\mu \\approx \\bar{x}\n\nand\n\n\\sigma \\approx s\n\nWhere (s) is the sample standard deviation.\nUsing these estimates, we approximate the distribution of the sample mean for large (N) by:\n\n\\bar{X} \\sim N\\left(\\bar{x}, \\frac{s^2}{N}\\right)"
   },
   {
-    "objectID": "learning/ab_testing/03_ate.html",
-    "href": "learning/ab_testing/03_ate.html",
-    "title": "Average Treatment Effect",
+    "objectID": "learning/ab_testing/01_intro.html",
+    "href": "learning/ab_testing/01_intro.html",
+    "title": "Introduction to A/B testing",
     "section": "",
-    "text": "Recap\nIn previous posts, Introduction to A/B Testing and Importance of Randomization, we introduced A/B testing and why randomization is such an important step. Now we want to discuss how we can measure the effect of our proposed modification (the treatment).\n\n\nAverage Treatment Effect (ATE)\nThe Average Treatment Effect (ATE) measures the expected effect of a proposed treatment. In our COVID-19 example from Importance of Randomization, where we assess whether a medication improves survival. The ATE, in this case, would be the increase in the survival rate.\nConsider a subject i with two potential outcomes: Y_i^{(1)} if treated and Y_i^{(0)} if not treated. The individual treatment effect is: \nY_i^{(1)} - Y_i^{(0)}\n If subject i actually received the treatment, we do not observe Y_i^{(0)}. This unobserved outcome is the counterfactual.\nThe population Average Treatment Effect (ATE) is: \n\\mathrm{ATE} = \\mathbb{E}\\!\\left[Y^{(1)} - Y^{(0)}\\right] = \\sum _j^N (Y_j^{(1)} - Y_j^{(0)})\n\nBecause the counterfactual for each individual is unobserved, we estimate the ATE by comparing randomized groups. If we randomize N subjects to treatment and N to control, a consistent estimator is:\n\n\\widehat{\\mathrm{ATE}} = \\overline{Y}^{(1)} - \\overline{Y}^{(0)}\n the difference in average outcomes between the treated and control groups. With sufficiently large N, randomization makes the groups comparable, allowing us to estimate the ATE without observing individual counterfactuals."
+    "text": "Introduction\nSuppose you run an online store and want to improve sales. You then have an idea to enlarge the shopping-cart button. After deploying the change, sales increase (see Figure 1).\n\n\n\n\n\n\nFigure 1: Sales trend after introducing the cart-size change.\n\n\n\nDid your modification cause the increase in sales?\nNot necessarily. Several other factors could explain the rise, such as seasonality. For instance, if you implemented the change in early December, sales might climb simply because it’s close to Christmas, when people usually buy more.\nTo argue that your modification caused the increase, we first need a clear notion of causality.\n\n\nWhat is causality?\nCorrelation is about variables moving together. Causality is about changing in one variable producing changes in another.\nIn broad terms, two variables (A) and (B) are correlated when changes in one tend to be associated with changes in the other (see Figure 2). Correlation alone does not establish a cause–effect relationship.\n\n\n\n\n\n\nFigure 2: An illustration of variables moving together (correlation).\n\n\n\nTwo things can be correlated without either causing the other. This is called spurious correlation.\nA classic spurious correlation example is shown in Figure 3:\n(A=) “Air quality in Union City, Tennessee” and (B=) “Number of movies featuring Orlando Bloom.” They are correlated, but there is no plausible causal link between them.\n\n\n\n\n\n\nFigure 3: A spurious correlation example: unrelated variables that co-vary.\n\n\n\nCausality, on the other hand, concerns cause and consequence: if we change (A), what happens to (B)?\nConsider Figure 4. An oven’s temperature (B) is controlled by a dial (A). A thermometer (C) responds to the temperature. Turning the dial (A) changes the temperature (B), and the temperature (B) moves the thermometer (C). Thus, (A B C). Here, (A) and (C) are correlated because of the causal chain, but (A) does not act directly on (C). The effect is mediated by (B).\n\n\n\n\n\n\nFigure 4: Correlation via a causal chain (mediation).\n\n\n\nWith this foundation, we can now discuss A/B testing.\n\n\nWhat is A/B testing?\nA/B testing is a practical way to evaluate causality. It helps answer questions like: Did increasing the cart size cause higher sales?\nIn an A/B test you create two variants of the same experience. In our website example:\n\nA (control): the current website.\nB (treatment): the website with your proposed change.\n\nSee Figure 5.\n\n\n\n\n\n\nFigure 5: A/B test with a control (A) and a treatment (B).\n\n\n\nTo assess whether the modification improves sales, you randomly split incoming traffic between A and B. Because assignment is random, the two groups tend to be similar on both observed and unobserved factors. Any persistent difference in outcomes (e.g., conversion rate, revenue per session) is then can be attributable to the modification itself.\nIn short, A/B testing provides a clean comparison between “before/without change” (A) and “with change” (B) under randomization, offering strong evidence about whether your change causes an improvement.\nA/B tests are the only model-free way to show causality."
+  },
+  {
+    "objectID": "learning/miscellaneous/index.html",
+    "href": "learning/miscellaneous/index.html",
+    "title": "Miscellaneous Study Material",
+    "section": "",
+    "text": "Order By\n      Default\n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDescription\n\n\n\n\n\n\n\n\nEinsum Tutorial\n\n\nBrief introduction to Einsum\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Felipe Dias",
+    "section": "",
+    "text": "Felipe Dias\n    \n  \n\n  \n\n    \n\n      \n        \n      \n\n      \n        \n      \n\n      \n        \n      \n\n      \n        \n      \n\n      \n        \n      \n\n      \n        \n      \n\n      \n        \n      \n\n    \n\n    \n      \"Researcher focused in deep learning methods for biomedical signals.\"\n    \n\n  \n\n\n\n\n\n\n\n\n2012 to 2017\n\nElectronics Engineering\nUFJF\n\n\n\n2015 to 2016\n\nExchange Program\nIIT Chicago · USA\n\n\n\n2018 to 2020\n\nMSc Computer Vision\nUFJF\n\n\n\n2020-Present\n\nR&D Engineer\nInCor · HCFMUSP\n\n\n\n2021 to 2025\n\nPhD Deep Learning\nUSP"
+  },
+  {
+    "objectID": "learning/miscellaneous/01_einsum.html",
+    "href": "learning/miscellaneous/01_einsum.html",
+    "title": "Einsum Tutorial",
+    "section": "",
+    "text": "Einstein summation notation, commonly denoted as einsum, is a powerful tool for performing optimized matrix operations. It allows us to avoid using unnecessary for loops and simplifies complex matrix manipulations, making code more readable and efficient.\nEinsum is available in different libraries such as Numpy, PyTorch and Tensorflow."
+  },
+  {
+    "objectID": "learning/miscellaneous/01_einsum.html#matrix-notation",
+    "href": "learning/miscellaneous/01_einsum.html#matrix-notation",
+    "title": "Einsum Tutorial",
+    "section": "Matrix notation",
+    "text": "Matrix notation\nBefore diving deeper into einsum, let us briefly review some matrix terminology. Consider a matrix A with three rows and three columns:\n\nA = \\begin{bmatrix}\na_{11} & a_{12} & a_{13} \\\\\na_{21} & a_{22} & a_{23} \\\\\na_{31} & a_{32} & a_{33}\n\\end{bmatrix}\n\nThis matrix is described as a 3 \\times 3 matrix.\nThe element in the first row and first column is a_{11} and the element in the second row and third column is a_{23}. In general, the element in the ith row and jth column is a_{ij}.\nThis notation also applies to tensors. For a one dimensional vector v, the ith element is denoted by v_i."
+  },
+  {
+    "objectID": "learning/miscellaneous/01_einsum.html#intuition",
+    "href": "learning/miscellaneous/01_einsum.html#intuition",
+    "title": "Einsum Tutorial",
+    "section": "Intuition",
+    "text": "Intuition\nThe einsum operation performs two fundamental actions over tensors: multiplication and summation.\nWe now explore the logic behind both.\n\nMultiplication\nLet A and B be two 3 \\times 3 matrices. We create another matrix C whose elements are obtained from elementwise multiplication:\n\nc_{ij} = a_{ij} b_{ij}\n\nPython:\nimport numpy as np\nA = np.random.random((3, 3))\nB = np.random.random((3, 3))\nC = np.multiply(A, B)\nUsing einsum:\nC = np.einsum(\"ij,ij-&gt;ij\", A, B)\nThis mirrors the mathematical expression c_{ij} = a_{ij} b_{ij}.\nWe can also express it as a loop:\nC = np.zeros((3, 3))\nfor i in range(3):\n    for j in range(3):\n        C[i, j] = A[i, j] * B[i, j]\nLet us now work with vectors. For v = [1, 2, 3] and p = [4, 5, 6]:\n\nz_i = v_i p_i\n\nUsing einsum:\nz = np.einsum(\"i,i-&gt;i\", v, p)\nUsing loops:\nz = np.zeros(3)\nfor i in range(3):\n    z[i] = v[i] * p[i]\nNow consider using different indices, \"i,j\":\nnp.einsum(\"i,j-&gt;ij\", v, p)\nThis produces all combinations v_i p_j and forms a 3 \\times 3 matrix. Loop equivalent:\nfor i in range(3):\n    for j in range(3):\n        C[i, j] = v[i] * p[j]\n\n\nSummation\neinsum also performs summation over indices. If an index appears in the input but not in the output, the summation is applied over that index.\nTo sum all elements of a vector a:\nMath notation:\n\nc = \\sum_i a_i\n\nEinsum:\nc = np.einsum(\"i-&gt;\", a)\nTo sum all elements of a matrix A:\ns = np.einsum(\"ij-&gt;\", A)\n\n\nMatrix multiplication\nLet A be a 2 \\times 3 matrix and B a 3 \\times 2 matrix. Their product C = AB has components:\n\nc_{ik} = \\sum_j a_{ij} b_{jk}\n\nEinsum:\nC = np.einsum(\"ij,jk-&gt;ik\", A, B)"
+  },
+  {
+    "objectID": "learning/miscellaneous/01_einsum.html#practice",
+    "href": "learning/miscellaneous/01_einsum.html#practice",
+    "title": "Einsum Tutorial",
+    "section": "Practice",
+    "text": "Practice\n\n1. Transpose a matrix\nThe transpose of A = [a_{ij}] is A^{\\mathsf{T}} = [a_{ji}].\nUsing einsum:\nC = np.einsum(\"ij-&gt;ji\", A)\n\n\n2. Compute the trace of a square matrix\nFor a square matrix:\n\nA = \\begin{bmatrix}\na_{11} & a_{12} \\\\\na_{21} & a_{22}\n\\end{bmatrix}\n\nThe trace is:\n\n\\operatorname{Tr}(A) = \\sum_i a_{ii}\n\nUsing einsum:\ntr = np.einsum(\"ii-&gt;\", A)\n\n\n3. Compute the Euclidean norm of a vector\n\n\\|v\\| = \\sqrt{\\sum_i v_i v_i}\n\nUsing einsum:\nnorm = np.sqrt(np.einsum(\"i,i-&gt;\", v, v))\n\n\n4. Batch matrix multiplication\nLet A be a batch of matrices with shape (n, p, h) and B be a batch of matrices with shape (n, h, u).\nThe batch product is:\n\nc_{nik} = \\sum_j a_{nij} b_{njk}\n\nUsing einsum:\nC = np.einsum(\"nij,njk-&gt;nik\", A, B)"
+  },
+  {
+    "objectID": "learning/ab_testing/index.html",
+    "href": "learning/ab_testing/index.html",
+    "title": "A/B Testing",
+    "section": "",
+    "text": "Order By\n      Default\n      \n        Title\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nTitle\n\n\n\nDescription\n\n\n\n\n\n\n\n\nIntroduction to A/B testing\n\n\nBrief introduction to A/B testing\n\n\n\n\n\n\nWhy do we randomize?\n\n\nImportance of randomization\n\n\n\n\n\n\nAverage Treatment Effect\n\n\nAverage Treatment Effect\n\n\n\n\n\n\nHypothesis-driven Product Development\n\n\nHypothesis-driven Product Development\n\n\n\n\n\n\nSampling\n\n\nSampling\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "learning/ab_testing/04_hdpd.html",
+    "href": "learning/ab_testing/04_hdpd.html",
+    "title": "Hypothesis-driven Product Development",
+    "section": "",
+    "text": "In our previous posts, we introduced A/B testing, highlighted why randomization is essential, and discussed how we can measure the effect of a treatment in an A/B testing context.\nToday we move into Hypothesis-driven Product Development (HDPD), which shifts the traditional product workflow from simply having an idea, implementing it, and checking results to a structured process where ideas are tested through experimentation and validated with measurable evidence."
+  },
+  {
+    "objectID": "learning/ab_testing/04_hdpd.html#good-metrics",
+    "href": "learning/ab_testing/04_hdpd.html#good-metrics",
+    "title": "Hypothesis-driven Product Development",
+    "section": "Good metrics",
+    "text": "Good metrics\nA metric is good when it can be compared across time and, for business contexts, when it is connected to financial performance or user behavior. Examples:\n\nCTR (Click Through Rate)\nCVR (Conversion Rate)\n\nThese metrics help guide decisions because changes in them reflect real impact on the business.\nIn general, in a given experiment, you have three sorts of metrics:\n\nOEC (Overall evaluation criteria): The most important metric\nSecondary metrics: Important metrics, but they are not the OEC\nGuardrail metrics: “Security” metrics, metrics that should not be comprimised by the experiment, such as loading time"
+  },
+  {
+    "objectID": "learning/ab_testing/04_hdpd.html#vanity-metrics",
+    "href": "learning/ab_testing/04_hdpd.html#vanity-metrics",
+    "title": "Hypothesis-driven Product Development",
+    "section": "Vanity metrics",
+    "text": "Vanity metrics\nMetrics are usually created to support meaningful decisions. However, some metrics look impressive but do not help with practical decision making. These are known as “vanity metrics”.\nFor example, the total number of users who have ever created an account may be useful for marketing announcements, such as saying a product reached one million users, but it does not help you decide how to improve the product."
   },
   {
     "objectID": "blog/index.html",
