@@ -10,6 +10,8 @@ draft: false
 
 Whenever you try to learn something about a real population, a practical limitation appears. It is almost never possible to measure every individual. The cost is high and time is limited. **This is why sampling is so important.**
 
+![Getting a sample from a population.](images/population_sample_drawing.svg){#fig-mod fig-cap="Getting a sample from a population." width=60%}
+
 # Theoretical concepts
 
 ## Random variables
