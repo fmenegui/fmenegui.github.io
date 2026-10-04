@@ -33,15 +33,17 @@ def home(c,base,lang):
  s+=f'<section class="section" id="projects"><div class="section-head"><h2>{c["selected"]}</h2></div>'
  for key in ['gorgona','incor','rpms']:
   v=c[key]
-  imagefile={'gorgona':'gorgona-thumbnail.webp','incor':'incor-integration.png','rpms':'rpms-app.jpeg'}[key]
-  thumb=f'<a class="project-thumb {"incor-thumb" if key=="incor" else ""}" href="projects/{key}.html"><img src="{base}assets/{imagefile}" alt="{e(v["title"])}" loading="lazy"></a>'
+  imagefile={'gorgona':'flows.png','incor':'incor-integration.png','rpms':'rpms-app.jpeg'}[key]
+  thumb=f'<a class="project-thumb {key}-thumb" href="projects/{key}.html"><img src="{base}assets/{imagefile}" alt="{e(v["title"])}" loading="lazy"></a>'
   doi=PAPERS[{'gorgona':0,'incor':3,'rpms':9}[key]][4]
-  s+=f'<article class="project">{thumb}<div><h3><a href="projects/{key}.html">{v["title"]}</a></h3><p class="project-info">{v["role"]}<br>{v["period"]}</p><p class="desc">{v["summary"]}</p><p class="project-links"><a href="projects/{key}.html">{c["read"]}</a> · <a href="https://doi.org/{doi}">{c["article"]}</a></p></div></article>'
+  s+=f'<article class="project">{thumb}<div><h3><a href="projects/{key}.html">{v["title"]}</a></h3><p class="project-info">{v["status"]} · {v["period"]}</p><p class="desc">{v["summary"]}</p><p class="project-evidence">{v["evidence"]}</p><p class="project-links"><a href="projects/{key}.html">{c["read"]}</a> · <a href="https://doi.org/{doi}">{c["article"]}</a></p></div></article>'
  s+='</section>'
  return s
 def detail(c,key,base):
- v=c[key];l=c['labels'];s=f'<header class="detail-top"><a class="back" href="../index.html#projects">← {c["back"]}</a><p class="eyebrow">{v["kicker"]}</p><h1>{v["title"]}</h1><p class="subtitle">{v["subtitle"]}</p><p class="lead">{v["summary"]}</p></header>'
+ v=c[key];l=c['labels'];s=f'<header class="detail-top"><a class="back" href="../index.html#projects">← {c["back"]}</a><p class="eyebrow">{v["kicker"]}</p><h1>{v["title"]}</h1><p class="subtitle">{v["subtitle"]}</p></header>'
+ s+=f'<p class="project-evidence">{e(v["evidence"])}</p>'
  s+=section(l['objective'],v['objective'],'objective')+section(l['contribution'],v['contribution'])
+ s+='<section class="article-section decisions"><h2>'+('Decisões de engenharia' if c['locale']=='pt-BR' else 'Engineering decisions')+'</h2><dl>'+''.join('<div><dt>'+e(a)+'</dt><dd>'+e(b)+'</dd></div>' for a,b in v['decisions'])+'</dl></section>'
  if key=='rpms':
   lang='pt' if c['locale']=='pt-BR' else 'en'
   s+=f'<section class="article-section"><h2>{"Como funciona" if lang=="pt" else "How it works"}</h2>{fig(base,"rpms-architecture.jpeg",v["caption"])}{par(v["method"])}</section>'
@@ -67,12 +69,15 @@ def detail(c,key,base):
   s+=f'<section class="article-section"><h2>{l["refs"]}</h2>{refs([2] if key=="physionet" else [1,4])}'
   if key=='physionet':s+=f'<a class="text-link" href="{LINKS["challenge"]}">{l["official"]} ↗</a>'
   return s+'</section>'
+ s+='<figure class="gorgona-flow"><div class="flow-window"><img src="'+base+'assets/flows.png" alt="'+('Fluxo proposto com IA: cliente, anonimização, servidor InCor e alerta no Telegram, em paralelo à telemedicina.' if c['locale']=='pt-BR' else 'Proposed AI workflow: client, anonymization, InCor server and Telegram alerts alongside telemedicine.')+'"></div><figcaption>'+('Fluxo proposto com IA. Figura original do projeto.' if c['locale']=='pt-BR' else 'Proposed AI workflow. Original project figure, with Portuguese labels.')+'</figcaption></figure>'
  s+=metrics(c)+f'<p class="note">{v["count_note"]}</p>'
  s+='<nav class="contents" aria-label="'+('Nesta página' if c['locale']=='pt-BR' else 'On this page')+'">'+''.join(f'<a href="#{k}">{l[k]}</a>' for k in ['objective','workflow','server','case'])+'</nav>'
  s+=f'<section class="article-section"><h2>{l["location"]}</h2>{par(v["location"])}{fig(base,"upa-map-"+("pt" if c["locale"]=="pt-BR" else "en")+".webp",v["map_caption"])}<a class="text-link" href="{LINKS["map"]}">{l["openmap"]} ↗</a></section>'
  s+=f'<section class="article-section" id="workflow"><h2>{l["how"]}</h2><div class="split"><div><h3>{l["before"]}</h3>{par(v["before"])}</div><div><h3>{l["after"]}</h3>{par(v["after"])}</div></div>{fig(base,"flows.png",l["workflow"]+(". Diagramas originais do projeto." if c["locale"]=="pt-BR" else ". Original project diagrams in Portuguese."))}{table([l["step"],l["before"],l["after"]],v["flow_rows"])}</section>'
+ s+='<details class="technical implementation"><summary>'+('Cliente Windows, servidor e plataforma online' if c['locale']=='pt-BR' else 'Windows client, server and online platform')+'</summary>'
  s+=f'<section class="article-section"><h2>{l["client"]}</h2>{par(v["client"])}<div class="two-images">{fig(base,"client-install.png","ECG-IA Client 1.6.66 · Windows")}{fig(base,"client-menu.png","ECG-IA Client · "+("Menu na bandeja do Windows" if c["locale"]=="pt-BR" else "Windows system tray menu"))}</div></section>'
  s+=f'<section class="article-section" id="server"><h2>{l["server"]}</h2>{par(v["server"])}{fig(base,"architecture.png",("Arquitetura do sistema." if c["locale"]=="pt-BR" else "System architecture. Original labels in Portuguese."))}<h3>{l["privacy"]}</h3>{par(v["privacy"])}{par(v["dashboard"])}{fig(base,"dashboard.png","Gorgona · Dashboard · 03/10/2026")}</section>'
+ s+='</details>'
  s+=f'<section class="article-section" id="case"><h2>{l["result"]}</h2><h3>{l["case"]}</h3>{par(v["case"])}{fig(base,"timeline.png",v["timeline_caption"])}{table([l["event"],l["first"],l["second"]],v["case_rows"])}{par(v["case_result"])}</section>'
  s+=f'<section class="article-section"><h2>{l["model"]}</h2>{par(v["foundation"])}{par(v["model"])}<h3>{l["refs"]}</h3>{refs([2,10,0,3])}</section>'
  return s
