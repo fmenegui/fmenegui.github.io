@@ -1,6 +1,6 @@
 [
   {
-    "listing": "/learning/hands_on_torch/index.html",
+    "listing": "/blog/index.html",
     "items": []
   },
   {
@@ -8,6 +8,10 @@
     "items": [
       "/learning/miscellaneous/01_einsum.html"
     ]
+  },
+  {
+    "listing": "/learning/hands_on_torch/index.html",
+    "items": []
   },
   {
     "listing": "/learning/ab_testing/index.html",
@@ -18,9 +22,5 @@
       "/learning/ab_testing/04_hdpd.html",
       "/learning/ab_testing/05_sampling.html"
     ]
-  },
-  {
-    "listing": "/blog/index.html",
-    "items": []
   }
 ]

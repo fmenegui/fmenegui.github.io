@@ -2,17 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
 <title>A/B Testing – Felipe Dias</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -34,15 +40,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-1e85cfe5524e29f0b36e4f7815c0588c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-5e85189689f64ca0ed64cd76e6b7f848.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -268,7 +273,7 @@ Description
 </thead>
 <tbody class="list">
 
-<tr data-index="0" data-categories="YWIlMjB0ZXN0aW5nJTJDc3R1ZHk=" data-listing-date-sort="1762905600000" data-listing-file-modified-sort="1765767179562" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="522" data-listing-title-sort="Introduction to A/B testing" data-listing-filename-sort="01_intro.qmd">
+<tr data-index="0" data-categories="YWIlMjB0ZXN0aW5nJTJDc3R1ZHk=" data-listing-date-sort="1762905600000" data-listing-file-modified-sort="1791120812846" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="522" data-listing-title-sort="Introduction to A/B testing" data-listing-filename-sort="01_intro.qmd">
 <td>
 <a href="../../learning/ab_testing/01_intro.html" class="title listing-title">Introduction to A/B testing</a>
 </td>
@@ -278,7 +283,7 @@ Description
 
 </tr>
 
-<tr data-index="1" data-categories="YWItdGVzdGluZyUyQ3N0dWR5" data-listing-date-sort="1762905600000" data-listing-file-modified-sort="1765767179562" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="384" data-listing-title-sort="Why do we randomize?" data-listing-filename-sort="02_randomization.qmd">
+<tr data-index="1" data-categories="YWItdGVzdGluZyUyQ3N0dWR5" data-listing-date-sort="1762905600000" data-listing-file-modified-sort="1791120812846" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="384" data-listing-title-sort="Why do we randomize?" data-listing-filename-sort="02_randomization.qmd">
 <td>
 <a href="../../learning/ab_testing/02_randomization.html" class="title listing-title">Why do we randomize?</a>
 </td>
@@ -288,7 +293,7 @@ Description
 
 </tr>
 
-<tr data-index="2" data-categories="YWItdGVzdGluZyUyQ3N0dWR5" data-listing-date-sort="1762905600000" data-listing-file-modified-sort="1765767179562" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="203" data-listing-title-sort="Average Treatment Effect" data-listing-filename-sort="03_ate.qmd">
+<tr data-index="2" data-categories="YWItdGVzdGluZyUyQ3N0dWR5" data-listing-date-sort="1762905600000" data-listing-file-modified-sort="1791120812846" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="203" data-listing-title-sort="Average Treatment Effect" data-listing-filename-sort="03_ate.qmd">
 <td>
 <a href="../../learning/ab_testing/03_ate.html" class="title listing-title">Average Treatment Effect</a>
 </td>
@@ -298,7 +303,7 @@ Description
 
 </tr>
 
-<tr data-index="3" data-categories="SHlwb3RoZXNpcy1kcml2ZW4lMjBQcm9kdWN0JTIwRGV2ZWxvcG1lbnQlMkNIeXBvdGhlc2lzJTJDc3R1ZHk=" data-listing-date-sort="1764115200000" data-listing-file-modified-sort="1765767179562" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="453" data-listing-title-sort="Hypothesis-driven Product Development" data-listing-filename-sort="04_hdpd.qmd">
+<tr data-index="3" data-categories="SHlwb3RoZXNpcy1kcml2ZW4lMjBQcm9kdWN0JTIwRGV2ZWxvcG1lbnQlMkNIeXBvdGhlc2lzJTJDc3R1ZHk=" data-listing-date-sort="1764115200000" data-listing-file-modified-sort="1791120812846" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="453" data-listing-title-sort="Hypothesis-driven Product Development" data-listing-filename-sort="04_hdpd.qmd">
 <td>
 <a href="../../learning/ab_testing/04_hdpd.html" class="title listing-title">Hypothesis-driven Product Development</a>
 </td>
@@ -308,7 +313,7 @@ Description
 
 </tr>
 
-<tr data-index="4" data-categories="c2FtcGxpbmclMkNzdHVkeQ==" data-listing-date-sort="1765152000000" data-listing-file-modified-sort="1765767179562" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="559" data-listing-title-sort="Sampling" data-listing-filename-sort="05_sampling.qmd">
+<tr data-index="4" data-categories="c2FtcGxpbmclMkNzdHVkeQ==" data-listing-date-sort="1765152000000" data-listing-file-modified-sort="1791120812846" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="559" data-listing-title-sort="Sampling" data-listing-filename-sort="05_sampling.qmd">
 <td>
 <a href="../../learning/ab_testing/05_sampling.html" class="title listing-title">Sampling</a>
 </td>
@@ -398,7 +403,7 @@ Description
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/fmenegui\.github\.io\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
