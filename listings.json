@@ -2,25 +2,5 @@
   {
     "listing": "/blog/index.html",
     "items": []
-  },
-  {
-    "listing": "/learning/miscellaneous/index.html",
-    "items": [
-      "/learning/miscellaneous/01_einsum.html"
-    ]
-  },
-  {
-    "listing": "/learning/hands_on_torch/index.html",
-    "items": []
-  },
-  {
-    "listing": "/learning/ab_testing/index.html",
-    "items": [
-      "/learning/ab_testing/01_intro.html",
-      "/learning/ab_testing/02_randomization.html",
-      "/learning/ab_testing/03_ate.html",
-      "/learning/ab_testing/04_hdpd.html",
-      "/learning/ab_testing/05_sampling.html"
-    ]
   }
 ]
