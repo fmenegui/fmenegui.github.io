@@ -1,4 +1,4 @@
-"""Reviewed bilingual editorial content. CV updated from the author on 2026-10-04."""
+"""Bilingual editorial content and verified publication references."""
 LINKS = {'email': 'mailto:f.meneguittidias@gmail.com',
  'linkedin': 'https://www.linkedin.com/in/felipe-meneguitti-dias-312570b3/',
  'github': 'https://github.com/fmenegui',
@@ -59,7 +59,12 @@ PAPERS = [('2026',
   'IoT Medical Device Architecture to Estimate Non-invasive Arterial Blood Pressure',
   'Moreno R, Dias F, Arruda M et al.',
   'Symposium on Internet of Things (SIoT)',
-  '10.1109/SIOT56383.2022.10069878')]
+  '10.1109/SIOT56383.2022.10069878'),
+ ('2025',
+  'Classificação automatizada de imagens de eletrocardiogramas por aprendizado profundo',
+  'Dias FM.',
+  'Universidade de São Paulo · Tese de doutorado',
+  '10.11606/T.3.2025.tde-16012026-084015')]
 CONTENT = {'pt': {'locale': 'pt-BR',
         'name': 'Português',
         'nav': ['Projetos', 'Currículo', 'Publicações', 'Contato'],
@@ -161,7 +166,17 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                              'teste reservado, o macro F1 foi de 0,807 (IC 95%: 0,788 a 0,825). Esses '
                              'números descrevem a pesquisa do classificador, separadamente do volume '
                              'processado em serviço.',
-                    'period': '2026'},
+                    'period': '2026',
+                    'foundation': 'O modelo da equipe AIMED, vencedor da tarefa de classificação do George '
+                                  'B. Moody PhysioNet Challenge 2024, serviu de base para o desenvolvimento '
+                                  'do classificador utilizado no Gorgona. O artigo do Computing in '
+                                  'Cardiology (CinC) 2024 descreve a abordagem com ConvNeXt, pré-treinamento '
+                                  'em imagens de ECG e ensemble de modelos. Minha tese de doutorado '
+                                  'documenta a construção dos bancos de imagens, as estratégias de '
+                                  'treinamento e a avaliação clínica dessa linha de pesquisa.',
+                    'foundation_short': 'O classificador foi desenvolvido a partir do modelo da equipe AIMED '
+                                        'vencedor da tarefa de classificação do PhysioNet Challenge 2024. O '
+                                        'artigo do CinC 2024 e minha tese documentam essa base científica.'},
         'incor': {'kicker': '02 / Integração hospitalar · InCor · 2023–2026',
                   'title': 'ECG na emergência do InCor',
                   'subtitle': 'Do PACS à tela da equipe médica',
@@ -434,7 +449,16 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                              'includes 18,519 ECGs from 14,402 patients, annotated by 19 cardiologists. '
                              'Held-out macro F1 was 0.807 (95% CI: 0.788–0.825). These figures describe the '
                              'classifier study, separately from operational processing volume.',
-                    'period': '2026'},
+                    'period': '2026',
+                    'foundation': 'The AIMED model that won the classification task of the 2024 George B. '
+                                  'Moody PhysioNet Challenge served as the foundation for developing the '
+                                  'classifier used in Gorgona. The Computing in Cardiology (CinC) 2024 paper '
+                                  'describes the ConvNeXt approach, ECG image pretraining and model '
+                                  'ensemble. My doctoral thesis documents the image datasets, training '
+                                  'strategies and clinical evaluation behind this research.',
+                    'foundation_short': 'The classifier was developed from the AIMED model that won the 2024 '
+                                        'PhysioNet Challenge classification task. The CinC 2024 paper and my '
+                                        'doctoral thesis document this foundation.'},
         'incor': {'kicker': '02 / Hospital integration · InCor · 2023–2026',
                   'title': 'ECG classification at InCor',
                   'subtitle': 'From PACS to the emergency room screen',

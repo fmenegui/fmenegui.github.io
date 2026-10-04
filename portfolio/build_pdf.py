@@ -23,7 +23,7 @@ def make(lang):
  s+=p('Doutorado em Engenharia Biomédica · Universidade de São Paulo' if pt else 'PhD in Biomedical Engineering · University of São Paulo','qualification')
  s+=f'<div class="contactline"><a href="{LINKS["email"]}">f.meneguittidias@gmail.com</a><br><a href="https://fmenegui.com/">fmenegui.com</a> · <a href="{LINKS["linkedin"]}">LinkedIn</a> · <a href="{LINKS["github"]}">GitHub</a></div>'
  pages.append(s)
- v=c['gorgona'];s=title('01','Gorgona',v['subtitle'])+p(v['summary'],'lead')
+ v=c['gorgona'];s=title('01','Gorgona',v['subtitle'])
  s+='<div class="metrics">'+''.join(f'<div><strong>{x}</strong><span>{y}</span></div>' for x,y in v['metrics'])+'</div>'
  s+=p(v['count_note'],'note')
  s+=f'<h3>{l["objective"]}</h3>'+p(v['objective'])
@@ -34,13 +34,13 @@ def make(lang):
  s+=f'<h3>{l["case"]} · UPA Rodrigo Argolo · 20/05/2026</h3>'
  s+=img('timeline.png', 'Linha do tempo original, slide 23. Recorte sem o bloco de identificação.' if pt else 'Original timeline, slide 23. Personal identification block omitted.','timeline')
  s+=p('Dois ECGs do mesmo atendimento geraram alertas em 2 minutos, antecipando os laudos em 41 e 25 minutos. O caso documenta o tempo de comunicação à regulação.' if pt else 'Two ECGs from the same encounter triggered alerts within 2 minutes, preceding their reports by 41 and 25 minutes. The case documents communication timing.')
- s+=references([0],lang)
+ s+=p(v['foundation_short'],'foundation')+references([2,10,0],lang)
  pages.append(s)
  v=c['incor'];s=title('02','InCor',v['subtitle'])+p(v['summary'],'lead')
  s+=f'<h3>{l["objective"]}</h3>'+p(v['objective'])
  s+=f'<figure class="incor-figure"><div class="figure-window"><img src="{(ROOT/"assets/incor-integration.png").as_uri()}" alt=""></div><figcaption>{e(v["caption"])}</figcaption></figure>'
  s+=p(v['method'])+p(v['result'])
- s+=p(v['role'],'note')+references([3,0],lang)
+ s+=p(v['role'],'note')+references([3,0,10],lang)
  pages.append(s)
  v=c['rpms'];s=title('03','RPMS',v['subtitle'])+p(v['objective'],'lead')
  s+=f'<h3>{l["contribution"]}</h3>'+p(v['contribution'])
