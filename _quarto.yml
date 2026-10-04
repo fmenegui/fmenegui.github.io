@@ -1,6 +1,10 @@
 project:
   type: website
   output-dir: _site
+  render:
+    - index.qmd
+    - cv/cv.qmd
+    - blog/index.qmd
 
 website:
   title: "Felipe Dias"
@@ -14,14 +18,6 @@ website:
         href: cv/cv.qmd      
       - text: Blog
         href: blog/index.qmd
-      - text: Learning
-        menu:
-          - text: Hands-On Machine Learning with Scikit-Learn and PyTorch
-            href: learning/hands_on_torch/index.qmd
-          - text: A/B testing
-            href: learning/ab_testing/index.qmd
-          - text: Miscellaneous
-            href: learning/miscellaneous/index.qmd
   page-footer:
     left: ""
     right: ""

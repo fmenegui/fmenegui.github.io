@@ -20,8 +20,8 @@ def make(lang):
  for n,key in enumerate(['gorgona','incor','rpms'],1):
   z=c[key];s+=f'<section><span>0{n}</span><div><h3>{e(z["title"])}</h3>{p(z["summary"])}<p class="note">{e(z["role"])}</p></div></section>'
  s+='</div>'
- s+=p('Doutorado em Engenharia Elétrica · Universidade de São Paulo' if pt else 'PhD in Electrical Engineering · University of São Paulo','qualification')
- s+=f'<div class="contactline"><a href="{LINKS["email"]}">f.meneguittidias@gmail.com</a><br><a href="https://fmenegui.github.io/">fmenegui.github.io</a> · <a href="{LINKS["linkedin"]}">LinkedIn</a> · <a href="{LINKS["github"]}">GitHub</a></div>'
+ s+=p('Doutorado em Engenharia Biomédica · Universidade de São Paulo' if pt else 'PhD in Biomedical Engineering · University of São Paulo','qualification')
+ s+=f'<div class="contactline"><a href="{LINKS["email"]}">f.meneguittidias@gmail.com</a><br><a href="https://fmenegui.com/">fmenegui.com</a> · <a href="{LINKS["linkedin"]}">LinkedIn</a> · <a href="{LINKS["github"]}">GitHub</a></div>'
  pages.append(s)
  v=c['gorgona'];s=title('01','Gorgona',v['subtitle'])+p(v['summary'],'lead')
  s+='<div class="metrics">'+''.join(f'<div><strong>{x}</strong><span>{y}</span></div>' for x,y in v['metrics'])+'</div>'
@@ -40,14 +40,14 @@ def make(lang):
  s+=f'<h3>{l["objective"]}</h3>'+p(v['objective'])
  s+=f'<figure class="incor-figure"><div class="figure-window"><img src="{(ROOT/"assets/incor-integration.png").as_uri()}" alt=""></div><figcaption>{e(v["caption"])}</figcaption></figure>'
  s+=p(v['method'])+p(v['result'])
- s+=p(v['role'],'note')+references([3],lang)
+ s+=p(v['role'],'note')+references([3,0],lang)
  pages.append(s)
  v=c['rpms'];s=title('03','RPMS',v['subtitle'])+p(v['objective'],'lead')
  s+=f'<h3>{l["contribution"]}</h3>'+p(v['contribution'])
- s+=img(f'rpms-{lang}.svg',v['caption'],'rpms-flow')+p(v['method'])
+ s+=img('rpms-architecture.jpeg',v['caption'],'rpms-flow')+p(v['method'])
  s+=f'<h3>{"Algoritmos e pesquisa" if pt else "Algorithms and research"}</h3><div class="biomarkers">'
  for name,desc,i in v['biomarkers']:s+=f'<div><b>{e(name)}</b>{p(desc)}</div>'
- s+='</div>'+references([6,1,7,8],lang)
+ s+='</div>'+references([9,6,1,7,8],lang)
  pages.append(s)
  html=f'<!doctype html><html lang="{c["locale"]}"><head><meta charset="utf-8"><title>Felipe Dias | {c["portfolio"]}</title><link rel="stylesheet" href="{(ROOT/"print.css").as_uri()}"></head><body>'
  for i,body in enumerate(pages,1):html+=f'<article class="sheet compact">{body}<footer><span>Felipe Meneguitti Dias · {c["portfolio"]}</span><span>{i:02} / {len(pages):02}</span></footer></article>'

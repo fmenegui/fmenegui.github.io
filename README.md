@@ -45,3 +45,5 @@ Design references: UC Davis DataLab's portfolio workshop and Arthur Koehl's proj
 
 
 Atualização editorial: três projetos selecionados (Gorgona, ECG na emergência do InCor e RPMS). PhysioNet Challenge aparece apenas no currículo. PDF resumido de quatro páginas por idioma. Referências do RPMS ligadas às frentes de qualidade de sinal, pressão arterial, diabetes e sono.
+
+Revisão de 04/10/2026: currículo PT/EN atualizado com Samsung, experiência no InCor, LLMs, competências e premiações. RPMS expandido como Remote Patient Monitoring System. Descrições uniformizadas. Notas de estudo mantidas apenas no código-fonte e excluídas da publicação. Doutorado nomeado conforme o currículo fornecido pelo autor.

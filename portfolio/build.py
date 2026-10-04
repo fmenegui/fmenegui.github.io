@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build bilingual static pages. Run after Quarto to retain existing study notes."""
+"""Build the bilingual portfolio and CV."""
 from pathlib import Path
 from html import escape as e
 import shutil
@@ -21,7 +21,7 @@ def metrics(c):return '<div class="metrics">'+''.join(f'<div class="metric"><str
 def section(title,text,id=''):return f'<section class="article-section" id="{id}"><h2>{e(title)}</h2>{par(text)}</section>'
 def social():return '<div class="social">'+''.join(f'<a href="{LINKS[k]}">{label}</a>' for k,label in [('linkedin','LinkedIn'),('github','GitHub'),('scholar','Google Scholar'),('orcid','ORCID'),('lattes','Lattes')])+'</div>'
 def publications(cv=False):
- return '<ol class="pub-list">'+''.join(f'<li><time>{yr}</time><div><h3><a href="https://doi.org/{doi}">{e(title)}</a></h3><p>{e(authors)} · {e(venue)}</p></div></li>' for i,(yr,title,authors,venue,doi) in enumerate(PAPERS) if cv or i!=2)+'</ol>'
+ return '<ol class="pub-list">'+''.join(f'<li><time>{yr}</time><div><h3><a href="https://doi.org/{doi}">{e(title)}</a></h3><p>{e(authors)} · {e(venue)}</p></div></li>' for i,(yr,title,authors,venue,doi) in sorted(enumerate(PAPERS),key=lambda item:-int(item[1][0])) if cv or i!=2)+'</ol>'
 def education(c):return '<ol class="education">'+''.join(f'<li><time>{date}</time><div><strong>{e(name)}</strong><small>{e(school)}</small></div></li>' for date,name,school in c['education'])+'</ol>'
 def visual(key,c,base):
  if key=='gorgona':return f'<div class="project-visual"><img src="{base}assets/dashboard.png" alt="Gorgona dashboard" loading="lazy"></div>'
@@ -36,19 +36,19 @@ def home(c,base,lang):
   imagefile={'gorgona':'dashboard.png','incor':'incor-integration.png','rpms':'rpms-app.jpeg'}[key]
   thumb=f'<a class="project-thumb {"incor-thumb" if key=="incor" else ""}" href="projects/{key}.html"><img src="{base}assets/{imagefile}" alt="{e(v["title"])}" loading="lazy"></a>'
   doi=PAPERS[{'gorgona':0,'incor':3,'rpms':9}[key]][4]
-  s+=f'<article class="project">{thumb}<div><h3><a href="projects/{key}.html">{v["title"]}</a></h3><p class="project-info">{v["role"]}<br>{v["kicker"].split(" · ")[-1]}</p><p class="desc">{v["summary"]}</p><p class="project-links"><a href="projects/{key}.html">{c["read"]}</a> · <a href="https://doi.org/{doi}">{c["article"]}</a></p></div></article>'
+  s+=f'<article class="project">{thumb}<div><h3><a href="projects/{key}.html">{v["title"]}</a></h3><p class="project-info">{v["role"]}<br>{v["period"]}</p><p class="desc">{v["summary"]}</p><p class="project-links"><a href="projects/{key}.html">{c["read"]}</a> · <a href="https://doi.org/{doi}">{c["article"]}</a></p></div></article>'
  s+='</section>'
  return s
 def detail(c,key,base):
- v=c[key];l=c['labels'];s=f'<header class="detail-top"><a class="back" href="../index.html#projects">← {c["back"]}</a><p class="eyebrow">{v["kicker"]}</p><h1>{v["title"]}</h1><p class="subtitle">{v["subtitle"]}</p><p class="lead">{v["summary"]}</p><p class="role-line">{l["contribution"]}: {v["role"]}</p></header>'
+ v=c[key];l=c['labels'];s=f'<header class="detail-top"><a class="back" href="../index.html#projects">← {c["back"]}</a><p class="eyebrow">{v["kicker"]}</p><h1>{v["title"]}</h1><p class="subtitle">{v["subtitle"]}</p><p class="lead">{v["summary"]}</p></header>'
+ s+=section(l['objective'],v['objective'],'objective')+section(l['contribution'],v['contribution'])
  if key=='rpms':
   lang='pt' if c['locale']=='pt-BR' else 'en'
-  s+=section(l['objective'],v['objective'])+section(l['contribution'],v['contribution'])
   s+=f'<section class="article-section"><h2>{"Como funciona" if lang=="pt" else "How it works"}</h2>{fig(base,"rpms-architecture.jpeg",v["caption"])}{par(v["method"])}</section>'
   evidence=('A versão descrita no artigo de 2022 reuniu dados de 52 voluntários e foi utilizada no monitoramento remoto com 15 pulseiras. O aplicativo preservava o histórico local e enviava ao servidor as estimativas de pressão sistólica, diastólica e frequência cardíaca.' if lang=='pt' else 'The version described in the 2022 paper used data from 52 volunteers and supported remote monitoring with 15 wristbands. The app retained a local history and sent systolic pressure, diastolic pressure and heart rate estimates to the server.')
   appcap=('Aplicativo Android: medição, aquisição do PPG e histórico. Figura 3, SIoT 2022.' if lang=='pt' else 'Android app: measurement, PPG acquisition and history. Figure 3, SIoT 2022.')
   dashcap=('Painel ThingsBoard: visualização das medidas recebidas. Figura 4, SIoT 2022.' if lang=='pt' else 'ThingsBoard dashboard: received measurements. Figure 4, SIoT 2022.')
-  s+=f'<section class="article-section"><h2>{"Aplicativo e acompanhamento" if lang=="pt" else "App and monitoring"}</h2>{par(evidence)}<div class="rpms-gallery">{fig(base,"rpms-app.jpeg",appcap)}{fig(base,"rpms-dashboard.jpeg",dashcap)}</div></section>'
+  s+=f'<section class="article-section"><h2>{l["result"]}</h2>{par(evidence)}<div class="rpms-gallery">{fig(base,"rpms-app.jpeg",appcap)}{fig(base,"rpms-dashboard.jpeg",dashcap)}</div></section>'
   protocol=('No protocolo de 2022, cada voluntário descansava por 10 minutos e realizava três coletas de um minuto de PPG, intercaladas com medidas de pressão por manguito. O processamento incluía filtro de 0,5 a 10 Hz, reamostragem de 200 para 125 Hz e janelas de 8 segundos. A avaliação separava os participantes entre as partições de validação.' if lang=='pt' else 'In the 2022 protocol, volunteers rested for 10 minutes and completed three one-minute PPG recordings interleaved with cuff blood pressure measurements. Processing used a 0.5–10 Hz filter, resampling from 200 to 125 Hz and 8-second windows. Evaluation kept participants separate across validation folds.')
   s+=f'<details class="technical"><summary>{"Protocolo e processamento do sinal" if lang=="pt" else "Collection protocol and signal processing"}</summary>{par(protocol)}{fig(base,"rpms-protocol.png","SIoT 2022 · Figure 2")}</details>'
   s+=f'<section class="article-section"><h2>{"Algoritmos e pesquisa" if lang=="pt" else "Algorithms and research"}</h2>{par(v["research"])}<div class="biomarker-grid">'
@@ -57,9 +57,10 @@ def detail(c,key,base):
   s+='</div></section>'
   return s+f'<section class="article-section"><h2>{l["refs"]}</h2>{refs([9,6,1,4,7,8])}</section>'
  if key=='incor':
-  s+=section(l['objective'],v['objective'])
-  s+=f'<section class="article-section"><h2>{l["method"]}</h2><figure class="incor-figure"><div class="figure-window"><img src="{base}assets/incor-integration.png" alt="{e(v["caption"])}"></div><figcaption>{e(v["caption"])}</figcaption></figure>{par(v["method"])}{table([l["step"],l["method"]],v["workflow"])}{par(v["result"])}{par(v["scope"])}</section>'
-  return s+f'<section class="article-section"><h2>{l["refs"]}</h2>{refs([3])}</section>'
+  s+=f'<section class="article-section"><h2>{l["how"]}</h2><figure class="incor-figure"><div class="figure-window"><img src="{base}assets/incor-integration.png" alt="{e(v["caption"])}"></div><figcaption>{e(v["caption"])}</figcaption></figure>{par(v["method"])}{table([l["step"],l["method"]],v["workflow"])}</section>'
+  s+=section(l['result'],v['result'])+par(v['scope'])
+  s+=''
+  return s+f'<section class="article-section"><h2>{l["refs"]}</h2>{refs([3,0])}</section>'
  if key!='gorgona':
   s+='<div class="split"><div>'+visual(key,c,base)+'</div><div>'+par(v['method'])+par(v['result'])+'</div></div>'
   s+=section(l['team'],v['team'])
@@ -68,21 +69,24 @@ def detail(c,key,base):
   return s+'</section>'
  s+=metrics(c)+f'<p class="note">{v["count_note"]}</p>'
  s+='<nav class="contents" aria-label="'+('Nesta página' if c['locale']=='pt-BR' else 'On this page')+'">'+''.join(f'<a href="#{k}">{l[k]}</a>' for k in ['objective','workflow','server','case'])+'</nav>'
- s+=section(l['objective'],v['objective'],'objective')
- s+=section(l['contribution'],v['contribution'])
  s+=f'<section class="article-section"><h2>{l["location"]}</h2>{par(v["location"])}{fig(base,"upa-map.png",v["map_caption"])}<a class="text-link" href="{LINKS["map"]}">{l["openmap"]} ↗</a></section>'
- s+=f'<section class="article-section" id="workflow"><h2>{l["workflow"]}</h2><div class="split"><div><h3>{l["before"]}</h3>{par(v["before"])}</div><div><h3>{l["after"]}</h3>{par(v["after"])}</div></div>{fig(base,"flows.png",l["workflow"]+(". Diagramas originais do projeto." if c["locale"]=="pt-BR" else ". Original project diagrams in Portuguese."))}{table([l["step"],l["before"],l["after"]],v["flow_rows"])}</section>'
+ s+=f'<section class="article-section" id="workflow"><h2>{l["how"]}</h2><div class="split"><div><h3>{l["before"]}</h3>{par(v["before"])}</div><div><h3>{l["after"]}</h3>{par(v["after"])}</div></div>{fig(base,"flows.png",l["workflow"]+(". Diagramas originais do projeto." if c["locale"]=="pt-BR" else ". Original project diagrams in Portuguese."))}{table([l["step"],l["before"],l["after"]],v["flow_rows"])}</section>'
  s+=f'<section class="article-section"><h2>{l["client"]}</h2>{par(v["client"])}<div class="two-images">{fig(base,"client-install.png","ECG-IA Client 1.6.66 · Windows")}{fig(base,"client-menu.png","ECG-IA Client · "+("Menu na bandeja do Windows" if c["locale"]=="pt-BR" else "Windows system tray menu"))}</div></section>'
  s+=f'<section class="article-section" id="server"><h2>{l["server"]}</h2>{par(v["server"])}{fig(base,"architecture.png",("Arquitetura do sistema." if c["locale"]=="pt-BR" else "System architecture. Original labels in Portuguese."))}<h3>{l["privacy"]}</h3>{par(v["privacy"])}{par(v["dashboard"])}{fig(base,"dashboard.png","Gorgona · Dashboard · 03/10/2026")}</section>'
- s+=f'<section class="article-section" id="case"><h2>{l["case"]}</h2>{par(v["case"])}{fig(base,"timeline.png",v["timeline_caption"])}{table([l["event"],l["first"],l["second"]],v["case_rows"])}{par(v["case_result"])}</section>'
+ s+=f'<section class="article-section" id="case"><h2>{l["result"]}</h2><h3>{l["case"]}</h3>{par(v["case"])}{fig(base,"timeline.png",v["timeline_caption"])}{table([l["event"],l["first"],l["second"]],v["case_rows"])}{par(v["case_result"])}</section>'
  s+=f'<section class="article-section"><h2>{l["model"]}</h2>{par(v["model"])}<h3>{l["refs"]}</h3>{refs([0,3])}</section>'
  return s
 def about(c,base):
- l=c['labels'];s=f'<header class="detail-top" id="about"><p class="eyebrow">Felipe Meneguitti Dias</p><h1>{c["about"]}</h1><p class="lead">{c["intro"]}</p></header><div class="split"><div>{par(c["bio"])}{par(c["experience"])}</div><div>{education(c)}</div></div>'
- s+=f'<section class="article-section"><h2>{l["skills"]}</h2>{table([("Área" if c["locale"]=="pt-BR" else "Area"), ("Aplicação" if c["locale"]=="pt-BR" else "Application")],c["skills"])}</section><section class="section" id="publications"><h2>{c["papers"]}</h2>{publications(cv=True)}</section>'
- z=c['physionet']
- s+=f'<section class="article-section" id="awards"><h2>{"Prêmios" if c["locale"]=="pt-BR" else "Awards"}</h2><h3>PhysioNet Challenge 2024</h3>{par(z["summary"])}{par(z["role"])}<a href="{LINKS["challenge"]}">{l["official"]}</a></section>'
- s+=f'<aside class="notes"><h3>{l["notes"]}</h3>{par(l["notes_text"])}<div class="social"><a href="https://fmenegui.com/learning/ab_testing/index.html">A/B testing</a><a href="https://fmenegui.com/learning/miscellaneous/01_einsum.html">Einsum</a></div></aside>'
+ l=c['labels'];pt=c['locale']=='pt-BR'
+ s=f'<header class="detail-top" id="about"><p class="eyebrow">Felipe Meneguitti Dias</p><h1>{c["about"]}</h1><p class="subtitle">{c["professional_title"]}</p><p>São Paulo, {"Brasil" if pt else "Brazil"} · <a href="tel:+5532991734060">+55 (32) 99173-4060</a></p>{par(c["cv_summary"])}</header>'
+ s+=f'<section class="article-section"><h2>{"Experiência profissional" if pt else "Professional experience"}</h2>'
+ for company,dates,role,location,items in c['jobs']:
+  s+=f'<article class="cv-job"><h3>{e(company)}</h3><p class="job-meta">{e(role)}<br>{e(dates)} · {e(location)}</p><ul>'+''.join(f'<li>{e(x)}</li>' for x in items)+'</ul></article>'
+ s+='</section>'
+ s+=f'<section class="article-section"><h2>{l["education"]}</h2>{education(c)}</section>'
+ s+=f'<section class="article-section"><h2>{l["skills"]}</h2>{table([("Área" if pt else "Area"),("Competências" if pt else "Skills")],c["skills"])}</section>'
+ s+=f'<section class="article-section" id="awards"><h2>{"Premiações" if pt else "Awards"}</h2><ul class="cv-awards">'+''.join(f'<li><strong>{yr}</strong> · {e(text)}</li>' for yr,text in c['awards'])+f'</ul><a href="{LINKS["challenge"]}">{l["official"]}: PhysioNet Challenge 2024</a></section>'
+ s+=f'<section class="section" id="publications"><h2>{c["papers"]}</h2>{publications(cv=True)}</section>'
  return s
 def page(lang,kind):
  c=CONTENT[lang];prefix='' if lang=='pt' else 'en/'
@@ -116,3 +120,10 @@ for prefix in ['', 'en/']:
 
 for prefix in ["", "en/"]:
  (OUT/prefix/"projects/ppg.html").write_text('<meta http-equiv="refresh" content="0;url=rpms.html"><a href="rpms.html">RPMS</a>')
+
+# Retain source notes in git, but exclude them and their search entries from publication.
+shutil.rmtree(OUT/'learning',ignore_errors=True)
+for stale in ['search.json','sitemap.xml']:
+ (OUT/stale).unlink(missing_ok=True)
+paths=['index.html','about.html','projects/gorgona.html','projects/incor.html','projects/rpms.html']
+(OUT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>https://fmenegui.com/'+prefix+p+'</loc></url>' for prefix in ['', 'en/'] for p in paths)+'</urlset>')
