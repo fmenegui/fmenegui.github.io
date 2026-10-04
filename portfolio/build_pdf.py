@@ -13,7 +13,8 @@ def block(h,t):return '<h3>'+e(h)+'</h3>'+p(t)
 def make(lang):
  c=CONTENT[lang];pt=lang=='pt';l=c['labels'];pages=[]
  s='<p class="kicker">'+c['portfolio']+' · '+c['updated']+'</p><h1>Felipe<br>Meneguitti Dias</h1>'+p(c['headline'],'subtitle')+p(c['intro'],'intro')
- s+='<h3>'+c['selected']+'</h3><div class="overview">'
+ name=('Instituto do Coração (InCor), Hospital das Clínicas da Faculdade de Medicina da Universidade de São Paulo' if pt else 'Heart Institute (InCor), Hospital das Clínicas, University of São Paulo Medical School')
+ s+='<h3>'+c['selected']+'</h3><p class="note"><a href="https://www.incor.usp.br/">'+name+'</a></p><div class="overview">'
  for key in ['gorgona','incor','rpms']:
   v=c[key];url='https://fmenegui.com/'+('' if pt else 'en/')+'projects/'+key+'.html'
   s+='<section><h2><a href="'+url+'">'+v['title']+'</a></h2>'+p(v['summary'])+'</section>'

@@ -12,6 +12,10 @@ shutil.copytree(ASSETS,OUT/'assets',dirs_exist_ok=True)
 shutil.copy(Path(__file__).parent/'style.css',OUT/'assets/style.css')
 shutil.copytree(Path(__file__).parent/'downloads',OUT/'downloads',dirs_exist_ok=True)
 
+def institution(c):
+ name=('Instituto do Coração (InCor), Hospital das Clínicas da Faculdade de Medicina da Universidade de São Paulo' if c['locale']=='pt-BR' else 'Heart Institute (InCor), Hospital das Clínicas, University of São Paulo Medical School')
+ return '<p class="institution"><a href="https://www.incor.usp.br/">'+name+'</a></p>'
+
 def par(t):return '<p>'+e(t)+'</p>'
 def table(head,rows):return '<div class="table-scroll"><table><thead><tr>'+''.join('<th scope="col">'+e(x)+'</th>' for x in head)+'</tr></thead><tbody>'+''.join('<tr>'+''.join(('<th scope="row">' if i==0 else '<td>')+e(x)+('</th>' if i==0 else '</td>') for i,x in enumerate(row))+'</tr>' for row in rows)+'</tbody></table></div>'
 def fig(base,file,caption):return f'<figure><img src="{base}assets/{file}" alt="{e(caption)}" loading="lazy"><figcaption>{e(caption)}</figcaption></figure>'
@@ -30,7 +34,7 @@ def visual(key,c,base):
 def home(c,base,lang):
  pdf=f'{base}downloads/Felipe_Dias_Portfolio_{lang.upper()}.pdf'
  s=f'<section class="hero"><div><h1>Felipe Meneguitti Dias</h1><p class="email-line">email: <a href="{LINKS["email"]}">f.meneguittidias@gmail.com</a></p>{social()}<p class="intro">{c["intro"]}</p><p class="profile-links"><a href="{pdf}">{c["download"]} (PDF)</a> · <a href="about.html">{c["about"]}</a></p></div><figure><img class="portrait" src="{base}assets/felipe.jpg" alt="Felipe Meneguitti Dias" width="320" height="360"></figure></section>'
- s+=f'<section class="section" id="projects"><div class="section-head"><h2>{c["selected"]}</h2></div>'
+ s+=f'<section class="section" id="projects"><div class="section-head"><h2>{c["selected"]}</h2></div>'+institution(c)
  for key in ['gorgona','incor','rpms']:
   v=c[key]
   imagefile={'gorgona':'flows.png','incor':'incor-integration.png','rpms':'rpms-app.jpeg'}[key]
@@ -41,6 +45,7 @@ def home(c,base,lang):
  return s
 def detail(c,key,base):
  v=c[key];l=c['labels'];s=f'<header class="detail-top"><a class="back" href="../index.html#projects">← {c["back"]}</a><p class="eyebrow">{v["kicker"]}</p><h1>{v["title"]}</h1><p class="subtitle">{v["subtitle"]}</p></header>'
+ s+=institution(c)
  s+=section(l['objective'],v['objective'],'objective')+section(l['contribution'],v['contribution'])
  s+='<section class="article-section decisions"><h2>'+('Decisões de engenharia' if c['locale']=='pt-BR' else 'Engineering decisions')+'</h2><dl>'+''.join('<div><dt>'+e(a)+'</dt><dd>'+e(b)+'</dd></div>' for a,b in v['decisions'])+'</dl></section>'
  if key=='rpms':
@@ -83,6 +88,7 @@ def detail(c,key,base):
 def about(c,base):
  l=c['labels'];pt=c['locale']=='pt-BR'
  s=f'<header class="detail-top" id="about"><p class="eyebrow">Felipe Meneguitti Dias</p><h1>{c["about"]}</h1><p class="subtitle">{c["professional_title"]}</p><p>São Paulo, {"Brasil" if pt else "Brazil"} · <a href="tel:+5532991734060">+55 (32) 99173-4060</a></p>{par(c["cv_summary"])}</header>'
+ s+=institution(c)
  s+=f'<section class="article-section"><h2>{"Experiência profissional" if pt else "Professional experience"}</h2>'
  for company,dates,role,location,items in c['jobs']:
   s+=f'<article class="cv-job"><h3>{e(company)}</h3><p class="job-meta">{e(role)}<br>{e(dates)} · {e(location)}</p><ul>'+''.join(f'<li>{e(x)}</li>' for x in items)+'</ul></article>'
