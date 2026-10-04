@@ -16,7 +16,7 @@ def make(lang):
  s+='<h3>'+c['selected']+'</h3><div class="overview">'
  for key in ['gorgona','incor','rpms']:
   v=c[key];url='https://fmenegui.com/'+('' if pt else 'en/')+'projects/'+key+'.html'
-  s+='<section><h2><a href="'+url+'">'+v['title']+'</a></h2>'+p(v['summary'])+p(v['evidence'],'evidence')+'</section>'
+  s+='<section><h2><a href="'+url+'">'+v['title']+'</a></h2>'+p(v['summary'])+'</section>'
  s+='</div>'+p('Samsung · 2026–atual | InCor · 2020–2026' if pt else 'Samsung · 2026–present | InCor · 2020–2026','career')
  s+='<p class="contact"><a href="'+LINKS['email']+'">f.meneguittidias@gmail.com</a><br><a href="https://fmenegui.com/">fmenegui.com</a> · <a href="'+LINKS['linkedin']+'">LinkedIn</a> · <a href="https://fmenegui.com/'+('about.html' if pt else 'en/about.html')+'">'+c['about']+'</a></p>'
  pages.append(s)

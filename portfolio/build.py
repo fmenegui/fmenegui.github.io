@@ -36,12 +36,11 @@ def home(c,base,lang):
   imagefile={'gorgona':'flows.png','incor':'incor-integration.png','rpms':'rpms-app.jpeg'}[key]
   thumb=f'<a class="project-thumb {key}-thumb" href="projects/{key}.html"><img src="{base}assets/{imagefile}" alt="{e(v["title"])}" loading="lazy"></a>'
   doi=PAPERS[{'gorgona':0,'incor':3,'rpms':9}[key]][4]
-  s+=f'<article class="project">{thumb}<div><h3><a href="projects/{key}.html">{v["title"]}</a></h3><p class="project-info">{v["status"]} · {v["period"]}</p><p class="desc">{v["summary"]}</p><p class="project-evidence">{v["evidence"]}</p><p class="project-links"><a href="projects/{key}.html">{c["read"]}</a> · <a href="https://doi.org/{doi}">{c["article"]}</a></p></div></article>'
+  s+=f'<article class="project">{thumb}<div><h3><a href="projects/{key}.html">{v["title"]}</a></h3><p class="project-info">{v["status"]} · {v["period"]}</p><p class="desc">{v["summary"]}</p><p class="project-links"><a href="projects/{key}.html">{c["read"]}</a> · <a href="https://doi.org/{doi}">{c["article"]}</a></p></div></article>'
  s+='</section>'
  return s
 def detail(c,key,base):
  v=c[key];l=c['labels'];s=f'<header class="detail-top"><a class="back" href="../index.html#projects">← {c["back"]}</a><p class="eyebrow">{v["kicker"]}</p><h1>{v["title"]}</h1><p class="subtitle">{v["subtitle"]}</p></header>'
- s+=f'<p class="project-evidence">{e(v["evidence"])}</p>'
  s+=section(l['objective'],v['objective'],'objective')+section(l['contribution'],v['contribution'])
  s+='<section class="article-section decisions"><h2>'+('Decisões de engenharia' if c['locale']=='pt-BR' else 'Engineering decisions')+'</h2><dl>'+''.join('<div><dt>'+e(a)+'</dt><dd>'+e(b)+'</dd></div>' for a,b in v['decisions'])+'</dl></section>'
  if key=='rpms':

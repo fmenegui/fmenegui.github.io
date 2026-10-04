@@ -71,9 +71,9 @@ CONTENT = {'pt': {'locale': 'pt-BR',
         'nav': ['Projetos', 'Currículo', 'Publicações', 'Contato'],
         'role': 'Engenharia de IA · Pesquisa aplicada',
         'headline': 'Engenharia de IA aplicada à saúde',
-        'intro': 'Desenvolvo modelos e sistemas de IA para saúde. No InCor, liderei o Gorgona e coordenei a '
-                 'anotação de cerca de 20 mil ECGs por 19 cardiologistas. Hoje sou especialista sênior de P&D na '
-                 'Samsung e doutor pela USP.',
+        'intro': 'Sou especialista sênior de P&D na Samsung e doutor pela USP. Trabalho com inteligência '
+                 'artificial aplicada à saúde, processamento de sinais e validação de modelos, do desenvolvimento '
+                 'à implantação.',
         'bio': 'No InCor, desenvolvi pesquisa em classificação de ECGs e liderei a implantação do Gorgona em uma '
                'unidade de pronto atendimento em Salvador.',
         'download': 'Baixar portfólio',
@@ -352,10 +352,10 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                   'São Paulo, SP',
                   ['Coordenação da anotação de aproximadamente 20 mil ECGs por 19 cardiologistas, incluindo '
                    'classes, fluxo de anotação, adjudicação e análise de concordância.',
-                   'Liderança do projeto e desenvolvimento inicial do Gorgona para ECGs de UPAs de Salvador, com anonimização configurável e '
-                   'alertas para suspeita de IAM com supradesnivelamento de ST. No caso documentado, dois ECGs '
-                   'geraram alertas em 2 minutos. A plataforma contabilizava 42.037 registros processados na '
-                   'consulta de 03/10/2026, considerando todas as unidades.',
+                   'Liderança do projeto e desenvolvimento inicial do Gorgona para ECGs de UPAs de Salvador, com '
+                   'anonimização configurável e alertas para suspeita de IAM com supradesnivelamento de ST. No '
+                   'caso documentado, dois ECGs geraram alertas em 2 minutos. A plataforma contabilizava 42.037 '
+                   'registros processados na consulta de 03/10/2026, considerando todas as unidades.',
                    'Desenvolvimento e implantação do classificador na emergência do InCor, com avaliação '
                    'pós-implantação por cardiologista e comparação com especialistas.',
                    'Desenvolvimento de monitoramento remoto com wearables, processamento de PPG e estimativa de '
@@ -373,9 +373,8 @@ CONTENT = {'pt': {'locale': 'pt-BR',
         'nav': ['Projects', 'CV', 'Publications', 'Contact'],
         'role': 'AI engineering · Applied research',
         'headline': 'AI engineering for healthcare',
-        'intro': 'I develop AI models and systems for healthcare. At InCor, I led Gorgona and coordinated the '
-                 'annotation of around 20,000 ECGs by 19 cardiologists. I am now a Senior R&D Specialist at '
-                 'Samsung and hold a PhD from the University of São Paulo.',
+        'intro': 'I am a Senior R&D Specialist at Samsung with a PhD from the University of São Paulo. My work '
+                 'spans healthcare AI, signal processing and model validation, from development to deployment.',
         'bio': 'At InCor, I developed research on ECG classification and led the deployment of Gorgona at an '
                'urgent care unit in Salvador, Brazil.',
         'download': 'Download portfolio',
@@ -651,10 +650,10 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                   'São Paulo, Brazil',
                   ['Coordination of approximately 20,000 ECG annotations by 19 cardiologists, including class '
                    'definitions, annotation workflows, adjudication and agreement analysis.',
-                   'Project leadership and initial development of Gorgona for ECGs from urgent care units in Salvador, with configurable '
-                   'anonymization and alerts for suspected ST-elevation myocardial infarction. In the documented '
-                   'case, two ECGs triggered alerts in 2 minutes. The platform had 42,037 processed records '
-                   'across all units in the October 3, 2026 query.',
+                   'Project leadership and initial development of Gorgona for ECGs from urgent care units in '
+                   'Salvador, with configurable anonymization and alerts for suspected ST-elevation myocardial '
+                   'infarction. In the documented case, two ECGs triggered alerts in 2 minutes. The platform had '
+                   '42,037 processed records across all units in the October 3, 2026 query.',
                    'Development and deployment of the InCor emergency ECG classifier, including post-deployment '
                    'review by a cardiologist and comparison with specialists.',
                    'Development of wearable-based remote monitoring, PPG processing and physiological estimates '
