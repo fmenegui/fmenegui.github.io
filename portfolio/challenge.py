@@ -5,22 +5,30 @@ CHALLENGE = {
         'kicker': 'Classificação de imagens de ECG · 2024',
         'title': 'PhysioNet Challenge 2024',
         'subtitle': '',
-        'summary': 'Participei com a equipe AIMED usando uma ConvNeXt pré-treinada em ECGs e um ensemble de cinco modelos.',
+        'summary': (((('Liderei a AIMED na classificação de imagens de ECG. Usamos pré-treinamento e um '
+                       'ensemble de cinco modelos ConvNeXt.')))),
         'status': '1º lugar · Equipe AIMED',
         'period': '2024',
         'opening_title': 'Pesquisa com imagens de ECG no InCor',
-        'opening': [
-            'Em 2024, eu já pesquisava classificação de imagens de ECG no doutorado na USP, trabalhando no InCor, um hospital de cardiologia. Muitos exames do hospital eram armazenados como imagens, mas boa parte dos modelos disponíveis recebia o sinal como uma série temporal.',
-            'O tema do desafio era esse mesmo problema. Usamos os experimentos do doutorado para montar a entrada da equipe AIMED e testar o modelo em dados que não conhecíamos. Ficamos em primeiro lugar na tarefa de classificação.'
-        ],
+        'opening': ['Quando saiu o tema do desafio de 2024, eu já trabalhava com imagens de ECG no doutorado '
+                    'na USP e no InCor. No hospital, muitos exames eram armazenados como imagens, enquanto '
+                    'boa parte dos modelos recebia o sinal como uma série temporal. Era esse problema que eu '
+                    'vinha estudando.',
+                    'Liderei a equipe AIMED no desafio. Usamos os experimentos do doutorado para preparar o '
+                    'modelo e avaliá-lo em dados que não conhecíamos. Ficamos em primeiro lugar na tarefa de '
+                    'classificação.'],
         'award_alt': 'Felipe Dias e Marco Antônio Gutierrez na entrega do prêmio de classificação do PhysioNet Challenge 2024, com Matthew Reyna e Gari Clifford.',
         'award_caption': 'Entrega do prêmio no Computing in Cardiology 2024, em Karlsruhe, Alemanha. Da esquerda para a direita: Matthew Reyna, Felipe Dias, Marco Antônio Gutierrez e Gari Clifford.',
-        'photo_source': 'Foto publicada pela SBIS em texto de Marco A. Gutierrez.',
+        'photo_source': 'Foto: SBIS.',
         'certificate_alt': 'Certificado do PhysioNet Challenge 2024: primeiro lugar em classificação para a equipe AIMED, com Felipe M. Dias, Estela Ribeiro, Quenaz B. Soares, José E. Krieger e Marco A. Gutierrez.',
         'certificate_caption': 'Certificado de primeiro lugar em classificação, equipe AIMED. Karlsruhe, 11 de setembro de 2024.',
-        'certificate_link': 'Abrir certificado em tamanho original',
         'challenge_title': 'O que é o PhysioNet Challenge?',
-        'challenge_text': 'Desde 2000, PhysioNet e Computing in Cardiology promovem desafios anuais de algoritmos para problemas clínicos e fisiológicos. A competição reúne dados, regras de avaliação e código aberto para comparar propostas em condições comuns.',
+        'challenge_text': (((('O PhysioNet Challenge é uma competição anual de pesquisa, organizada desde '
+                              '2000 pelo PhysioNet e pelo Computing in Cardiology. A cada edição, as equipes '
+                              'recebem um problema clínico ou fisiológico e dados para desenvolver seus '
+                              'algoritmos. Os organizadores definem as regras, avaliam as soluções e '
+                              'disponibilizam o código para que outros pesquisadores possam estudar e '
+                              'reproduzir o trabalho.')))),
         'challenge_2024_title': 'O problema de 2024: ECGs em papel',
         'challenge_2024_text': 'A edição de 2024, Digitization and Classification of ECG Images, tinha duas tarefas com premiações separadas. Era possível participar de uma delas ou das duas:',
         'tasks': [
@@ -29,24 +37,35 @@ CHALLENGE = {
         ],
         'evaluation': 'As equipes submetiam o código. Os organizadores executavam o treinamento e a avaliação, e cada equipe escolhia uma entrada final para o teste oculto. Nossa participação se concentrou na classificação direta das imagens.',
         'classification_title': 'Por que escolhemos classificar a imagem',
-        'classification': [
-            'A digitalização exige localizar cada derivação, separar o traçado da grade, recuperar escalas de tempo e amplitude e lidar com sobreposição, perspectiva, sombras e ruído. Erros nessa reconstrução também afetam a classificação do sinal.',
-            'Escolhemos trabalhar apenas na classificação. Eu já vinha testando CNNs com imagens de ECG no doutorado, então usamos essa abordagem para identificar as categorias diretamente na imagem, sem reconstruir o sinal.'
-        ],
+        'classification': ['Para digitalizar um ECG, não basta localizar a linha do traçado. É preciso '
+                           'separar cada derivação da grade, recuperar as escalas de tempo e amplitude e '
+                           'lidar com sobreposição, sombras, perspectiva e ruído. Um erro nessa etapa pode '
+                           'afetar o classificador que recebe o sinal reconstruído.',
+                           'Como eu já vinha testando CNNs com imagens de ECG, escolhemos concentrar o '
+                           'trabalho na classificação direta. O modelo recebe a imagem e identifica as '
+                           'categorias do exame, sem reconstruir o sinal primeiro.'],
         'doctoral_title': 'Experimentos do doutorado',
-        'doctoral_text': 'A pesquisa reunia imagens sintéticas geradas a partir de sinais públicos e imagens reais do ambulatório e da emergência do InCor. Nos experimentos da tese, comparei ConvNeXt, EfficientNet-B3, ResNet50, ViT e Swin Transformer, além de diferentes estratégias de treinamento.',
-        'doctoral_tests': [
-            'Aumento de dados e mudanças de resolução das imagens.',
-            'Inicialização com ImageNet, pré-treinamento com ECGs e a combinação dos dois.',
-            'Uso de idade e sexo como metadados e uma função de perda combinando BCE e MCC.',
-            'Estudos de ablação para separar o efeito de cada escolha e avaliações com exames fotografados e escaneados.'
-        ],
-        'doctoral_note': 'Esses experimentos pertencem à pesquisa do doutorado. A versão do desafio teve suas próprias adaptações, descritas abaixo e no artigo de 2024.',
+        'doctoral_text': (((('No doutorado, trabalhei tanto com imagens sintéticas, geradas a partir de '
+                             'sinais públicos, quanto com exames reais do ambulatório e da emergência do '
+                             'InCor. Comparei ConvNeXt, EfficientNet-B3, ResNet50, ViT e Swin Transformer e '
+                             'testei diferentes formas de treinar essas redes.')))),
+        'doctoral_tests': ['Testei aumento de dados e diferentes resoluções de imagem.',
+                           'Comparei a inicialização com ImageNet, o pré-treinamento com ECGs e a combinação '
+                           'dos dois.',
+                           'Experimentei incluir idade e sexo e usar uma função de perda que combinava BCE e '
+                           'MCC.',
+                           'Fiz estudos de ablação para avaliar cada escolha e testes com exames '
+                           'fotografados e escaneados.'],
+        'doctoral_note': (((('Esses são experimentos da tese. Para o desafio, adaptamos o treinamento como '
+                             'descrevo abaixo.')))),
         'pretraining_title': 'Pré-treinamento',
-        'pretraining': [
-            'Partimos de pesos treinados no ImageNet e depois treinamos a rede com imagens de ECG sintéticas e reais. Essa etapa adaptou as representações aprendidas em fotografias gerais aos traçados de ECG, antes do ajuste para o desafio.',
-            'Na tese, testei também começar com pesos aleatórios e pré-treinar só com ECGs. O macro F1 ficou abaixo do baseline com ImageNet. A combinação de ImageNet e pré-treinamento com ECGs teve o melhor resultado entre as três configurações abaixo, e foi a que usamos na competição.'
-        ],
+        'pretraining': ['Começamos com os pesos do ImageNet, mas um ECG é bem diferente das fotografias '
+                        'usadas nesse banco. Por isso, antes do ajuste para o desafio, treinamos a rede com '
+                        'imagens de ECG sintéticas e reais.',
+                        'Na tese, testei também começar com pesos aleatórios e pré-treinar só com ECGs. O '
+                        'macro F1 ficou abaixo do modelo inicializado com ImageNet. A combinação de ImageNet '
+                        'e pré-treinamento com ECGs foi a melhor das três configurações abaixo. Usamos essa '
+                        'combinação na competição.'],
         'pretraining_head': ['Inicialização e pré-treinamento', 'Macro F1'],
         'pretraining_rows': [
             ('ImageNet, sem pré-treinamento específico em ECG', '0,737'),
@@ -71,7 +90,10 @@ CHALLENGE = {
         'ranking_link': 'Consultar a tabela oficial de classificação',
         'results_note': 'O ranking usou scans coloridos e em preto e branco de ECGs em papel. A avaliação estendida incluiu fotos de celular, manchas, deterioração e capturas de monitor. Nesses oito cenários, nossa média foi 0,733. O desempenho foi menor nas fotografias.',
         'team_title': 'Equipe',
-        'team_text': 'Fui integrante da AIMED e primeiro autor do artigo, com Estela Ribeiro, Quenaz B. Soares, José E. Krieger e Marco A. Gutierrez. O trabalho foi desenvolvido no Laboratório de Informática Biomédica do InCor, com apoio da Foxconn Brasil e da Fundação Zerbini.',
+        'team_text': (((('Liderei a AIMED e fui o primeiro autor do artigo. Trabalhei com Estela Ribeiro, '
+                         'Quenaz B. Soares, José E. Krieger e Marco A. Gutierrez, no Laboratório de '
+                         'Informática Biomédica do InCor. O projeto teve apoio da Foxconn Brasil e da '
+                         'Fundação Zerbini.')))),
         'history_title': 'Edições anteriores',
         'history_text': 'Temas das edições de 2016 a 2023:',
         'history_head': ['Ano', 'Tema'],
@@ -105,22 +127,28 @@ CHALLENGE = {
         'kicker': 'ECG image classification · 2024',
         'title': 'PhysioNet Challenge 2024',
         'subtitle': '',
-        'summary': 'I participated with team AIMED, using a ConvNeXt pretrained on ECGs and an ensemble of five models.',
+        'summary': (((('I led AIMED in ECG image classification. We used pretraining and an ensemble of five '
+                       'ConvNeXt models.')))),
         'status': '1st place · Team AIMED',
         'period': '2024',
         'opening_title': 'ECG image research at InCor',
-        'opening': [
-            'In 2024, I was already researching ECG image classification for my PhD at the University of São Paulo, working at InCor, a cardiology hospital. Many hospital ECGs were stored as images, while most available models expected the signal as a time series.',
-            'The challenge addressed the same problem. We used my doctoral experiments to build team AIMED’s entry and test the model on data we had not seen. We finished first in the classification task.'
-        ],
+        'opening': ['When the 2024 challenge topic was announced, I was already working with ECG images '
+                    'during my PhD at the University of São Paulo and InCor. Many hospital ECGs were stored '
+                    'as images, while most models expected the signal as a time series. That was the problem '
+                    'I had been studying.',
+                    'I led team AIMED in the challenge. We used my doctoral experiments to prepare the model '
+                    'and evaluate it on data we had not seen. We placed first in the classification task.'],
         'award_alt': 'Felipe Dias and Marco Antônio Gutierrez receiving the PhysioNet Challenge 2024 classification award, with Matthew Reyna and Gari Clifford.',
         'award_caption': 'Award presentation at Computing in Cardiology 2024 in Karlsruhe, Germany. From left to right: Matthew Reyna, Felipe Dias, Marco Antônio Gutierrez and Gari Clifford.',
-        'photo_source': 'Photo published by SBIS in an article by Marco A. Gutierrez.',
+        'photo_source': 'Photo: SBIS.',
         'certificate_alt': 'PhysioNet Challenge 2024 certificate: first place in classification for team AIMED, naming Felipe M. Dias, Estela Ribeiro, Quenaz B. Soares, José E. Krieger and Marco A. Gutierrez.',
         'certificate_caption': 'First-place classification certificate, team AIMED. Karlsruhe, September 11, 2024.',
-        'certificate_link': 'Open the full-size certificate',
         'challenge_title': 'What is the PhysioNet Challenge?',
-        'challenge_text': 'Since 2000, PhysioNet and Computing in Cardiology have hosted annual algorithm challenges addressing clinical and physiological problems. Shared data, evaluation rules and open-source code allow teams to compare their approaches under common conditions.',
+        'challenge_text': (((('The PhysioNet Challenge is an annual research competition organized by '
+                              'PhysioNet and Computing in Cardiology since 2000. Each year, teams receive a '
+                              'clinical or physiological problem and data for developing their algorithms. '
+                              'The organizers set the rules, evaluate the solutions and make code available '
+                              'for other researchers to study and reproduce the work.')))),
         'challenge_2024_title': 'The 2024 problem: ECGs on paper',
         'challenge_2024_text': 'The 2024 edition, Digitization and Classification of ECG Images, had two tasks with separate awards. Teams could enter either task or both:',
         'tasks': [
@@ -129,24 +157,33 @@ CHALLENGE = {
         ],
         'evaluation': 'Teams submitted their code. The organizers ran training and evaluation, and each team selected a final entry for hidden-data testing. We focused on direct image classification.',
         'classification_title': 'Why we chose to classify the image',
-        'classification': [
-            'Digitization requires locating each lead, separating the trace from the grid, recovering time and amplitude scales, and handling overlap, perspective, shadows and noise. Reconstruction errors also affect signal classification.',
-            'We chose to work only on classification. I had already been testing CNNs on ECG images in my PhD, so we used that approach to identify categories directly from the image, without reconstructing the signal.'
-        ],
+        'classification': ['Digitizing an ECG takes more than finding the trace. Each lead must be separated '
+                           'from the grid, time and amplitude scales recovered, and overlap, shadows, '
+                           'perspective and noise handled. An error at this stage can affect the classifier '
+                           'receiving the reconstructed signal.',
+                           'Since I had already been testing CNNs on ECG images, we focused on direct '
+                           'classification. The model receives the image and identifies the ECG categories '
+                           'without reconstructing the signal first.'],
         'doctoral_title': 'Doctoral experiments',
-        'doctoral_text': 'My research combined synthetic images rendered from public ECG signals with real outpatient and emergency ECG images from InCor. The thesis experiments compared ConvNeXt, EfficientNet-B3, ResNet50, ViT and Swin Transformer, as well as different training strategies.',
-        'doctoral_tests': [
-            'Data augmentation and changes in image resolution.',
-            'ImageNet initialization, ECG pretraining and the combination of both.',
-            'Age and sex metadata, and a loss combining BCE and MCC.',
-            'Ablation studies to isolate the effect of each choice, plus evaluations on photographed and scanned exams.'
-        ],
-        'doctoral_note': 'These experiments belong to the doctoral research. The challenge entry had its own adaptations, described below and in the 2024 paper.',
+        'doctoral_text': (((('During my PhD, I worked with synthetic images rendered from public signals and '
+                             'real ECGs from InCor’s outpatient and emergency departments. I compared '
+                             'ConvNeXt, EfficientNet-B3, ResNet50, ViT and Swin Transformer and tested '
+                             'different ways of training these networks.')))),
+        'doctoral_tests': ['I tested data augmentation and different image resolutions.',
+                           'I compared ImageNet initialization, ECG pretraining and the combination of both.',
+                           'I experimented with age and sex metadata and a loss combining BCE and MCC.',
+                           'I ran ablation studies to evaluate each choice and tests on photographed and '
+                           'scanned ECGs.'],
+        'doctoral_note': (((('These are thesis experiments. For the challenge, we adapted the training as '
+                             'described below.')))),
         'pretraining_title': 'Pretraining',
-        'pretraining': [
-            'We started with ImageNet weights, then trained the network on synthetic and real ECG images. This stage adapted the representations learned from general photographs to ECG traces before fine-tuning for the challenge.',
-            'In my thesis, I also tested starting with random weights and pretraining only on ECGs. Macro F1 was below the ImageNet baseline. ImageNet followed by ECG pretraining performed best among the three configurations below, and we used it in the competition.'
-        ],
+        'pretraining': ['We started with ImageNet weights, but an ECG looks very different from the '
+                        'photographs in that dataset. Before fine-tuning for the challenge, we therefore '
+                        'trained the network on synthetic and real ECG images.',
+                        'In my thesis, I also tested starting with random weights and pretraining only on '
+                        'ECGs. Macro F1 was lower than with ImageNet initialization. Combining ImageNet and '
+                        'ECG pretraining performed best among the three configurations below. We used that '
+                        'combination in the competition.'],
         'pretraining_head': ['Initialization and pretraining', 'Macro F1'],
         'pretraining_rows': [
             ('ImageNet, without ECG-specific pretraining', '0.737'),
@@ -171,7 +208,10 @@ CHALLENGE = {
         'ranking_link': 'View the official classification score table',
         'results_note': 'The ranking used color and black-and-white scans of paper ECGs. An extended evaluation included phone photos, stains, deterioration and monitor captures. Our average across those eight scenarios was 0.733. Performance was lower on photographs.',
         'team_title': 'Team',
-        'team_text': 'I was an AIMED team member and first author of the paper, alongside Estela Ribeiro, Quenaz B. Soares, José E. Krieger and Marco A. Gutierrez. The work was developed at InCor’s Biomedical Informatics Laboratory, with support from Foxconn Brazil and the Zerbini Foundation.',
+        'team_text': (((('I led AIMED and was the first author of the paper. I worked with Estela Ribeiro, '
+                         'Quenaz B. Soares, José E. Krieger and Marco A. Gutierrez at InCor’s Biomedical '
+                         'Informatics Laboratory. The project was supported by Foxconn Brazil and the '
+                         'Zerbini Foundation.')))),
         'history_title': 'Previous editions',
         'history_text': 'Topics from the 2016 to 2023 editions:',
         'history_head': ['Year', 'Topic'],

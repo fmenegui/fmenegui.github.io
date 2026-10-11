@@ -8,7 +8,7 @@ The editorial source is `portfolio/content.py`, with the bilingual PhysioNet 202
 
 The layout follows a personal research homepage: a white background, ordinary blue links, a candid portrait and locally hosted Merriweather and Source Sans. Color tokens are defined in `:root` in `portfolio/style.css`. Project thumbnails crop the original diagrams and app screenshots in CSS, leaving the source assets intact. The GitHub section links to the author's renderer and anatomy experiment and shows an actual output from the renderer. At phone widths, the portrait stays visible and project descriptions use the full content width. Navigation, language switching, and downloads work without JavaScript. There are no decorative animations.
 
-The builder adds a content hash to the stylesheet URL so visitors receive style changes after deployment. This does not require changing the publishing workflow.
+The builder adds content hashes to the stylesheet and PDF URLs so visitors receive revised styles and downloads after deployment. This does not require changing the publishing workflow.
 
 ```sh
 python portfolio/build.py
@@ -50,6 +50,8 @@ Design references: UC Davis DataLab's portfolio workshop and Arthur Koehl's proj
 The website features four projects: Gorgona, InCor emergency ECG classification, PhysioNet Challenge 2024 and RPMS. The PhysioNet page describes the doctoral experiments and AIMED classification method, with the original award photograph and certificate, training stages, official scores, news links and earlier challenge topics. News links identify publication dates and republication sources. Thesis experiments are identified separately from challenge results. The five-page PDF downloads cover the three original projects. RPMS references cover signal quality, blood pressure, diabetes and sleep.
 
 Copy uses direct descriptions of the author's work in both languages. The Gorgona pages, CV and PDF downloads omit operational counts and references to dashboard queries after July 2026. The original dashboard screenshot remains published, with a descriptive caption that does not state when it was captured.
+
+The CV and project descriptions use first-person accounts of the author's actual work. Felipe led team AIMED and was first author of its PhysioNet 2024 paper. Clicking a photograph or project figure opens its original image. Captions describe and credit the image without separate instructions or links for opening it.
 
 Revisão de 04/10/2026: currículo PT/EN atualizado com Samsung, experiência no InCor, LLMs, competências e premiações. RPMS expandido como Remote Patient Monitoring System. Descrições uniformizadas. Notas de estudo mantidas apenas no código-fonte e excluídas da publicação. Doutorado nomeado conforme o currículo fornecido pelo autor.
 

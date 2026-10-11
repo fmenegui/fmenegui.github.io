@@ -17,6 +17,7 @@ for withdrawn in ['README.md']:
 shutil.copy(Path(__file__).parent/'style.css',OUT/'assets/style.css')
 CSS_VERSION=sha256((OUT/'assets/style.css').read_bytes()).hexdigest()[:12]
 shutil.copytree(Path(__file__).parent/'downloads',OUT/'downloads',dirs_exist_ok=True)
+PDF_VERSIONS={lang:sha256((OUT/'downloads'/f'Felipe_Dias_Portfolio_{lang.upper()}.pdf').read_bytes()).hexdigest()[:12] for lang in CONTENT}
 
 def institution(c):
  name=('Instituto do Coração (InCor), Hospital das Clínicas da Faculdade de Medicina da Universidade de São Paulo' if c['locale']=='pt-BR' else 'Heart Institute (InCor), Hospital das Clínicas, University of São Paulo Medical School')
@@ -24,7 +25,7 @@ def institution(c):
 
 def par(t):return '<p>'+e(t)+'</p>'
 def table(head,rows):return '<div class="table-scroll"><table><thead><tr>'+''.join('<th scope="col">'+e(x)+'</th>' for x in head)+'</tr></thead><tbody>'+''.join('<tr>'+''.join(('<th scope="row">' if i==0 else '<td>')+e(x)+('</th>' if i==0 else '</td>') for i,x in enumerate(row))+'</tr>' for row in rows)+'</tbody></table></div>'
-def fig(base,file,caption):return f'<figure><img src="{base}assets/{file}" alt="{e(caption)}" loading="lazy"><figcaption>{e(caption)}</figcaption></figure>'
+def fig(base,file,caption):return f'<figure><a class="image-link" href="{base}assets/{file}"><img src="{base}assets/{file}" alt="{e(caption)}" loading="lazy"></a><figcaption>{e(caption)}</figcaption></figure>'
 def refs(indices):
  return '<ol class="refs">'+''.join(f'<li>{e(PAPERS[i][2])} <a href="https://doi.org/{PAPERS[i][4]}">{e(PAPERS[i][1])}</a>. <small>{e(PAPERS[i][3])}, {PAPERS[i][0]}.</small></li>' for i in indices)+'</ol>'
 def metrics(c):return '<div class="metrics">'+''.join(f'<div class="metric"><strong>{a}</strong><span>{b}</span></div>' for a,b in c['gorgona']['metrics'])+'</div>'
@@ -36,8 +37,8 @@ def publications(cv=False):
  return '<ol class="pub-list">'+''.join(f'<li><time>{yr}</time><div><h3><a href="https://doi.org/{doi}">{e(title)}</a></h3><p>{e(authors)} · {e(venue)}</p></div></li>' for i,(yr,title,authors,venue,doi) in sorted(enumerate(PAPERS),key=lambda item:-int(item[1][0])) if cv or i!=2)+'</ol>'
 def education(c):return '<ol class="education">'+''.join(f'<li><time>{date}</time><div><strong>{e(name)}</strong><small>{e(school)}</small></div></li>' for date,name,school in c['education'])+'</ol>'
 def home(c,base,lang):
- pdf=f'{base}downloads/Felipe_Dias_Portfolio_{lang.upper()}.pdf'
- s=f'<section class="hero"><div class="hero-copy"><h1>Felipe Meneguitti Dias</h1><p class="location">{e(c["location"])}</p><p class="intro">{e(c["intro"])}</p><p class="email-line"><a href="{LINKS["email"]}">f.meneguittidias@gmail.com</a></p>{social()}<p class="profile-links"><a href="{pdf}">{c["download"]} (PDF)</a><a href="about.html">{c["about"]}</a></p></div><figure class="portrait-frame"><img class="portrait" src="{base}assets/felipe.jpg" alt="Felipe Meneguitti Dias" width="400" height="400" fetchpriority="high" decoding="async"></figure></section>'
+ pdf=f'{base}downloads/Felipe_Dias_Portfolio_{lang.upper()}.pdf?v={PDF_VERSIONS[lang]}'
+ s=f'<section class="hero"><div class="hero-copy"><h1>Felipe Meneguitti Dias</h1><p class="location">{e(c["location"])}</p><p class="intro">{e(c["intro"])}</p><p class="email-line"><a href="{LINKS["email"]}">f.meneguittidias@gmail.com</a></p>{social()}<p class="profile-links"><a href="{pdf}">{c["download"]} (PDF)</a><a href="about.html">{c["about"]}</a></p></div><figure class="portrait-frame"><a class="image-link" href="{base}assets/felipe.jpg"><img class="portrait" src="{base}assets/felipe.jpg" alt="Felipe Meneguitti Dias" width="400" height="400" fetchpriority="high" decoding="async"></a></figure></section>'
  s+=f'<section class="section" id="projects"><div class="section-head"><h2>{c["selected"]}</h2></div>'+institution(c)
  for key in PROJECTS:
   v=c[key]
@@ -46,7 +47,7 @@ def home(c,base,lang):
   doi=PAPERS[{'gorgona':0,'incor':3,'physionet':2,'rpms':9}[key]][4]
   s+=f'<article class="project">{thumb}<div class="project-copy"><h3><a href="projects/{key}.html">{e(v["title"])}</a></h3><p class="project-info">{e(v["status"])} · {e(v["period"])}</p><p class="desc">{e(v["summary"])}</p><p class="project-links"><a href="projects/{key}.html">{c["read"]}</a><a href="https://doi.org/{doi}">{c["article"]}</a></p></div></article>'
  s+='</section>'
- s+=f'<section class="lab-notes" id="experiments"><h2>{e(c["notes_title"])}</h2><div class="notebook"><figure class="render-sample"><a href="https://github.com/fmenegui/ecg-torch-renderer" aria-label="ecg-torch-renderer"><img src="{base}assets/renderer-example.jpg" alt="{e(c["render_caption"])}" width="1024" height="768" loading="lazy" decoding="async"></a><figcaption>{e(c["render_caption"])}</figcaption></figure><div class="experiment-links">'
+ s+=f'<section class="lab-notes" id="experiments"><h2>{e(c["notes_title"])}</h2><div class="notebook"><figure class="render-sample"><a class="image-link" href="{base}assets/renderer-example.jpg"><img src="{base}assets/renderer-example.jpg" alt="{e(c["render_caption"])}" width="1024" height="768" loading="lazy" decoding="async"></a><figcaption>{e(c["render_caption"])}</figcaption></figure><div class="experiment-links">'
  for name,url,description in c['experiments']:
   s+=f'<article><h3><a href="{e(url)}">{e(name)}</a></h3><p>{e(description)}</p></article>'
  s+='</div></div></section>'
@@ -56,7 +57,7 @@ def challenge(c,base,s):
  def paragraphs(items):return ''.join(par(t) for t in items)
  s+='<div class="challenge-story">'
  s+=f'<section class="article-section" id="story"><h2>{e(v["opening_title"])}</h2>{paragraphs(v["opening"])}</section>'
- s+=f'<figure class="award-photo"><a href="{base}assets/physionet-award.jpg"><img src="{base}assets/physionet-award.jpg" alt="{e(v["award_alt"])}" width="783" height="556" decoding="async" fetchpriority="high"></a><figcaption>{e(v["award_caption"])} <a href="{CHALLENGE_LINKS["photo"]}">{e(v["photo_source"])}</a></figcaption></figure>'
+ s+=f'<figure class="award-photo"><a class="image-link" href="{base}assets/physionet-award.jpg"><img src="{base}assets/physionet-award.jpg" alt="{e(v["award_alt"])}" width="783" height="556" decoding="async" fetchpriority="high"></a><figcaption>{e(v["award_caption"])} {e(v["photo_source"])}</figcaption></figure>'
  s+=f'<nav class="contents" aria-label="{("Nesta página" if c["locale"]=="pt-BR" else "On this page")}">'+''.join(f'<a href="#{key}">{e(v[label])}</a>' for key,label in [('challenge','challenge_title'),('pretraining','pretraining_title'),('results','results_title'),('news','news_title')])+'</nav>'
  s+=section(v['challenge_title'],v['challenge_text'],'challenge')
  s+=f'<section class="article-section"><h2>{e(v["challenge_2024_title"])}</h2>{par(v["challenge_2024_text"])}<dl class="challenge-tasks">'+''.join(f'<div><dt>{e(title)}</dt><dd>{e(text)}</dd></div>' for title,text in v['tasks'])+'</dl>'+par(v['evaluation'])+'</section>'
@@ -64,7 +65,7 @@ def challenge(c,base,s):
  s+=f'<section class="article-section"><h2>{e(v["doctoral_title"])}</h2>{par(v["doctoral_text"])}<ul>'+''.join(f'<li>{e(t)}</li>' for t in v['doctoral_tests'])+'</ul>'+par(v['doctoral_note'])+'</section>'
  s+=f'<section class="article-section" id="pretraining"><h2>{e(v["pretraining_title"])}</h2>{paragraphs(v["pretraining"])}{table(v["pretraining_head"],v["pretraining_rows"])}<p class="note">{e(v["pretraining_caption"])} <a href="{CHALLENGE_LINKS["thesis"]}">{e(v["thesis_link"])}</a>.</p></section>'
  s+=f'<section class="article-section" id="method"><h2>{e(v["method_title"])}</h2>{par(v["method_intro"])}<ol class="training-stages">'+''.join(f'<li><strong>{e(title)}</strong><p>{e(text)}</p></li>' for title,text in v['training_steps'])+'</ol>'+par(v['method_detail'])+par(v['split_note'])+'</section>'
- s+=f'<section class="article-section" id="results"><h2>{e(v["results_title"])}</h2>{par(v["results_text"])}{table(v["results_head"],v["results_rows"])}<p><a href="{CHALLENGE_LINKS["ranking"]}">{e(v["ranking_link"])}</a></p>{par(v["results_note"])}<figure class="certificate-photo"><a href="{base}assets/physionet-certificate.jpg"><img src="{base}assets/physionet-certificate.jpg" alt="{e(v["certificate_alt"])}" width="1536" height="1152" loading="lazy" decoding="async"></a><figcaption>{e(v["certificate_caption"])} <a href="{base}assets/physionet-certificate.jpg">{e(v["certificate_link"])}</a>.</figcaption></figure></section>'
+ s+=f'<section class="article-section" id="results"><h2>{e(v["results_title"])}</h2>{par(v["results_text"])}{table(v["results_head"],v["results_rows"])}<p><a href="{CHALLENGE_LINKS["ranking"]}">{e(v["ranking_link"])}</a></p>{par(v["results_note"])}<figure class="certificate-photo"><a class="image-link" href="{base}assets/physionet-certificate.jpg"><img src="{base}assets/physionet-certificate.jpg" alt="{e(v["certificate_alt"])}" width="1536" height="1152" loading="lazy" decoding="async"></a><figcaption>{e(v["certificate_caption"])}</figcaption></figure></section>'
  s+=section(v['team_title'],v['team_text'])
  s+=f'<section class="article-section" id="news"><h2>{e(v["news_title"])}</h2><ul class="news-list">'+''.join(f'<li><a href="{CHALLENGE_LINKS[key]}">{e(outlet)}</a><span class="news-date"> · {e(date)}</span><p>{e(description)}</p></li>' for key,outlet,date,description in v['news_entries'])+f'</ul><h3>{e(v["association_title"])}</h3>{par(v["association_text"])}<a href="{CHALLENGE_LINKS["photo"]}">{e(v["association_link"])}</a></section>'
  s+=f'<section class="article-section" id="history"><h2>{e(v["history_title"])}</h2>{par(v["history_text"])}{table(v["history_head"],v["history_rows"])}<p><a href="{CHALLENGE_LINKS["history"]}">{e(v["history_link"])}</a></p></section>'
@@ -93,14 +94,14 @@ def detail(c,key,base):
   s+='</div></section>'
   return s+f'<section class="article-section"><h2>{l["refs"]}</h2>{refs([9,6,1,4,7,8])}</section>'
  if key=='incor':
-  s+=f'<section class="article-section"><h2>{l["how"]}</h2><figure class="incor-figure"><div class="figure-window"><img src="{base}assets/incor-integration.png" alt="{e(v["caption"])}"></div><figcaption>{e(v["caption"])}</figcaption></figure>{par(v["method"])}{table([l["step"],l["method"]],v["workflow"])}</section>'
+  s+=f'<section class="article-section"><h2>{l["how"]}</h2><figure class="incor-figure"><div class="figure-window"><a class="image-link" href="{base}assets/incor-integration.png"><img src="{base}assets/incor-integration.png" alt="{e(v["caption"])}"></a></div><figcaption>{e(v["caption"])}</figcaption></figure>{par(v["method"])}{table([l["step"],l["method"]],v["workflow"])}</section>'
   s+=section(l['result'],v['result'])+par(v['scope'])
   s+=''
   return s+f'<section class="article-section"><h2>{l["refs"]}</h2>{refs([3,0,10])}</section>'
- s+='<figure class="gorgona-flow"><div class="flow-window"><img src="'+base+'assets/flows.png" alt="'+('Fluxo proposto com IA: cliente, anonimização, servidor InCor e alerta no Telegram, em paralelo à telemedicina.' if c['locale']=='pt-BR' else 'Proposed AI workflow: client, anonymization, InCor server and Telegram alerts alongside telemedicine.')+'"></div><figcaption>'+('Fluxo proposto com IA. Figura original do projeto.' if c['locale']=='pt-BR' else 'Proposed AI workflow. Original project figure, with Portuguese labels.')+'</figcaption></figure>'
+ s+='<figure class="gorgona-flow"><div class="flow-window"><a class="image-link" href="'+base+'assets/flows.png"><img src="'+base+'assets/flows.png" alt="'+('Fluxo proposto com IA: cliente, anonimização, servidor InCor e alerta no Telegram, em paralelo à telemedicina.' if c['locale']=='pt-BR' else 'Proposed AI workflow: client, anonymization, InCor server and Telegram alerts alongside telemedicine.')+'"></a></div><figcaption>'+('Fluxo proposto com IA. Figura original do projeto.' if c['locale']=='pt-BR' else 'Proposed AI workflow. Original project figure, with Portuguese labels.')+'</figcaption></figure>'
  s+=metrics(c)
  s+='<nav class="contents" aria-label="'+('Nesta página' if c['locale']=='pt-BR' else 'On this page')+'">'+''.join(f'<a href="#{k}">{l[k]}</a>' for k in ['objective','workflow','server','case'])+'</nav>'
- s+=f'<section class="article-section"><h2>{l["location"]}</h2>{par(v["location"])}{fig(base,"upa-map-"+("pt" if c["locale"]=="pt-BR" else "en")+".webp",v["map_caption"])}<a class="text-link" href="{LINKS["map"]}">{l["openmap"]} ↗</a></section>'
+ s+=f'<section class="article-section"><h2>{l["location"]}</h2>{par(v["location"])}{fig(base,"upa-map-"+("pt" if c["locale"]=="pt-BR" else "en")+".webp",v["map_caption"])}</section>'
  s+=f'<section class="article-section" id="workflow"><h2>{l["how"]}</h2><div class="split"><div><h3>{l["before"]}</h3>{par(v["before"])}</div><div><h3>{l["after"]}</h3>{par(v["after"])}</div></div>{fig(base,"flows.png",l["workflow"]+(". Diagramas originais do projeto." if c["locale"]=="pt-BR" else ". Original project diagrams in Portuguese."))}{table([l["step"],l["before"],l["after"]],v["flow_rows"])}</section>'
  s+='<details class="technical implementation"><summary>'+('Cliente Windows, servidor e plataforma online' if c['locale']=='pt-BR' else 'Windows client, server and online platform')+'</summary>'
  s+=f'<section class="article-section"><h2>{l["client"]}</h2>{par(v["client"])}<div class="two-images">{fig(base,"client-install.png","ECG-IA Client 1.6.66 · Windows")}{fig(base,"client-menu.png","ECG-IA Client · "+("Menu na bandeja do Windows" if c["locale"]=="pt-BR" else "Windows system tray menu"))}</div></section>'
@@ -111,7 +112,8 @@ def detail(c,key,base):
  return s
 def about(c,base):
  l=c['labels'];pt=c['locale']=='pt-BR'
- s=f'<header class="detail-top" id="about"><p class="eyebrow">Felipe Meneguitti Dias</p><h1>{c["about"]}</h1><p class="subtitle">{c["professional_title"]}</p><p>São Paulo, {"Brasil" if pt else "Brazil"} · <a href="tel:+5532991734060">+55 (32) 99173-4060</a></p>{par(c["cv_summary"])}</header>'
+ intro=''.join(par(text) for text in c['cv_summary'].split('\n\n'))
+ s=f'<header class="detail-top" id="about"><p class="eyebrow">Felipe Meneguitti Dias</p><h1>{c["about"]}</h1><p>São Paulo, {"Brasil" if pt else "Brazil"} · <a href="tel:+5532991734060">+55 (32) 99173-4060</a></p>{intro}</header>'
  s+=institution(c)
  s+=f'<section class="article-section"><h2>{"Experiência profissional" if pt else "Professional experience"}</h2>'
  for company,dates,role,location,items in c['jobs']:
@@ -129,13 +131,13 @@ def page(lang,kind):
  homepath=('../' if kind in PROJECTS else '')+'index.html'
  switchpt=base+rel;switchen=base+'en/'+rel
  title='Felipe Dias' if kind=='home' else (c['about'] if kind=='about' else c[kind]['title'])+' | Felipe Dias'
- desc=c['intro'] if kind in ['home','about'] else c[kind]['summary']
+ desc=c['intro'] if kind=='home' else c['cv_summary'].replace('\n\n',' ') if kind=='about' else c[kind]['summary']
  body=home(c,base,lang) if kind=='home' else about(c,base) if kind=='about' else detail(c,kind,base)
  nav=''
  for anchor,label in zip(['projects','about','publications','contact'],c['nav']):
   target=(('../' if kind not in ['home','about'] else '')+'about.html#'+anchor) if anchor in ['about','publications'] else homepath+'#'+anchor
   nav+=f'<a href="{target}">{label}</a>'
- html=f'''<!doctype html><html lang="{c['locale']}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="https://fmenegui.com/{path}"><link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/{rel}"><link rel="alternate" hreflang="en" href="https://fmenegui.com/en/{rel}"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:type" content="website"><meta property="og:image" content="https://fmenegui.com/assets/felipe.jpg"><link rel="icon" href="{base}assets/favicon.svg"><link rel="stylesheet" href="{base}assets/style.css?v={CSS_VERSION}"></head><body class="{'home-page' if kind=='home' else 'about-page' if kind=='about' else 'project-page'}"><a class="skip" href="#main">{c['labels']['skip']}</a><header class="header"><div class="wrap"><a class="brand" href="{homepath}">fmenegui</a><nav class="nav" aria-label="{c['labels']['home']}">{nav}</nav><span class="lang"><a lang="pt-BR" hreflang="pt-BR" href="{switchpt}" {'aria-current="page"' if lang=='pt' else ''}>PT</a><a lang="en" hreflang="en" href="{switchen}" {'aria-current="page"' if lang=='en' else ''}>EN</a></span></div></header><main id="main" class="wrap">{body}<section class="contact" id="contact"><h2>{e(c['contact'])}</h2><p class="contact-email"><a href="{LINKS['email']}">f.meneguittidias@gmail.com</a></p>{social()}<p class="contact-download"><a href="{base}downloads/Felipe_Dias_Portfolio_{lang.upper()}.pdf">{c['download']} (PDF)</a></p></section></main><footer class="footer"><div class="wrap"><span>Felipe Meneguitti Dias</span><span>{c['updated']} · PT / EN</span></div></footer></body></html>'''
+ html=f'''<!doctype html><html lang="{c['locale']}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="https://fmenegui.com/{path}"><link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/{rel}"><link rel="alternate" hreflang="en" href="https://fmenegui.com/en/{rel}"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:type" content="website"><meta property="og:image" content="https://fmenegui.com/assets/felipe.jpg"><link rel="icon" href="{base}assets/favicon.svg"><link rel="stylesheet" href="{base}assets/style.css?v={CSS_VERSION}"></head><body class="{'home-page' if kind=='home' else 'about-page' if kind=='about' else 'project-page'}"><a class="skip" href="#main">{c['labels']['skip']}</a><header class="header"><div class="wrap"><a class="brand" href="{homepath}">fmenegui</a><nav class="nav" aria-label="{c['labels']['home']}">{nav}</nav><span class="lang"><a lang="pt-BR" hreflang="pt-BR" href="{switchpt}" {'aria-current="page"' if lang=='pt' else ''}>PT</a><a lang="en" hreflang="en" href="{switchen}" {'aria-current="page"' if lang=='en' else ''}>EN</a></span></div></header><main id="main" class="wrap">{body}<section class="contact" id="contact"><h2>{e(c['contact'])}</h2><p class="contact-email"><a href="{LINKS['email']}">f.meneguittidias@gmail.com</a></p>{social()}<p class="contact-download"><a href="{base}downloads/Felipe_Dias_Portfolio_{lang.upper()}.pdf?v={PDF_VERSIONS[lang]}">{c['download']} (PDF)</a></p></section></main><footer class="footer"><div class="wrap"><span>Felipe Meneguitti Dias</span><span>{c['updated']} · PT / EN</span></div></footer></body></html>'''
  dest=OUT/path;dest.parent.mkdir(exist_ok=True,parents=True);dest.write_text(html,encoding='utf-8')
 
 for lang in CONTENT:

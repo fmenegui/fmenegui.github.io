@@ -175,6 +175,7 @@ figure { margin: 0; }
 .article-section figure img { width: 100%; max-height: 560px; object-fit: contain; }
 figcaption, .note { font-size: 13px; line-height: 1.55; color: var(--muted); }
 .article-section figcaption { margin-top: 10px; }
+.image-link { display: block; cursor: zoom-in; }
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
 .split h3 { margin-top: 0; }
 .two-images { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: center; }
