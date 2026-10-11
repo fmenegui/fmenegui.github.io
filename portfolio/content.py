@@ -277,17 +277,15 @@ CONTENT = {'pt': {'locale': 'pt-BR',
         'experience': 'No InCor, pesquisei sinais biomédicos, desenvolvi modelos para ECG e '
                       'participei da implantação de software no atendimento. Os projetos estão '
                       'descritos neste site.',
-        'skills': [('IA e dados',
-                    'Machine learning, deep learning, LLMs, visão computacional, processamento de '
-                    'sinais, análise de dados e validação de modelos.'),
-                   ('Tecnologias',
-                    'Python, PyTorch, TensorFlow/Keras, scikit-learn, MATLAB, Git e Linux.'),
-                   ('Sistemas',
-                    'FastAPI, Docker, SQLite, integração com Telegram, aplicativos móveis e '
-                    'painéis de monitoramento.'),
-                   ('Saúde digital',
-                    'ECG, PPG, wearables, dados clínicos, apoio à decisão, monitoramento remoto, '
-                    'anonimização e requisitos de LGPD.')],
+        'skills': [('Modelos de IA',
+                    'Treinamento e validação de modelos para classificação de imagens e '
+                    'anonimização de textos clínicos.'),
+                   ('Sinais biomédicos',
+                    'Processamento e análise de ECG e PPG.'),
+                   ('Programação',
+                    'Python e MATLAB. PyTorch, TensorFlow/Keras e scikit-learn.'),
+                   ('Software',
+                    'APIs com FastAPI, integração de modelos e uso de Git, Linux e Docker.')],
         'labels': {'objective': 'Objetivo',
                    'contribution': 'O que fiz',
                    'location': 'Local da implantação',
@@ -557,17 +555,15 @@ CONTENT = {'pt': {'locale': 'pt-BR',
         'experience': 'At InCor, I researched biomedical signals, developed ECG models and worked '
                       'on software deployment in clinical care. The projects are described on this '
                       'site.',
-        'skills': [('AI and data',
-                    'Machine learning, deep learning, LLMs, computer vision, signal processing, '
-                    'data analysis and model validation.'),
-                   ('Technologies',
-                    'Python, PyTorch, TensorFlow/Keras, scikit-learn, MATLAB, Git and Linux.'),
-                   ('Systems',
-                    'FastAPI, Docker, SQLite, Telegram integration, mobile apps and monitoring '
-                    'dashboards.'),
-                   ('Digital health',
-                    'ECG, PPG, wearables, clinical data, decision support, remote monitoring, '
-                    'anonymization and LGPD requirements.')],
+        'skills': [('AI models',
+                    'Training and validation of models for image classification and '
+                    'clinical text anonymization.'),
+                   ('Biomedical signals',
+                    'ECG and PPG processing and analysis.'),
+                   ('Programming',
+                    'Python and MATLAB. PyTorch, TensorFlow/Keras and scikit-learn.'),
+                   ('Software',
+                    'APIs with FastAPI, model integration, Git, Linux and Docker.')],
         'labels': {'objective': 'Objective',
                    'contribution': 'My work',
                    'location': 'Deployment location',
