@@ -95,11 +95,11 @@ CONTENT = {'pt': {'locale': 'pt-BR',
         'papers': 'Publicações selecionadas',
         'about': 'Currículo',
         'contact': 'Contato',
-        'contact_text': 'Para oportunidades em engenharia de IA, ciência de dados e pesquisa aplicada à saúde.',
+        'contact_text': '',
         'pdf_note': 'Uma versão para leitura e envio em candidaturas.',
         'portfolio': 'Portfólio profissional',
         'updated': 'Outubro de 2026',
-        'gorgona': {'kicker': '01 / IA em serviço · InCor · 2026',
+        'gorgona': {'kicker': 'ECGs de UPAs · InCor · 2026',
                     'title': 'Gorgona',
                     'subtitle': 'Classificação de ECGs integrada ao atendimento de urgência',
                     'summary': 'Classificação de ECGs de UPAs, com envio ao InCor e alertas pelo Telegram em '
@@ -113,12 +113,8 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                     'contribution': 'Conectei o modelo de classificação ao cliente Windows, ao processamento no '
                                     'InCor, ao painel web e ao envio de alertas. A equipe clínica conduziu o '
                                     'protocolo assistencial e a avaliação dos exames.',
-                    'metrics': [('42.037', 'registros processados'),
-                                ('2 min', 'do ECG ao alerta, no caso'),
+                    'metrics': [('2 min', 'do ECG ao alerta, no caso'),
                                 ('41 min', 'antes do primeiro laudo')],
-                    'count_note': 'Consulta de 03/10/2026: todas as unidades, período completo, status '
-                                  'Processado, classes Corrente de Lesão e Outros. A contagem corresponde a '
-                                  'registros de exames, não a pacientes únicos.',
                     'location': 'A implantação apresentada ocorreu na UPA Rodrigo Argolo, em Tancredo Neves, '
                                 'Salvador. A unidade realiza os ECGs, e o servidor do InCor concentra a execução '
                                 'do modelo.',
@@ -147,9 +143,7 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                                'acesso complementam o tratamento local dos arquivos. Essas medidas descrevem a '
                                'proteção técnica dos dados, sem constituir uma avaliação formal de conformidade '
                                'integral com a LGPD.',
-                    'dashboard': 'A plataforma online permite filtrar por unidade, período, status e classe. A '
-                                 'tela abaixo mostra a consulta à classe Corrente de Lesão entre 02/10 e '
-                                 '03/10/2026, diferente do filtro usado para a contagem de 42.037 registros.',
+                    'dashboard': 'O painel permite filtrar resultados por unidade, período, status e classe.',
                     'case': 'Em 20 de maio de 2026, um atendimento na UPA Rodrigo Argolo permitiu acompanhar o '
                             'fluxo completo. A admissão ocorreu às 18h52. Os dois ECGs geraram alertas '
                             'automáticos 2 minutos após sua realização. A chegada ao centro de referência foi '
@@ -170,19 +164,16 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                     'model': 'O modelo de emergência usa um ensemble ConvNeXt para 12 categorias. O estudo inclui '
                              '18.519 ECGs de 14.402 pacientes, com anotação de 19 cardiologistas. No teste '
                              'reservado, o macro F1 foi de 0,807 (IC 95%: 0,788 a 0,825). Esses números descrevem '
-                             'a pesquisa do classificador, separadamente do volume processado em serviço.',
+                             'a avaliação do classificador no estudo.',
                     'period': '2026',
-                    'foundation': 'O modelo da equipe AIMED, vencedor da tarefa de classificação do George B. '
-                                  'Moody PhysioNet Challenge 2024, serviu de base para o desenvolvimento do '
-                                  'classificador utilizado no Gorgona. O artigo do Computing in Cardiology (CinC) '
-                                  '2024 descreve a abordagem com ConvNeXt, pré-treinamento em imagens de ECG e '
-                                  'ensemble de modelos. Minha tese de doutorado documenta a construção dos bancos '
-                                  'de imagens, as estratégias de treinamento e a avaliação clínica dessa linha de '
-                                  'pesquisa.',
+                    'foundation': 'Desenvolvemos o classificador do Gorgona a partir do modelo da equipe AIMED, '
+                                  'que ficou em primeiro lugar na classificação do PhysioNet Challenge 2024. '
+                                  'O artigo do CinC 2024 descreve a ConvNeXt, o pré-treinamento em ECGs e o '
+                                  'ensemble. Minha tese detalha os bancos de imagens, os experimentos de '
+                                  'treinamento e a avaliação clínica.',
                     'foundation_short': 'O classificador foi desenvolvido a partir do modelo da equipe AIMED '
                                         'vencedor da tarefa de classificação do PhysioNet Challenge 2024. O '
-                                        'artigo do CinC 2024 e minha tese documentam essa base científica.',
-                    'evidence': '42.037 registros processados na plataforma, na consulta de 03/10/2026.',
+                                        'artigo do CinC 2024 e minha tese descrevem o método.',
                     'decisions': [('Integração ao atendimento',
                                    'A análise automática funciona em paralelo à telemedicina. O alerta acrescenta '
                                    'uma via de comunicação à regulação, mantendo a avaliação e a decisão com a '
@@ -196,9 +187,9 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                                    'os controles técnicos. A existência desses recursos não substitui uma '
                                    'avaliação de conformidade com a LGPD.')],
                     'status': 'Implantação em UPA'},
-        'incor': {'kicker': '02 / Integração hospitalar · InCor · 2023–2026',
+        'incor': {'kicker': 'Integração hospitalar · InCor · 2023–2026',
                   'title': 'ECG na emergência do InCor',
-                  'subtitle': 'Do PACS à tela da equipe médica',
+                  'subtitle': '',
                   'summary': 'Classificação de ECGs integrada ao PACS e à aplicação da emergência. Desenvolvi '
                              'modelos, coordenei a anotação clínica e participei da implantação e avaliação.',
                   'role': 'Desenvolvimento de modelos, coordenação da anotação e integração clínica',
@@ -241,7 +232,7 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                                  'desempenho de todas as versões implantadas.')],
                   'status': 'Integração hospitalar'},
         'physionet': CHALLENGE['pt'],
-        'rpms': {'kicker': '03 / Monitoramento remoto · InCor',
+        'rpms': {'kicker': 'Monitoramento remoto · InCor',
                  'title': 'RPMS',
                  'subtitle': 'Remote Patient Monitoring System',
                  'summary': 'Monitoramento remoto com relógios, processamento de PPG no celular e painel médico. '
@@ -250,16 +241,16 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                  'objective': 'Permitir o acompanhamento de pacientes fora do hospital, conectando sinais '
                               'coletados por dispositivos vestíveis a biomarcadores disponíveis para a equipe '
                               'médica.',
-                 'contribution': 'Minha atuação reuniu protocolos de coleta com relógios protótipos, organização '
-                                 'dos dados, pré-processamento de sinais de fotopletismografia (PPG) e '
-                                 'desenvolvimento de algoritmos em equipe.',
+                 'contribution': 'Desenvolvi protocolos de coleta com relógios protótipos, organizei os dados '
+                                 'e trabalhei no pré-processamento de fotopletismografia (PPG) e nos '
+                                 'algoritmos com a equipe.',
                  'method': 'O relógio envia o PPG ao aplicativo Android por Bluetooth Low Energy. O celular '
                            'processa o sinal, estima pressão arterial e frequência cardíaca e envia os resultados '
                            'por MQTT ao servidor ThingsBoard. O painel permite acompanhar as medidas de cada '
                            'paciente ao longo do tempo.',
                  'research': 'A pesquisa do RPMS abrange qualidade do sinal, estimativa de pressão arterial, '
                              'classificação relacionada ao diabetes e análise do sono. Os artigos documentam '
-                             'essas frentes. A arquitetura de 2022 demonstrada acima integra estimativas de '
+                             'esses estudos. A arquitetura de 2022 demonstrada acima integra estimativas de '
                              'pressão arterial e frequência cardíaca.',
                  'caption': 'Arquitetura publicada em Moreno, Dias et al. (SIoT, 2022), Figura 1. O processamento '
                             'ocorre no celular.',
@@ -291,9 +282,8 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                        'Intercâmbio em Engenharia Elétrica',
                        'Illinois Institute of Technology, Chicago'),
                       ('2012–2017', 'Graduação em Engenharia Eletrônica', 'Universidade Federal de Juiz de Fora')],
-        'experience': 'Minha experiência no InCor reúne pesquisa em sinais biomédicos, desenvolvimento de modelos '
-                      'para ECG e implantação de software em ambientes assistenciais. Gorgona, ECG na emergência '
-                      'e RPMS representam essas frentes neste portfólio.',
+        'experience': 'No InCor, pesquisei sinais biomédicos, desenvolvi modelos para ECG e participei da '
+                      'implantação de software no atendimento. Os projetos estão descritos neste site.',
         'skills': [('IA e dados',
                     'Machine learning, deep learning, LLMs, visão computacional, processamento de sinais, análise '
                     'de dados e validação de modelos.'),
@@ -305,22 +295,22 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                     'ECG, PPG, wearables, dados clínicos, apoio à decisão, monitoramento remoto, anonimização e '
                     'requisitos de LGPD.')],
         'labels': {'objective': 'Objetivo',
-                   'contribution': 'Responsabilidade no projeto',
+                   'contribution': 'Minha participação',
                    'location': 'Local da implantação',
-                   'workflow': 'Do fluxo anterior à proposta',
+                   'workflow': 'Fluxo anterior e fluxo com IA',
                    'before': 'Fluxo anterior',
                    'after': 'Com o Gorgona',
                    'client': 'O programa na UPA',
                    'server': 'Servidor e plataforma online',
                    'privacy': 'Proteção de dados e LGPD',
                    'case': 'Estudo de caso',
-                   'model': 'Base científica do modelo',
+                   'model': 'Modelo de classificação',
                    'method': 'Abordagem',
                    'result': 'Resultados e avaliação',
                    'team': 'Equipe',
                    'education': 'Formação',
                    'experience': 'Experiência',
-                   'skills': 'Competências aplicadas',
+                   'skills': 'Competências',
                    'refs': 'Artigos de referência',
                    'step': 'Etapa',
                    'event': 'Evento',
@@ -334,8 +324,8 @@ CONTENT = {'pt': {'locale': 'pt-BR',
         'professional_title': 'Engenharia de IA aplicada à saúde',
         'cv_summary': 'Especialista sênior de P&D na Samsung, com doutorado pela USP. No InCor, liderei a '
                       'integração de classificação de ECGs ao fluxo de UPAs e coordenei a anotação de cerca de 20 '
-                      'mil exames por 19 cardiologistas. Minha experiência reúne desenvolvimento de modelos, '
-                      'integração de software, protocolos de dados e avaliação clínica.',
+                      'mil exames por 19 cardiologistas. Trabalhei no desenvolvimento de modelos, na '
+                      'integração de software, nos protocolos de dados e na avaliação clínica.',
         'jobs': [('Samsung R&D Institute Brazil (SRBR)',
                   '2026–atual',
                   'Especialista de P&D Sênior',
@@ -350,8 +340,7 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                    'classes, fluxo de anotação, adjudicação e análise de concordância.',
                    'Liderança do projeto e desenvolvimento inicial do Gorgona para ECGs de UPAs de Salvador, com '
                    'anonimização configurável e alertas para suspeita de IAM com supradesnivelamento de ST. No '
-                   'caso documentado, dois ECGs geraram alertas em 2 minutos. A plataforma contabilizava 42.037 '
-                   'registros processados na consulta de 03/10/2026, considerando todas as unidades.',
+                   'caso documentado, dois ECGs geraram alertas em 2 minutos.',
                    'Desenvolvimento e implantação do classificador na emergência do InCor, com avaliação '
                    'pós-implantação por cardiologista e comparação com especialistas.',
                    'Desenvolvimento de monitoramento remoto com wearables, processamento de PPG e estimativa de '
@@ -390,11 +379,11 @@ CONTENT = {'pt': {'locale': 'pt-BR',
         'papers': 'Selected publications',
         'about': 'CV',
         'contact': 'Contact',
-        'contact_text': 'For opportunities in AI engineering, data science and applied healthcare research.',
+        'contact_text': '',
         'pdf_note': 'A standalone portfolio for applications and sharing.',
         'portfolio': 'Professional portfolio',
         'updated': 'October 2026',
-        'gorgona': {'kicker': '01 / Deployed AI · InCor · 2026',
+        'gorgona': {'kicker': 'Urgent care ECGs · InCor · 2026',
                     'title': 'Gorgona',
                     'subtitle': 'ECG classification integrated into urgent care',
                     'summary': 'ECG classification for urgent care units, with processing at InCor and Telegram '
@@ -407,12 +396,8 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                     'contribution': 'I connected the classification model to the Windows client, InCor processing '
                                     'server, web dashboard and Telegram alerts. The clinical team managed the '
                                     'care protocol and reviewed the ECGs.',
-                    'metrics': [('42,037', 'processed records'),
-                                ('2 min', 'ECG to alert in the case'),
+                    'metrics': [('2 min', 'ECG to alert in the case'),
                                 ('41 min', 'before the first report')],
-                    'count_note': 'Dashboard query on October 3, 2026: all units, full period, Processed status, '
-                                  'Current of Injury and Other classes. The count represents examination records, '
-                                  'not unique patients.',
                     'location': 'The deployment presented here took place at UPA Rodrigo Argolo, an urgent care '
                                 'unit in Tancredo Neves, Salvador, Brazil. ECGs are acquired at the unit and the '
                                 'model runs remotely on the InCor server.',
@@ -443,9 +428,7 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                                'authentication and access roles complement local file processing. These are '
                                'technical data protection measures, not a formal assessment of full compliance '
                                'with Brazil’s LGPD.',
-                    'dashboard': 'The online platform supports filtering by unit, period, status and class. This '
-                                 'screenshot shows the Current of Injury query for October 2–3, 2026, which '
-                                 'differs from the query used for the 42,037-record count.',
+                    'dashboard': 'The dashboard filters results by unit, period, status and class.',
                     'case': 'On May 20, 2026, one encounter at UPA Rodrigo Argolo provided a complete record of '
                             'the alert workflow. Admission was at 18:52. Both ECGs triggered automated alerts 2 '
                             'minutes after acquisition. Arrival at the referral center was recorded at 20:44.',
@@ -466,18 +449,15 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                     'model': 'The emergency model uses a ConvNeXt ensemble for 12 categories. The study includes '
                              '18,519 ECGs from 14,402 patients, annotated by 19 cardiologists. Held-out macro F1 '
                              'was 0.807 (95% CI: 0.788–0.825). These figures describe the classifier study, '
-                             'separately from operational processing volume.',
+                             'as evaluated in the study.',
                     'period': '2026',
-                    'foundation': 'The AIMED model that won the classification task of the 2024 George B. Moody '
-                                  'PhysioNet Challenge served as the foundation for developing the classifier '
-                                  'used in Gorgona. The Computing in Cardiology (CinC) 2024 paper describes the '
-                                  'ConvNeXt approach, ECG image pretraining and model ensemble. My doctoral '
-                                  'thesis documents the image datasets, training strategies and clinical '
-                                  'evaluation behind this research.',
+                    'foundation': 'We developed the Gorgona classifier from the AIMED model, which ranked '
+                                  'first in the 2024 PhysioNet Challenge classification task. The CinC 2024 '
+                                  'paper describes ConvNeXt, ECG pretraining and the ensemble. My thesis '
+                                  'details the image datasets, training experiments and clinical evaluation.',
                     'foundation_short': 'The classifier was developed from the AIMED model that won the 2024 '
                                         'PhysioNet Challenge classification task. The CinC 2024 paper and my '
-                                        'doctoral thesis document this foundation.',
-                    'evidence': '42,037 records processed across the platform, as queried on October 3, 2026.',
+                                        'doctoral thesis describe the method.',
                     'decisions': [('Clinical workflow',
                                    'Automated analysis runs alongside telemedicine. Alerts add a communication '
                                    'route to the clinical coordination team, while assessment and care decisions '
@@ -491,9 +471,9 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                                    'the technical controls. These features do not replace an assessment of '
                                    'compliance with Brazil’s LGPD.')],
                     'status': 'Urgent care deployment'},
-        'incor': {'kicker': '02 / Hospital integration · InCor · 2023–2026',
+        'incor': {'kicker': 'Hospital integration · InCor · 2023–2026',
                   'title': 'ECG classification at InCor',
-                  'subtitle': 'From PACS to the emergency room screen',
+                  'subtitle': '',
                   'summary': 'ECG classification integrated with PACS and the emergency department application. I '
                              'developed models, coordinated clinical annotation and worked on deployment and '
                              'evaluation.',
@@ -539,7 +519,7 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                                  'the performance of every deployed version.')],
                   'status': 'Hospital integration'},
         'physionet': CHALLENGE['en'],
-        'rpms': {'kicker': '03 / Remote monitoring · InCor',
+        'rpms': {'kicker': 'Remote monitoring · InCor',
                  'title': 'RPMS',
                  'subtitle': 'Remote Patient Monitoring System',
                  'summary': 'Remote monitoring with watches, phone-based PPG processing and a clinical dashboard. '
@@ -547,9 +527,9 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                  'role': 'Data collection protocols, signal processing and algorithm development',
                  'objective': 'Support patient follow-up outside the hospital by connecting wearable recordings '
                               'to biomarkers available to the clinical team.',
-                 'contribution': 'My work covered collection protocols with prototype watches, data organization, '
-                                 'photoplethysmography (PPG) preprocessing and collaborative algorithm '
-                                 'development.',
+                 'contribution': 'I developed collection protocols with prototype watches, organized the data '
+                                 'and worked on photoplethysmography (PPG) preprocessing and algorithms '
+                                 'with the team.',
                  'method': 'The watch sends PPG to the Android app over Bluetooth Low Energy. The phone processes '
                            'the signal, estimates blood pressure and heart rate, and sends results over MQTT to a '
                            'ThingsBoard server. The dashboard displays each patient’s measurements over time.',
@@ -584,9 +564,8 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                        'Exchange program in Electrical Engineering',
                        'Illinois Institute of Technology, Chicago'),
                       ('2012–2017', 'BSc in Electronic Engineering', 'Federal University of Juiz de Fora')],
-        'experience': 'My experience at InCor spans biomedical signal research, ECG model development and '
-                      'software deployment in healthcare settings. Gorgona brings these areas together in this '
-                      'portfolio.',
+        'experience': 'At InCor, I researched biomedical signals, developed ECG models and worked on software '
+                      'deployment in clinical care. The projects are described on this site.',
         'skills': [('AI and data',
                     'Machine learning, deep learning, LLMs, computer vision, signal processing, data analysis and '
                     'model validation.'),
@@ -597,22 +576,22 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                     'ECG, PPG, wearables, clinical data, decision support, remote monitoring, anonymization and '
                     'LGPD requirements.')],
         'labels': {'objective': 'Objective',
-                   'contribution': 'Project responsibility',
+                   'contribution': 'My contribution',
                    'location': 'Deployment location',
-                   'workflow': 'From the previous workflow to the proposal',
+                   'workflow': 'Previous workflow and workflow with AI',
                    'before': 'Previous workflow',
                    'after': 'With Gorgona',
                    'client': 'The application at the unit',
                    'server': 'Server and online platform',
                    'privacy': 'Data protection and LGPD',
                    'case': 'Case study',
-                   'model': 'Scientific basis',
+                   'model': 'Classification model',
                    'method': 'Approach',
                    'result': 'Results and evaluation',
                    'team': 'Team',
                    'education': 'Education',
                    'experience': 'Experience',
-                   'skills': 'Applied skills',
+                   'skills': 'Skills',
                    'refs': 'Research references',
                    'step': 'Stage',
                    'event': 'Event',
@@ -626,7 +605,7 @@ CONTENT = {'pt': {'locale': 'pt-BR',
         'professional_title': 'AI engineering for healthcare',
         'cv_summary': 'Senior R&D Specialist at Samsung with a PhD from the University of São Paulo. At InCor, I '
                       'led the integration of ECG classification into urgent care workflows and coordinated the '
-                      'annotation of around 20,000 examinations by 19 cardiologists. My experience covers model '
+                      'annotation of around 20,000 examinations by 19 cardiologists. I worked on model '
                       'development, software integration, data protocols and clinical evaluation.',
         'jobs': [('Samsung R&D Institute Brazil (SRBR)',
                   '2026–present',
@@ -642,8 +621,7 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                    'definitions, annotation workflows, adjudication and agreement analysis.',
                    'Project leadership and initial development of Gorgona for ECGs from urgent care units in '
                    'Salvador, with configurable anonymization and alerts for suspected ST-elevation myocardial '
-                   'infarction. In the documented case, two ECGs triggered alerts in 2 minutes. The platform had '
-                   '42,037 processed records across all units in the October 3, 2026 query.',
+                   'infarction. In the documented case, two ECGs triggered alerts in 2 minutes.',
                    'Development and deployment of the InCor emergency ECG classifier, including post-deployment '
                    'review by a cardiologist and comparison with specialists.',
                    'Development of wearable-based remote monitoring, PPG processing and physiological estimates '

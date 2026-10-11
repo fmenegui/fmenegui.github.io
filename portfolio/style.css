@@ -229,11 +229,16 @@ tbody th { font-weight: 400; }
 .cv-job li { margin-bottom: 10px; }
 .cv-awards li { margin-bottom: 16px; }
 
-/* The challenge reads as a research story with the original award photograph. */
+/* Research details and original award images. */
 .challenge-story { max-width: 800px; }
 .award-photo { max-width: 700px; margin: 12px 0 30px; }
 .award-photo img { width: 100%; height: auto; }
 .award-photo figcaption { margin-top: 12px; }
+.certificate-photo { max-width: 700px; }
+.news-list { list-style: none; padding: 0 !important; margin: 20px 0; }
+.news-list li { margin-bottom: 20px; }
+.news-list p { margin: 4px 0 0; }
+.news-date { color: var(--muted); font-size: 15px; }
 .challenge-story .contents { align-items: flex-start; }
 .challenge-story ul { padding-left: 23px; }
 .challenge-story li { margin-bottom: 10px; }

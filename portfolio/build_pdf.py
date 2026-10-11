@@ -8,7 +8,7 @@ def p(s,cls=''):return f'<p class="{cls}">{e(s)}</p>'
 def img(name,caption='',cls=''):return f'<figure class="{cls}"><img src="{(ROOT/"assets"/name).as_uri()}" alt=""><figcaption>{e(caption)}</figcaption></figure>'
 def refs(ids,pt):
  return '<div class="references"><h3>'+('Referências' if pt else 'References')+'</h3>'+''.join(f'<p><a href="https://doi.org/{PAPERS[i][4]}">{e(PAPERS[i][1])}</a> · {e(PAPERS[i][3])}, {PAPERS[i][0]}.</p>' for i in ids)+'</div>'
-def heading(k,v):return f'<p class="kicker">{e(v["status"])} · {v["period"]}</p><h2>{e(v["title"])}</h2>'+p(v['subtitle'],'subtitle')
+def heading(k,v):return f'<p class="kicker">{e(v["status"])} · {v["period"]}</p><h2>{e(v["title"])}</h2>'+(p(v['subtitle'],'subtitle') if v['subtitle'] else '')
 def block(h,t):return '<h3>'+e(h)+'</h3>'+p(t)
 def make(lang):
  c=CONTENT[lang];pt=lang=='pt';l=c['labels'];pages=[]
@@ -26,8 +26,8 @@ def make(lang):
  s+='<figure class="new-flow"><div class="flow-window"><img src="'+(ROOT/'assets/flows.png').as_uri()+'"></div><figcaption>'+('Fluxo proposto com IA. Figura original do projeto.' if pt else 'Proposed AI workflow. Original project figure, in Portuguese.')+'</figcaption></figure>'
  s+=p('A telemedicina e a decisão clínica permanecem no fluxo. HTTPS e credenciais por instalação complementam a anonimização local configurável.' if pt else 'Telemedicine and clinical decisions remain part of the workflow. HTTPS and per-installation credentials complement configurable local anonymization.','note')
  pages.append(s)
- s='<p class="kicker">Gorgona · '+('Evidências da implantação' if pt else 'Deployment evidence')+'</p><h2>'+('Operação e estudo de caso' if pt else 'Operation and case study')+'</h2>'
- s+='<div class="metrics">'+''.join('<div><strong>'+a+'</strong><span>'+b+'</span></div>' for a,b in v['metrics'])+'</div>'+p(v['count_note'],'note')
+ s='<p class="kicker">Gorgona · '+('UPA Rodrigo Argolo' if pt else 'Urgent care deployment')+'</p><h2>'+('Estudo de caso' if pt else 'Case study')+'</h2>'
+ s+='<div class="metrics">'+''.join('<div><strong>'+a+'</strong><span>'+b+'</span></div>' for a,b in v['metrics'])+'</div>'
  s+=block('UPA Rodrigo Argolo · 20/05/2026',v['case'])+img('timeline.png',v['timeline_caption'],'timeline')+p(v['case_result'])
  s+=block(l['model'],v['foundation_short'])+refs([2,10,0],pt)
  s+='<p class="more"><a href="https://fmenegui.com/'+('' if pt else 'en/')+'projects/gorgona.html">'+('Mapa da UPA, cliente Windows e plataforma online no estudo completo' if pt else 'See the full case study for the location map, Windows client and online platform')+'</a></p>'

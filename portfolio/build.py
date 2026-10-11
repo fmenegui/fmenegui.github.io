@@ -11,7 +11,9 @@ OUT=ROOT/'_site'
 ASSETS=Path(__file__).parent/'assets'
 PROJECTS=('gorgona','incor','physionet','rpms')
 OUT.mkdir(exist_ok=True)
-shutil.copytree(ASSETS,OUT/'assets',dirs_exist_ok=True)
+shutil.copytree(ASSETS,OUT/'assets',dirs_exist_ok=True,ignore=shutil.ignore_patterns('README.md'))
+for withdrawn in ['README.md']:
+ (OUT/'assets'/withdrawn).unlink(missing_ok=True)
 shutil.copy(Path(__file__).parent/'style.css',OUT/'assets/style.css')
 CSS_VERSION=sha256((OUT/'assets/style.css').read_bytes()).hexdigest()[:12]
 shutil.copytree(Path(__file__).parent/'downloads',OUT/'downloads',dirs_exist_ok=True)
@@ -55,24 +57,27 @@ def challenge(c,base,s):
  s+='<div class="challenge-story">'
  s+=f'<section class="article-section" id="story"><h2>{e(v["opening_title"])}</h2>{paragraphs(v["opening"])}</section>'
  s+=f'<figure class="award-photo"><a href="{base}assets/physionet-award.jpg"><img src="{base}assets/physionet-award.jpg" alt="{e(v["award_alt"])}" width="783" height="556" decoding="async" fetchpriority="high"></a><figcaption>{e(v["award_caption"])} <a href="{CHALLENGE_LINKS["photo"]}">{e(v["photo_source"])}</a></figcaption></figure>'
- s+=f'<nav class="contents" aria-label="{("Nesta página" if c["locale"]=="pt-BR" else "On this page")}">'+''.join(f'<a href="#{key}">{e(v[label])}</a>' for key,label in [('challenge','challenge_title'),('pretraining','pretraining_title'),('results','results_title')])+'</nav>'
+ s+=f'<nav class="contents" aria-label="{("Nesta página" if c["locale"]=="pt-BR" else "On this page")}">'+''.join(f'<a href="#{key}">{e(v[label])}</a>' for key,label in [('challenge','challenge_title'),('pretraining','pretraining_title'),('results','results_title'),('news','news_title')])+'</nav>'
  s+=section(v['challenge_title'],v['challenge_text'],'challenge')
  s+=f'<section class="article-section"><h2>{e(v["challenge_2024_title"])}</h2>{par(v["challenge_2024_text"])}<dl class="challenge-tasks">'+''.join(f'<div><dt>{e(title)}</dt><dd>{e(text)}</dd></div>' for title,text in v['tasks'])+'</dl>'+par(v['evaluation'])+'</section>'
  s+=f'<section class="article-section" id="classification"><h2>{e(v["classification_title"])}</h2>{paragraphs(v["classification"])}</section>'
  s+=f'<section class="article-section"><h2>{e(v["doctoral_title"])}</h2>{par(v["doctoral_text"])}<ul>'+''.join(f'<li>{e(t)}</li>' for t in v['doctoral_tests'])+'</ul>'+par(v['doctoral_note'])+'</section>'
  s+=f'<section class="article-section" id="pretraining"><h2>{e(v["pretraining_title"])}</h2>{paragraphs(v["pretraining"])}{table(v["pretraining_head"],v["pretraining_rows"])}<p class="note">{e(v["pretraining_caption"])} <a href="{CHALLENGE_LINKS["thesis"]}">{e(v["thesis_link"])}</a>.</p></section>'
  s+=f'<section class="article-section" id="method"><h2>{e(v["method_title"])}</h2>{par(v["method_intro"])}<ol class="training-stages">'+''.join(f'<li><strong>{e(title)}</strong><p>{e(text)}</p></li>' for title,text in v['training_steps'])+'</ol>'+par(v['method_detail'])+par(v['split_note'])+'</section>'
- s+=f'<section class="article-section" id="results"><h2>{e(v["results_title"])}</h2>{par(v["results_text"])}{table(v["results_head"],v["results_rows"])}<p><a href="{CHALLENGE_LINKS["ranking"]}">{e(v["ranking_link"])}</a></p>{par(v["results_note"])}</section>'
+ s+=f'<section class="article-section" id="results"><h2>{e(v["results_title"])}</h2>{par(v["results_text"])}{table(v["results_head"],v["results_rows"])}<p><a href="{CHALLENGE_LINKS["ranking"]}">{e(v["ranking_link"])}</a></p>{par(v["results_note"])}<figure class="certificate-photo"><a href="{base}assets/physionet-certificate.jpg"><img src="{base}assets/physionet-certificate.jpg" alt="{e(v["certificate_alt"])}" width="1536" height="1152" loading="lazy" decoding="async"></a><figcaption>{e(v["certificate_caption"])} <a href="{base}assets/physionet-certificate.jpg">{e(v["certificate_link"])}</a>.</figcaption></figure></section>'
  s+=section(v['team_title'],v['team_text'])
+ s+=f'<section class="article-section" id="news"><h2>{e(v["news_title"])}</h2><ul class="news-list">'+''.join(f'<li><a href="{CHALLENGE_LINKS[key]}">{e(outlet)}</a><span class="news-date"> · {e(date)}</span><p>{e(description)}</p></li>' for key,outlet,date,description in v['news_entries'])+f'</ul><h3>{e(v["association_title"])}</h3>{par(v["association_text"])}<a href="{CHALLENGE_LINKS["photo"]}">{e(v["association_link"])}</a></section>'
  s+=f'<section class="article-section" id="history"><h2>{e(v["history_title"])}</h2>{par(v["history_text"])}{table(v["history_head"],v["history_rows"])}<p><a href="{CHALLENGE_LINKS["history"]}">{e(v["history_link"])}</a></p></section>'
  s+=f'<section class="article-section"><h2>{e(v["sources_title"])}</h2><ul class="challenge-sources">'+''.join(f'<li><a href="{CHALLENGE_LINKS[key]}">{e(v[key+"_link"])}</a></li>' for key in ['paper','thesis','official','awards'])+'</ul>'+refs([2,10])+'</section>'
  return s+'</div>'
 def detail(c,key,base):
- v=c[key];l=c['labels'];s=f'<header class="detail-top"><a class="back" href="../index.html#projects">← {c["back"]}</a><p class="eyebrow">{v["kicker"]}</p><h1>{v["title"]}</h1><p class="subtitle">{v["subtitle"]}</p></header>'
+ v=c[key];l=c['labels']
+ subtitle=f'<p class="subtitle">{e(v["subtitle"])}</p>' if v['subtitle'] else ''
+ s=f'<header class="detail-top"><a class="back" href="../index.html#projects">← {c["back"]}</a><p class="eyebrow">{v["kicker"]}</p><h1>{v["title"]}</h1>{subtitle}</header>'
  s+=institution(c)
  if key=='physionet':return challenge(c,base,s)
  s+=section(l['objective'],v['objective'],'objective')+section(l['contribution'],v['contribution'])
- s+='<section class="article-section decisions"><h2>'+('Decisões de engenharia' if c['locale']=='pt-BR' else 'Engineering decisions')+'</h2><dl>'+''.join('<div><dt>'+e(a)+'</dt><dd>'+e(b)+'</dd></div>' for a,b in v['decisions'])+'</dl></section>'
+ s+='<section class="article-section decisions"><h2>'+('Escolhas do projeto' if c['locale']=='pt-BR' else 'Design choices')+'</h2><dl>'+''.join('<div><dt>'+e(a)+'</dt><dd>'+e(b)+'</dd></div>' for a,b in v['decisions'])+'</dl></section>'
  if key=='rpms':
   lang='pt' if c['locale']=='pt-BR' else 'en'
   s+=f'<section class="article-section"><h2>{"Como funciona" if lang=="pt" else "How it works"}</h2>{fig(base,"rpms-architecture.jpeg",v["caption"])}{par(v["method"])}</section>'
@@ -93,13 +98,13 @@ def detail(c,key,base):
   s+=''
   return s+f'<section class="article-section"><h2>{l["refs"]}</h2>{refs([3,0,10])}</section>'
  s+='<figure class="gorgona-flow"><div class="flow-window"><img src="'+base+'assets/flows.png" alt="'+('Fluxo proposto com IA: cliente, anonimização, servidor InCor e alerta no Telegram, em paralelo à telemedicina.' if c['locale']=='pt-BR' else 'Proposed AI workflow: client, anonymization, InCor server and Telegram alerts alongside telemedicine.')+'"></div><figcaption>'+('Fluxo proposto com IA. Figura original do projeto.' if c['locale']=='pt-BR' else 'Proposed AI workflow. Original project figure, with Portuguese labels.')+'</figcaption></figure>'
- s+=metrics(c)+f'<p class="note">{v["count_note"]}</p>'
+ s+=metrics(c)
  s+='<nav class="contents" aria-label="'+('Nesta página' if c['locale']=='pt-BR' else 'On this page')+'">'+''.join(f'<a href="#{k}">{l[k]}</a>' for k in ['objective','workflow','server','case'])+'</nav>'
  s+=f'<section class="article-section"><h2>{l["location"]}</h2>{par(v["location"])}{fig(base,"upa-map-"+("pt" if c["locale"]=="pt-BR" else "en")+".webp",v["map_caption"])}<a class="text-link" href="{LINKS["map"]}">{l["openmap"]} ↗</a></section>'
  s+=f'<section class="article-section" id="workflow"><h2>{l["how"]}</h2><div class="split"><div><h3>{l["before"]}</h3>{par(v["before"])}</div><div><h3>{l["after"]}</h3>{par(v["after"])}</div></div>{fig(base,"flows.png",l["workflow"]+(". Diagramas originais do projeto." if c["locale"]=="pt-BR" else ". Original project diagrams in Portuguese."))}{table([l["step"],l["before"],l["after"]],v["flow_rows"])}</section>'
  s+='<details class="technical implementation"><summary>'+('Cliente Windows, servidor e plataforma online' if c['locale']=='pt-BR' else 'Windows client, server and online platform')+'</summary>'
  s+=f'<section class="article-section"><h2>{l["client"]}</h2>{par(v["client"])}<div class="two-images">{fig(base,"client-install.png","ECG-IA Client 1.6.66 · Windows")}{fig(base,"client-menu.png","ECG-IA Client · "+("Menu na bandeja do Windows" if c["locale"]=="pt-BR" else "Windows system tray menu"))}</div></section>'
- s+=f'<section class="article-section" id="server"><h2>{l["server"]}</h2>{par(v["server"])}{fig(base,"architecture.png",("Arquitetura do sistema." if c["locale"]=="pt-BR" else "System architecture. Original labels in Portuguese."))}<h3>{l["privacy"]}</h3>{par(v["privacy"])}{par(v["dashboard"])}{fig(base,"dashboard.png","Gorgona · Dashboard · 03/10/2026")}</section>'
+ s+=f'<section class="article-section" id="server"><h2>{l["server"]}</h2>{par(v["server"])}{fig(base,"architecture.png",("Arquitetura do sistema." if c["locale"]=="pt-BR" else "System architecture. Original labels in Portuguese."))}<h3>{l["privacy"]}</h3>{par(v["privacy"])}{par(v["dashboard"])}{fig(base,"dashboard.png",("Painel do Gorgona: filtros e resultados de classificação." if c["locale"]=="pt-BR" else "Gorgona dashboard: filters and classification results."))}</section>'
  s+='</details>'
  s+=f'<section class="article-section" id="case"><h2>{l["result"]}</h2><h3>{l["case"]}</h3>{par(v["case"])}{fig(base,"timeline.png",v["timeline_caption"])}{table([l["event"],l["first"],l["second"]],v["case_rows"])}{par(v["case_result"])}</section>'
  s+=f'<section class="article-section"><h2>{l["model"]}</h2>{par(v["foundation"])}{par(v["model"])}<h3>{l["refs"]}</h3>{refs([2,10,0,3])}</section>'

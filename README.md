@@ -36,7 +36,6 @@ Open the resulting `portfolio/print/portfolio_pt.html` and `portfolio_en.html` w
 
 ## Editorial notes
 
-- Gorgona's 42,037 records are a dashboard count on October 3, 2026, across all units and the full period, with the specified class filters. They are not unique patients.
 - The two-minute ECG-to-alert observation is from two ECGs in one encounter on May 20, 2026.
 - PhysioNet's first place belongs to team AIMED in the classification task. The 0.817 value is the test score reported in the team's paper.
 - Scientific metrics, operational counts and case-study timings are kept separate.
@@ -48,7 +47,9 @@ Open the resulting `portfolio/print/portfolio_pt.html` and `portfolio_en.html` w
 Design references: UC Davis DataLab's portfolio workshop and Arthur Koehl's project-based portfolio. The layout and text are original.
 
 
-The website features four projects: Gorgona, InCor emergency ECG classification, PhysioNet Challenge 2024 and RPMS. The PhysioNet page connects the author's doctoral research to the AIMED classification entry, with the award photograph, thesis ablations, training stages, official scores and earlier challenge topics. Thesis experiments are identified separately from challenge results. The existing five-page PDF downloads cover the three original projects. RPMS references cover signal quality, blood pressure, diabetes and sleep.
+The website features four projects: Gorgona, InCor emergency ECG classification, PhysioNet Challenge 2024 and RPMS. The PhysioNet page describes the doctoral experiments and AIMED classification method, with the original award photograph and certificate, training stages, official scores, news links and earlier challenge topics. News links identify publication dates and republication sources. Thesis experiments are identified separately from challenge results. The five-page PDF downloads cover the three original projects. RPMS references cover signal quality, blood pressure, diabetes and sleep.
+
+Copy uses direct descriptions of the author's work in both languages. The Gorgona pages, CV and PDF downloads omit operational counts and references to dashboard queries after July 2026. The original dashboard screenshot remains published, with a descriptive caption that does not state when it was captured.
 
 Revisão de 04/10/2026: currículo PT/EN atualizado com Samsung, experiência no InCor, LLMs, competências e premiações. RPMS expandido como Remote Patient Monitoring System. Descrições uniformizadas. Notas de estudo mantidas apenas no código-fonte e excluídas da publicação. Doutorado nomeado conforme o currículo fornecido pelo autor.
 
