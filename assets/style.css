@@ -152,15 +152,6 @@ figure { margin: 0; }
 .project .desc { max-width: 660px; margin-bottom: 16px; }
 .project-links { display: flex; flex-wrap: wrap; gap: 10px 26px; font-size: 14px; margin: 0; }
 
-/* The author's public experiments, with a real output from his renderer. */
-.lab-notes { margin-top: 12px; padding: 30px 0 18px; border-top: 1px solid var(--line); }
-.notebook { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: 36px; align-items: start; }
-.render-sample img { width: 100%; height: auto; }
-.render-sample figcaption { margin-top: 8px; font-size: 12px; }
-.experiment-links article { margin-bottom: 25px; }
-.experiment-links h3 { font: 14px/1.6 ui-monospace, 'SFMono-Regular', Consolas, monospace; margin-bottom: 9px; overflow-wrap: anywhere; }
-.experiment-links p { font-size: 16px; line-height: 1.6; }
-
 /* Case studies and CV use the same type and spacing. */
 .detail-top { max-width: 800px; padding: 44px 0 26px; }
 .back { display: inline-block; margin-bottom: 26px; font-size: 14px; }
@@ -180,10 +171,6 @@ figcaption, .note { font-size: 13px; line-height: 1.55; color: var(--muted); }
 .split h3 { margin-top: 0; }
 .two-images { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: center; }
 .two-images img { max-height: 250px !important; }
-.decisions dl { margin: 0; }
-.decisions dl > div { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 28px; padding: 18px 0; border-top: 1px solid var(--line); }
-.decisions dt { color: var(--ink); font-weight: 600; }
-.decisions dd { margin: 0; }
 .metrics { display: flex; flex-wrap: wrap; gap: 22px 40px; padding: 21px 0; border-block: 1px solid var(--line); margin-bottom: 14px; }
 .metric strong { display: block; color: var(--ink); font-size: 26px; font-weight: 600; }
 .metric span { font-size: 14px; color: var(--muted); }
@@ -284,11 +271,8 @@ tbody th { font-weight: 400; }
   .project { grid-template-columns: 120px minmax(0, 1fr); gap: 27px; }
   .project-thumb { width: 116px; height: 116px; }
   .project h3 { font-size: 21px; }
-  .decisions dl > div { grid-template-columns: 1fr; gap: 6px; }
   .split { grid-template-columns: 1fr; gap: 20px; }
   .rpms-gallery { gap: 20px; }
-  .notebook { grid-template-columns: 1fr; gap: 25px; }
-  .render-sample { max-width: 460px; }
 }
 
 /* Phone: show the portrait and give each project description the full width. */
