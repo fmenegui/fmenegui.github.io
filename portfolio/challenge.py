@@ -75,6 +75,8 @@ CHALLENGE = {
         'pretraining_caption': 'Experimentos de ablação da tese: validação cruzada de 10 folds no InCor-EMG. Estes valores não são os resultados do PhysioNet Challenge.',
         'method_title': 'Método publicado',
         'method_intro': 'No artigo Image-Based Electrocardiogram Classification Using Pre-trained ConvNext, descrevemos o treinamento em quatro etapas:',
+        'method_alt': 'Figura 1 do artigo do CinC 2024: pesos do ImageNet, pré-treinamento em CODE15 e InCor-AMB, ajuste em InCor-EMG e ajuste final no PTB-XL com cinco folds.',
+        'method_caption': 'Metodologia final da AIMED, reproduzida da Figura 1 do artigo do CinC 2024.',
         'training_steps': [
             ('ImageNet', 'Começamos com uma ConvNeXt pré-treinada em imagens gerais.'),
             ('CODE15 e InCor-AMB', 'Adaptamos a rede a imagens sintéticas geradas com ECG-Image-Kit e a ECGs reais do ambulatório.'),
@@ -193,6 +195,8 @@ CHALLENGE = {
         'pretraining_caption': 'Thesis ablation experiments: 10-fold cross-validation on InCor-EMG. These values are not PhysioNet Challenge results.',
         'method_title': 'Published method',
         'method_intro': 'In Image-Based Electrocardiogram Classification Using Pre-trained ConvNext, we describe four training stages:',
+        'method_alt': 'Figure 1 from the CinC 2024 paper: ImageNet weights, pretraining on CODE15 and InCor-AMB, fine-tuning on InCor-EMG and final fine-tuning on PTB-XL with five folds.',
+        'method_caption': 'AIMED’s final method, reproduced from Figure 1 of the CinC 2024 paper.',
         'training_steps': [
             ('ImageNet', 'We started with a ConvNeXt pretrained on general images.'),
             ('CODE15 and InCor-AMB', 'We adapted the network to synthetic images generated with ECG-Image-Kit and real outpatient ECGs.'),
