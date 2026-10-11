@@ -313,47 +313,47 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                    'skip': 'Ir para o conteúdo',
                    'how': 'Como funciona'},
         'professional_title': 'Engenharia de IA aplicada à saúde',
-        'cv_summary': 'Sou engenheiro eletrônico e doutor pela USP. Hoje trabalho na Samsung, em '
-                      'Campinas, como especialista sênior de P&D. Antes, no InCor, pesquisei '
-                      'sinais biomédicos e desenvolvi modelos e software para o atendimento '
-                      'hospitalar.\n'
+        'cv_summary': 'Sou engenheiro eletrônico, doutor pela USP e especialista sênior de P&D '
+                      'na Samsung, em Campinas.\n'
                       '\n'
-                      'No doutorado, estudei a classificação de ECGs por imagem. Levei esse '
-                      'trabalho ao PhysioNet Challenge 2024 como líder da AIMED, e ficamos em '
-                      'primeiro lugar em classificação. Também liderei o Gorgona, que analisa ECGs '
-                      'de UPAs de Salvador e envia alertas pelo Telegram.',
+                      'Antes de entrar na Samsung, trabalhei no InCor com sinais biomédicos e '
+                      'modelos de IA para saúde. No doutorado, pesquisei a classificação de ECGs '
+                      'por imagem. Também desenvolvi software e trabalhei com a equipe médica '
+                      'na integração dos modelos à rotina da emergência.',
         'jobs': [('Samsung R&D Institute Brazil (SRBR)',
                   '2026–atual',
                   'Especialista de P&D Sênior',
                   'Campinas, SP',
-                  ['Trabalho com pesquisa e desenvolvimento de IA e software. Também faço testes e '
-                   'avalio os resultados.']),
+                  ['Trabalho com pesquisa e desenvolvimento de IA e software, incluindo testes '
+                   'e avaliação dos resultados.']),
                  ('Instituto do Coração (InCor), HCFMUSP',
                   '2020–2026',
                   'Pesquisador / Analista de Sistemas Sênior, IA aplicada à saúde',
                   'São Paulo, SP',
-                  ['Desenvolvi modelos para classificar imagens de ECG e trabalhei na integração '
-                   'do classificador à emergência. A avaliação incluiu revisão por cardiologista e '
+                  ['Desenvolvi modelos para classificar ECGs por imagem e trabalhei na integração '
+                   'do classificador ao atendimento na emergência. A avaliação incluiu revisão por cardiologista e '
                    'comparação com especialistas.',
-                   'Coordenei a anotação de cerca de 20 mil ECGs com 19 cardiologistas, incluindo '
-                   'a definição das classes, a revisão das leituras divergentes e a análise de '
+                   'Coordenei a anotação de cerca de 20 mil ECGs por 19 cardiologistas, da '
+                   'definição das classes à revisão das leituras divergentes e à análise de '
                    'concordância.',
-                   'Liderei a AIMED no PhysioNet Challenge 2024. Ficamos em primeiro lugar em '
-                   'classificação, e fui o primeiro autor do artigo sobre o método.',
+                   'Liderei a AIMED no PhysioNet Challenge 2024, em que conquistamos o primeiro '
+                   'lugar na tarefa de classificação. Fui o primeiro autor do artigo que descreve '
+                   'o método.',
                    'Liderei o Gorgona e fiz a integração inicial entre as UPAs de Salvador, o '
-                   'servidor do InCor e os alertas pelo Telegram. O sistema avisa a equipe sobre '
-                   'ECGs com suspeita de IAM com supradesnivelamento de ST, em paralelo à '
-                   'telemedicina.',
-                   'No RPMS, desenvolvi protocolos de coleta com relógios. Com a equipe, trabalhei '
-                   'no processamento de PPG e nos algoritmos para estimar medidas fisiológicas.',
+                   'servidor do InCor e o Telegram. O sistema envia alertas à equipe de regulação '
+                   'quando um ECG sugere infarto agudo do miocárdio com supradesnivelamento de ST. '
+                   'Os exames também seguem para avaliação por telemedicina.',
+                   'No RPMS, desenvolvi protocolos de coleta com relógios e trabalhei com a equipe '
+                   'no processamento de sinais de fotopletismografia (PPG) e nos algoritmos para '
+                   'estimar medidas fisiológicas.',
                    'Desenvolvi e avaliei modelos de linguagem para anonimizar textos clínicos em '
-                   'português. Preparei uma base anotada, comparei os modelos e trabalhei com '
+                   'português. Preparei uma base anotada, comparei os modelos e trabalhei na '
                    'execução local para proteger os dados.'])],
         'awards': [('2024',
-                    '1º lugar em classificação no George B. Moody PhysioNet Challenge com a equipe '
-                    'AIMED, que liderei.'),
+                    '1º lugar na tarefa de classificação do George B. Moody PhysioNet Challenge, '
+                    'como líder da equipe AIMED.'),
                    ('2015', 'Bolsa Ciência sem Fronteiras, CAPES.'),
-                   ('2011', 'Medalha de Bronze, Olimpíada Brasileira de Física (OBF).')]},
+                   ('2011', 'Medalha de bronze na Olimpíada Brasileira de Física (OBF).')]},
  'en': {'locale': 'en',
         'name': 'English',
         'nav': ['Projects', 'CV', 'Publications', 'Contact'],
@@ -592,44 +592,40 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                    'how': 'How it works'},
         'professional_title': 'AI engineering for healthcare',
         'cv_summary': "I'm an electronics engineer with a PhD from the University of São Paulo. I "
-                      'work as a Senior R&D Specialist at Samsung in Campinas, Brazil. Before '
-                      'joining Samsung, I worked at InCor, researching biomedical signals and '
-                      'developing models and software for clinical care.\n'
+                      'work as a Senior R&D Specialist at Samsung in Campinas, Brazil.\n'
                       '\n'
-                      'My PhD focused on classifying ECG images. I built on that research to lead '
-                      'AIMED in the 2024 PhysioNet Challenge, where we won the classification '
-                      'task. I also led Gorgona, a system that analyzes ECGs from urgent care '
-                      'units in Salvador and sends Telegram alerts.',
+                      'Before joining Samsung, I worked on biomedical signals and healthcare AI '
+                      'at InCor. My PhD focused on ECG image classification. I also developed '
+                      'software and worked with clinicians to integrate the models into the '
+                      "emergency department's workflow.",
         'jobs': [('Samsung R&D Institute Brazil (SRBR)',
                   '2026–present',
                   'Senior R&D Specialist',
                   'Campinas, Brazil',
-                  ['I work on AI and software research, development and testing, and evaluate the '
-                   'results.']),
+                  ['Research and develop AI models and software, including testing and evaluation.']),
                  ('Heart Institute (InCor), HCFMUSP',
                   '2020–2026',
                   'Researcher / Senior Systems Analyst, Healthcare AI',
                   'São Paulo, Brazil',
-                  ['I developed models for ECG image classification and helped integrate the '
-                   'classifier into the emergency department. Evaluation included cardiologist '
+                  ['Developed models to classify ECG images and helped integrate the classifier '
+                   'into the emergency department. The evaluation included cardiologist '
                    'review and comparison with specialists.',
-                   'I coordinated the annotation of around 20,000 ECGs by 19 cardiologists, '
-                   'including class definitions, review of conflicting readings and agreement '
-                   'analysis.',
-                   'I led AIMED in the 2024 PhysioNet Challenge. We won the classification task, '
-                   'and I was the first author of the paper describing our method.',
-                   'I led Gorgona and built the initial integration between urgent care units in '
-                   'Salvador, the InCor server and Telegram alerts. It flags ECGs with suspected '
-                   'ST-elevation myocardial infarction while the usual telemedicine review '
-                   'continues.',
-                   'For RPMS, I developed protocols for recording signals with watches. With the '
-                   'team, I worked on PPG processing and algorithms for estimating physiological '
-                   'measurements.',
-                   'I developed and evaluated language models for anonymizing Portuguese clinical '
-                   'text. I prepared an annotated dataset, compared models and worked on running '
-                   'them locally to protect the data.'])],
+                   'Coordinated the annotation of around 20,000 ECGs by 19 cardiologists, from '
+                   'defining the classes to reviewing conflicting readings and analyzing agreement.',
+                   'Led AIMED in the 2024 PhysioNet Challenge, where we placed first in the '
+                   'classification task. First author of the paper describing our method.',
+                   'Led Gorgona and built the initial integration between urgent care units in '
+                   'Salvador, the InCor server and Telegram. The system alerts the referral '
+                   'coordination team when an ECG suggests ST-elevation myocardial infarction. '
+                   'ECGs also go through telemedicine review.',
+                   'Developed protocols for collecting signals from watches in RPMS. Worked '
+                   'with the team on photoplethysmography (PPG) processing and algorithms for '
+                   'estimating physiological parameters.',
+                   'Developed and evaluated language models to anonymize clinical text in '
+                   'Portuguese. Prepared an annotated dataset, compared models and worked on '
+                   'local deployment to protect the data.'])],
         'awards': [('2024',
-                    'First place in classification in the George B. Moody PhysioNet Challenge with '
-                    'team AIMED, which I led.'),
+                    'First place in the classification task of the George B. Moody PhysioNet '
+                    'Challenge as the leader of team AIMED.'),
                    ('2015', 'Science without Borders scholarship, CAPES.'),
-                   ('2011', 'Bronze Medal, Brazilian Physics Olympiad (OBF).')]}}
+                   ('2011', 'Bronze medal in the Brazilian Physics Olympiad (OBF).')]}}
