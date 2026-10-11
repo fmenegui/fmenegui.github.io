@@ -47,10 +47,6 @@ def home(c,base,lang):
   doi=PAPERS[{'gorgona':0,'incor':3,'physionet':2,'rpms':9}[key]][4]
   s+=f'<article class="project">{thumb}<div class="project-copy"><h3><a href="projects/{key}.html">{e(v["title"])}</a></h3><p class="project-info">{e(v["status"])} · {e(v["period"])}</p><p class="desc">{e(v["summary"])}</p><p class="project-links"><a href="projects/{key}.html">{c["read"]}</a><a href="https://doi.org/{doi}">{c["article"]}</a></p></div></article>'
  s+='</section>'
- s+=f'<section class="lab-notes" id="experiments"><h2>{e(c["notes_title"])}</h2><div class="notebook"><figure class="render-sample"><a class="image-link" href="{base}assets/renderer-example.jpg"><img src="{base}assets/renderer-example.jpg" alt="{e(c["render_caption"])}" width="1024" height="768" loading="lazy" decoding="async"></a><figcaption>{e(c["render_caption"])}</figcaption></figure><div class="experiment-links">'
- for name,url,description in c['experiments']:
-  s+=f'<article><h3><a href="{e(url)}">{e(name)}</a></h3><p>{e(description)}</p></article>'
- s+='</div></div></section>'
  return s
 def challenge(c,base,s):
  v=c['physionet']
@@ -78,15 +74,14 @@ def detail(c,key,base):
  s+=institution(c)
  if key=='physionet':return challenge(c,base,s)
  s+=section(l['objective'],v['objective'],'objective')+section(l['contribution'],v['contribution'])
- s+='<section class="article-section decisions"><h2>'+('Escolhas do projeto' if c['locale']=='pt-BR' else 'Design choices')+'</h2><dl>'+''.join('<div><dt>'+e(a)+'</dt><dd>'+e(b)+'</dd></div>' for a,b in v['decisions'])+'</dl></section>'
  if key=='rpms':
   lang='pt' if c['locale']=='pt-BR' else 'en'
   s+=f'<section class="article-section"><h2>{"Como funciona" if lang=="pt" else "How it works"}</h2>{fig(base,"rpms-architecture.jpeg",v["caption"])}{par(v["method"])}</section>'
-  evidence=('A versão descrita no artigo de 2022 reuniu dados de 52 voluntários e foi utilizada no monitoramento remoto com 15 pulseiras. O aplicativo preservava o histórico local e enviava ao servidor as estimativas de pressão sistólica, diastólica e frequência cardíaca.' if lang=='pt' else 'The version described in the 2022 paper used data from 52 volunteers and supported remote monitoring with 15 wristbands. The app retained a local history and sent systolic pressure, diastolic pressure and heart rate estimates to the server.')
-  appcap=('Aplicativo Android: medição, aquisição do PPG e histórico. Figura 3, SIoT 2022.' if lang=='pt' else 'Android app: measurement, PPG acquisition and history. Figure 3, SIoT 2022.')
-  dashcap=('Painel ThingsBoard: visualização das medidas recebidas. Figura 4, SIoT 2022.' if lang=='pt' else 'ThingsBoard dashboard: received measurements. Figure 4, SIoT 2022.')
+  evidence=('Na arquitetura publicada em 2022, o aplicativo mantinha o histórico das medidas no celular e enviava ao servidor as estimativas de pressão sistólica, diastólica e frequência cardíaca.' if lang=='pt' else 'In the architecture published in 2022, the app kept a history of measurements on the phone and sent systolic pressure, diastolic pressure and heart rate estimates to the server.')
+  appcap=('Aplicativo Android: coleta de PPG, medidas e histórico. Figura 3, SIoT 2022.' if lang=='pt' else 'Android app: PPG recording, measurements and history. Figure 3, SIoT 2022.')
+  dashcap=('Painel ThingsBoard com as medidas recebidas. Figura 4, SIoT 2022.' if lang=='pt' else 'ThingsBoard dashboard showing the measurements received. Figure 4, SIoT 2022.')
   s+=f'<section class="article-section"><h2>{l["result"]}</h2>{par(evidence)}<div class="rpms-gallery">{fig(base,"rpms-app.jpeg",appcap)}{fig(base,"rpms-dashboard.jpeg",dashcap)}</div></section>'
-  protocol=('No protocolo de 2022, cada voluntário descansava por 10 minutos e realizava três coletas de um minuto de PPG, intercaladas com medidas de pressão por manguito. O processamento incluía filtro de 0,5 a 10 Hz, reamostragem de 200 para 125 Hz e janelas de 8 segundos. A avaliação separava os participantes entre as partições de validação.' if lang=='pt' else 'In the 2022 protocol, volunteers rested for 10 minutes and completed three one-minute PPG recordings interleaved with cuff blood pressure measurements. Processing used a 0.5–10 Hz filter, resampling from 200 to 125 Hz and 8-second windows. Evaluation kept participants separate across validation folds.')
+  protocol=('No protocolo de 2022, cada voluntário descansava por 10 minutos. Depois, fazia três coletas de um minuto de PPG, intercaladas com medidas de pressão por manguito. Processamos o sinal com filtro de 0,5 a 10 Hz, reamostragem de 200 para 125 Hz e janelas de 8 segundos. Na validação, os participantes do teste eram separados dos usados no treinamento.' if lang=='pt' else 'Under the 2022 protocol, volunteers rested for 10 minutes, then completed three one-minute PPG recordings with cuff blood pressure measurements in between. Signal processing used a 0.5–10 Hz filter, resampling from 200 to 125 Hz and 8-second windows. Test participants were kept separate from those used for training.')
   s+=f'<details class="technical"><summary>{"Protocolo e processamento do sinal" if lang=="pt" else "Collection protocol and signal processing"}</summary>{par(protocol)}{fig(base,"rpms-protocol.png","SIoT 2022 · Figure 2")}</details>'
   s+=f'<section class="article-section"><h2>{"Algoritmos e pesquisa" if lang=="pt" else "Algorithms and research"}</h2>{par(v["research"])}<div class="biomarker-grid">'
   for name,description,i in v['biomarkers']:
