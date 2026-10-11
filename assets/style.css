@@ -251,6 +251,8 @@ tbody th { font-weight: 400; }
 .training-stages li { padding-left: 8px; margin-bottom: 20px; }
 .training-stages strong { color: var(--ink); }
 .training-stages p { margin: 5px 0 0; }
+.method-figure { max-width: 740px; }
+.article-section .method-figure img { height: auto; max-height: none; }
 .challenge-story #results tbody tr:first-child { font-weight: 600; }
 .challenge-story #results tbody tr:first-child th { font-weight: 600; }
 .challenge-sources { font-size: 15px; }
