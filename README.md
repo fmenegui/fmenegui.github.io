@@ -4,7 +4,7 @@ Portuguese is served at `/`, English at `/en/`. Each project has a page in both 
 
 ## Edit and preview
 
-The editorial source is `portfolio/content.py`. Update facts and translations there. Layout and styles are in `portfolio/build.py` and `portfolio/style.css`.
+The editorial source is `portfolio/content.py`, with the bilingual PhysioNet 2024 story in `portfolio/challenge.py`. Update facts and translations there. Layout and styles are in `portfolio/build.py` and `portfolio/style.css`.
 
 The layout follows a personal research homepage: a white background, ordinary blue links, a candid portrait and locally hosted Merriweather and Source Sans. Color tokens are defined in `:root` in `portfolio/style.css`. Project thumbnails crop the original diagrams and app screenshots in CSS, leaving the source assets intact. The GitHub section links to the author's renderer and anatomy experiment and shows an actual output from the renderer. At phone widths, the portrait stays visible and project descriptions use the full content width. Navigation, language switching, and downloads work without JavaScript. There are no decorative animations.
 
@@ -48,7 +48,7 @@ Open the resulting `portfolio/print/portfolio_pt.html` and `portfolio_en.html` w
 Design references: UC Davis DataLab's portfolio workshop and Arthur Koehl's project-based portfolio. The layout and text are original.
 
 
-Atualização editorial: três projetos selecionados (Gorgona, ECG na emergência do InCor e RPMS). PhysioNet aparece como prêmio no currículo e como origem do modelo do Gorgona. PDF resumido de cinco páginas por idioma. Referências do RPMS ligadas às frentes de qualidade de sinal, pressão arterial, diabetes e sono.
+The website features four projects: Gorgona, InCor emergency ECG classification, PhysioNet Challenge 2024 and RPMS. The PhysioNet page connects the author's doctoral research to the AIMED classification entry, with the award photograph, thesis ablations, training stages, official scores and earlier challenge topics. Thesis experiments are identified separately from challenge results. The existing five-page PDF downloads cover the three original projects. RPMS references cover signal quality, blood pressure, diabetes and sleep.
 
 Revisão de 04/10/2026: currículo PT/EN atualizado com Samsung, experiência no InCor, LLMs, competências e premiações. RPMS expandido como Remote Patient Monitoring System. Descrições uniformizadas. Notas de estudo mantidas apenas no código-fonte e excluídas da publicação. Doutorado nomeado conforme o currículo fornecido pelo autor.
 

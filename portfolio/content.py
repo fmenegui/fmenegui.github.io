@@ -1,3 +1,5 @@
+from challenge import CHALLENGE
+
 LINKS = {'email': 'mailto:f.meneguittidias@gmail.com',
  'linkedin': 'https://www.linkedin.com/in/felipe-meneguitti-dias-312570b3/',
  'github': 'https://github.com/fmenegui',
@@ -238,21 +240,7 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                                  'categorias. Os resultados dessa pesquisa não medem volume assistencial nem '
                                  'desempenho de todas as versões implantadas.')],
                   'status': 'Integração hospitalar'},
-        'physionet': {'kicker': '02 / Classificação de imagens · 2024',
-                      'title': 'PhysioNet Challenge',
-                      'subtitle': 'Primeiro lugar em classificação de ECGs',
-                      'summary': 'Integrei a equipe AIMED, vencedora da tarefa de classificação do George B. '
-                                 'Moody PhysioNet Challenge 2024, com macro F1 de 0,817 no teste oculto reportado '
-                                 'no artigo.',
-                      'role': 'Integrante da equipe AIMED e primeiro autor do artigo',
-                      'method': 'Usamos ConvNeXt com pré-treinamento em imagens de ECG, ajuste no PTB-XL e um '
-                                'ensemble de cinco modelos. O trabalho avaliou a classificação de 11 categorias '
-                                'diretamente nas imagens.',
-                      'result': 'A participação reuniu treinamento, avaliação em dados ocultos e análise de '
-                                'diferentes condições de aquisição. O prêmio se refere à tarefa de classificação, '
-                                'conduzida separadamente da digitalização dos traçados.',
-                      'team': 'Felipe M. Dias, Estela Ribeiro, Quenaz B. Soares, José E. Krieger e Marco A. '
-                              'Gutierrez.'},
+        'physionet': CHALLENGE['pt'],
         'rpms': {'kicker': '03 / Monitoramento remoto · InCor',
                  'title': 'RPMS',
                  'subtitle': 'Remote Patient Monitoring System',
@@ -550,21 +538,7 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                                  'categories. Those research results do not measure clinical processing volume or '
                                  'the performance of every deployed version.')],
                   'status': 'Hospital integration'},
-        'physionet': {'kicker': '02 / Image classification · 2024',
-                      'title': 'PhysioNet Challenge',
-                      'subtitle': 'First place in ECG classification',
-                      'summary': 'I contributed to AIMED, the winning team in the classification task of the 2024 '
-                                 'George B. Moody PhysioNet Challenge, with a hidden-test macro F1 of 0.817 '
-                                 'reported in our paper.',
-                      'role': 'AIMED team member and first author of the paper',
-                      'method': 'We used ConvNeXt pretrained on ECG images, fine-tuned on PTB-XL, with a '
-                                'five-model ensemble. The work evaluated classification of 11 categories directly '
-                                'from images.',
-                      'result': 'The entry combined model training, hidden-data evaluation and analysis across '
-                                'image acquisition conditions. The award was for classification, a separate task '
-                                'from ECG waveform digitization.',
-                      'team': 'Felipe M. Dias, Estela Ribeiro, Quenaz B. Soares, José E. Krieger and Marco A. '
-                              'Gutierrez.'},
+        'physionet': CHALLENGE['en'],
         'rpms': {'kicker': '03 / Remote monitoring · InCor',
                  'title': 'RPMS',
                  'subtitle': 'Remote Patient Monitoring System',

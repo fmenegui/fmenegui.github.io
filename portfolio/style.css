@@ -146,6 +146,7 @@ figure { margin: 0; }
 .project-thumb.gorgona-thumb img { width: 360%; left: -180%; top: -44%; }
 .project-thumb.incor-thumb img { width: 400%; left: -155%; top: -142%; }
 .project-thumb.rpms-thumb img { width: 260%; left: -80%; top: -34%; }
+.project-thumb.physionet-thumb img { width: 165%; left: -24%; top: -5%; }
 .project-info { color: var(--muted); font-size: 13px; line-height: 1.5; margin-bottom: 10px; }
 .project h3 { font-size: 21px; margin-bottom: 5px; }
 .project .desc { max-width: 660px; margin-bottom: 16px; }
@@ -227,6 +228,26 @@ tbody th { font-weight: 400; }
 .cv-job ul, .cv-awards { padding-left: 20px; }
 .cv-job li { margin-bottom: 10px; }
 .cv-awards li { margin-bottom: 16px; }
+
+/* The challenge reads as a research story with the original award photograph. */
+.challenge-story { max-width: 800px; }
+.award-photo { max-width: 700px; margin: 12px 0 30px; }
+.award-photo img { width: 100%; height: auto; }
+.award-photo figcaption { margin-top: 12px; }
+.challenge-story .contents { align-items: flex-start; }
+.challenge-story ul { padding-left: 23px; }
+.challenge-story li { margin-bottom: 10px; }
+.challenge-tasks { margin: 22px 0; }
+.challenge-tasks > div { padding: 13px 0; border-top: 1px solid var(--line); }
+.challenge-tasks dt { font-weight: 600; color: var(--ink); margin-bottom: 5px; }
+.challenge-tasks dd { margin: 0; }
+.training-stages { padding-left: 25px; margin: 24px 0; }
+.training-stages li { padding-left: 8px; margin-bottom: 20px; }
+.training-stages strong { color: var(--ink); }
+.training-stages p { margin: 5px 0 0; }
+.challenge-story #results tbody tr:first-child { font-weight: 600; }
+.challenge-story #results tbody tr:first-child th { font-weight: 600; }
+.challenge-sources { font-size: 15px; }
 
 /* Plain contact information. */
 .contact { border-top: 1px solid var(--line); margin-top: 24px; padding: 25px 0 18px; }

@@ -5,9 +5,11 @@ from html import escape as e
 from hashlib import sha256
 import shutil
 from content import CONTENT, LINKS, PAPERS
+from challenge import CHALLENGE_LINKS
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'_site'
 ASSETS=Path(__file__).parent/'assets'
+PROJECTS=('gorgona','incor','physionet','rpms')
 OUT.mkdir(exist_ok=True)
 shutil.copytree(ASSETS,OUT/'assets',dirs_exist_ok=True)
 shutil.copy(Path(__file__).parent/'style.css',OUT/'assets/style.css')
@@ -31,19 +33,15 @@ def social():return '<div class="social">'+''.join(f'<a href="{LINKS[k]}">{label
 def publications(cv=False):
  return '<ol class="pub-list">'+''.join(f'<li><time>{yr}</time><div><h3><a href="https://doi.org/{doi}">{e(title)}</a></h3><p>{e(authors)} · {e(venue)}</p></div></li>' for i,(yr,title,authors,venue,doi) in sorted(enumerate(PAPERS),key=lambda item:-int(item[1][0])) if cv or i!=2)+'</ol>'
 def education(c):return '<ol class="education">'+''.join(f'<li><time>{date}</time><div><strong>{e(name)}</strong><small>{e(school)}</small></div></li>' for date,name,school in c['education'])+'</ol>'
-def visual(key,c,base):
- if key=='gorgona':return f'<div class="project-visual"><img src="{base}assets/dashboard.png" alt="Gorgona dashboard" loading="lazy"></div>'
- if key=='physionet':return '<div class="project-visual award"><span class="small">PHYSIONET CHALLENGE 2024</span><span class="rank">01</span><span>AIMED · '+('Classificação' if c['locale']=='pt-BR' else 'Classification')+'</span><span class="score">Macro F1 · 0.817</span></div>'
- return '<div class="project-visual ppg-visual"><span class="eyebrow">PPG → BP</span><span class="letters">Siamese ResNet</span><span>'+('Sinal + calibração' if c['locale']=='pt-BR' else 'Signal + calibration')+'</span></div>'
 def home(c,base,lang):
  pdf=f'{base}downloads/Felipe_Dias_Portfolio_{lang.upper()}.pdf'
  s=f'<section class="hero"><div class="hero-copy"><h1>Felipe Meneguitti Dias</h1><p class="location">{e(c["location"])}</p><p class="intro">{e(c["intro"])}</p><p class="email-line"><a href="{LINKS["email"]}">f.meneguittidias@gmail.com</a></p>{social()}<p class="profile-links"><a href="{pdf}">{c["download"]} (PDF)</a><a href="about.html">{c["about"]}</a></p></div><figure class="portrait-frame"><img class="portrait" src="{base}assets/felipe.jpg" alt="Felipe Meneguitti Dias" width="400" height="400" fetchpriority="high" decoding="async"></figure></section>'
  s+=f'<section class="section" id="projects"><div class="section-head"><h2>{c["selected"]}</h2></div>'+institution(c)
- for key in ['gorgona','incor','rpms']:
+ for key in PROJECTS:
   v=c[key]
-  imagefile={'gorgona':'flows.png','incor':'incor-integration.png','rpms':'rpms-app.jpeg'}[key]
+  imagefile={'gorgona':'flows.png','incor':'incor-integration.png','physionet':'physionet-award.jpg','rpms':'rpms-app.jpeg'}[key]
   thumb=f'<div class="project-media"><a class="project-thumb {key}-thumb" href="projects/{key}.html" aria-label="{e(v["title"])}"><img src="{base}assets/{imagefile}" alt="" loading="lazy" decoding="async"></a></div>'
-  doi=PAPERS[{'gorgona':0,'incor':3,'rpms':9}[key]][4]
+  doi=PAPERS[{'gorgona':0,'incor':3,'physionet':2,'rpms':9}[key]][4]
   s+=f'<article class="project">{thumb}<div class="project-copy"><h3><a href="projects/{key}.html">{e(v["title"])}</a></h3><p class="project-info">{e(v["status"])} · {e(v["period"])}</p><p class="desc">{e(v["summary"])}</p><p class="project-links"><a href="projects/{key}.html">{c["read"]}</a><a href="https://doi.org/{doi}">{c["article"]}</a></p></div></article>'
  s+='</section>'
  s+=f'<section class="lab-notes" id="experiments"><h2>{e(c["notes_title"])}</h2><div class="notebook"><figure class="render-sample"><a href="https://github.com/fmenegui/ecg-torch-renderer" aria-label="ecg-torch-renderer"><img src="{base}assets/renderer-example.jpg" alt="{e(c["render_caption"])}" width="1024" height="768" loading="lazy" decoding="async"></a><figcaption>{e(c["render_caption"])}</figcaption></figure><div class="experiment-links">'
@@ -51,9 +49,28 @@ def home(c,base,lang):
   s+=f'<article><h3><a href="{e(url)}">{e(name)}</a></h3><p>{e(description)}</p></article>'
  s+='</div></div></section>'
  return s
+def challenge(c,base,s):
+ v=c['physionet']
+ def paragraphs(items):return ''.join(par(t) for t in items)
+ s+='<div class="challenge-story">'
+ s+=f'<section class="article-section" id="story"><h2>{e(v["opening_title"])}</h2>{paragraphs(v["opening"])}</section>'
+ s+=f'<figure class="award-photo"><a href="{base}assets/physionet-award.jpg"><img src="{base}assets/physionet-award.jpg" alt="{e(v["award_alt"])}" width="783" height="556" decoding="async" fetchpriority="high"></a><figcaption>{e(v["award_caption"])} <a href="{CHALLENGE_LINKS["photo"]}">{e(v["photo_source"])}</a></figcaption></figure>'
+ s+=f'<nav class="contents" aria-label="{("Nesta página" if c["locale"]=="pt-BR" else "On this page")}">'+''.join(f'<a href="#{key}">{e(v[label])}</a>' for key,label in [('challenge','challenge_title'),('pretraining','pretraining_title'),('results','results_title')])+'</nav>'
+ s+=section(v['challenge_title'],v['challenge_text'],'challenge')
+ s+=f'<section class="article-section"><h2>{e(v["challenge_2024_title"])}</h2>{par(v["challenge_2024_text"])}<dl class="challenge-tasks">'+''.join(f'<div><dt>{e(title)}</dt><dd>{e(text)}</dd></div>' for title,text in v['tasks'])+'</dl>'+par(v['evaluation'])+'</section>'
+ s+=f'<section class="article-section" id="classification"><h2>{e(v["classification_title"])}</h2>{paragraphs(v["classification"])}</section>'
+ s+=f'<section class="article-section"><h2>{e(v["doctoral_title"])}</h2>{par(v["doctoral_text"])}<ul>'+''.join(f'<li>{e(t)}</li>' for t in v['doctoral_tests'])+'</ul>'+par(v['doctoral_note'])+'</section>'
+ s+=f'<section class="article-section" id="pretraining"><h2>{e(v["pretraining_title"])}</h2>{paragraphs(v["pretraining"])}{table(v["pretraining_head"],v["pretraining_rows"])}<p class="note">{e(v["pretraining_caption"])} <a href="{CHALLENGE_LINKS["thesis"]}">{e(v["thesis_link"])}</a>.</p></section>'
+ s+=f'<section class="article-section" id="method"><h2>{e(v["method_title"])}</h2>{par(v["method_intro"])}<ol class="training-stages">'+''.join(f'<li><strong>{e(title)}</strong><p>{e(text)}</p></li>' for title,text in v['training_steps'])+'</ol>'+par(v['method_detail'])+par(v['split_note'])+'</section>'
+ s+=f'<section class="article-section" id="results"><h2>{e(v["results_title"])}</h2>{par(v["results_text"])}{table(v["results_head"],v["results_rows"])}<p><a href="{CHALLENGE_LINKS["ranking"]}">{e(v["ranking_link"])}</a></p>{par(v["results_note"])}</section>'
+ s+=section(v['team_title'],v['team_text'])
+ s+=f'<section class="article-section" id="history"><h2>{e(v["history_title"])}</h2>{par(v["history_text"])}{table(v["history_head"],v["history_rows"])}<p><a href="{CHALLENGE_LINKS["history"]}">{e(v["history_link"])}</a></p></section>'
+ s+=f'<section class="article-section"><h2>{e(v["sources_title"])}</h2><ul class="challenge-sources">'+''.join(f'<li><a href="{CHALLENGE_LINKS[key]}">{e(v[key+"_link"])}</a></li>' for key in ['paper','thesis','official','awards'])+'</ul>'+refs([2,10])+'</section>'
+ return s+'</div>'
 def detail(c,key,base):
  v=c[key];l=c['labels'];s=f'<header class="detail-top"><a class="back" href="../index.html#projects">← {c["back"]}</a><p class="eyebrow">{v["kicker"]}</p><h1>{v["title"]}</h1><p class="subtitle">{v["subtitle"]}</p></header>'
  s+=institution(c)
+ if key=='physionet':return challenge(c,base,s)
  s+=section(l['objective'],v['objective'],'objective')+section(l['contribution'],v['contribution'])
  s+='<section class="article-section decisions"><h2>'+('Decisões de engenharia' if c['locale']=='pt-BR' else 'Engineering decisions')+'</h2><dl>'+''.join('<div><dt>'+e(a)+'</dt><dd>'+e(b)+'</dd></div>' for a,b in v['decisions'])+'</dl></section>'
  if key=='rpms':
@@ -75,12 +92,6 @@ def detail(c,key,base):
   s+=section(l['result'],v['result'])+par(v['scope'])
   s+=''
   return s+f'<section class="article-section"><h2>{l["refs"]}</h2>{refs([3,0,10])}</section>'
- if key!='gorgona':
-  s+='<div class="split"><div>'+visual(key,c,base)+'</div><div>'+par(v['method'])+par(v['result'])+'</div></div>'
-  s+=section(l['team'],v['team'])
-  s+=f'<section class="article-section"><h2>{l["refs"]}</h2>{refs([2] if key=="physionet" else [1,4])}'
-  if key=='physionet':s+=f'<a class="text-link" href="{LINKS["challenge"]}">{l["official"]} ↗</a>'
-  return s+'</section>'
  s+='<figure class="gorgona-flow"><div class="flow-window"><img src="'+base+'assets/flows.png" alt="'+('Fluxo proposto com IA: cliente, anonimização, servidor InCor e alerta no Telegram, em paralelo à telemedicina.' if c['locale']=='pt-BR' else 'Proposed AI workflow: client, anonymization, InCor server and Telegram alerts alongside telemedicine.')+'"></div><figcaption>'+('Fluxo proposto com IA. Figura original do projeto.' if c['locale']=='pt-BR' else 'Proposed AI workflow. Original project figure, with Portuguese labels.')+'</figcaption></figure>'
  s+=metrics(c)+f'<p class="note">{v["count_note"]}</p>'
  s+='<nav class="contents" aria-label="'+('Nesta página' if c['locale']=='pt-BR' else 'On this page')+'">'+''.join(f'<a href="#{k}">{l[k]}</a>' for k in ['objective','workflow','server','case'])+'</nav>'
@@ -110,7 +121,7 @@ def page(lang,kind):
  c=CONTENT[lang];prefix='' if lang=='pt' else 'en/'
  rel='index.html' if kind=='home' else 'about.html' if kind=='about' else f'projects/{kind}.html'
  path=prefix+rel;depth=len(Path(path).parts)-1;base='../'*depth
- homepath=('../' if kind in ['gorgona','incor','rpms'] else '')+'index.html'
+ homepath=('../' if kind in PROJECTS else '')+'index.html'
  switchpt=base+rel;switchen=base+'en/'+rel
  title='Felipe Dias' if kind=='home' else (c['about'] if kind=='about' else c[kind]['title'])+' | Felipe Dias'
  desc=c['intro'] if kind in ['home','about'] else c[kind]['summary']
@@ -123,18 +134,14 @@ def page(lang,kind):
  dest=OUT/path;dest.parent.mkdir(exist_ok=True,parents=True);dest.write_text(html,encoding='utf-8')
 
 for lang in CONTENT:
- for kind in ['home','about','gorgona','incor','rpms']:page(lang,kind)
+ for kind in ['home','about',*PROJECTS]:page(lang,kind)
 (OUT/'cv').mkdir(exist_ok=True)
 (OUT/'cv/cv.html').write_text('<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=../about.html"><title>Felipe Dias</title><a href="../about.html">Sobre / About</a></html>')
 (OUT/'assets/favicon.svg').write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#fff"/><text x="11" y="44" font-family="Georgia,serif" font-size="35" fill="#244c9f">fd</text></svg>')
 (OUT/'.nojekyll').touch()
 (OUT/'CNAME').write_text('fmenegui.com\n')
 (OUT/'404.html').write_text('<!doctype html><html lang="pt-BR"><meta charset="utf-8"><title>Página não encontrada | Felipe Dias</title><h1>Página não encontrada / Page not found</h1><p><a href="/">Português</a> · <a href="/en/">English</a></p></html>')
-print(f'Built 10 bilingual portfolio pages in {OUT}')
-
-# Previous draft project URLs now point to the CV award section.
-for prefix in ['', 'en/']:
- (OUT/prefix/'projects/physionet.html').write_text('<!doctype html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=../about.html#awards"><a href="../about.html#awards">CV</a>')
+print(f'Built {2*(2+len(PROJECTS))} bilingual portfolio pages in {OUT}')
 
 for prefix in ["", "en/"]:
  (OUT/prefix/"projects/ppg.html").write_text('<meta http-equiv="refresh" content="0;url=rpms.html"><a href="rpms.html">RPMS</a>')
@@ -143,5 +150,5 @@ for prefix in ["", "en/"]:
 shutil.rmtree(OUT/'learning',ignore_errors=True)
 for stale in ['search.json','sitemap.xml']:
  (OUT/stale).unlink(missing_ok=True)
-paths=['index.html','about.html','projects/gorgona.html','projects/incor.html','projects/rpms.html']
+paths=['index.html','about.html',*(f'projects/{key}.html' for key in PROJECTS)]
 (OUT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>https://fmenegui.com/'+prefix+p+'</loc></url>' for prefix in ['', 'en/'] for p in paths)+'</urlset>')
