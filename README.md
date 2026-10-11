@@ -6,7 +6,7 @@ Portuguese is served at `/`, English at `/en/`. Each project has a page in both 
 
 The editorial source is `portfolio/content.py`. Update facts and translations there. Layout and styles are in `portfolio/build.py` and `portfolio/style.css`.
 
-The visual system uses locally hosted Merriweather and Source Sans, a warm paper background, and a restrained green accent. Color tokens are defined in `:root` in `portfolio/style.css`. Project thumbnails crop the original diagrams and app screenshots in CSS, leaving the source assets intact. At phone widths, the portrait stays visible and project descriptions use the full content width. Navigation, language switching, and downloads work without JavaScript. Reduced-motion preferences disable smooth scrolling and decorative transitions.
+The layout follows a personal research homepage: a white background, ordinary blue links, a candid portrait and locally hosted Merriweather and Source Sans. Color tokens are defined in `:root` in `portfolio/style.css`. Project thumbnails crop the original diagrams and app screenshots in CSS, leaving the source assets intact. The GitHub section links to the author's renderer and anatomy experiment and shows an actual output from the renderer. At phone widths, the portrait stays visible and project descriptions use the full content width. Navigation, language switching, and downloads work without JavaScript. There are no decorative animations.
 
 The builder adds a content hash to the stylesheet URL so visitors receive style changes after deployment. This does not require changing the publishing workflow.
 
