@@ -108,7 +108,7 @@ def detail(c,key,base):
 def about(c,base):
  l=c['labels'];pt=c['locale']=='pt-BR'
  intro=''.join(par(text) for text in c['cv_summary'].split('\n\n'))
- s=f'<header class="detail-top" id="about"><p class="eyebrow">Felipe Meneguitti Dias</p><h1>{c["about"]}</h1><p>São Paulo, {"Brasil" if pt else "Brazil"} · <a href="tel:+5532991734060">+55 (32) 99173-4060</a></p>{intro}</header>'
+ s=f'<header class="detail-top" id="about"><p class="eyebrow">{c["about"]}</p><h1>Felipe Meneguitti Dias</h1><p>São Paulo, {"Brasil" if pt else "Brazil"} · <a href="tel:+5532991734060">+55 (32) 99173-4060</a></p>{intro}</header>'
  s+=institution(c)
  s+=f'<section class="article-section"><h2>{"Experiência profissional" if pt else "Professional experience"}</h2>'
  for company,dates,role,location,items in c['jobs']:
