@@ -6,6 +6,10 @@ Portuguese is served at `/`, English at `/en/`. Each project has a page in both 
 
 The editorial source is `portfolio/content.py`. Update facts and translations there. Layout and styles are in `portfolio/build.py` and `portfolio/style.css`.
 
+The visual system uses locally hosted Merriweather and Source Sans, a warm paper background, and a restrained green accent. Color tokens are defined in `:root` in `portfolio/style.css`. Project thumbnails crop the original diagrams and app screenshots in CSS, leaving the source assets intact. At phone widths, the portrait stays visible and project descriptions use the full content width. Navigation, language switching, and downloads work without JavaScript. Reduced-motion preferences disable smooth scrolling and decorative transitions.
+
+The builder adds a content hash to the stylesheet URL so visitors receive style changes after deployment. This does not require changing the publishing workflow.
+
 ```sh
 python portfolio/build.py
 python -m http.server 8765 --directory _site

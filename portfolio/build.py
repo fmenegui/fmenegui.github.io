@@ -2,6 +2,7 @@
 """Build the bilingual portfolio and CV."""
 from pathlib import Path
 from html import escape as e
+from hashlib import sha256
 import shutil
 from content import CONTENT, LINKS, PAPERS
 ROOT=Path(__file__).resolve().parents[1]
@@ -10,6 +11,7 @@ ASSETS=Path(__file__).parent/'assets'
 OUT.mkdir(exist_ok=True)
 shutil.copytree(ASSETS,OUT/'assets',dirs_exist_ok=True)
 shutil.copy(Path(__file__).parent/'style.css',OUT/'assets/style.css')
+CSS_VERSION=sha256((OUT/'assets/style.css').read_bytes()).hexdigest()[:12]
 shutil.copytree(Path(__file__).parent/'downloads',OUT/'downloads',dirs_exist_ok=True)
 
 def institution(c):
@@ -33,14 +35,14 @@ def visual(key,c,base):
  return '<div class="project-visual ppg-visual"><span class="eyebrow">PPG → BP</span><span class="letters">Siamese ResNet</span><span>'+('Sinal + calibração' if c['locale']=='pt-BR' else 'Signal + calibration')+'</span></div>'
 def home(c,base,lang):
  pdf=f'{base}downloads/Felipe_Dias_Portfolio_{lang.upper()}.pdf'
- s=f'<section class="hero"><div><h1>Felipe Meneguitti Dias</h1><p class="email-line">email: <a href="{LINKS["email"]}">f.meneguittidias@gmail.com</a></p>{social()}<p class="intro">{c["intro"]}</p><p class="profile-links"><a href="{pdf}">{c["download"]} (PDF)</a> · <a href="about.html">{c["about"]}</a></p></div><figure><img class="portrait" src="{base}assets/felipe.jpg" alt="Felipe Meneguitti Dias" width="320" height="360"></figure></section>'
+ s=f'<section class="hero"><div class="hero-copy"><p class="eyebrow">{e(c["role"])}</p><h1>Felipe Meneguitti Dias</h1><p class="intro">{e(c["intro"])}</p><p class="email-line"><a href="{LINKS["email"]}">f.meneguittidias@gmail.com</a></p>{social()}<div class="profile-links"><a class="button" href="{pdf}">{c["download"]} (PDF) <span aria-hidden="true">↓</span></a><a class="text-link" href="about.html">{c["about"]} <span aria-hidden="true">↗</span></a></div></div><figure class="portrait-frame"><img class="portrait" src="{base}assets/felipe.jpg" alt="Felipe Meneguitti Dias" width="400" height="400" fetchpriority="high" decoding="async"></figure></section>'
  s+=f'<section class="section" id="projects"><div class="section-head"><h2>{c["selected"]}</h2></div>'+institution(c)
- for key in ['gorgona','incor','rpms']:
+ for number,key in enumerate(['gorgona','incor','rpms'],1):
   v=c[key]
   imagefile={'gorgona':'flows.png','incor':'incor-integration.png','rpms':'rpms-app.jpeg'}[key]
-  thumb=f'<a class="project-thumb {key}-thumb" href="projects/{key}.html"><img src="{base}assets/{imagefile}" alt="{e(v["title"])}" loading="lazy"></a>'
+  thumb=f'<div class="project-media"><span class="project-number" aria-hidden="true">{number:02d}</span><a class="project-thumb {key}-thumb" href="projects/{key}.html" aria-label="{e(v["title"])}"><img src="{base}assets/{imagefile}" alt="" loading="lazy" decoding="async"></a></div>'
   doi=PAPERS[{'gorgona':0,'incor':3,'rpms':9}[key]][4]
-  s+=f'<article class="project">{thumb}<div><h3><a href="projects/{key}.html">{v["title"]}</a></h3><p class="project-info">{v["status"]} · {v["period"]}</p><p class="desc">{v["summary"]}</p><p class="project-links"><a href="projects/{key}.html">{c["read"]}</a> · <a href="https://doi.org/{doi}">{c["article"]}</a></p></div></article>'
+  s+=f'<article class="project">{thumb}<div class="project-copy"><p class="project-info"><span class="project-status">{e(v["status"])}</span><span>{e(v["period"])}</span></p><h3><a href="projects/{key}.html">{e(v["title"])}</a></h3><p class="desc">{e(v["summary"])}</p><p class="project-links"><a class="project-primary" href="projects/{key}.html">{c["read"]} <span aria-hidden="true">↗</span></a><a href="https://doi.org/{doi}">{c["article"]}</a></p></div></article>'
  s+='</section>'
  return s
 def detail(c,key,base):
@@ -111,7 +113,7 @@ def page(lang,kind):
  for anchor,label in zip(['projects','about','publications','contact'],c['nav']):
   target=(('../' if kind not in ['home','about'] else '')+'about.html#'+anchor) if anchor in ['about','publications'] else homepath+'#'+anchor
   nav+=f'<a href="{target}">{label}</a>'
- html=f'''<!doctype html><html lang="{c['locale']}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="https://fmenegui.com/{path}"><link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/{rel}"><link rel="alternate" hreflang="en" href="https://fmenegui.com/en/{rel}"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:type" content="website"><meta property="og:image" content="https://fmenegui.com/assets/felipe.jpg"><link rel="icon" href="{base}assets/favicon.svg"><link rel="stylesheet" href="{base}assets/style.css"></head><body><a class="skip" href="#main">{c['labels']['skip']}</a><header class="header"><div class="wrap"><a class="brand" href="{homepath}">Felipe Dias<span aria-hidden="true">.</span></a><nav class="nav" aria-label="{c['labels']['home']}">{nav}<span class="lang"><a lang="pt-BR" hreflang="pt-BR" href="{switchpt}" {'aria-current="page"' if lang=='pt' else ''}>PT</a><a lang="en" hreflang="en" href="{switchen}" {'aria-current="page"' if lang=='en' else ''}>EN</a></span></nav></div></header><main id="main" class="wrap">{body}<section class="contact" id="contact"><p><a href="{LINKS['email']}">f.meneguittidias@gmail.com</a></p>{social()}<p><a href="{base}downloads/Felipe_Dias_Portfolio_{lang.upper()}.pdf">{c['download']} (PDF)</a></p></section></main><footer class="footer"><div class="wrap"><span>Felipe Meneguitti Dias</span><span>{c['updated']} · PT / EN</span></div></footer></body></html>'''
+ html=f'''<!doctype html><html lang="{c['locale']}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="https://fmenegui.com/{path}"><link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/{rel}"><link rel="alternate" hreflang="en" href="https://fmenegui.com/en/{rel}"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:type" content="website"><meta property="og:image" content="https://fmenegui.com/assets/felipe.jpg"><link rel="icon" href="{base}assets/favicon.svg"><link rel="stylesheet" href="{base}assets/style.css?v={CSS_VERSION}"></head><body class="{'home-page' if kind=='home' else 'about-page' if kind=='about' else 'project-page'}"><a class="skip" href="#main">{c['labels']['skip']}</a><header class="header"><div class="wrap"><a class="brand" href="{homepath}">Felipe Dias<span aria-hidden="true">.</span></a><nav class="nav" aria-label="{c['labels']['home']}">{nav}</nav><span class="lang"><a lang="pt-BR" hreflang="pt-BR" href="{switchpt}" {'aria-current="page"' if lang=='pt' else ''}>PT</a><a lang="en" hreflang="en" href="{switchen}" {'aria-current="page"' if lang=='en' else ''}>EN</a></span></div></header><main id="main" class="wrap">{body}<section class="contact" id="contact"><h2>{e(c['contact'])}</h2><p class="contact-intro">{e(c['contact_text'])}</p><p class="contact-email"><a href="{LINKS['email']}">f.meneguittidias@gmail.com <span aria-hidden="true">↗</span></a></p>{social()}<p class="contact-download"><a href="{base}downloads/Felipe_Dias_Portfolio_{lang.upper()}.pdf">{c['download']} (PDF)</a></p></section></main><footer class="footer"><div class="wrap"><span>Felipe Meneguitti Dias</span><span>{c['updated']} · PT / EN</span></div></footer></body></html>'''
  dest=OUT/path;dest.parent.mkdir(exist_ok=True,parents=True);dest.write_text(html,encoding='utf-8')
 
 for lang in CONTENT:
