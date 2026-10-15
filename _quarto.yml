@@ -5,6 +5,7 @@ project:
     - index.qmd
     - cv/cv.qmd
     - blog/index.qmd
+    - blog/system-one-ecg/index.qmd
 
 website:
   title: "Felipe Dias"
