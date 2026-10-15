@@ -1,6 +1,6 @@
 ---
-title: "Can System-One AI Models Classify Electrocardiogram Exam Images?"
-description: "What happened when I asked two typed AI decision models to read 827 ECG images, and how I checked their discrimination and calibration."
+title: "Can System-One AI Models Classify ECG Images?"
+description: "I gave Jev and GPT Decisions the same ECG images. Here is what they got right, where they struggled, and what their probabilities tell us."
 date: 2026-10-15
 author: "Felipe Meneguitti Dias"
 categories: [ECG, AI, Experiments]
@@ -8,48 +8,44 @@ toc: true
 page-layout: article
 ---
 
-I was curious about a simple question: **what happens if we give an ordinary 12-lead ECG image to an AI model built to make structured decisions?** Can it recognize common ECG findings without being trained specifically as an ECG classifier?
+I wanted to try something simple: **what happens when we show an ECG to an AI model that was not built specifically for ECG interpretation?**
 
-There are plenty of models trained on ECG signals. But here I wanted to test something different: two general-purpose, image-capable decision APIs, asked to look at the exam just as a person would see it on a page.
+There are already good models trained on ECG signals. Here, I was curious about two newer systems that take an image and return a structured decision. Would they recognize common ECG findings? And when they say YES or NO, how meaningful are their probabilities?
 
-This is an exploratory experiment, not a clinical diagnostic tool. I have linked the images, prompts, predictions and analysis code so the results can be checked.
+This is an exploratory experiment, not a clinical diagnostic tool. The [images](https://github.com/fmenegui/sangha-code-test-reproduce) and [code](https://github.com/fmenegui/jev-image-tests) are available.
 
-## Two models that return decisions
+## The models
 
-The phrase *System-One AI* refers here to systems designed for relatively direct, structured decisions. It should not be taken as a literal claim about human psychological System 1.
+I tested **[Jev 1.14.0](https://www.typesafe.ai/)** and **GPT-6 Luna Decisions**, accessed through [OpenAI's Decisions API](https://platform.openai.com/docs/).
 
-I compared **[Jev 1.14.0](https://www.typesafe.ai/)** from TypeSafe AI and **GPT-6 Luna Decisions**, accessed through [OpenAI's Decisions API](https://platform.openai.com/docs/). Both accept an image and answer typed questions with choices such as YES or NO. Importantly for this experiment, both also return scores for the possible answers.
+Both belong to a category I refer to here as *System-One AI*: models designed to make direct, structured decisions instead of writing long explanations. The name is an analogy, not a claim about how these networks think.
 
-That is useful for evaluation. A YES/NO prediction tells us what the model decided. Its score also lets us ask whether positive ECGs tend to receive higher probabilities, and whether those probabilities correspond to what actually happens.
+Both APIs can look at an image and answer questions such as “Is atrial fibrillation present?” They return YES or NO and a probability for each answer. That gives us more to evaluate than a binary prediction alone.
 
-## The CODE Test experiment
+## The ECGs
 
-I used **827 ECGs from the CODE Test set**, with reference annotations for six findings. These are recordings that have been rendered as images of 12-lead ECG exams. Neither model received the original digital waveform, a clinical history or the reference labels.
+I used **827 exams from the CODE Test dataset**. The original recordings are digital signals, but the models only saw images of twelve-lead ECGs.
 
-| Label | Finding | Positive ECGs |
+The images were created using [ecg-plot](https://github.com/dy1901/ecg-plot), in the same Sangha-style layout used in an earlier ECG image study. You can see [an example](https://github.com/fmenegui/sangha-code-test-reproduce/blob/main/data/images_sangha_style_rendering/ecg_0.png) or browse [all the images and labels](https://github.com/fmenegui/sangha-code-test-reproduce).
+
+We evaluated six findings:
+
+| Label | Finding | Positive exams |
 |:--|:--|--:|
-| 1dAVb | First-degree atrioventricular block | 28 |
+| 1dAVb | First-degree AV block | 28 |
 | RBBB | Right bundle branch block | 34 |
 | LBBB | Left bundle branch block | 30 |
 | SB | Sinus bradycardia | 16 |
 | AF | Atrial fibrillation | 13 |
 | ST | Sinus tachycardia | 37 |
 
-This is a **multilabel problem**. An ECG can contain more than one finding. Six negative answers mean only that none of these six labels was identified, not that the ECG is necessarily normal.
+**This is a multilabel task.** One ECG can have more than one finding. And an ECG with none of these six labels is not necessarily normal.
 
-### From ECG signals to images
+I resized each image once, keeping its aspect ratio, and sent the same PNG to both APIs. Neither received the raw signals, clinical history, or correct labels. The resizing itself may hide small details, which is one limitation of this setup.
 
-The exams were rendered with [ecg-plot](https://github.com/dy1901/ecg-plot), using the Sangha-style layout also used in my doctoral research. The plotting library takes the recorded signals and draws a familiar ECG page, with the leads arranged as a printed exam.
+## What I asked
 
-The images and their reference labels are available in the [CODE Test image repository](https://github.com/fmenegui/sangha-code-test-reproduce/tree/main/data/images_sangha_style_rendering). You can [open an example ECG](https://github.com/fmenegui/sangha-code-test-reproduce/blob/main/data/images_sangha_style_rendering/ecg_0.png) there.
-
-For a fair API comparison, I resized each image once, preserving its aspect ratio, and sent the **same PNG** to both models. Downscaling may hide small ECG details, so this choice is also a limitation worth remembering.
-
-## What exactly did I ask?
-
-I deliberately kept the instructions short. I wanted a zero-shot baseline, rather than explaining ECG interpretation rules to the models.
-
-For Jev, each of the six questions followed this template:
+I kept the prompt short on purpose. I did not give the models a list of cardiology rules. For each finding, I asked:
 
 ```text
 Assess the 12-lead ECG image in `ecg_image`.
@@ -60,101 +56,65 @@ YES: {condition} is present
 NO:  {condition} is absent
 ```
 
-For example, for atrial fibrillation:
+For atrial fibrillation, `{condition}` becomes `Atrial fibrillation`. GPT Decisions received the equivalent independent questions, using its own API format.
 
-```text
-Is Atrial fibrillation present?
-Evaluate this finding independently of other diagnoses.
-```
+The full requests are in the [Jev script](https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/run.py) and [GPT Decisions script](https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image-openai/decisions_full.py).
 
-GPT Decisions received the equivalent question and the same image. The request format differs between the APIs, but the diagnostic task is the same. Neither model saw the ground truth.
+One example illustrates why the probabilities matter. On ECG `ecg_0`, both models correctly answered **NO** for LBBB. But Jev assigned **0.49** to YES, while GPT Decisions assigned **0.00**. The decisions matched, but the models expressed very different levels of certainty.
 
-The complete request code is available for [Jev](https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/run.py) and [GPT Decisions](https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image-openai/decisions_full.py).
+These are probabilities returned by the APIs, not validated estimates of clinical risk.
 
-### An example of the answers
+## How I measured performance
 
-For the LBBB question on `ecg_0`, both models answered NO, correctly. But the scores were quite different.
+Jev returned predictions for all 827 images. GPT Decisions succeeded on 826 and failed on `ecg_818`. I excluded that image from **both** models so the comparison uses exactly the same **826 ECGs**.
 
-**Jev:**
+I focused on two questions.
 
-```json
-{
-  "choice": "NO",
-  "probabilities": {"YES": 0.49, "NO": 0.51}
-}
-```
+**Discrimination:** does a model give higher scores to ECGs that truly have a finding? I measured this with the area under the ROC curve (**AUROC**). A value near 0.5 indicates little ability to rank positive and negative cases. A value near 1.0 is much better.
 
-**GPT-6 Luna Decisions, converted to the same format:**
+**Calibration:** when a model says 70%, does the finding actually occur about 70% of the time among exams with that predicted probability? A model can rank cases well while reporting poor probabilities.
 
-```json
-{
-  "choice": "NO",
-  "probabilities": {"YES": 0.00, "NO": 1.00}
-}
-```
+I also calculated the **Brier Score**, the average squared difference between the predicted probability and the true label. Lower is better. Brier reflects both probability calibration and discrimination, so it should not be treated as a pure calibration measure.
 
-This is why I wanted to look beyond classification accuracy. Two models can make the same decision while expressing very different levels of certainty. These are probabilities reported by the decision APIs, not automatically validated clinical risks.
-
-## How I evaluated the models
-
-Jev returned results for all 827 exams. GPT Decisions returned valid results for 826, with one failed inference (`ecg_818`). For the statistical comparison, I excluded that exam **from both models**, leaving 826 matched ECGs.
-
-I examined two related but distinct properties.
-
-**Discrimination** asks whether the model gives higher positive scores to ECGs that really contain a finding. I measured this with the area under the receiver operating characteristic curve, or **AUROC**. A value of 0.5 is roughly chance-level ranking, while 1.0 is perfect separation.
-
-**Calibration** asks whether a reported probability agrees with the observed frequency. If a model assigns a 70% probability to many exams, we would expect roughly 70% of those exams to be positive in a well-calibrated group. A model can discriminate well and still be badly calibrated.
-
-I used the **Brier Score** as a complementary measure of probability quality:
-
-$$
-\mathrm{Brier}=\frac{1}{N}\sum_{i=1}^{N}(p_i-y_i)^2
-$$
-
-Here, `p` is the probability of YES and `y` is the reference label, either 0 or 1. Lower Brier scores are better. Brier is not a pure calibration measure, since it also reflects discrimination and the prevalence of the condition.
-
-### Results
+## Results
 
 <div class="column-screen-inset">
 <div style="overflow-x:auto; margin: 1rem auto;">
-<img src="roc_calibration.svg" alt="Twelve panels showing six empirical ROC curves with shaded pointwise bootstrap confidence intervals and six interpolated calibration curves with score histograms. Jev is blue and GPT Decisions is red." style="width:100%; min-width:1150px; height:auto; display:block;">
+<img src="roc_calibration.svg" alt="ROC and calibration results for six ECG findings, comparing Jev and GPT Decisions with bootstrap uncertainty bands." style="width:100%; min-width:1150px; height:auto; display:block;">
 </div>
 </div>
 
-*Figure 1.* **A:** Empirical ROC curves for Jev and GPT Decisions. The numbers marked AUROC give the area under each curve. **B:** Reliability diagrams comparing reported positive probabilities with observed frequencies. The dashed line indicates perfect calibration. Calibration lines use shape-preserving PCHIP interpolation between observed quantile-bin means, only within the range supported by data. Histograms show where each model actually places its probability scores. Shaded regions show pointwise 95% intervals from 1,000 stratified bootstrap resamples. Interpolation is for visualization only, not recalibration.
-
-The macro-AUROC was **0.692 for Jev** and **0.778 for GPT Decisions**. GPT Decisions had better AUROC in five of the six classes. The exception was LBBB, where Jev reached **0.976**, compared with **0.953** for GPT Decisions.
+*Figure 1.* **Top:** ROC curves for the six findings. The values marked **AUROC** show the area under each curve. **Bottom:** predicted versus observed probabilities, with score histograms. The dashed line marks perfect calibration. Shaded regions show pointwise 95% bootstrap intervals from 1,000 stratified resamples. Calibration curves use shape-preserving PCHIP interpolation between observed bin means, without extrapolating beyond the data. The interpolation changes the display, not the model predictions.
 
 | Finding | Jev AUROC | GPT AUROC | Jev Brier ↓ | GPT Brier ↓ |
 |:--|--:|--:|--:|--:|
 | 1dAVb | 0.453 | 0.457 | 0.135 | 0.066 |
-| RBBB | 0.601 | 0.805 | 0.137 | 0.039 |
+| RBBB | 0.601 | **0.805** | 0.137 | 0.039 |
 | LBBB | **0.976** | 0.953 | 0.173 | 0.025 |
-| SB | 0.730 | 0.789 | 0.158 | 0.021 |
-| AF | 0.613 | 0.697 | 0.185 | 0.022 |
+| SB | 0.730 | **0.789** | 0.158 | 0.021 |
+| AF | 0.613 | **0.697** | 0.185 | 0.022 |
 | ST | 0.778 | **0.966** | 0.228 | 0.026 |
 
-GPT Decisions also achieved a lower mean Brier Score across the six findings, **0.033 versus 0.169** for Jev. That suggests better probability predictions on this dataset, although a proper calibration assessment also needs to consider the low prevalence of most labels.
+GPT Decisions had a higher macro-AUROC (**0.778 versus 0.692**) and a lower mean Brier Score (**0.033 versus 0.169**). Jev did particularly well on LBBB, with an AUROC of **0.976**.
 
-The confidence intervals in the figure quantify sampling uncertainty for each model. They are not a formal test of the difference between models. With only 13 positive AF cases and 16 positive SB cases, the calibration curves in particular should be read cautiously.
+The differences across findings are striking. For some diagnoses, the models could rank exams fairly well. For others, especially first-degree AV block, they struggled.
 
-## What comes next?
+I would not draw strong clinical conclusions from these numbers. Only 13 exams were positive for AF and 16 for SB. That makes calibration estimates especially uncertain. The shaded intervals describe uncertainty within this sample, not a formal statistical test of which model is better. A prevalence-only baseline would also be useful when interpreting Brier Scores.
 
-The CODE Test was a useful first experiment, but **827 exams are not enough for a broad assessment of ECG interpretation**, especially when some conditions have very few positive cases.
+## Where to go next
 
-Two natural next steps are:
+The CODE Test is a useful starting point, but it is small for this kind of evaluation. I would like to repeat the experiment on larger and more varied collections.
 
-- **[PTB-XL](https://physionet.org/content/ptb-xl/1.0.3/)**, a much larger public collection with 21,799 ECG recordings and multiple diagnostic labels. We can evaluate image renderings across a broader set of findings and examine performance across more patients.
-- **[George B. Moody PhysioNet Challenge 2024](https://moody-challenge.physionet.org/2024/)**, which focuses specifically on ECG images, including scans, photographs and simulated paper artifacts. It is a good way to test how robust the models are when an exam is no longer a clean digital rendering.
+**[PTB-XL](https://physionet.org/content/ptb-xl/1.0.3/)** contains 21,799 ECG recordings and many diagnostic labels. It could help us see whether these findings hold with more exams and different conditions.
 
-Those datasets are **proposed follow-up evaluations**, not part of the results shown above. Their label definitions and image formats differ from CODE Test, so they will need their own carefully specified protocols.
+The **[George B. Moody PhysioNet Challenge 2024](https://moody-challenge.physionet.org/2024/)** is another interesting direction because it includes ECG images with different layouts and visual artifacts. That would test something the clean CODE renderings cannot: how robust the models are to the kinds of images we see outside a controlled benchmark.
+
+Neither dataset is part of the results reported here. Their labels and image formats will need separate evaluation protocols.
 
 ## Final thoughts
 
-Both APIs could read an ECG image and return structured diagnostic decisions. That is interesting, but it is not the same as reliably interpreting an ECG.
+Both models could read an ECG image and return structured answers. That alone is interesting, but it does not mean they can interpret ECGs reliably.
 
-In this small test, GPT Decisions generally discriminated better and produced better probability scores. Jev performed particularly well at ranking LBBB cases. The differences between diagnoses were substantial.
+GPT Decisions generally performed better in this experiment, while Jev showed strong discrimination for LBBB. More importantly, the experiment reminded me that **making a decision, ranking cases correctly, and assigning useful probabilities are different abilities**.
 
-For me, the main lesson is that **getting a YES/NO answer, ranking cases correctly, and reporting trustworthy probabilities are three separate achievements**. All three deserve to be measured before considering a model for clinical use.
-
-The [inference code](https://github.com/fmenegui/jev-image-tests/tree/main/experiments), [Python figure generator](https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/analysis/plot_journal_final.py) and [original CODE Test images](https://github.com/fmenegui/sangha-code-test-reproduce) are available for reproducibility. No results in this article should be used for patient care.
+All [inference code](https://github.com/fmenegui/jev-image-tests/tree/main/experiments), the [figure-generation script](https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/analysis/plot_journal_final.py), and the [CODE Test images](https://github.com/fmenegui/sangha-code-test-reproduce) are available to inspect and reproduce.
