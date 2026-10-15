@@ -123,9 +123,9 @@ GPT Decisions returned valid results for 826 of 827 ECGs. The single failed case
 
 ### ROC curves, one panel per class
 
-![Paired ROC curves for Jev and GPT Decisions](roc.svg){width=100%}{fig-alt="Six ROC panels showing Jev and GPT Decisions, with AUROC and stratified bootstrap 95 percent intervals."}
+![Paired ROC curves for Jev and GPT Decisions](roc.svg){width=100%}{fig-alt="Six ROC panels showing Jev and GPT Decisions, with AUROC values, and bootstrap intervals reported in the accompanying table."}
 
-The curves are plotted from selected points on the empirical ROC traces for legibility. The AUROC values and intervals come from the **full prediction vectors**, not from those selected points.
+The curves are plotted from selected points on the empirical ROC traces for legibility. The shaded 95% bootstrap uncertainty bands will be included in a subsequent generated-figure revision, and are not depicted in this version. The AUROC values and intervals come from the **full prediction vectors**, not from those selected points.
 
 For the 95% confidence intervals, we used **1,000 stratified bootstrap resamples** per class, sampling positive and negative ECGs with replacement and keeping the two model predictions paired. This preserves the number of positive cases in each bootstrap replicate. It is a measure of sampling uncertainty, not proof of clinical generalizability.
 
@@ -191,4 +191,4 @@ The next steps are external validation, uncertainty intervals for *paired differ
 - [ecg-plot image-generation library](https://github.com/dy1901/ecg-plot)
 - [Doctoral thesis, Figure 20 and Table 25](https://doi.org/10.11606/T.3.2025.tde-16012026-084015)
 
-*Methods note:* The confidence intervals shown here were computed with a fixed random seed, stratified bootstrap resampling and the original 826 paired predictions. The plotted traces are reduced to representative empirical points for readability. The [analysis script](https://github.com/fmenegui/jev-image-tests/tree/feature/ecg-blog-analysis/experiments/code-test-image/analysis) documents how to regenerate the full-resolution plots from the two GitHub Actions artifacts.
+*Methods note:* The confidence intervals shown here were computed with a fixed random seed, stratified bootstrap resampling and the original 826 paired predictions. The plotted traces are reduced to representative empirical points for readability. The [analysis script](https://github.com/fmenegui/jev-image-tests/tree/main/experiments/code-test-image/analysis) documents how to regenerate the full-resolution plots from the two GitHub Actions artifacts.
