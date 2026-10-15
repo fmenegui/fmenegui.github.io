@@ -1,8 +1,8 @@
 ---
 title: "Blog"
 listing:
-  contents: blog
-  type: grid
+  contents: "system-one-ecg/index.qmd"
+  type: default
   sort: "date desc"
   fields: [title, date, categories, description]
   date-format: "YYYY-MM-DD"
@@ -13,3 +13,5 @@ listing:
 page-layout: full
 ---
 
+
+Notes on experiments, research, and tools I find interesting. I include the code and methods whenever possible.
