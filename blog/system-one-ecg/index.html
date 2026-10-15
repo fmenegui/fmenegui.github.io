@@ -136,6 +136,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#how-does-this-compare-with-an-ecg-specific-model" id="toc-how-does-this-compare-with-an-ecg-specific-model" class="nav-link" data-scroll-target="#how-does-this-compare-with-an-ecg-specific-model">How does this compare with an ECG-specific model?</a></li>
   <li><a href="#where-to-go-next" id="toc-where-to-go-next" class="nav-link" data-scroll-target="#where-to-go-next">Where to go next</a></li>
   <li><a href="#final-thoughts" id="toc-final-thoughts" class="nav-link" data-scroll-target="#final-thoughts">Final thoughts</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -332,41 +333,43 @@ NO:  {condition} is absent</code></pre>
 </section>
 <section id="how-does-this-compare-with-an-ecg-specific-model" class="level2">
 <h2 class="anchored" data-anchor-id="how-does-this-compare-with-an-ecg-specific-model">How does this compare with an ECG-specific model?</h2>
-<p>Sangha et al.&nbsp;(2022) trained a model specifically to classify ECG images. Their paper includes results on the <strong>same cardiologist-validated CODE Test cohort of 827 ECGs</strong>. On that cohort, their image-based model achieved a <strong>class-weighted mean AUROC of 0.997 (95% CI 0.99–1.00)</strong>. For atrial fibrillation, they reported an AUROC of <strong>1.00 (95% CI 0.99–1.00)</strong>.</p>
-<p>Our general-purpose decision APIs were evaluated on 826 of those exams because one GPT Decisions inference failed. Their <strong>unweighted macro-AUROC</strong> values were <strong>0.692 for Jev</strong> and <strong>0.778 for GPT Decisions</strong>.</p>
-<p>These results make the gap between specialist and general-purpose image models clear, but they are not an exact statistical head-to-head: Sangha reports a class-weighted mean, whereas our macro-AUROC gives each class equal weight. The image preprocessing and model versions also differ.</p>
+<p>Sangha et al.&nbsp;(2022) trained a model specifically to classify ECG images. Their paper reports results on the cardiologist-validated <strong>CODE Test set of 827 ECGs</strong>, which is the same cohort used in this experiment. Below are the AUROCs for all six diagnoses, taken directly from <strong>Table 1</strong> of their paper.</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Model</th>
-<th style="text-align: right;">AUROC summary</th>
-<th style="text-align: left;">Evaluation</th>
+<th style="text-align: left;">Finding</th>
+<th style="text-align: right;">Sangha image model AUROC (95% CI)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Sangha et al.&nbsp;(2022), ECG image model</td>
-<td style="text-align: right;"><strong>0.997</strong>, class-weighted mean</td>
-<td style="text-align: left;">827 CODE Test ECGs</td>
+<td style="text-align: left;">First-degree AV block (1dAVb)</td>
+<td style="text-align: right;">0.995 (0.991–0.999)</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Jev 1.14.0</td>
-<td style="text-align: right;">0.692, unweighted macro</td>
-<td style="text-align: left;">826 matched ECGs</td>
+<td style="text-align: left;">Right bundle branch block (RBBB)</td>
+<td style="text-align: right;">0.995 (0.992–0.999)</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">GPT-6 Luna Decisions</td>
-<td style="text-align: right;">0.778, unweighted macro</td>
-<td style="text-align: left;">826 matched ECGs</td>
+<td style="text-align: left;">Left bundle branch block (LBBB)</td>
+<td style="text-align: right;">1.000 (1.000–1.000)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sinus bradycardia (SB)</td>
+<td style="text-align: right;">0.997 (0.994–1.000)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Atrial fibrillation (AF)</td>
+<td style="text-align: right;">0.997 (0.993–1.000)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sinus tachycardia (ST)</td>
+<td style="text-align: right;">0.998 (0.996–1.000)</td>
 </tr>
 </tbody>
 </table>
-<p>The original <a href="https://doi.org/10.1038/s41467-022-29153-3">Sangha et al.&nbsp;paper</a> reports additional class-specific AUROCs in Table 1 and Figure 2. My <a href="https://doi.org/10.11606/T.3.2025.tde-16012026-084015">doctoral thesis</a> compares the specialist classifiers on CODE Test using F1 and other threshold-based metrics, but does not provide the continuous scores needed to recompute their AUROCs on our exact 826-case subset. For that reason, I have not presented a class-by-class specialist comparison as if all four models were tested with identical inputs.</p>
+<p><em>Source: Sangha et al., Nature Communications (2022), Table 1, image-based model, cardiologist-validated test set (N = 827). The reported class-weighted mean AUROC was 0.997 (95% CI 0.994–1.000).</em></p>
+<p>These are impressive results for a model trained specifically on ECG images. They also give useful context for our exploratory experiment. The published numbers and our API results are not an exactly matched head-to-head evaluation: our paired analysis uses 826 ECGs, and image preprocessing and model development differ. See the <a href="https://doi.org/10.1038/s41467-022-29153-3">original study</a> for the full evaluation.</p>
 </section>
 <section id="where-to-go-next" class="level2">
 <h2 class="anchored" data-anchor-id="where-to-go-next">Where to go next</h2>
@@ -380,6 +383,19 @@ NO:  {condition} is absent</code></pre>
 <p>Both models could read an ECG image and return structured answers. That alone is interesting, but it does not mean they can interpret ECGs reliably.</p>
 <p>GPT Decisions generally performed better in this experiment, while Jev showed strong discrimination for LBBB. More importantly, the experiment reminded me that <strong>making a decision, ranking cases correctly, and assigning useful probabilities are different abilities</strong>.</p>
 <p>All <a href="https://github.com/fmenegui/jev-image-tests/tree/main/experiments">inference code</a>, the <a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/analysis/plot_journal_final.py">figure-generation script</a>, and the <a href="https://github.com/fmenegui/sangha-code-test-reproduce">CODE Test images</a> are available to inspect and reproduce.</p>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ol type="1">
+<li>Sangha V, Mortazavi BJ, Haimovich AD, et al.&nbsp;(2022). <a href="https://doi.org/10.1038/s41467-022-29153-3">Automated multilabel diagnosis on electrocardiographic images and signals</a>. <em>Nature Communications</em>, 13, 1583. Primary source for the specialist model and its CODE Test AUROCs.</li>
+<li>Ribeiro AH, Ribeiro MH, Paixão GMM, et al.&nbsp;(2020). <a href="https://doi.org/10.1038/s41467-020-15432-4">Automatic diagnosis of the 12-lead ECG using a deep neural network</a>. <em>Nature Communications</em>, 11, 1760. Background on the CODE study and ECG classification.</li>
+<li>Wagner P, Strodthoff N, Bousseljot RD, et al.&nbsp;(2020). <a href="https://doi.org/10.1038/s41597-020-0495-6">PTB-XL, a large publicly available electrocardiography dataset</a>. <em>Scientific Data</em>, 7, 154. Reference for the proposed larger evaluation.</li>
+<li><a href="https://moody-challenge.physionet.org/2024/">George B. Moody PhysioNet Challenge 2024</a>. ECG image digitization and classification challenge.</li>
+<li><a href="https://github.com/dy1901/ecg-plot">ecg-plot</a>. Library used to render ECG signals as images.</li>
+<li><a href="https://github.com/fmenegui/sangha-code-test-reproduce">CODE Test rendered ECG images and labels</a>. Source images used in this experiment.</li>
+<li><a href="https://github.com/fmenegui/jev-image-tests/tree/main/experiments">Jev and GPT Decisions experiment code</a>. Inference and evaluation scripts.</li>
+<li><a href="https://www.typesafe.ai/">TypeSafe AI</a> and <a href="https://platform.openai.com/docs/">OpenAI API documentation</a>. Model and API references.</li>
+</ol>
 
 
 </section>
