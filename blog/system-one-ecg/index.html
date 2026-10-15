@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Felipe Meneguitti Dias">
+<meta name="dcterms.date" content="2026-10-15">
+<meta name="description" content="A small, reproducible experiment comparing Jev and GPT-6 Luna Decisions on ECG images, discrimination and probability calibration.">
+
+<title>Can System-One AI Models Classify Electrocardiogram Exam Images? – Felipe Dias</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-5e85189689f64ca0ed64cd76e6b7f848.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.6/css/academicons.min.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Felipe Dias</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../cv/cv.html"> 
+<span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog/index.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-do-i-mean-by-system-one-ai" id="toc-what-do-i-mean-by-system-one-ai" class="nav-link active" data-scroll-target="#what-do-i-mean-by-system-one-ai">What do I mean by System-One AI?</a></li>
+  <li><a href="#the-code-test-dataset" id="toc-the-code-test-dataset" class="nav-link" data-scroll-target="#the-code-test-dataset">The CODE Test dataset</a></li>
+  <li><a href="#how-were-the-images-generated" id="toc-how-were-the-images-generated" class="nav-link" data-scroll-target="#how-were-the-images-generated">How were the images generated?</a></li>
+  <li><a href="#the-questions-we-asked" id="toc-the-questions-we-asked" class="nav-link" data-scroll-target="#the-questions-we-asked">The questions we asked</a></li>
+  <li><a href="#what-did-the-models-return" id="toc-what-did-the-models-return" class="nav-link" data-scroll-target="#what-did-the-models-return">What did the models return?</a></li>
+  <li><a href="#how-do-we-evaluate-discrimination" id="toc-how-do-we-evaluate-discrimination" class="nav-link" data-scroll-target="#how-do-we-evaluate-discrimination">How do we evaluate discrimination?</a>
+  <ul class="collapse">
+  <li><a href="#roc-curves-one-panel-per-class" id="toc-roc-curves-one-panel-per-class" class="nav-link" data-scroll-target="#roc-curves-one-panel-per-class">ROC curves, one panel per class</a></li>
+  </ul></li>
+  <li><a href="#what-does-calibration-mean" id="toc-what-does-calibration-mean" class="nav-link" data-scroll-target="#what-does-calibration-mean">What does calibration mean?</a>
+  <ul class="collapse">
+  <li><a href="#calibration-curves-by-class" id="toc-calibration-curves-by-class" class="nav-link" data-scroll-target="#calibration-curves-by-class">Calibration curves by class</a></li>
+  </ul></li>
+  <li><a href="#what-did-i-learn" id="toc-what-did-i-learn" class="nav-link" data-scroll-target="#what-did-i-learn">What did I learn?</a></li>
+  <li><a href="#reproducibility-and-references" id="toc-reproducibility-and-references" class="nav-link" data-scroll-target="#reproducibility-and-references">Reproducibility and references</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Can System-One AI Models Classify Electrocardiogram Exam Images?</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">ECG</div>
+    <div class="quarto-category">AI</div>
+    <div class="quarto-category">Experiments</div>
+    <div class="quarto-category">Calibration</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    A small, reproducible experiment comparing Jev and GPT-6 Luna Decisions on ECG images, discrimination and probability calibration.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Felipe Meneguitti Dias </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 15, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>I wanted to try a simple question: <strong>can an AI system designed to make structured decisions recognize ECG findings from an image, without a specialized ECG classifier?</strong></p>
+<p>ECGs are not ordinary photographs. Reading one involves rhythm, intervals, wave shapes and relationships across twelve leads. A model can produce a perfectly valid answer while being completely wrong about the heart.</p>
+<p>This is a research experiment, not a clinical diagnostic system. All code and the public test images are linked below.</p>
+<section id="what-do-i-mean-by-system-one-ai" class="level2">
+<h2 class="anchored" data-anchor-id="what-do-i-mean-by-system-one-ai">What do I mean by System-One AI?</h2>
+<p>In this post, <em>system-one</em> is a practical description of models and APIs optimized for fast, structured decisions rather than long free-form explanations. It is <strong>not</strong> evidence that a neural network literally implements the human psychological concept of System 1.</p>
+<p>I compared two APIs:</p>
+<ul>
+<li><strong><a href="https://www.typesafe.ai/">Jev 1.14.0</a></strong>, a typed decision model from TypeSafe AI. Each question returns YES or NO and probabilities for both choices.</li>
+<li><strong><a href="https://platform.openai.com/docs/">GPT-6 Luna Decisions</a></strong>, OpenAI’s typed Decisions API, which also accepts an image and returns a typed choice with probabilities.</li>
+</ul>
+<p>The attraction of these interfaces is that we can ask six explicit questions and get six machine-readable answers. But a well-formed JSON response does not imply medical accuracy or calibrated confidence.</p>
+</section>
+<section id="the-code-test-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="the-code-test-dataset">The CODE Test dataset</h2>
+<p>We used <strong>827 ECG examinations</strong> from the CODE Test subset, with reference labels for six conditions. The original ECGs are time-series recordings. For this experiment, we use rendered 12-lead images, not the underlying numerical signals.</p>
+<p>The test images and reference labels are available in <a href="https://github.com/fmenegui/sangha-code-test-reproduce">sangha-code-test-reproduce</a>. Our inference implementations live in <a href="https://github.com/fmenegui/jev-image-tests/tree/main/experiments">jev-image-tests</a>.</p>
+<p>The six findings are:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Label</th>
+<th>Finding</th>
+<th style="text-align: right;">Positive ECGs among the 827</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1dAVb</td>
+<td>First-degree atrioventricular block</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td>RBBB</td>
+<td>Right bundle branch block</td>
+<td style="text-align: right;">34</td>
+</tr>
+<tr class="odd">
+<td>LBBB</td>
+<td>Left bundle branch block</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr class="even">
+<td>SB</td>
+<td>Sinus bradycardia</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="odd">
+<td>AF</td>
+<td>Atrial fibrillation</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td>ST</td>
+<td>Sinus tachycardia</td>
+<td style="text-align: right;">37</td>
+</tr>
+</tbody>
+</table>
+<p><strong>This is multilabel classification.</strong> An ECG can have several findings simultaneously. Equally, a row with six negative labels only means none of <em>these six</em> conditions is marked present. It does not mean the ECG is clinically normal.</p>
+</section>
+<section id="how-were-the-images-generated" class="level2">
+<h2 class="anchored" data-anchor-id="how-were-the-images-generated">How were the images generated?</h2>
+<p>The CODE Test images were rendered from ECG signals with <strong><a href="https://github.com/dy1901/ecg-plot">ecg-plot</a></strong>, the plotting tool also used in the image-based ECG work of Sangha and in the CODE comparison of <a href="https://doi.org/10.11606/T.3.2025.tde-16012026-084015">my doctoral thesis</a>.</p>
+<p>The figure below is <strong>Figure 20 from my thesis</strong>, showing five possible ECG page layouts. These illustrate the broader synthetic-image generation methodology. The CODE Test comparison specifically used the Sangha-style rendering. The figure is reproduced from the thesis, rather than generated by the AI models.</p>
+<iframe title="Doctoral thesis, Figure 20, ECG rendering layouts" src="https://teses.usp.br/teses/disponiveis/3/3154/tde-16012026-084015/publico/FelipeMeneguittiDiasCorr25.pdf#page=64&amp;view=FitH" width="100%" height="510" loading="lazy">
+</iframe>
+<p><em>Figure 20, p.&nbsp;63 of the thesis (PDF page 64): examples of synthetic ECG image layouts. <a href="https://teses.usp.br/teses/disponiveis/3/3154/tde-16012026-084015/publico/FelipeMeneguittiDiasCorr25.pdf#page=64">Open the thesis figure in the original PDF</a>.</em></p>
+<p>For this API comparison, the images were resized to fit the Jev image limits while preserving aspect ratio. Both APIs received the same resized PNG bytes. That matters because downscaling can erase clinically relevant details.</p>
+<p>Here is <a href="https://github.com/fmenegui/sangha-code-test-reproduce/blob/main/data/images_sangha_style_rendering/ecg_0.png">one actual CODE Test image</a>, and here are <a href="https://github.com/fmenegui/sangha-code-test-reproduce/tree/main/data/images_sangha_style_rendering">all the rendered images</a>.</p>
+</section>
+<section id="the-questions-we-asked" class="level2">
+<h2 class="anchored" data-anchor-id="the-questions-we-asked">The questions we asked</h2>
+<p>We deliberately avoided long cardiology instructions. We wanted a straightforward <strong>zero-shot</strong> baseline, not a hidden ECG tutorial.</p>
+<p>For each of the six findings, the Jev question followed this template:</p>
+<pre class="text"><code>Assess the 12-lead ECG image in `ecg_image`.
+Is {condition} present?
+Evaluate this finding independently of other diagnoses.
+
+YES: {condition} is present
+NO:  {condition} is absent</code></pre>
+<p>For example, with atrial fibrillation:</p>
+<pre class="text"><code>Assess the 12-lead ECG image in `ecg_image`.
+Is Atrial fibrillation present?
+Evaluate this finding independently of other diagnoses.</code></pre>
+<p>GPT Decisions received the same image and the equivalent independent YES/NO questions. The transport envelopes differ because the APIs have different request formats. No gold-standard labels were included in the prompts.</p>
+<p>The exact scripts are <a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/run.py">Jev CODE Test</a> and <a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image-openai/decisions_full.py">GPT Decisions CODE Test</a>.</p>
+</section>
+<section id="what-did-the-models-return" class="level2">
+<h2 class="anchored" data-anchor-id="what-did-the-models-return">What did the models return?</h2>
+<p>Here are <strong>real responses for the LBBB question on ecg_0</strong>, not invented examples. Both selected NO, which matches the reference label for this ECG.</p>
+<p><strong>Jev</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"choice"</span><span class="fu">,</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"confidence"</span><span class="fu">:</span> <span class="fl">0.02</span><span class="fu">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"probabilities"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"YES"</span><span class="fu">:</span> <span class="fl">0.49</span><span class="fu">,</span> <span class="dt">"NO"</span><span class="fu">:</span> <span class="fl">0.51</span><span class="fu">}</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>GPT-6 Luna Decisions</strong>, normalized to the same schema:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"type"</span><span class="fu">:</span> <span class="st">"choice"</span><span class="fu">,</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"confidence"</span><span class="fu">:</span> <span class="fl">1.0</span><span class="fu">,</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"probabilities"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"YES"</span><span class="fu">:</span> <span class="fl">0.0</span><span class="fu">,</span> <span class="dt">"NO"</span><span class="fu">:</span> <span class="fl">1.0</span><span class="fu">}</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is an instructive contrast. Both made the same binary decision, but their reported probabilities were radically different. These are <em>model-reported decision probabilities</em>, not automatically validated clinical risks. The <code>confidence</code> field is not interchangeable with the probability of a positive diagnosis.</p>
+</section>
+<section id="how-do-we-evaluate-discrimination" class="level2">
+<h2 class="anchored" data-anchor-id="how-do-we-evaluate-discrimination">How do we evaluate discrimination?</h2>
+<p>A model discriminates well if it tends to assign a higher score to an ECG that truly has a condition than to one that does not.</p>
+<p>For each class we use <code>probabilities.YES</code> as the score and compute:</p>
+<ul>
+<li><strong>AUROC</strong>, measuring positive-versus-negative ranking across thresholds.</li>
+<li><strong>AUPRC</strong>, especially useful when positives are rare. Its no-skill reference depends on prevalence.</li>
+<li><strong>F1, sensitivity and specificity</strong>, describing binary decisions at the API’s chosen operating point.</li>
+</ul>
+<p>GPT Decisions returned valid results for 826 of 827 ECGs. The single failed case was <code>ecg_818</code>. We excluded that ECG <strong>from both models</strong> for the paired comparison below, so each curve uses exactly the same 826 examinations.</p>
+<section id="roc-curves-one-panel-per-class" class="level3">
+<h3 class="anchored" data-anchor-id="roc-curves-one-panel-per-class">ROC curves, one panel per class</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="roc.svg" class="img-fluid figure-img" alt="Six ROC panels showing Jev and GPT Decisions, with AUROC and stratified bootstrap 95 percent intervals."></p>
+<figcaption>Paired ROC curves for Jev and GPT Decisions</figcaption>
+</figure>
+</div>
+<p>The curves are plotted from selected points on the empirical ROC traces for legibility. The AUROC values and intervals come from the <strong>full prediction vectors</strong>, not from those selected points.</p>
+<p>For the 95% confidence intervals, we used <strong>1,000 stratified bootstrap resamples</strong> per class, sampling positive and negative ECGs with replacement and keeping the two model predictions paired. This preserves the number of positive cases in each bootstrap replicate. It is a measure of sampling uncertainty, not proof of clinical generalizability.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Class</th>
+<th>Jev AUROC (95% CI)</th>
+<th>GPT Decisions AUROC (95% CI)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1dAVb</td>
+<td>0.453 (0.370–0.538)</td>
+<td>0.457 (0.362–0.557)</td>
+</tr>
+<tr class="even">
+<td>RBBB</td>
+<td>0.601 (0.495–0.699)</td>
+<td>0.805 (0.734–0.870)</td>
+</tr>
+<tr class="odd">
+<td>LBBB</td>
+<td><strong>0.976 (0.958–0.990)</strong></td>
+<td>0.953 (0.912–0.981)</td>
+</tr>
+<tr class="even">
+<td>SB</td>
+<td>0.730 (0.637–0.815)</td>
+<td>0.789 (0.677–0.879)</td>
+</tr>
+<tr class="odd">
+<td>AF</td>
+<td>0.613 (0.466–0.745)</td>
+<td>0.697 (0.554–0.825)</td>
+</tr>
+<tr class="even">
+<td>ST</td>
+<td>0.778 (0.683–0.862)</td>
+<td><strong>0.966 (0.944–0.984)</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The macro-AUROC was <strong>0.692 for Jev</strong> and <strong>0.778 for GPT Decisions</strong>. LBBB is the interesting exception: Jev ranked that finding very well, despite weak overall binary classification.</p>
+<p>These are individual model confidence intervals, <strong>not</strong> confidence intervals for the paired difference. A formal superiority claim would require the bootstrap distribution of the paired AUROC difference.</p>
+</section>
+</section>
+<section id="what-does-calibration-mean" class="level2">
+<h2 class="anchored" data-anchor-id="what-does-calibration-mean">What does calibration mean?</h2>
+<p>Imagine collecting 100 ECGs to which a model assigns a 70% probability of atrial fibrillation. If those scores are calibrated, approximately 70 of those ECGs should actually have atrial fibrillation. If only 10 do, the model is overconfident.</p>
+<p>Calibration and discrimination are different. A model may rank patients almost perfectly yet give probabilities that are much too high.</p>
+<p>We use <strong>reliability diagrams</strong> and the <strong>Brier Score</strong>:</p>
+<p><span class="math display">
+\mathrm{Brier}=\frac{1}{N}\sum_{i=1}^{N}(p_i-y_i)^2
+</span></p>
+<p>Here <code>p</code> is the reported probability of YES and <code>y</code> is 1 for a positive reference label, otherwise 0. Lower Brier scores are better. The Brier Score reflects both calibration and discrimination, so it should not be interpreted as a pure calibration measure.</p>
+<section id="calibration-curves-by-class" class="level3">
+<h3 class="anchored" data-anchor-id="calibration-curves-by-class">Calibration curves by class</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="calibration.svg" class="img-fluid figure-img" alt="Six reliability diagrams, comparing reported positive probabilities with observed frequencies."></p>
+<figcaption>Paired calibration curves for Jev and GPT Decisions</figcaption>
+</figure>
+</div>
+<p>The dashed diagonal represents perfect calibration. Each point summarizes a quantile bin of predictions. We requested six bins, although ties and repeated probabilities can result in fewer distinct bins. Some classes have only 13–16 positives, so these plots are <strong>exploratory</strong>, especially at high probabilities.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Class</th>
+<th style="text-align: right;">Jev Brier ↓</th>
+<th style="text-align: right;">GPT Decisions Brier ↓</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1dAVb</td>
+<td style="text-align: right;">0.135</td>
+<td style="text-align: right;"><strong>0.066</strong></td>
+</tr>
+<tr class="even">
+<td>RBBB</td>
+<td style="text-align: right;">0.137</td>
+<td style="text-align: right;"><strong>0.039</strong></td>
+</tr>
+<tr class="odd">
+<td>LBBB</td>
+<td style="text-align: right;">0.173</td>
+<td style="text-align: right;"><strong>0.025</strong></td>
+</tr>
+<tr class="even">
+<td>SB</td>
+<td style="text-align: right;">0.158</td>
+<td style="text-align: right;"><strong>0.021</strong></td>
+</tr>
+<tr class="odd">
+<td>AF</td>
+<td style="text-align: right;">0.185</td>
+<td style="text-align: right;"><strong>0.022</strong></td>
+</tr>
+<tr class="even">
+<td>ST</td>
+<td style="text-align: right;">0.228</td>
+<td style="text-align: right;"><strong>0.026</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Mean Brier Score across classes: <strong>0.169 for Jev</strong> versus <strong>0.033 for GPT Decisions</strong>. GPT Decisions was substantially better by this proper scoring rule. Still, with rare findings, always compare Brier against a prevalence-only baseline before making strong claims about calibration.</p>
+</section>
+</section>
+<section id="what-did-i-learn" class="level2">
+<h2 class="anchored" data-anchor-id="what-did-i-learn">What did I learn?</h2>
+<p>The answer to the title question is <strong>yes, to a limited extent</strong>. Both APIs accepted ECG images and produced six typed decisions. But their usefulness varied greatly by diagnosis.</p>
+<p>GPT Decisions generally ranked cases better and reported more useful probabilities on this test set. Jev’s LBBB AUROC was unexpectedly strong. Neither result establishes clinical readiness.</p>
+<p>The most useful lesson is methodological: <strong>a valid YES/NO answer, a good ROC curve and a well-calibrated probability are three different things</strong>. For medical images, we should measure all three.</p>
+<p>The next steps are external validation, uncertainty intervals for <em>paired differences</em>, a more detailed calibration analysis and comparisons with specialist ECG models. Until then, these findings are an exploratory benchmark, not medical advice.</p>
+</section>
+<section id="reproducibility-and-references" class="level2">
+<h2 class="anchored" data-anchor-id="reproducibility-and-references">Reproducibility and references</h2>
+<ul>
+<li><a href="https://github.com/fmenegui/jev-image-tests/tree/main/experiments/code-test-image">Jev image benchmark source code</a></li>
+<li><a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image-openai/decisions_full.py">GPT-6 Luna Decisions benchmark source code</a></li>
+<li><a href="https://github.com/fmenegui/sangha-code-test-reproduce">CODE Test image files, reference labels and Sangha Web predictions</a></li>
+<li><a href="https://github.com/dy1901/ecg-plot">ecg-plot image-generation library</a></li>
+<li><a href="https://doi.org/10.11606/T.3.2025.tde-16012026-084015">Doctoral thesis, Figure 20 and Table 25</a></li>
+</ul>
+<p><em>Methods note:</em> The confidence intervals shown here were computed with a fixed random seed, stratified bootstrap resampling and the original 826 paired predictions. The plotted traces are reduced to representative empirical points for readability. The <a href="https://github.com/fmenegui/jev-image-tests/tree/feature/ecg-blog-analysis/experiments/code-test-image/analysis">analysis script</a> documents how to regenerate the full-resolution plots from the two GitHub Actions artifacts.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script data-goatcounter="https://fmenegui.goatcounter.com/count" async="" src="https://gc.zgo.at/count.js">
+</script>
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
