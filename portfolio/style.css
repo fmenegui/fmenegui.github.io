@@ -328,3 +328,13 @@ tbody th { font-weight: 400; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+
+/* Blog preview shares the portfolio's quiet, editorial layout. */
+.blog-feature { padding-bottom: 28px; }
+.blog-feature > p { max-width: 700px; }
+.blog-preview { border-top: 1px solid #dce3eb; margin-top: 20px; padding: 23px 0 8px; }
+.blog-preview .blog-date { font-size: 13px; color: #667589; margin: 0 0 9px; }
+.blog-preview h3 { font-size: clamp(20px, 2.2vw, 25px); line-height: 1.35; margin: 0 0 12px; }
+.blog-preview h3 a { text-decoration: none; }
+.blog-preview > p:not(.blog-date):not(.project-links) { max-width: 680px; }
