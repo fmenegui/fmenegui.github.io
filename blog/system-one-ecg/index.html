@@ -133,7 +133,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#what-i-asked" id="toc-what-i-asked" class="nav-link" data-scroll-target="#what-i-asked">What I asked</a></li>
   <li><a href="#how-i-measured-performance" id="toc-how-i-measured-performance" class="nav-link" data-scroll-target="#how-i-measured-performance">How I measured performance</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
-  <li><a href="#how-does-this-compare-with-ecg-specific-models" id="toc-how-does-this-compare-with-ecg-specific-models" class="nav-link" data-scroll-target="#how-does-this-compare-with-ecg-specific-models">How does this compare with ECG-specific models?</a></li>
+  <li><a href="#how-does-this-compare-with-an-ecg-specific-model" id="toc-how-does-this-compare-with-an-ecg-specific-model" class="nav-link" data-scroll-target="#how-does-this-compare-with-an-ecg-specific-model">How does this compare with an ECG-specific model?</a></li>
   <li><a href="#where-to-go-next" id="toc-where-to-go-next" class="nav-link" data-scroll-target="#where-to-go-next">Where to go next</a></li>
   <li><a href="#final-thoughts" id="toc-final-thoughts" class="nav-link" data-scroll-target="#final-thoughts">Final thoughts</a></li>
   </ul>
@@ -330,38 +330,43 @@ NO:  {condition} is absent</code></pre>
 <p>The differences across findings are striking. For some diagnoses, the models could rank exams fairly well. For others, especially first-degree AV block, they struggled.</p>
 <p>I would not draw strong clinical conclusions from these numbers. Only 13 exams were positive for AF and 16 for SB. That makes calibration estimates especially uncertain. The shaded intervals describe uncertainty within this sample, not a formal statistical test of which model is better. A prevalence-only baseline would also be useful when interpreting Brier Scores.</p>
 </section>
-<section id="how-does-this-compare-with-ecg-specific-models" class="level2">
-<h2 class="anchored" data-anchor-id="how-does-this-compare-with-ecg-specific-models">How does this compare with ECG-specific models?</h2>
-<p>I also wanted to compare these results with the ECG image classifiers evaluated in my PhD thesis, including Sangha et al.&nbsp;(2022). There is an important limitation, though: <strong>Table 25 of my thesis reports sensitivity, specificity, precision, accuracy, and F1, but not AUROC</strong>. We cannot recover a valid AUROC from those summary values or from a single YES/NO decision threshold.</p>
-<p>For now, the AUROC comparison we can reproduce directly is between the two decision APIs, using their stored probability scores on the same 826 CODE Test ECGs:</p>
+<section id="how-does-this-compare-with-an-ecg-specific-model" class="level2">
+<h2 class="anchored" data-anchor-id="how-does-this-compare-with-an-ecg-specific-model">How does this compare with an ECG-specific model?</h2>
+<p>Sangha et al.&nbsp;(2022) trained a model specifically to classify ECG images. Their paper includes results on the <strong>same cardiologist-validated CODE Test cohort of 827 ECGs</strong>. On that cohort, their image-based model achieved a <strong>class-weighted mean AUROC of 0.997 (95% CI 0.99–1.00)</strong>. For atrial fibrillation, they reported an AUROC of <strong>1.00 (95% CI 0.99–1.00)</strong>.</p>
+<p>Our general-purpose decision APIs were evaluated on 826 of those exams because one GPT Decisions inference failed. Their <strong>unweighted macro-AUROC</strong> values were <strong>0.692 for Jev</strong> and <strong>0.778 for GPT Decisions</strong>.</p>
+<p>These results make the gap between specialist and general-purpose image models clear, but they are not an exact statistical head-to-head: Sangha reports a class-weighted mean, whereas our macro-AUROC gives each class equal weight. The image preprocessing and model versions also differ.</p>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Finding</th>
-<th style="text-align: right;">Jev AUROC</th>
-<th style="text-align: right;">GPT-6 Luna Decisions AUROC</th>
+<th style="text-align: left;">Model</th>
+<th style="text-align: right;">AUROC summary</th>
+<th style="text-align: left;">Evaluation</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">AF</td>
-<td style="text-align: right;">0.613</td>
-<td style="text-align: right;">0.697</td>
+<td style="text-align: left;">Sangha et al.&nbsp;(2022), ECG image model</td>
+<td style="text-align: right;"><strong>0.997</strong>, class-weighted mean</td>
+<td style="text-align: left;">827 CODE Test ECGs</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">RBBB</td>
-<td style="text-align: right;">0.601</td>
-<td style="text-align: right;">0.805</td>
+<td style="text-align: left;">Jev 1.14.0</td>
+<td style="text-align: right;">0.692, unweighted macro</td>
+<td style="text-align: left;">826 matched ECGs</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">LBBB</td>
-<td style="text-align: right;"><strong>0.976</strong></td>
-<td style="text-align: right;">0.953</td>
+<td style="text-align: left;">GPT-6 Luna Decisions</td>
+<td style="text-align: right;">0.778, unweighted macro</td>
+<td style="text-align: left;">826 matched ECGs</td>
 </tr>
 </tbody>
 </table>
-<p>To include my PhD model and Sangha in an AUROC-only table, we would need their <strong>continuous prediction scores for each CODE Test ECG</strong>, aligned with the reference labels. The published threshold-based results are useful context, but substituting F1 for AUROC would make the comparison misleading.</p>
-<p>The original specialist comparison is documented in Table 25 of <a href="https://doi.org/10.11606/T.3.2025.tde-16012026-084015">my doctoral thesis</a>. The Jev and GPT Decisions AUROCs are computed from the <a href="https://github.com/fmenegui/jev-image-tests/tree/main/experiments/code-test-image/analysis">saved predictions and analysis code</a>.</p>
+<p>The original <a href="https://doi.org/10.1038/s41467-022-29153-3">Sangha et al.&nbsp;paper</a> reports additional class-specific AUROCs in Table 1 and Figure 2. My <a href="https://doi.org/10.11606/T.3.2025.tde-16012026-084015">doctoral thesis</a> compares the specialist classifiers on CODE Test using F1 and other threshold-based metrics, but does not provide the continuous scores needed to recompute their AUROCs on our exact 826-case subset. For that reason, I have not presented a class-by-class specialist comparison as if all four models were tested with identical inputs.</p>
 </section>
 <section id="where-to-go-next" class="level2">
 <h2 class="anchored" data-anchor-id="where-to-go-next">Where to go next</h2>
