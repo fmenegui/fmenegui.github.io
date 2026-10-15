@@ -183,3 +183,16 @@ format:
 </div>
 ```
 
+
+
+## From the blog
+
+I occasionally write about experiments, tools, and questions that come up in my work. I share the methods and code, including when the results are not what I expected.
+
+### [Can System-One AI Models Classify ECG Images?](blog/system-one-ecg/index.qmd)
+
+*October 15, 2026 · ECG · AI experiments*
+
+I gave two AI decision models the same ECG images and compared not only their answers, but also how well their probabilities matched the data.
+
+[Read the article →](blog/system-one-ecg/index.qmd) · [All posts →](blog/index.qmd)
