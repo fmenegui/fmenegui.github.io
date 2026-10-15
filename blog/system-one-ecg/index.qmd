@@ -125,7 +125,7 @@ There is also an interesting contrast with the ROC results above. Jev had an AUR
 
 This is not a perfectly controlled head-to-head study. The models have different training data and output rules, and the image preprocessing may differ. The specialist results also cover 827 exams rather than the 826 used for our paired API comparison. I see this table as useful context, not a formal test of superiority.
 
-The source for the specialist results is [Table 25 of my doctoral thesis](https://doi.org/10.11606/T.3.2025.tde-16012026-084015). The Jev and Luna results can be reproduced from the [CODE Test inference outputs and evaluation code](https://github.com/fmenegui/jev-image-tests/tree/main/experiments/code-test-image).
+The source for the specialist results is [Table 25 of my doctoral thesis](https://doi.org/10.11606/T.3.2025.tde-16012026-084015). The Jev and Luna F1 values can be reproduced using the [comparison script](https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/analysis/compare_specialists.py) and the original GitHub Actions prediction artifacts.
 
 ## Where to go next
 
