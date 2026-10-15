@@ -385,8 +385,8 @@ Evaluate this finding independently of other diagnoses.</code></pre>
 <p>GPT Decisions returned valid results for 826 of 827 ECGs. The single failed case was <code>ecg_818</code>. We excluded that ECG <strong>from both models</strong> for the paired comparison below, so each curve uses exactly the same 826 examinations.</p>
 <section id="roc-curves-one-panel-per-class" class="level3">
 <h3 class="anchored" data-anchor-id="roc-curves-one-panel-per-class">ROC curves, one panel per class</h3>
-<p><img src="roc.svg" class="img-fluid" style="width:100.0%" alt="Paired ROC curves for Jev and GPT Decisions">{fig-alt=“Six ROC panels showing Jev and GPT Decisions, with AUROC and stratified bootstrap 95 percent intervals.”}</p>
-<p>The curves are plotted from selected points on the empirical ROC traces for legibility. The AUROC values and intervals come from the <strong>full prediction vectors</strong>, not from those selected points.</p>
+<p><img src="roc.svg" class="img-fluid" style="width:100.0%" alt="Paired ROC curves for Jev and GPT Decisions">{fig-alt=“Six ROC panels showing Jev and GPT Decisions, with AUROC values, and bootstrap intervals reported in the accompanying table.”}</p>
+<p>The curves are plotted from selected points on the empirical ROC traces for legibility. The shaded 95% bootstrap uncertainty bands will be included in a subsequent generated-figure revision, and are not depicted in this version. The AUROC values and intervals come from the <strong>full prediction vectors</strong>, not from those selected points.</p>
 <p>For the 95% confidence intervals, we used <strong>1,000 stratified bootstrap resamples</strong> per class, sampling positive and negative ECGs with replacement and keeping the two model predictions paired. This preserves the number of positive cases in each bootstrap replicate. It is a measure of sampling uncertainty, not proof of clinical generalizability.</p>
 <table class="caption-top table">
 <thead>
@@ -506,7 +506,7 @@ Evaluate this finding independently of other diagnoses.</code></pre>
 <li><a href="https://github.com/dy1901/ecg-plot">ecg-plot image-generation library</a></li>
 <li><a href="https://doi.org/10.11606/T.3.2025.tde-16012026-084015">Doctoral thesis, Figure 20 and Table 25</a></li>
 </ul>
-<p><em>Methods note:</em> The confidence intervals shown here were computed with a fixed random seed, stratified bootstrap resampling and the original 826 paired predictions. The plotted traces are reduced to representative empirical points for readability. The <a href="https://github.com/fmenegui/jev-image-tests/tree/feature/ecg-blog-analysis/experiments/code-test-image/analysis">analysis script</a> documents how to regenerate the full-resolution plots from the two GitHub Actions artifacts.</p>
+<p><em>Methods note:</em> The confidence intervals shown here were computed with a fixed random seed, stratified bootstrap resampling and the original 826 paired predictions. The plotted traces are reduced to representative empirical points for readability. The <a href="https://github.com/fmenegui/jev-image-tests/tree/main/experiments/code-test-image/analysis">analysis script</a> documents how to regenerate the full-resolution plots from the two GitHub Actions artifacts.</p>
 
 
 </section>
