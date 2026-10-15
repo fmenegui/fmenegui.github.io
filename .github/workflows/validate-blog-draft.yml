@@ -1,0 +1,20 @@
+name: Validate blog draft (no deploy)
+on:
+  push:
+    branches: [feature/blog-system-one-ecg]
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: quarto-dev/quarto-actions/setup@v2
+      - name: Render draft article only
+        run: quarto render blog/system-one-ecg/index.qmd --to html
+      - name: Check article assets
+        run: |
+          test -f blog/system-one-ecg/roc.svg
+          test -f blog/system-one-ecg/calibration.svg
+          test -f _site/blog/system-one-ecg/index.html
