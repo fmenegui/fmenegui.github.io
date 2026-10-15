@@ -47,6 +47,12 @@ def home(c,base,lang):
   doi=PAPERS[{'gorgona':0,'incor':3,'physionet':2,'rpms':9}[key]][4]
   s+=f'<article class="project">{thumb}<div class="project-copy"><h3><a href="projects/{key}.html">{e(v["title"])}</a></h3><p class="project-info">{e(v["status"])} · {e(v["period"])}</p><p class="desc">{e(v["summary"])}</p><p class="project-links"><a href="projects/{key}.html">{c["read"]}</a><a href="https://doi.org/{doi}">{c["article"]}</a></p></div></article>'
  s+='</section>'
+ blog_title='Do blog' if lang=='pt' else 'From the blog'
+ blog_intro=('Experimentos e ideias que tenho explorado, com métodos e código para quem quiser acompanhar.' if lang=='pt' else 'Experiments and ideas I have been exploring, with methods and code you can follow.')
+ blog_desc=('Um teste com imagens de ECG para comparar as decisões e as probabilidades de Jev e GPT Decisions.' if lang=='pt' else 'An ECG image experiment comparing the decisions and probability scores of Jev and GPT Decisions.')
+ blog_read='Ler artigo' if lang=='pt' else 'Read article'
+ blog_all='Ver todos os posts' if lang=='pt' else 'All posts'
+ s+=f'<section class="section blog-feature" id="blog"><div class="section-head"><h2>{blog_title}</h2></div><p>{blog_intro}</p><article class="blog-preview"><p class="blog-date">15 October 2026 · ECG · AI</p><h3><a href="{base}blog/system-one-ecg/">{e("Can System-One AI Models Classify ECG Images?")}</a></h3><p>{blog_desc}</p><p class="project-links"><a href="{base}blog/system-one-ecg/">{blog_read}</a><a href="{base}blog/">{blog_all}</a></p></article></section>'
  return s
 def challenge(c,base,s):
  v=c['physionet']
@@ -132,6 +138,7 @@ def page(lang,kind):
  for anchor,label in zip(['projects','about','publications','contact'],c['nav']):
   target=(('../' if kind not in ['home','about'] else '')+'about.html#'+anchor) if anchor in ['about','publications'] else homepath+'#'+anchor
   nav+=f'<a href="{target}">{label}</a>'
+ nav+=f'<a href="{base}blog/">Blog</a>'
  html=f'''<!doctype html><html lang="{c['locale']}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="https://fmenegui.com/{path}"><link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/{rel}"><link rel="alternate" hreflang="en" href="https://fmenegui.com/en/{rel}"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:type" content="website"><meta property="og:image" content="https://fmenegui.com/assets/felipe.jpg"><link rel="icon" href="{base}assets/favicon.svg"><link rel="stylesheet" href="{base}assets/style.css?v={CSS_VERSION}"></head><body class="{'home-page' if kind=='home' else 'about-page' if kind=='about' else 'project-page'}"><a class="skip" href="#main">{c['labels']['skip']}</a><header class="header"><div class="wrap"><a class="brand" href="{homepath}">fmenegui</a><nav class="nav" aria-label="{c['labels']['home']}">{nav}</nav><span class="lang"><a lang="pt-BR" hreflang="pt-BR" href="{switchpt}" {'aria-current="page"' if lang=='pt' else ''}>PT</a><a lang="en" hreflang="en" href="{switchen}" {'aria-current="page"' if lang=='en' else ''}>EN</a></span></div></header><main id="main" class="wrap">{body}<section class="contact" id="contact"><h2>{e(c['contact'])}</h2><p class="contact-email"><a href="{LINKS['email']}">f.meneguittidias@gmail.com</a></p>{social()}<p class="contact-download"><a href="{base}downloads/Felipe_Dias_Portfolio_{lang.upper()}.pdf?v={PDF_VERSIONS[lang]}">{c['download']} (PDF)</a></p></section></main><footer class="footer"><div class="wrap"><span>Felipe Meneguitti Dias</span><span>{c['updated']} · PT / EN</span></div></footer></body></html>'''
  dest=OUT/path;dest.parent.mkdir(exist_ok=True,parents=True);dest.write_text(html,encoding='utf-8')
 
@@ -153,4 +160,5 @@ shutil.rmtree(OUT/'learning',ignore_errors=True)
 for stale in ['search.json','sitemap.xml']:
  (OUT/stale).unlink(missing_ok=True)
 paths=['index.html','about.html',*(f'projects/{key}.html' for key in PROJECTS)]
-(OUT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>https://fmenegui.com/'+prefix+p+'</loc></url>' for prefix in ['', 'en/'] for p in paths)+'</urlset>')
+blog_paths=['blog/','blog/system-one-ecg/']
+(OUT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>https://fmenegui.com/'+prefix+p+'</loc></url>' for prefix in ['', 'en/'] for p in paths)+''.join('<url><loc>https://fmenegui.com/'+p+'</loc></url>' for p in blog_paths)+'</urlset>')
