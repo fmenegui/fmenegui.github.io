@@ -8,9 +8,9 @@
 
 <meta name="author" content="Felipe Meneguitti Dias">
 <meta name="dcterms.date" content="2026-10-15">
-<meta name="description" content="What happened when I asked two typed AI decision models to read 827 ECG images, and how I checked their discrimination and calibration.">
+<meta name="description" content="I gave Jev and GPT Decisions the same ECG images. Here is what they got right, where they struggled, and what their probabilities tell us.">
 
-<title>Can System-One AI Models Classify Electrocardiogram Exam Images? – Felipe Dias</title>
+<title>Can System-One AI Models Classify ECG Images? – Felipe Dias</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -28,41 +28,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -113,49 +78,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.6/css/academicons.min.css">
@@ -206,20 +128,12 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#two-models-that-return-decisions" id="toc-two-models-that-return-decisions" class="nav-link active" data-scroll-target="#two-models-that-return-decisions">Two models that return decisions</a></li>
-  <li><a href="#the-code-test-experiment" id="toc-the-code-test-experiment" class="nav-link" data-scroll-target="#the-code-test-experiment">The CODE Test experiment</a>
-  <ul class="collapse">
-  <li><a href="#from-ecg-signals-to-images" id="toc-from-ecg-signals-to-images" class="nav-link" data-scroll-target="#from-ecg-signals-to-images">From ECG signals to images</a></li>
-  </ul></li>
-  <li><a href="#what-exactly-did-i-ask" id="toc-what-exactly-did-i-ask" class="nav-link" data-scroll-target="#what-exactly-did-i-ask">What exactly did I ask?</a>
-  <ul class="collapse">
-  <li><a href="#an-example-of-the-answers" id="toc-an-example-of-the-answers" class="nav-link" data-scroll-target="#an-example-of-the-answers">An example of the answers</a></li>
-  </ul></li>
-  <li><a href="#how-i-evaluated-the-models" id="toc-how-i-evaluated-the-models" class="nav-link" data-scroll-target="#how-i-evaluated-the-models">How I evaluated the models</a>
-  <ul class="collapse">
+  <li><a href="#the-models" id="toc-the-models" class="nav-link active" data-scroll-target="#the-models">The models</a></li>
+  <li><a href="#the-ecgs" id="toc-the-ecgs" class="nav-link" data-scroll-target="#the-ecgs">The ECGs</a></li>
+  <li><a href="#what-i-asked" id="toc-what-i-asked" class="nav-link" data-scroll-target="#what-i-asked">What I asked</a></li>
+  <li><a href="#how-i-measured-performance" id="toc-how-i-measured-performance" class="nav-link" data-scroll-target="#how-i-measured-performance">How I measured performance</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
-  </ul></li>
-  <li><a href="#what-comes-next" id="toc-what-comes-next" class="nav-link" data-scroll-target="#what-comes-next">What comes next?</a></li>
+  <li><a href="#where-to-go-next" id="toc-where-to-go-next" class="nav-link" data-scroll-target="#where-to-go-next">Where to go next</a></li>
   <li><a href="#final-thoughts" id="toc-final-thoughts" class="nav-link" data-scroll-target="#final-thoughts">Final thoughts</a></li>
   </ul>
 </nav>
@@ -229,7 +143,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Can System-One AI Models Classify Electrocardiogram Exam Images?</h1>
+<h1 class="title">Can System-One AI Models Classify ECG Images?</h1>
   <div class="quarto-categories">
     <div class="quarto-category">ECG</div>
     <div class="quarto-category">AI</div>
@@ -239,7 +153,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    What happened when I asked two typed AI decision models to read 827 ECG images, and how I checked their discrimination and calibration.
+    I gave Jev and GPT Decisions the same ECG images. Here is what they got right, where they struggled, and what their probabilities tell us.
   </div>
 </div>
 
@@ -268,30 +182,32 @@ window.Quarto = {
 </header>
 
 
-<p>I was curious about a simple question: <strong>what happens if we give an ordinary 12-lead ECG image to an AI model built to make structured decisions?</strong> Can it recognize common ECG findings without being trained specifically as an ECG classifier?</p>
-<p>There are plenty of models trained on ECG signals. But here I wanted to test something different: two general-purpose, image-capable decision APIs, asked to look at the exam just as a person would see it on a page.</p>
-<p>This is an exploratory experiment, not a clinical diagnostic tool. I have linked the images, prompts, predictions and analysis code so the results can be checked.</p>
-<section id="two-models-that-return-decisions" class="level2">
-<h2 class="anchored" data-anchor-id="two-models-that-return-decisions">Two models that return decisions</h2>
-<p>The phrase <em>System-One AI</em> refers here to systems designed for relatively direct, structured decisions. It should not be taken as a literal claim about human psychological System 1.</p>
-<p>I compared <strong><a href="https://www.typesafe.ai/">Jev 1.14.0</a></strong> from TypeSafe AI and <strong>GPT-6 Luna Decisions</strong>, accessed through <a href="https://platform.openai.com/docs/">OpenAI’s Decisions API</a>. Both accept an image and answer typed questions with choices such as YES or NO. Importantly for this experiment, both also return scores for the possible answers.</p>
-<p>That is useful for evaluation. A YES/NO prediction tells us what the model decided. Its score also lets us ask whether positive ECGs tend to receive higher probabilities, and whether those probabilities correspond to what actually happens.</p>
+<p>I wanted to try something simple: <strong>what happens when we show an ECG to an AI model that was not built specifically for ECG interpretation?</strong></p>
+<p>There are already good models trained on ECG signals. Here, I was curious about two newer systems that take an image and return a structured decision. Would they recognize common ECG findings? And when they say YES or NO, how meaningful are their probabilities?</p>
+<p>This is an exploratory experiment, not a clinical diagnostic tool. The <a href="https://github.com/fmenegui/sangha-code-test-reproduce">images</a> and <a href="https://github.com/fmenegui/jev-image-tests">code</a> are available.</p>
+<section id="the-models" class="level2">
+<h2 class="anchored" data-anchor-id="the-models">The models</h2>
+<p>I tested <strong><a href="https://www.typesafe.ai/">Jev 1.14.0</a></strong> and <strong>GPT-6 Luna Decisions</strong>, accessed through <a href="https://platform.openai.com/docs/">OpenAI’s Decisions API</a>.</p>
+<p>Both belong to a category I refer to here as <em>System-One AI</em>: models designed to make direct, structured decisions instead of writing long explanations. The name is an analogy, not a claim about how these networks think.</p>
+<p>Both APIs can look at an image and answer questions such as “Is atrial fibrillation present?” They return YES or NO and a probability for each answer. That gives us more to evaluate than a binary prediction alone.</p>
 </section>
-<section id="the-code-test-experiment" class="level2">
-<h2 class="anchored" data-anchor-id="the-code-test-experiment">The CODE Test experiment</h2>
-<p>I used <strong>827 ECGs from the CODE Test set</strong>, with reference annotations for six findings. These are recordings that have been rendered as images of 12-lead ECG exams. Neither model received the original digital waveform, a clinical history or the reference labels.</p>
+<section id="the-ecgs" class="level2">
+<h2 class="anchored" data-anchor-id="the-ecgs">The ECGs</h2>
+<p>I used <strong>827 exams from the CODE Test dataset</strong>. The original recordings are digital signals, but the models only saw images of twelve-lead ECGs.</p>
+<p>The images were created using <a href="https://github.com/dy1901/ecg-plot">ecg-plot</a>, in the same Sangha-style layout used in an earlier ECG image study. You can see <a href="https://github.com/fmenegui/sangha-code-test-reproduce/blob/main/data/images_sangha_style_rendering/ecg_0.png">an example</a> or browse <a href="https://github.com/fmenegui/sangha-code-test-reproduce">all the images and labels</a>.</p>
+<p>We evaluated six findings:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Label</th>
 <th style="text-align: left;">Finding</th>
-<th style="text-align: right;">Positive ECGs</th>
+<th style="text-align: right;">Positive exams</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">1dAVb</td>
-<td style="text-align: left;">First-degree atrioventricular block</td>
+<td style="text-align: left;">First-degree AV block</td>
 <td style="text-align: right;">28</td>
 </tr>
 <tr class="even">
@@ -321,65 +237,39 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<p>This is a <strong>multilabel problem</strong>. An ECG can contain more than one finding. Six negative answers mean only that none of these six labels was identified, not that the ECG is necessarily normal.</p>
-<section id="from-ecg-signals-to-images" class="level3">
-<h3 class="anchored" data-anchor-id="from-ecg-signals-to-images">From ECG signals to images</h3>
-<p>The exams were rendered with <a href="https://github.com/dy1901/ecg-plot">ecg-plot</a>, using the Sangha-style layout also used in my doctoral research. The plotting library takes the recorded signals and draws a familiar ECG page, with the leads arranged as a printed exam.</p>
-<p>The images and their reference labels are available in the <a href="https://github.com/fmenegui/sangha-code-test-reproduce/tree/main/data/images_sangha_style_rendering">CODE Test image repository</a>. You can <a href="https://github.com/fmenegui/sangha-code-test-reproduce/blob/main/data/images_sangha_style_rendering/ecg_0.png">open an example ECG</a> there.</p>
-<p>For a fair API comparison, I resized each image once, preserving its aspect ratio, and sent the <strong>same PNG</strong> to both models. Downscaling may hide small ECG details, so this choice is also a limitation worth remembering.</p>
+<p><strong>This is a multilabel task.</strong> One ECG can have more than one finding. And an ECG with none of these six labels is not necessarily normal.</p>
+<p>I resized each image once, keeping its aspect ratio, and sent the same PNG to both APIs. Neither received the raw signals, clinical history, or correct labels. The resizing itself may hide small details, which is one limitation of this setup.</p>
 </section>
-</section>
-<section id="what-exactly-did-i-ask" class="level2">
-<h2 class="anchored" data-anchor-id="what-exactly-did-i-ask">What exactly did I ask?</h2>
-<p>I deliberately kept the instructions short. I wanted a zero-shot baseline, rather than explaining ECG interpretation rules to the models.</p>
-<p>For Jev, each of the six questions followed this template:</p>
+<section id="what-i-asked" class="level2">
+<h2 class="anchored" data-anchor-id="what-i-asked">What I asked</h2>
+<p>I kept the prompt short on purpose. I did not give the models a list of cardiology rules. For each finding, I asked:</p>
 <pre class="text"><code>Assess the 12-lead ECG image in `ecg_image`.
 Is {condition} present?
 Evaluate this finding independently of other diagnoses.
 
 YES: {condition} is present
 NO:  {condition} is absent</code></pre>
-<p>For example, for atrial fibrillation:</p>
-<pre class="text"><code>Is Atrial fibrillation present?
-Evaluate this finding independently of other diagnoses.</code></pre>
-<p>GPT Decisions received the equivalent question and the same image. The request format differs between the APIs, but the diagnostic task is the same. Neither model saw the ground truth.</p>
-<p>The complete request code is available for <a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/run.py">Jev</a> and <a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image-openai/decisions_full.py">GPT Decisions</a>.</p>
-<section id="an-example-of-the-answers" class="level3">
-<h3 class="anchored" data-anchor-id="an-example-of-the-answers">An example of the answers</h3>
-<p>For the LBBB question on <code>ecg_0</code>, both models answered NO, correctly. But the scores were quite different.</p>
-<p><strong>Jev:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"probabilities"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"YES"</span><span class="fu">:</span> <span class="fl">0.49</span><span class="fu">,</span> <span class="dt">"NO"</span><span class="fu">:</span> <span class="fl">0.51</span><span class="fu">}</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>GPT-6 Luna Decisions, converted to the same format:</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"probabilities"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"YES"</span><span class="fu">:</span> <span class="fl">0.00</span><span class="fu">,</span> <span class="dt">"NO"</span><span class="fu">:</span> <span class="fl">1.00</span><span class="fu">}</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This is why I wanted to look beyond classification accuracy. Two models can make the same decision while expressing very different levels of certainty. These are probabilities reported by the decision APIs, not automatically validated clinical risks.</p>
+<p>For atrial fibrillation, <code>{condition}</code> becomes <code>Atrial fibrillation</code>. GPT Decisions received the equivalent independent questions, using its own API format.</p>
+<p>The full requests are in the <a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/run.py">Jev script</a> and <a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image-openai/decisions_full.py">GPT Decisions script</a>.</p>
+<p>One example illustrates why the probabilities matter. On ECG <code>ecg_0</code>, both models correctly answered <strong>NO</strong> for LBBB. But Jev assigned <strong>0.49</strong> to YES, while GPT Decisions assigned <strong>0.00</strong>. The decisions matched, but the models expressed very different levels of certainty.</p>
+<p>These are probabilities returned by the APIs, not validated estimates of clinical risk.</p>
 </section>
+<section id="how-i-measured-performance" class="level2">
+<h2 class="anchored" data-anchor-id="how-i-measured-performance">How I measured performance</h2>
+<p>Jev returned predictions for all 827 images. GPT Decisions succeeded on 826 and failed on <code>ecg_818</code>. I excluded that image from <strong>both</strong> models so the comparison uses exactly the same <strong>826 ECGs</strong>.</p>
+<p>I focused on two questions.</p>
+<p><strong>Discrimination:</strong> does a model give higher scores to ECGs that truly have a finding? I measured this with the area under the ROC curve (<strong>AUROC</strong>). A value near 0.5 indicates little ability to rank positive and negative cases. A value near 1.0 is much better.</p>
+<p><strong>Calibration:</strong> when a model says 70%, does the finding actually occur about 70% of the time among exams with that predicted probability? A model can rank cases well while reporting poor probabilities.</p>
+<p>I also calculated the <strong>Brier Score</strong>, the average squared difference between the predicted probability and the true label. Lower is better. Brier reflects both probability calibration and discrimination, so it should not be treated as a pure calibration measure.</p>
 </section>
-<section id="how-i-evaluated-the-models" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="how-i-evaluated-the-models">How I evaluated the models</h2>
-<p>Jev returned results for all 827 exams. GPT Decisions returned valid results for 826, with one failed inference (<code>ecg_818</code>). For the statistical comparison, I excluded that exam <strong>from both models</strong>, leaving 826 matched ECGs.</p>
-<p>I examined two related but distinct properties.</p>
-<p><strong>Discrimination</strong> asks whether the model gives higher positive scores to ECGs that really contain a finding. I measured this with the area under the receiver operating characteristic curve, or <strong>AUROC</strong>. A value of 0.5 is roughly chance-level ranking, while 1.0 is perfect separation.</p>
-<p><strong>Calibration</strong> asks whether a reported probability agrees with the observed frequency. If a model assigns a 70% probability to many exams, we would expect roughly 70% of those exams to be positive in a well-calibrated group. A model can discriminate well and still be badly calibrated.</p>
-<p>I used the <strong>Brier Score</strong> as a complementary measure of probability quality:</p>
-<p><span class="math display">
-\mathrm{Brier}=\frac{1}{N}\sum_{i=1}^{N}(p_i-y_i)^2
-</span></p>
-<p>Here, <code>p</code> is the probability of YES and <code>y</code> is the reference label, either 0 or 1. Lower Brier scores are better. Brier is not a pure calibration measure, since it also reflects discrimination and the prevalence of the condition.</p>
-<section id="results" class="level3 page-columns page-full">
-<h3 class="anchored" data-anchor-id="results">Results</h3>
+<section id="results" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
 <div class="column-screen-inset">
 <div style="overflow-x:auto; margin: 1rem auto;">
-<p><img src="roc_calibration.svg" alt="Twelve panels showing six empirical ROC curves with shaded pointwise bootstrap confidence intervals and six interpolated calibration curves with score histograms. Jev is blue and GPT Decisions is red." style="width:100%; min-width:1150px; height:auto; display:block;"></p>
+<p><img src="roc_calibration.svg" alt="ROC and calibration results for six ECG findings, comparing Jev and GPT Decisions with bootstrap uncertainty bands." style="width:100%; min-width:1150px; height:auto; display:block;"></p>
 </div>
 </div>
-<p><em>Figure 1.</em> <strong>A:</strong> Empirical ROC curves for Jev and GPT Decisions. The numbers marked AUROC give the area under each curve. <strong>B:</strong> Reliability diagrams comparing reported positive probabilities with observed frequencies. The dashed line indicates perfect calibration. Calibration lines use shape-preserving PCHIP interpolation between observed quantile-bin means, only within the range supported by data. Histograms show where each model actually places its probability scores. Shaded regions show pointwise 95% intervals from 1,000 stratified bootstrap resamples. Interpolation is for visualization only, not recalibration.</p>
-<p>The macro-AUROC was <strong>0.692 for Jev</strong> and <strong>0.778 for GPT Decisions</strong>. GPT Decisions had better AUROC in five of the six classes. The exception was LBBB, where Jev reached <strong>0.976</strong>, compared with <strong>0.953</strong> for GPT Decisions.</p>
+<p><em>Figure 1.</em> <strong>Top:</strong> ROC curves for the six findings. The values marked <strong>AUROC</strong> show the area under each curve. <strong>Bottom:</strong> predicted versus observed probabilities, with score histograms. The dashed line marks perfect calibration. Shaded regions show pointwise 95% bootstrap intervals from 1,000 stratified resamples. Calibration curves use shape-preserving PCHIP interpolation between observed bin means, without extrapolating beyond the data. The interpolation changes the display, not the model predictions.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -401,7 +291,7 @@ Evaluate this finding independently of other diagnoses.</code></pre>
 <tr class="even">
 <td style="text-align: left;">RBBB</td>
 <td style="text-align: right;">0.601</td>
-<td style="text-align: right;">0.805</td>
+<td style="text-align: right;"><strong>0.805</strong></td>
 <td style="text-align: right;">0.137</td>
 <td style="text-align: right;">0.039</td>
 </tr>
@@ -415,14 +305,14 @@ Evaluate this finding independently of other diagnoses.</code></pre>
 <tr class="even">
 <td style="text-align: left;">SB</td>
 <td style="text-align: right;">0.730</td>
-<td style="text-align: right;">0.789</td>
+<td style="text-align: right;"><strong>0.789</strong></td>
 <td style="text-align: right;">0.158</td>
 <td style="text-align: right;">0.021</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">AF</td>
 <td style="text-align: right;">0.613</td>
-<td style="text-align: right;">0.697</td>
+<td style="text-align: right;"><strong>0.697</strong></td>
 <td style="text-align: right;">0.185</td>
 <td style="text-align: right;">0.022</td>
 </tr>
@@ -435,26 +325,22 @@ Evaluate this finding independently of other diagnoses.</code></pre>
 </tr>
 </tbody>
 </table>
-<p>GPT Decisions also achieved a lower mean Brier Score across the six findings, <strong>0.033 versus 0.169</strong> for Jev. That suggests better probability predictions on this dataset, although a proper calibration assessment also needs to consider the low prevalence of most labels.</p>
-<p>The confidence intervals in the figure quantify sampling uncertainty for each model. They are not a formal test of the difference between models. With only 13 positive AF cases and 16 positive SB cases, the calibration curves in particular should be read cautiously.</p>
+<p>GPT Decisions had a higher macro-AUROC (<strong>0.778 versus 0.692</strong>) and a lower mean Brier Score (<strong>0.033 versus 0.169</strong>). Jev did particularly well on LBBB, with an AUROC of <strong>0.976</strong>.</p>
+<p>The differences across findings are striking. For some diagnoses, the models could rank exams fairly well. For others, especially first-degree AV block, they struggled.</p>
+<p>I would not draw strong clinical conclusions from these numbers. Only 13 exams were positive for AF and 16 for SB. That makes calibration estimates especially uncertain. The shaded intervals describe uncertainty within this sample, not a formal statistical test of which model is better. A prevalence-only baseline would also be useful when interpreting Brier Scores.</p>
 </section>
-</section>
-<section id="what-comes-next" class="level2">
-<h2 class="anchored" data-anchor-id="what-comes-next">What comes next?</h2>
-<p>The CODE Test was a useful first experiment, but <strong>827 exams are not enough for a broad assessment of ECG interpretation</strong>, especially when some conditions have very few positive cases.</p>
-<p>Two natural next steps are:</p>
-<ul>
-<li><strong><a href="https://physionet.org/content/ptb-xl/1.0.3/">PTB-XL</a></strong>, a much larger public collection with 21,799 ECG recordings and multiple diagnostic labels. We can evaluate image renderings across a broader set of findings and examine performance across more patients.</li>
-<li><strong><a href="https://moody-challenge.physionet.org/2024/">George B. Moody PhysioNet Challenge 2024</a></strong>, which focuses specifically on ECG images, including scans, photographs and simulated paper artifacts. It is a good way to test how robust the models are when an exam is no longer a clean digital rendering.</li>
-</ul>
-<p>Those datasets are <strong>proposed follow-up evaluations</strong>, not part of the results shown above. Their label definitions and image formats differ from CODE Test, so they will need their own carefully specified protocols.</p>
+<section id="where-to-go-next" class="level2">
+<h2 class="anchored" data-anchor-id="where-to-go-next">Where to go next</h2>
+<p>The CODE Test is a useful starting point, but it is small for this kind of evaluation. I would like to repeat the experiment on larger and more varied collections.</p>
+<p><strong><a href="https://physionet.org/content/ptb-xl/1.0.3/">PTB-XL</a></strong> contains 21,799 ECG recordings and many diagnostic labels. It could help us see whether these findings hold with more exams and different conditions.</p>
+<p>The <strong><a href="https://moody-challenge.physionet.org/2024/">George B. Moody PhysioNet Challenge 2024</a></strong> is another interesting direction because it includes ECG images with different layouts and visual artifacts. That would test something the clean CODE renderings cannot: how robust the models are to the kinds of images we see outside a controlled benchmark.</p>
+<p>Neither dataset is part of the results reported here. Their labels and image formats will need separate evaluation protocols.</p>
 </section>
 <section id="final-thoughts" class="level2">
 <h2 class="anchored" data-anchor-id="final-thoughts">Final thoughts</h2>
-<p>Both APIs could read an ECG image and return structured diagnostic decisions. That is interesting, but it is not the same as reliably interpreting an ECG.</p>
-<p>In this small test, GPT Decisions generally discriminated better and produced better probability scores. Jev performed particularly well at ranking LBBB cases. The differences between diagnoses were substantial.</p>
-<p>For me, the main lesson is that <strong>getting a YES/NO answer, ranking cases correctly, and reporting trustworthy probabilities are three separate achievements</strong>. All three deserve to be measured before considering a model for clinical use.</p>
-<p>The <a href="https://github.com/fmenegui/jev-image-tests/tree/main/experiments">inference code</a>, <a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/analysis/plot_journal_final.py">Python figure generator</a> and <a href="https://github.com/fmenegui/sangha-code-test-reproduce">original CODE Test images</a> are available for reproducibility. No results in this article should be used for patient care.</p>
+<p>Both models could read an ECG image and return structured answers. That alone is interesting, but it does not mean they can interpret ECGs reliably.</p>
+<p>GPT Decisions generally performed better in this experiment, while Jev showed strong discrimination for LBBB. More importantly, the experiment reminded me that <strong>making a decision, ranking cases correctly, and assigning useful probabilities are different abilities</strong>.</p>
+<p>All <a href="https://github.com/fmenegui/jev-image-tests/tree/main/experiments">inference code</a>, the <a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/analysis/plot_journal_final.py">figure-generation script</a>, and the <a href="https://github.com/fmenegui/sangha-code-test-reproduce">CODE Test images</a> are available to inspect and reproduce.</p>
 
 
 </section>
