@@ -101,6 +101,32 @@ The differences across findings are striking. For some diagnoses, the models cou
 
 I would not draw strong clinical conclusions from these numbers. Only 13 exams were positive for AF and 16 for SB. That makes calibration estimates especially uncertain. The shaded intervals describe uncertainty within this sample, not a formal statistical test of which model is better. A prevalence-only baseline would also be useful when interpreting Brier Scores.
 
+## How do these results compare with ECG-specific models?
+
+I also wanted to put these results next to two models designed specifically for ECG interpretation: the image-based model from **Sangha et al. (2022)** and the model I developed during my PhD.
+
+My thesis evaluated both approaches on the CODE Test. It also reported results from Sangha's publicly available web model. The three shared diagnoses were atrial fibrillation (AF), right bundle branch block (RBBB), and left bundle branch block (LBBB).
+
+The table below uses **F1-score**, which combines precision and recall for the final YES/NO decisions. This is different from AUROC, which measures how well a model ranks positive and negative exams across possible thresholds.
+
+| Model | AF F1 | RBBB F1 | LBBB F1 |
+|:--|--:|--:|--:|
+| My PhD model (CODE Test, 827 ECGs) | **0.917** | 0.818 | 0.735 |
+| Sangha et al. (2022), published results | 0.857 | **0.862** | **1.000** |
+| Sangha Web, evaluated in my thesis | 0.667 | 0.667 | 0.708 |
+| Jev 1.14.0 (826 matched ECGs) | 0.047 | 0.000 | 0.352 |
+| GPT-6 Luna Decisions (826 matched ECGs) | 0.000 | 0.000 | 0.118 |
+
+*Table 2.* F1-scores for the three diagnoses common to all methods. The first three rows are taken from Table 25 of my doctoral thesis, which reports the CODE Test comparison on 827 ECGs. The last two rows were calculated from our stored YES/NO predictions on the 826 ECGs successfully evaluated by both APIs. The published Sangha results and the Sangha Web results are separate evaluations and should not be treated as identical model versions.
+
+The difference is substantial. The ECG-specific models achieved much higher F1-scores than either general-purpose decision API at their original decision thresholds. This is particularly striking for AF, where the model from my thesis reached an F1 of 0.917.
+
+There is also an interesting contrast with the ROC results above. Jev had an AUROC of 0.976 for LBBB, yet its F1 was only 0.352. It often ranked LBBB cases well, but its YES/NO decisions produced many false positives. A good ranking score does not automatically translate into a good classifier at the model's chosen operating point.
+
+This is not a perfectly controlled head-to-head study. The models have different training data and output rules, and the image preprocessing may differ. The specialist results also cover 827 exams rather than the 826 used for our paired API comparison. I see this table as useful context, not a formal test of superiority.
+
+The source for the specialist results is [Table 25 of my doctoral thesis](https://doi.org/10.11606/T.3.2025.tde-16012026-084015). The Jev and Luna results can be reproduced from the [CODE Test inference outputs and evaluation code](https://github.com/fmenegui/jev-image-tests/tree/main/experiments/code-test-image).
+
 ## Where to go next
 
 The CODE Test is a useful starting point, but it is small for this kind of evaluation. I would like to repeat the experiment on larger and more varied collections.
