@@ -101,21 +101,21 @@ The differences across findings are striking. For some diagnoses, the models cou
 
 I would not draw strong clinical conclusions from these numbers. Only 13 exams were positive for AF and 16 for SB. That makes calibration estimates especially uncertain. The shaded intervals describe uncertainty within this sample, not a formal statistical test of which model is better. A prevalence-only baseline would also be useful when interpreting Brier Scores.
 
-## How does this compare with ECG-specific models?
+## How does this compare with an ECG-specific model?
 
-I also wanted to compare these results with the ECG image classifiers evaluated in my PhD thesis, including Sangha et al. (2022). There is an important limitation, though: **Table 25 of my thesis reports sensitivity, specificity, precision, accuracy, and F1, but not AUROC**. We cannot recover a valid AUROC from those summary values or from a single YES/NO decision threshold.
+Sangha et al. (2022) trained a model specifically to classify ECG images. Their paper includes results on the **same cardiologist-validated CODE Test cohort of 827 ECGs**. On that cohort, their image-based model achieved a **class-weighted mean AUROC of 0.997 (95% CI 0.99–1.00)**. For atrial fibrillation, they reported an AUROC of **1.00 (95% CI 0.99–1.00)**.
 
-For now, the AUROC comparison we can reproduce directly is between the two decision APIs, using their stored probability scores on the same 826 CODE Test ECGs:
+Our general-purpose decision APIs were evaluated on 826 of those exams because one GPT Decisions inference failed. Their **unweighted macro-AUROC** values were **0.692 for Jev** and **0.778 for GPT Decisions**.
 
-| Finding | Jev AUROC | GPT-6 Luna Decisions AUROC |
-|:--|--:|--:|
-| AF | 0.613 | 0.697 |
-| RBBB | 0.601 | 0.805 |
-| LBBB | **0.976** | 0.953 |
+These results make the gap between specialist and general-purpose image models clear, but they are not an exact statistical head-to-head: Sangha reports a class-weighted mean, whereas our macro-AUROC gives each class equal weight. The image preprocessing and model versions also differ.
 
-To include my PhD model and Sangha in an AUROC-only table, we would need their **continuous prediction scores for each CODE Test ECG**, aligned with the reference labels. The published threshold-based results are useful context, but substituting F1 for AUROC would make the comparison misleading.
+| Model | AUROC summary | Evaluation |
+|:--|--:|:--|
+| Sangha et al. (2022), ECG image model | **0.997**, class-weighted mean | 827 CODE Test ECGs |
+| Jev 1.14.0 | 0.692, unweighted macro | 826 matched ECGs |
+| GPT-6 Luna Decisions | 0.778, unweighted macro | 826 matched ECGs |
 
-The original specialist comparison is documented in Table 25 of [my doctoral thesis](https://doi.org/10.11606/T.3.2025.tde-16012026-084015). The Jev and GPT Decisions AUROCs are computed from the [saved predictions and analysis code](https://github.com/fmenegui/jev-image-tests/tree/main/experiments/code-test-image/analysis).
+The original [Sangha et al. paper](https://doi.org/10.1038/s41467-022-29153-3) reports additional class-specific AUROCs in Table 1 and Figure 2. My [doctoral thesis](https://doi.org/10.11606/T.3.2025.tde-16012026-084015) compares the specialist classifiers on CODE Test using F1 and other threshold-based metrics, but does not provide the continuous scores needed to recompute their AUROCs on our exact 826-case subset. For that reason, I have not presented a class-by-class specialist comparison as if all four models were tested with identical inputs.
 
 ## Where to go next
 
