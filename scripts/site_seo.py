@@ -199,7 +199,11 @@ def alternates(page: Page, urls: set[str]) -> dict[str, str]:
 
 def schema(page: Page, articles: list[Page]) -> dict:
     person = {"@type": "Person", "@id": ORIGIN + "/#person", "name": AUTHOR,
-              "url": ORIGIN + "/about.html"}
+              "url": ORIGIN + "/about.html", "sameAs": [
+                  "https://orcid.org/0000-0001-7778-4606",
+                  "https://github.com/fmenegui",
+                  "https://www.linkedin.com/in/felipe-meneguitti-dias-312570b3/",
+              ]}
     website = {"@type": "WebSite", "@id": ORIGIN + "/#website",
                "url": ORIGIN + "/", "name": "Felipe Dias", "publisher": {"@id": person["@id"]}}
     web = {"@type": "WebPage", "@id": page.url + "#webpage", "url": page.url,
