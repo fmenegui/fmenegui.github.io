@@ -22,6 +22,10 @@ jobs:
           python blog/build_ecg_examples.py
       - name: Render both articles
         run: quarto render
+      - name: Build portfolio and verify search metadata
+        run: |
+          python portfolio/build.py
+          python scripts/check_site.py
       - name: Check article assets
         run: |
           test -f _site/blog/system-one-ecg/index.html

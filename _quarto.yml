@@ -5,11 +5,11 @@ project:
     - index.qmd
     - cv/cv.qmd
     - blog/index.qmd
-    - blog/system-one-ecg/index.qmd
-    - blog/system-one-ptbxl/index.qmd
+    - blog/*/index.qmd
 
 website:
   title: "Felipe Dias"
+  site-url: "https://fmenegui.com"
   description: ""
   search: true
   navbar:

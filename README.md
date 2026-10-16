@@ -20,7 +20,32 @@ This previews the new portfolio. To also render the retained Quarto pages, insta
 ```sh
 quarto render
 python portfolio/build.py
+python scripts/check_site.py
 ```
+
+## Search and discovery configuration
+
+`portfolio/build.py` runs `scripts/site_seo.py` after the final HTML overlay.
+The processor preserves rendered titles and visible text, and reads descriptions,
+publication dates and images from the existing HTML. It adds canonical URLs,
+reciprocal PT/EN language alternatives for translated pages, Open Graph and
+Twitter cards, Google verification, and JSON-LD for the author, website, profiles
+and blog posts. It does not invent translations, article dates or update dates.
+
+Every final public HTML page is discovered automatically for `sitemap.xml`, with
+image entries and language alternatives. Redirects, the 404 page and unpublished
+learning notes are excluded. Each dated blog page enters `blog/index.xml`.
+`robots.txt` advertises the sitemap. `search.json` indexes the final pages instead
+of being deleted after Quarto renders. New blog `*/index.qmd` files are rendered
+and listed automatically. Existing article URLs remain valid.
+
+`scripts/check_site.py` checks canonical URLs, language pairs, schemas, sitemap and
+feed coverage, search entries, local links, anchors and resources before deploy.
+No account analytics, publication subscriptions or third-party tracking is added.
+The verification meta tag can verify a matching Search Console URL-prefix
+property. Domain properties still require the TXT record at the DNS provider.
+After DNS verification, submit `https://fmenegui.com/sitemap.xml` in Search Console
+and inspect each article URL. Indexing and search positions depend on Google.
 
 The existing `learning/` sources remain intact. The GitHub Actions workflow renders the configured Quarto pages, overlays the new portfolio, excludes study notes from publication, and publishes `_site` to the existing `gh-pages` target without rendering a second time.
 

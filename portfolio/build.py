@@ -4,6 +4,8 @@ from pathlib import Path
 from html import escape as e
 from hashlib import sha256
 import shutil
+import subprocess
+import sys
 from content import CONTENT, LINKS, PAPERS
 from challenge import CHALLENGE_LINKS
 ROOT=Path(__file__).resolve().parents[1]
@@ -159,6 +161,4 @@ for prefix in ["", "en/"]:
 shutil.rmtree(OUT/'learning',ignore_errors=True)
 for stale in ['search.json','sitemap.xml']:
  (OUT/stale).unlink(missing_ok=True)
-paths=['index.html','about.html',*(f'projects/{key}.html' for key in PROJECTS)]
-blog_paths=['blog/','blog/system-one-ecg/']
-(OUT/'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'+''.join('<url><loc>https://fmenegui.com/'+prefix+p+'</loc></url>' for prefix in ['', 'en/'] for p in paths)+''.join('<url><loc>https://fmenegui.com/'+p+'</loc></url>' for p in blog_paths)+'</urlset>')
+subprocess.run([sys.executable, str(ROOT/'scripts/site_seo.py')], check=True)
