@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
@@ -70,10 +70,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -85,18 +81,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-5e85189689f64ca0ed64cd76e6b7f848.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -116,6 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.6/css/academicons.min.css">
+<link rel="stylesheet" href="/assets/style.css?v=0ede343a7dc2"><link rel="icon" href="/assets/favicon.svg">
 <!-- site-discovery:start -->
 <link rel="canonical" href="https://fmenegui.com/blog/system-one-ecg/">
 <link rel="alternate" type="application/rss+xml" title="Blog | Felipe Dias" href="https://fmenegui.com/blog/index.xml">
@@ -140,70 +125,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- site-discovery:end -->
 </head>
 
-<body class="nav-fixed quarto-light">
+<body data-search-index="/assets/search-8ce232895507.json" data-ui-locale="en" class="blog-page" data-blog-ui="true">
 
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Felipe Dias</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../cv/cv.html"> 
-<span class="menu-text">CV</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../blog/index.html"> 
-<span class="menu-text">Blog</span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#the-models" id="toc-the-models" class="nav-link active" data-scroll-target="#the-models">The models</a></li>
-  <li><a href="#the-ecgs" id="toc-the-ecgs" class="nav-link" data-scroll-target="#the-ecgs">The ECGs</a></li>
-  <li><a href="#real-ecg-inputs-and-recorded-json-outputs" id="toc-real-ecg-inputs-and-recorded-json-outputs" class="nav-link" data-scroll-target="#real-ecg-inputs-and-recorded-json-outputs">Real ECG inputs and recorded JSON outputs</a>
-  <ul class="collapse">
-  <li><a href="#code-test-ecg_0" id="toc-code-test-ecg_0" class="nav-link" data-scroll-target="#code-test-ecg_0">CODE Test ecg_0</a></li>
-  <li><a href="#code-test-ecg_1" id="toc-code-test-ecg_1" class="nav-link" data-scroll-target="#code-test-ecg_1">CODE Test ecg_1</a></li>
-  </ul></li>
-  <li><a href="#what-i-asked" id="toc-what-i-asked" class="nav-link" data-scroll-target="#what-i-asked">What I asked</a></li>
-  <li><a href="#how-i-measured-performance" id="toc-how-i-measured-performance" class="nav-link" data-scroll-target="#how-i-measured-performance">How I measured performance</a></li>
-  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
-  <li><a href="#how-does-this-compare-with-an-ecg-specific-model" id="toc-how-does-this-compare-with-an-ecg-specific-model" class="nav-link" data-scroll-target="#how-does-this-compare-with-an-ecg-specific-model">How does this compare with an ECG-specific model?</a></li>
-  <li><a href="#where-to-go-next" id="toc-where-to-go-next" class="nav-link" data-scroll-target="#where-to-go-next">Where to go next</a></li>
-  <li><a href="#final-thoughts" id="toc-final-thoughts" class="nav-link" data-scroll-target="#final-thoughts">Final thoughts</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul>
-</nav>
-    </div>
-<!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a><header class="header" lang="en"><div class="wrap"><a class="brand" data-home href="/en/" aria-label="Felipe Meneguitti Dias">fmenegui</a><nav class="nav" aria-label="Main"><a data-nav="0" href="/en/#projects">Projects</a><a data-nav="1" href="/en/about.html">CV</a><a data-nav="2" href="/en/about.html#publications">Publications</a><a data-nav="3" href="/en/#contact">Contact</a><a href="/blog/" aria-current="page">Blog</a><button class="search-toggle" type="button" data-search-open data-i18n="search">Search</button></nav><span class="lang"><a lang="pt-BR" data-ui-language="pt" href="#" aria-label="Navegação em português">PT</a><a lang="en" data-ui-language="en" href="#" aria-label="Navigation in English" aria-current="true">EN</a></span></div></header><p class="wrap article-language" data-i18n="article-language">Article in English · PT / EN changes navigation only.</p><div class="blog-layout wrap"><main class="blog-main content" id="main" tabindex="-1" lang="en">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -260,7 +184,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>I used <strong>827 exams from the CODE Test dataset</strong>. The original recordings are digital signals, but the models only saw images of twelve-lead ECGs.</p>
 <p>The images were created using <a href="https://github.com/dy1901/ecg-plot">ecg-plot</a>, in the same Sangha-style layout used in an earlier ECG image study. The rendered images and labels are retained as research materials.</p>
 <p>We evaluated six findings:</p>
-<table class="caption-top table">
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table, scroll horizontally if needed"><table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Label</th>
@@ -301,7 +225,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p><strong>This is a multilabel task.</strong> One ECG can have more than one finding. And an ECG with none of these six labels is not necessarily normal.</p>
+</div><p><strong>This is a multilabel task.</strong> One ECG can have more than one finding. And an ECG with none of these six labels is not necessarily normal.</p>
 <p>I resized each image once, keeping its aspect ratio, and sent the same PNG to both APIs. Neither received the raw signals, clinical history, or correct labels. The resizing itself may hide small details, which is one limitation of this setup.</p>
 </section>
 <section id="real-ecg-inputs-and-recorded-json-outputs" class="level2">
@@ -311,7 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="code-test-ecg_0">CODE Test ecg_0</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><picture data-lossless><source srcset="/blog/system-one-ecg/example-ecg.lossless.webp" type="image/webp"><img src="example-ecg.png" class="img-fluid figure-img" style="width:100.0%" alt="CODE Test ecg_0: twelve-lead tracing used in the recorded evaluation" width="1000" height="504" decoding="async" loading="lazy"></picture></p>
+<p><a href="example-ecg.png" class="figure-original" target="_blank" rel="noopener" aria-label="Open original figure in a new tab" title="Open original figure in a new tab"><picture data-lossless><source srcset="/blog/system-one-ecg/example-ecg.lossless.webp" type="image/webp"><img src="example-ecg.png" class="img-fluid figure-img" style="width:100.0%" alt="CODE Test ecg_0: twelve-lead tracing used in the recorded evaluation" width="1000" height="504" decoding="async" loading="lazy"></picture></a></p>
 <figcaption>CODE Test ecg_0, the twelve-lead ECG input used by both models.</figcaption>
 </figure>
 </div>
@@ -476,7 +400,7 @@ Show saved JSON with YES/NO probabilities and confidence
 <h3 class="anchored" data-anchor-id="code-test-ecg_1">CODE Test ecg_1</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><picture data-lossless><source srcset="/blog/system-one-ecg/example-ecg-1.lossless.webp" type="image/webp"><img src="example-ecg-1.png" class="img-fluid figure-img" style="width:100.0%" alt="CODE Test ecg_1: twelve-lead tracing used in the recorded evaluation" width="1000" height="504" decoding="async" loading="lazy"></picture></p>
+<p><a href="example-ecg-1.png" class="figure-original" target="_blank" rel="noopener" aria-label="Open original figure in a new tab" title="Open original figure in a new tab"><picture data-lossless><source srcset="/blog/system-one-ecg/example-ecg-1.lossless.webp" type="image/webp"><img src="example-ecg-1.png" class="img-fluid figure-img" style="width:100.0%" alt="CODE Test ecg_1: twelve-lead tracing used in the recorded evaluation" width="1000" height="504" decoding="async" loading="lazy"></picture></a></p>
 <figcaption>CODE Test ecg_1, the twelve-lead ECG input used by both models.</figcaption>
 </figure>
 </div>
@@ -663,12 +587,12 @@ NO:  {condition} is absent</code></pre>
 <section id="results" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
 <div class="column-screen-inset">
-<div style="overflow-x:auto; margin: 1rem auto;">
-<p><img src="roc_calibration.svg" alt="ROC and calibration results for six ECG findings, comparing Jev and GPT Decisions with bootstrap uncertainty bands." style="width:100%; min-width:1150px; height:auto; display:block;" decoding="async" loading="lazy"></p>
+<div style="overflow-x:auto; margin: 1rem auto;" tabindex="0" role="region" aria-label="Figure, scroll horizontally to see all details" class="figure-scroll">
+<p><a href="roc_calibration.svg" class="figure-original" target="_blank" rel="noopener" aria-label="Open original figure in a new tab" title="Open original figure in a new tab"><img src="roc_calibration.svg" alt="ROC and calibration results for six ECG findings, comparing Jev and GPT Decisions with bootstrap uncertainty bands." style="width:100%; min-width:1150px; height:auto; display:block;" decoding="async" loading="lazy"></a></p>
 </div>
 </div>
 <p><em>Figure 1.</em> <strong>Top:</strong> ROC curves for the six findings. The values marked <strong>AUROC</strong> show the area under each curve. <strong>Bottom:</strong> predicted versus observed probabilities, with score histograms. The dashed line marks perfect calibration. Shaded regions show pointwise 95% bootstrap intervals from 1,000 stratified resamples. Calibration curves use shape-preserving PCHIP interpolation between observed bin means, without extrapolating beyond the data. The interpolation changes the display, not the model predictions.</p>
-<table class="caption-top table">
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table, scroll horizontally if needed"><table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Finding</th>
@@ -723,14 +647,14 @@ NO:  {condition} is absent</code></pre>
 </tr>
 </tbody>
 </table>
-<p>GPT Decisions had a higher macro-AUROC (<strong>0.778 versus 0.692</strong>) and a lower mean Brier Score (<strong>0.033 versus 0.169</strong>). Jev did particularly well on LBBB, with an AUROC of <strong>0.976</strong>.</p>
+</div><p>GPT Decisions had a higher macro-AUROC (<strong>0.778 versus 0.692</strong>) and a lower mean Brier Score (<strong>0.033 versus 0.169</strong>). Jev did particularly well on LBBB, with an AUROC of <strong>0.976</strong>.</p>
 <p>The differences across findings are striking. For some diagnoses, the models could rank exams fairly well. For others, especially first-degree AV block, they struggled.</p>
 <p>I would not draw strong clinical conclusions from these numbers. Only 13 exams were positive for AF and 16 for SB. That makes calibration estimates especially uncertain. The shaded intervals describe uncertainty within this sample, not a formal statistical test of which model is better. A prevalence-only baseline would also be useful when interpreting Brier Scores.</p>
 </section>
 <section id="how-does-this-compare-with-an-ecg-specific-model" class="level2">
 <h2 class="anchored" data-anchor-id="how-does-this-compare-with-an-ecg-specific-model">How does this compare with an ECG-specific model?</h2>
-<p>Sangha et al.&nbsp;(2022) trained a model specifically to classify ECG images. Their paper reports results on the cardiologist-validated <strong>CODE Test set of 827 ECGs</strong>, which is the same cohort used in this experiment. Below are the AUROCs for all six diagnoses, taken directly from <strong>Table 1</strong> of their paper.</p>
-<table class="caption-top table">
+<p>Sangha et al. (2022) trained a model specifically to classify ECG images. Their paper reports results on the cardiologist-validated <strong>CODE Test set of 827 ECGs</strong>, which is the same cohort used in this experiment. Below are the AUROCs for all six diagnoses, taken directly from <strong>Table 1</strong> of their paper.</p>
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table, scroll horizontally if needed"><table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Finding</th>
@@ -764,7 +688,7 @@ NO:  {condition} is absent</code></pre>
 </tr>
 </tbody>
 </table>
-<p><em>Source: Sangha et al., Nature Communications (2022), Table 1, image-based model, cardiologist-validated test set (N = 827). The reported class-weighted mean AUROC was 0.997 (95% CI 0.994–1.000).</em></p>
+</div><p><em>Source: Sangha et al., Nature Communications (2022), Table 1, image-based model, cardiologist-validated test set (N = 827). The reported class-weighted mean AUROC was 0.997 (95% CI 0.994–1.000).</em></p>
 <p>These are impressive results for a model trained specifically on ECG images. They also give useful context for our exploratory experiment. The published numbers and our API results are not an exactly matched head-to-head evaluation: our paired analysis uses 826 ECGs, and image preprocessing and model development differ. See the <a href="https://doi.org/10.1038/s41467-022-29153-3">original study</a> for the full evaluation.</p>
 </section>
 <section id="where-to-go-next" class="level2">
@@ -783,9 +707,9 @@ NO:  {condition} is absent</code></pre>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 <ol type="1">
-<li>Sangha V, Mortazavi BJ, Haimovich AD, et al.&nbsp;(2022). <a href="https://doi.org/10.1038/s41467-022-29153-3">Automated multilabel diagnosis on electrocardiographic images and signals</a>. <em>Nature Communications</em>, 13, 1583. Primary source for the specialist model and its CODE Test AUROCs.</li>
-<li>Ribeiro AH, Ribeiro MH, Paixão GMM, et al.&nbsp;(2020). <a href="https://doi.org/10.1038/s41467-020-15432-4">Automatic diagnosis of the 12-lead ECG using a deep neural network</a>. <em>Nature Communications</em>, 11, 1760. Background on the CODE study and ECG classification.</li>
-<li>Wagner P, Strodthoff N, Bousseljot RD, et al.&nbsp;(2020). <a href="https://doi.org/10.1038/s41597-020-0495-6">PTB-XL, a large publicly available electrocardiography dataset</a>. <em>Scientific Data</em>, 7, 154. Reference for the proposed larger evaluation.</li>
+<li>Sangha V, Mortazavi BJ, Haimovich AD, et al. (2022). <a href="https://doi.org/10.1038/s41467-022-29153-3">Automated multilabel diagnosis on electrocardiographic images and signals</a>. <em>Nature Communications</em>, 13, 1583. Primary source for the specialist model and its CODE Test AUROCs.</li>
+<li>Ribeiro AH, Ribeiro MH, Paixão GMM, et al. (2020). <a href="https://doi.org/10.1038/s41467-020-15432-4">Automatic diagnosis of the 12-lead ECG using a deep neural network</a>. <em>Nature Communications</em>, 11, 1760. Background on the CODE study and ECG classification.</li>
+<li>Wagner P, Strodthoff N, Bousseljot RD, et al. (2020). <a href="https://doi.org/10.1038/s41597-020-0495-6">PTB-XL, a large publicly available electrocardiography dataset</a>. <em>Scientific Data</em>, 7, 154. Reference for the proposed larger evaluation.</li>
 <li><a href="https://moody-challenge.physionet.org/2024/">George B. Moody PhysioNet Challenge 2024</a>. ECG image digitization and classification challenge.</li>
 <li><a href="https://github.com/dy1901/ecg-plot">ecg-plot</a>. Library used to render ECG signals as images.</li>
 <li>CODE Test rendered ECG images and labels (private research materials).</li>
@@ -796,8 +720,27 @@ NO:  {condition} is absent</code></pre>
 
 </section>
 
-</main> <!-- /main -->
-<script data-goatcounter="https://fmenegui.goatcounter.com/count" async="" src="https://gc.zgo.at/count.js">
+</main> <aside class="blog-toc" aria-label="On this page"><nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-models" id="toc-the-models" class="nav-link active" data-scroll-target="#the-models">The models</a></li>
+  <li><a href="#the-ecgs" id="toc-the-ecgs" class="nav-link" data-scroll-target="#the-ecgs">The ECGs</a></li>
+  <li><a href="#real-ecg-inputs-and-recorded-json-outputs" id="toc-real-ecg-inputs-and-recorded-json-outputs" class="nav-link" data-scroll-target="#real-ecg-inputs-and-recorded-json-outputs">Real ECG inputs and recorded JSON outputs</a>
+  <ul class="collapse">
+  <li><a href="#code-test-ecg_0" id="toc-code-test-ecg_0" class="nav-link" data-scroll-target="#code-test-ecg_0">CODE Test ecg_0</a></li>
+  <li><a href="#code-test-ecg_1" id="toc-code-test-ecg_1" class="nav-link" data-scroll-target="#code-test-ecg_1">CODE Test ecg_1</a></li>
+  </ul></li>
+  <li><a href="#what-i-asked" id="toc-what-i-asked" class="nav-link" data-scroll-target="#what-i-asked">What I asked</a></li>
+  <li><a href="#how-i-measured-performance" id="toc-how-i-measured-performance" class="nav-link" data-scroll-target="#how-i-measured-performance">How I measured performance</a></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#how-does-this-compare-with-an-ecg-specific-model" id="toc-how-does-this-compare-with-an-ecg-specific-model" class="nav-link" data-scroll-target="#how-does-this-compare-with-an-ecg-specific-model">How does this compare with an ECG-specific model?</a></li>
+  <li><a href="#where-to-go-next" id="toc-where-to-go-next" class="nav-link" data-scroll-target="#where-to-go-next">Where to go next</a></li>
+  <li><a href="#final-thoughts" id="toc-final-thoughts" class="nav-link" data-scroll-target="#final-thoughts">Final thoughts</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </aside></div><footer class="footer"><div class="wrap"><span>Felipe Meneguitti Dias</span><span><a href="/blog/index.xml">RSS</a> · <a href="#main" data-i18n="top">Back to top</a></span></div></footer><script data-goatcounter="https://fmenegui.goatcounter.com/count" async="" src="https://gc.zgo.at/count.js">
 </script>
 
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1200,10 +1143,5 @@ NO:  {condition} is absent</code></pre>
     }
   });
   </script>
-</div> <!-- /content -->
-
-
-
-
 <script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
-</body></html>
+<dialog id="site-search" aria-labelledby="search-heading"><div class="search-dialog-head"><h2 id="search-heading" data-i18n="search">Search</h2><button type="button" data-search-close aria-label="Close search">×</button></div><label for="search-query" data-i18n="query">Search the entire site</label><input id="search-query" type="search" autocomplete="off" spellcheck="false"><p id="search-status" role="status" aria-live="polite"></p><ol id="search-results"></ol></dialog><script src="/assets/site-ui-8ec0fd7fd92f.js" defer></script></body></html>

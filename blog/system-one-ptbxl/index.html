@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
@@ -70,10 +70,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -85,18 +81,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-5e85189689f64ca0ed64cd76e6b7f848.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "navbar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "end",
-  "type": "overlay",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -116,6 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.6/css/academicons.min.css">
+<link rel="stylesheet" href="/assets/style.css?v=0ede343a7dc2"><link rel="icon" href="/assets/favicon.svg">
 <!-- site-discovery:start -->
 <link rel="canonical" href="https://fmenegui.com/blog/system-one-ptbxl/">
 <link rel="alternate" type="application/rss+xml" title="Blog | Felipe Dias" href="https://fmenegui.com/blog/index.xml">
@@ -140,69 +125,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- site-discovery:end -->
 </head>
 
-<body class="nav-fixed quarto-light">
+<body data-search-index="/assets/search-8ce232895507.json" data-ui-locale="en" class="blog-page" data-blog-ui="true">
 
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
-      <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
-    <span class="navbar-title">Felipe Dias</span>
-    </a>
-  </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-  <span class="navbar-toggler-icon"></span>
-</button>
-          <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav navbar-nav-scroll me-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../index.html"> 
-<span class="menu-text">Home</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../cv/cv.html"> 
-<span class="menu-text">CV</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../blog/index.html"> 
-<span class="menu-text">Blog</span></a>
-  </li>  
-</ul>
-          </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
-</div>
-      </div> <!-- /container-fluid -->
-    </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
-<!-- sidebar -->
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#the-ecgs-and-the-models" id="toc-the-ecgs-and-the-models" class="nav-link active" data-scroll-target="#the-ecgs-and-the-models">The ECGs and the models</a></li>
-  <li><a href="#real-ecg-inputs-and-recorded-json-outputs" id="toc-real-ecg-inputs-and-recorded-json-outputs" class="nav-link" data-scroll-target="#real-ecg-inputs-and-recorded-json-outputs">Real ECG inputs and recorded JSON outputs</a>
-  <ul class="collapse">
-  <li><a href="#ptb-xl-ecg-id-1" id="toc-ptb-xl-ecg-id-1" class="nav-link" data-scroll-target="#ptb-xl-ecg-id-1">PTB-XL ECG ID 1</a></li>
-  <li><a href="#ptb-xl-ecg-id-8" id="toc-ptb-xl-ecg-id-8" class="nav-link" data-scroll-target="#ptb-xl-ecg-id-8">PTB-XL ECG ID 8</a></li>
-  </ul></li>
-  <li><a href="#the-questions" id="toc-the-questions" class="nav-link" data-scroll-target="#the-questions">The questions</a></li>
-  <li><a href="#how-i-evaluated-the-answers" id="toc-how-i-evaluated-the-answers" class="nav-link" data-scroll-target="#how-i-evaluated-the-answers">How I evaluated the answers</a></li>
-  <li><a href="#discrimination-and-calibration" id="toc-discrimination-and-calibration" class="nav-link" data-scroll-target="#discrimination-and-calibration">Discrimination and calibration</a></li>
-  <li><a href="#what-happens-at-a-threshold-of-0.5" id="toc-what-happens-at-a-threshold-of-0.5" class="nav-link" data-scroll-target="#what-happens-at-a-threshold-of-0.5">What happens at a threshold of 0.5?</a></li>
-  <li><a href="#how-does-this-compare-with-my-physionet-challenge-2024-model" id="toc-how-does-this-compare-with-my-physionet-challenge-2024-model" class="nav-link" data-scroll-target="#how-does-this-compare-with-my-physionet-challenge-2024-model">How does this compare with my PhysioNet Challenge 2024 model?</a></li>
-  <li><a href="#what-i-take-from-this" id="toc-what-i-take-from-this" class="nav-link" data-scroll-target="#what-i-take-from-this">What I take from this</a></li>
-  <li><a href="#reproducibility-and-references" id="toc-reproducibility-and-references" class="nav-link" data-scroll-target="#reproducibility-and-references">Reproducibility and references</a></li>
-  </ul>
-</nav>
-    </div>
-<!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a><header class="header" lang="en"><div class="wrap"><a class="brand" data-home href="/en/" aria-label="Felipe Meneguitti Dias">fmenegui</a><nav class="nav" aria-label="Main"><a data-nav="0" href="/en/#projects">Projects</a><a data-nav="1" href="/en/about.html">CV</a><a data-nav="2" href="/en/about.html#publications">Publications</a><a data-nav="3" href="/en/#contact">Contact</a><a href="/blog/" aria-current="page">Blog</a><button class="search-toggle" type="button" data-search-open data-i18n="search">Search</button></nav><span class="lang"><a lang="pt-BR" data-ui-language="pt" href="#" aria-label="Navegação em português">PT</a><a lang="en" data-ui-language="en" href="#" aria-label="Navigation in English" aria-current="true">EN</a></span></div></header><p class="wrap article-language" data-i18n="article-language">Article in English · PT / EN changes navigation only.</p><div class="blog-layout wrap"><main class="blog-main content" id="main" tabindex="-1" lang="en">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -251,7 +176,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="the-ecgs-and-the-models">The ECGs and the models</h2>
 <p>I used <a href="https://physionet.org/content/ptb-xl/1.0.3/">PTB-XL version 1.0.3</a>, a publicly available collection of 12-lead ECG recordings. Instead of sending raw signals, I used the <strong>clean images already rendered by <a href="https://huggingface.co/datasets/edcci/GenECG">GenECG</a></strong>. The experiment records the image source and SHA-256 checksum for each examination.</p>
 <p>I tested <strong>Jev 1.14.0</strong> and <strong>GPT-6 Luna Decisions</strong>. Both received the same ECG PNG and five independent YES/NO questions. No signal samples, patient history or reference labels were included in the requests.</p>
-<table class="caption-top table">
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table, scroll horizontally if needed"><table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
 <col style="width: 33%">
@@ -292,7 +217,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<p>These are <strong>multilabel</strong> categories. An ECG may have more than one abnormality. The reference labels were derived from the PTB-XL diagnostic SCP statements, grouped into the five official diagnostic superclasses.</p>
+</div><p>These are <strong>multilabel</strong> categories. An ECG may have more than one abnormality. The reference labels were derived from the PTB-XL diagnostic SCP statements, grouped into the five official diagnostic superclasses.</p>
 </section>
 <section id="real-ecg-inputs-and-recorded-json-outputs" class="level2">
 <h2 class="anchored" data-anchor-id="real-ecg-inputs-and-recorded-json-outputs">Real ECG inputs and recorded JSON outputs</h2>
@@ -301,7 +226,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="ptb-xl-ecg-id-1">PTB-XL ECG ID 1</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><picture data-lossless><source srcset="/blog/system-one-ptbxl/example-ecg.lossless.webp" type="image/webp"><img src="example-ecg.png" class="img-fluid figure-img" style="width:100.0%" alt="PTB-XL ECG ID 1: twelve-lead tracing used in the recorded evaluation" width="1358" height="1000" decoding="async" loading="lazy"></picture></p>
+<p><a href="example-ecg.png" class="figure-original" target="_blank" rel="noopener" aria-label="Open original figure in a new tab" title="Open original figure in a new tab"><picture data-lossless><source srcset="/blog/system-one-ptbxl/example-ecg.lossless.webp" type="image/webp"><img src="example-ecg.png" class="img-fluid figure-img" style="width:100.0%" alt="PTB-XL ECG ID 1: twelve-lead tracing used in the recorded evaluation" width="1358" height="1000" decoding="async" loading="lazy"></picture></a></p>
 <figcaption>PTB-XL ECG ID 1, the twelve-lead ECG input used by both models.</figcaption>
 </figure>
 </div>
@@ -445,7 +370,7 @@ Show saved JSON with YES/NO probabilities and confidence
 <h3 class="anchored" data-anchor-id="ptb-xl-ecg-id-8">PTB-XL ECG ID 8</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><picture data-lossless><source srcset="/blog/system-one-ptbxl/example-ecg-8.lossless.webp" type="image/webp"><img src="example-ecg-8.png" class="img-fluid figure-img" style="width:100.0%" alt="PTB-XL ECG ID 8: twelve-lead tracing used in the recorded evaluation" width="1358" height="1000" decoding="async" loading="lazy"></picture></p>
+<p><a href="example-ecg-8.png" class="figure-original" target="_blank" rel="noopener" aria-label="Open original figure in a new tab" title="Open original figure in a new tab"><picture data-lossless><source srcset="/blog/system-one-ptbxl/example-ecg-8.lossless.webp" type="image/webp"><img src="example-ecg-8.png" class="img-fluid figure-img" style="width:100.0%" alt="PTB-XL ECG ID 8: twelve-lead tracing used in the recorded evaluation" width="1358" height="1000" decoding="async" loading="lazy"></picture></a></p>
 <figcaption>PTB-XL ECG ID 8, the twelve-lead ECG input used by both models.</figcaption>
 </figure>
 </div>
@@ -617,12 +542,12 @@ Return YES or NO.</code></pre>
 <section id="discrimination-and-calibration" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="discrimination-and-calibration">Discrimination and calibration</h2>
 <div class="column-screen-inset">
-<div style="overflow-x:auto; margin: 1rem auto;">
-<p><img src="ptbxl_roc_calibration.svg" alt="ROC and calibration results for five PTB-XL classes, with probability histograms and patient-bootstrap uncertainty bands." style="width:100%; min-width:1150px; height:auto; display:block;" decoding="async" loading="lazy"></p>
+<div style="overflow-x:auto; margin: 1rem auto;" tabindex="0" role="region" aria-label="Figure, scroll horizontally to see all details" class="figure-scroll">
+<p><a href="ptbxl_roc_calibration.svg" class="figure-original" target="_blank" rel="noopener" aria-label="Open original figure in a new tab" title="Open original figure in a new tab"><img src="ptbxl_roc_calibration.svg" alt="ROC and calibration results for five PTB-XL classes, with probability histograms and patient-bootstrap uncertainty bands." style="width:100%; min-width:1150px; height:auto; display:block;" decoding="async" loading="lazy"></a></p>
 </div>
 </div>
 <p><em>Figure 1.</em> <strong>Top:</strong> empirical ROC curves for the five superclasses. <strong>Bottom:</strong> predicted versus observed probabilities, with score histograms. The dashed diagonal marks chance discrimination or perfect calibration. Shaded regions and AUROC intervals use 300 paired patient-cluster bootstrap resamples. Calibration uses the same quantile-binning and shape-preserving PCHIP interpolation as the CODE Test figure, within observed support only. Both figures are generated by the same Python rendering function, adapted to five or six classes. The probabilities are not recalibrated.</p>
-<table class="caption-top table">
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table, scroll horizontally if needed"><table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Class</th>
@@ -658,12 +583,12 @@ Return YES or NO.</code></pre>
 </tr>
 </tbody>
 </table>
-<p>The most striking result is the uneven performance. Jev ranked normal ECGs and hypertrophy slightly better. GPT Decisions ranked infarction patterns, ST-T changes and conduction disturbances better. Neither performed consistently well across all five classes.</p>
+</div><p>The most striking result is the uneven performance. Jev ranked normal ECGs and hypertrophy slightly better. GPT Decisions ranked infarction patterns, ST-T changes and conduction disturbances better. Neither performed consistently well across all five classes.</p>
 <p>Jev’s STTC AUROC of <strong>0.465</strong> is particularly concerning. Its scores did not meaningfully separate positive from negative cases in the expected direction.</p>
 </section>
 <section id="what-happens-at-a-threshold-of-0.5" class="level2">
 <h2 class="anchored" data-anchor-id="what-happens-at-a-threshold-of-0.5">What happens at a threshold of 0.5?</h2>
-<table class="caption-top table">
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table, scroll horizontally if needed"><table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Class</th>
@@ -786,7 +711,7 @@ Return YES or NO.</code></pre>
 </tr>
 </tbody>
 </table>
-<p><em>The optimized F1 column pools predictions from ten held-out folds, with each fold’s threshold selected from the other nine folds. Se, Spe and precision in this table are for the fixed 0.5 threshold.</em></p>
+</div><p><em>The optimized F1 column pools predictions from ten held-out folds, with each fold’s threshold selected from the other nine folds. Se, Spe and precision in this table are for the fixed 0.5 threshold.</em></p>
 <p>The threshold matters a lot. At 0.5, Jev almost never identifies NORM or CD, even though its AUROC for NORM is above 0.7. The probabilities contain some ranking information, but a generic 0.5 cutoff is a poor decision rule.</p>
 <p>Selecting thresholds from separate folds improves macro F1 from <strong>0.206 to 0.440</strong> for Jev and from <strong>0.219 to 0.462</strong> for GPT Decisions. This should not be confused with an improvement in the underlying model or with prospective clinical validation.</p>
 </section>
@@ -794,7 +719,7 @@ Return YES or NO.</code></pre>
 <h2 class="anchored" data-anchor-id="how-does-this-compare-with-my-physionet-challenge-2024-model">How does this compare with my PhysioNet Challenge 2024 model?</h2>
 <p>In 2024, our AIMED team developed an <strong>ECG-specific ConvNeXt model</strong> for the George B. Moody PhysioNet Challenge. The approach combined ImageNet pretraining, ECG-domain transfer learning and explicit fine-tuning on ECG data. It won the ECG image-classification task.</p>
 <p>Our <a href="https://www.cinc.org/archives/2024/pdf/CinC2024-398.pdf">Computing in Cardiology 2024 paper</a> reported a <strong>macro F1-score of 0.817</strong> on the Challenge’s hidden evaluation. Internal five-fold validation reported <strong>0.698 ± 0.022</strong>.</p>
-<table class="caption-top table">
+<div class="table-scroll" tabindex="0" role="region" aria-label="Table, scroll horizontally if needed"><table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: left;">Evaluation</th>
@@ -824,7 +749,7 @@ Return YES or NO.</code></pre>
 </tr>
 </tbody>
 </table>
-<p><strong>These scores are not directly comparable.</strong> The Challenge used a different set of diagnostic classes, a hidden evaluation set and a different image-generation and acquisition protocol. Its 0.817 result is useful context for a specialist ECG-image model, not a head-to-head benchmark on these 21,796 images.</p>
+</div><p><strong>These scores are not directly comparable.</strong> The Challenge used a different set of diagnostic classes, a hidden evaluation set and a different image-generation and acquisition protocol. Its 0.817 result is useful context for a specialist ECG-image model, not a head-to-head benchmark on these 21,796 images.</p>
 <p>There is another important distinction. <strong>My ConvNeXt model was explicitly trained and fine-tuned for ECG classification. Jev and GPT Decisions were not explicitly fine-tuned on PTB-XL for this experiment.</strong> Their broader pretraining data are not fully disclosed, so we cannot rule out previous exposure to ECG material or PTB-XL examples. The threshold-optimized results also use labeled PTB-XL examples to select thresholds. These differences are limitations, not evidence of an intrinsic model advantage.</p>
 </section>
 <section id="what-i-take-from-this" class="level2">
@@ -837,9 +762,9 @@ Return YES or NO.</code></pre>
 <h2 class="anchored" data-anchor-id="reproducibility-and-references">Reproducibility and references</h2>
 <p>Both articles use one shared figure renderer, with identical fonts, colors, empirical ROC steps, calibration panels, histograms and uncertainty-band conventions. PTB-XL resamples patients as clusters to account for repeated ECGs. CODE Test uses class-stratified resampling. The underlying inference scripts and individual results are retained privately.</p>
 <ol type="1">
-<li>Wagner P, Strodthoff N, Bousseljot RD, et al.&nbsp;<a href="https://doi.org/10.1038/s41597-020-0495-6">PTB-XL, a large publicly available electrocardiography dataset</a>. <em>Scientific Data</em>. 2020.</li>
+<li>Wagner P, Strodthoff N, Bousseljot RD, et al. <a href="https://doi.org/10.1038/s41597-020-0495-6">PTB-XL, a large publicly available electrocardiography dataset</a>. <em>Scientific Data</em>. 2020.</li>
 <li>Dias FM, Ribeiro E, Soares QB, Krieger JE, Gutierrez MA. <a href="https://www.cinc.org/archives/2024/pdf/CinC2024-398.pdf">Image-Based Electrocardiogram Classification Using Pre-trained ConvNeXt</a>. <em>Computing in Cardiology</em>. 2024.</li>
-<li>Reyna MA, et al.&nbsp;<a href="https://moody-challenge.physionet.org/2024/papers/cinc_paper.pdf">Digitization and Classification of ECG Images: The George B. Moody PhysioNet Challenge 2024</a>. <em>Computing in Cardiology</em>. 2024.</li>
+<li>Reyna MA, et al. <a href="https://moody-challenge.physionet.org/2024/papers/cinc_paper.pdf">Digitization and Classification of ECG Images: The George B. Moody PhysioNet Challenge 2024</a>. <em>Computing in Cardiology</em>. 2024.</li>
 <li><a href="https://moody-challenge.physionet.org/2024/results/">Official Challenge 2024 results</a>.</li>
 <li><a href="https://huggingface.co/datasets/edcci/GenECG">GenECG image collection</a>.</li>
 <li>Jev and GPT Decisions experimental implementation (private research repository, not publicly accessible).</li>
@@ -848,8 +773,26 @@ Return YES or NO.</code></pre>
 
 </section>
 
-</main> <!-- /main -->
-<script data-goatcounter="https://fmenegui.goatcounter.com/count" async="" src="https://gc.zgo.at/count.js">
+</main> <aside class="blog-toc" aria-label="On this page"><nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-ecgs-and-the-models" id="toc-the-ecgs-and-the-models" class="nav-link active" data-scroll-target="#the-ecgs-and-the-models">The ECGs and the models</a></li>
+  <li><a href="#real-ecg-inputs-and-recorded-json-outputs" id="toc-real-ecg-inputs-and-recorded-json-outputs" class="nav-link" data-scroll-target="#real-ecg-inputs-and-recorded-json-outputs">Real ECG inputs and recorded JSON outputs</a>
+  <ul class="collapse">
+  <li><a href="#ptb-xl-ecg-id-1" id="toc-ptb-xl-ecg-id-1" class="nav-link" data-scroll-target="#ptb-xl-ecg-id-1">PTB-XL ECG ID 1</a></li>
+  <li><a href="#ptb-xl-ecg-id-8" id="toc-ptb-xl-ecg-id-8" class="nav-link" data-scroll-target="#ptb-xl-ecg-id-8">PTB-XL ECG ID 8</a></li>
+  </ul></li>
+  <li><a href="#the-questions" id="toc-the-questions" class="nav-link" data-scroll-target="#the-questions">The questions</a></li>
+  <li><a href="#how-i-evaluated-the-answers" id="toc-how-i-evaluated-the-answers" class="nav-link" data-scroll-target="#how-i-evaluated-the-answers">How I evaluated the answers</a></li>
+  <li><a href="#discrimination-and-calibration" id="toc-discrimination-and-calibration" class="nav-link" data-scroll-target="#discrimination-and-calibration">Discrimination and calibration</a></li>
+  <li><a href="#what-happens-at-a-threshold-of-0.5" id="toc-what-happens-at-a-threshold-of-0.5" class="nav-link" data-scroll-target="#what-happens-at-a-threshold-of-0.5">What happens at a threshold of 0.5?</a></li>
+  <li><a href="#how-does-this-compare-with-my-physionet-challenge-2024-model" id="toc-how-does-this-compare-with-my-physionet-challenge-2024-model" class="nav-link" data-scroll-target="#how-does-this-compare-with-my-physionet-challenge-2024-model">How does this compare with my PhysioNet Challenge 2024 model?</a></li>
+  <li><a href="#what-i-take-from-this" id="toc-what-i-take-from-this" class="nav-link" data-scroll-target="#what-i-take-from-this">What I take from this</a></li>
+  <li><a href="#reproducibility-and-references" id="toc-reproducibility-and-references" class="nav-link" data-scroll-target="#reproducibility-and-references">Reproducibility and references</a></li>
+  </ul>
+</nav>
+    </aside></div><footer class="footer"><div class="wrap"><span>Felipe Meneguitti Dias</span><span><a href="/blog/index.xml">RSS</a> · <a href="#main" data-i18n="top">Back to top</a></span></div></footer><script data-goatcounter="https://fmenegui.goatcounter.com/count" async="" src="https://gc.zgo.at/count.js">
 </script>
 
 <script id="quarto-html-after-body" type="application/javascript">
@@ -1252,10 +1195,5 @@ Return YES or NO.</code></pre>
     }
   });
   </script>
-</div> <!-- /content -->
-
-
-
-
 <script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
-</body></html>
+<dialog id="site-search" aria-labelledby="search-heading"><div class="search-dialog-head"><h2 id="search-heading" data-i18n="search">Search</h2><button type="button" data-search-close aria-label="Close search">×</button></div><label for="search-query" data-i18n="query">Search the entire site</label><input id="search-query" type="search" autocomplete="off" spellcheck="false"><p id="search-status" role="status" aria-live="polite"></p><ol id="search-results"></ol></dialog><script src="/assets/site-ui-8ec0fd7fd92f.js" defer></script></body></html>

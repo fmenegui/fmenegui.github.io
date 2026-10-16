@@ -3,7 +3,7 @@
   <channel>
     <title>Blog | Felipe Dias</title>
     <link>https://fmenegui.com/blog/</link>
-    <description>Notes on experiments, research, and tools I find interesting. I include the code and methods whenever possible.</description>
+    <description>Experiments in AI and ECG, with methods, results and code.</description>
     <language>en</language>
     <item>
       <title>What Happens When Decision Models Read 21,799 ECG Images?</title>
