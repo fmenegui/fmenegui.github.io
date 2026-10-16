@@ -1,1 +1,222 @@
-<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>https://fmenegui.com/index.html</loc></url><url><loc>https://fmenegui.com/about.html</loc></url><url><loc>https://fmenegui.com/projects/gorgona.html</loc></url><url><loc>https://fmenegui.com/projects/incor.html</loc></url><url><loc>https://fmenegui.com/projects/physionet.html</loc></url><url><loc>https://fmenegui.com/projects/rpms.html</loc></url><url><loc>https://fmenegui.com/en/index.html</loc></url><url><loc>https://fmenegui.com/en/about.html</loc></url><url><loc>https://fmenegui.com/en/projects/gorgona.html</loc></url><url><loc>https://fmenegui.com/en/projects/incor.html</loc></url><url><loc>https://fmenegui.com/en/projects/physionet.html</loc></url><url><loc>https://fmenegui.com/en/projects/rpms.html</loc></url><url><loc>https://fmenegui.com/blog/</loc></url><url><loc>https://fmenegui.com/blog/system-one-ecg/</loc></url></urlset>
+<?xml version='1.0' encoding='utf-8'?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://fmenegui.com/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/about.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fmenegui.com/en/about.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fmenegui.com/about.html" />
+  </url>
+  <url>
+    <loc>https://fmenegui.com/blog/</loc>
+  </url>
+  <url>
+    <loc>https://fmenegui.com/blog/system-one-ecg/</loc>
+    <image:image>
+      <image:loc>https://fmenegui.com/blog/system-one-ecg/example-ecg.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/blog/system-one-ecg/example-ecg-1.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/blog/system-one-ecg/roc_calibration.svg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://fmenegui.com/blog/system-one-ptbxl/</loc>
+    <image:image>
+      <image:loc>https://fmenegui.com/blog/system-one-ptbxl/example-ecg.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/blog/system-one-ptbxl/example-ecg-8.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/blog/system-one-ptbxl/ptbxl_roc_calibration.svg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://fmenegui.com/en/about.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/about.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fmenegui.com/en/about.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fmenegui.com/about.html" />
+  </url>
+  <url>
+    <loc>https://fmenegui.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fmenegui.com/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fmenegui.com/" />
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/felipe.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/flows.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/incor-integration.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/physionet-award.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/rpms-app.jpeg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://fmenegui.com/en/projects/gorgona.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/projects/gorgona.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fmenegui.com/en/projects/gorgona.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fmenegui.com/projects/gorgona.html" />
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/flows.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/upa-map-en.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/client-install.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/client-menu.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/architecture.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/dashboard.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/timeline.png</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://fmenegui.com/en/projects/incor.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/projects/incor.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fmenegui.com/en/projects/incor.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fmenegui.com/projects/incor.html" />
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/incor-integration.png</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://fmenegui.com/en/projects/physionet.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/projects/physionet.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fmenegui.com/en/projects/physionet.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fmenegui.com/projects/physionet.html" />
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/physionet-award.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/physionet-method.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/physionet-certificate.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://fmenegui.com/en/projects/rpms.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/projects/rpms.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fmenegui.com/en/projects/rpms.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fmenegui.com/projects/rpms.html" />
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/rpms-architecture.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/rpms-app.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/rpms-dashboard.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/rpms-protocol.png</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://fmenegui.com/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fmenegui.com/en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fmenegui.com/" />
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/felipe.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/flows.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/incor-integration.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/physionet-award.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/rpms-app.jpeg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://fmenegui.com/projects/gorgona.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/projects/gorgona.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fmenegui.com/en/projects/gorgona.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fmenegui.com/projects/gorgona.html" />
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/flows.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/upa-map-pt.webp</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/client-install.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/client-menu.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/architecture.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/dashboard.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/timeline.png</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://fmenegui.com/projects/incor.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/projects/incor.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fmenegui.com/en/projects/incor.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fmenegui.com/projects/incor.html" />
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/incor-integration.png</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://fmenegui.com/projects/physionet.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/projects/physionet.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fmenegui.com/en/projects/physionet.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fmenegui.com/projects/physionet.html" />
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/physionet-award.jpg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/physionet-method.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/physionet-certificate.jpg</image:loc>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://fmenegui.com/projects/rpms.html</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/projects/rpms.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://fmenegui.com/en/projects/rpms.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fmenegui.com/projects/rpms.html" />
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/rpms-architecture.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/rpms-app.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/rpms-dashboard.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/rpms-protocol.png</image:loc>
+    </image:image>
+  </url>
+</urlset>

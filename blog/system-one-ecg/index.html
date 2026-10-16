@@ -116,6 +116,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.6/css/academicons.min.css">
+<!-- site-discovery:start -->
+<link rel="canonical" href="https://fmenegui.com/blog/system-one-ecg/">
+<link rel="alternate" type="application/rss+xml" title="Blog | Felipe Dias" href="https://fmenegui.com/blog/index.xml">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="google-site-verification" content="h6HccuHaE3NZCaV6t7jhLx1lPqosFyi3aunJcjO5xSQ">
+<meta property="og:site_name" content="Felipe Dias">
+<meta property="og:title" content="Can System-One AI Models Classify ECG Images? – Felipe Dias">
+<meta property="og:description" content="Can two general-purpose decision models identify ECG abnormalities from images? A zero-shot evaluation on CODE Test using AUROC and probability calibration.">
+<meta property="og:url" content="https://fmenegui.com/blog/system-one-ecg/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://fmenegui.com/blog/system-one-ecg/example-ecg.png">
+<meta property="og:image:alt" content="Can System-One AI Models Classify ECG Images?">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Can System-One AI Models Classify ECG Images? – Felipe Dias">
+<meta name="twitter:description" content="Can two general-purpose decision models identify ECG abnormalities from images? A zero-shot evaluation on CODE Test using AUROC and probability calibration.">
+<meta name="twitter:image" content="https://fmenegui.com/blog/system-one-ecg/example-ecg.png">
+<meta name="twitter:image:alt" content="Can System-One AI Models Classify ECG Images?">
+<meta property="article:published_time" content="2026-10-15">
+<meta property="article:author" content="https://fmenegui.com/about.html">
+<script id="site-discovery" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://fmenegui.com/#person","name":"Felipe Meneguitti Dias","url":"https://fmenegui.com/about.html"},{"@type":"WebSite","@id":"https://fmenegui.com/#website","url":"https://fmenegui.com/","name":"Felipe Dias","publisher":{"@id":"https://fmenegui.com/#person"}},{"@type":"WebPage","@id":"https://fmenegui.com/blog/system-one-ecg/#webpage","url":"https://fmenegui.com/blog/system-one-ecg/","name":"Can System-One AI Models Classify ECG Images? – Felipe Dias","description":"Can two general-purpose decision models identify ECG abnormalities from images? A zero-shot evaluation on CODE Test using AUROC and probability calibration.","inLanguage":"en","isPartOf":{"@id":"https://fmenegui.com/#website"},"breadcrumb":{"@id":"https://fmenegui.com/blog/system-one-ecg/#breadcrumb"}},{"@type":"BlogPosting","@id":"https://fmenegui.com/blog/system-one-ecg/#article","url":"https://fmenegui.com/blog/system-one-ecg/","mainEntityOfPage":{"@id":"https://fmenegui.com/blog/system-one-ecg/#webpage"},"headline":"Can System-One AI Models Classify ECG Images?","description":"Can two general-purpose decision models identify ECG abnormalities from images? A zero-shot evaluation on CODE Test using AUROC and probability calibration.","author":{"@id":"https://fmenegui.com/#person"},"datePublished":"2026-10-15","inLanguage":"en","isAccessibleForFree":true,"image":["https://fmenegui.com/blog/system-one-ecg/example-ecg.png","https://fmenegui.com/blog/system-one-ecg/example-ecg-1.png","https://fmenegui.com/blog/system-one-ecg/roc_calibration.svg"]},{"@type":"BreadcrumbList","@id":"https://fmenegui.com/blog/system-one-ecg/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"item":"https://fmenegui.com/","name":"Felipe Dias"},{"@type":"ListItem","position":2,"item":"https://fmenegui.com/blog/","name":"Blog"},{"@type":"ListItem","position":3,"item":"https://fmenegui.com/blog/system-one-ecg/","name":"Can System-One AI Models Classify ECG Images?"}]}]}</script>
+<!-- site-discovery:end -->
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -289,7 +311,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="code-test-ecg_0">CODE Test ecg_0</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="example-ecg.png" class="img-fluid figure-img" style="width:100.0%" alt="CODE Test ecg_0: twelve-lead tracing used in the recorded evaluation"></p>
+<p><img src="example-ecg.png" class="img-fluid figure-img" style="width:100.0%" alt="CODE Test ecg_0: twelve-lead tracing used in the recorded evaluation" width="1000" height="504" decoding="async" loading="lazy"></p>
 <figcaption>CODE Test ecg_0, the twelve-lead ECG input used by both models.</figcaption>
 </figure>
 </div>
@@ -454,7 +476,7 @@ Show saved JSON with YES/NO probabilities and confidence
 <h3 class="anchored" data-anchor-id="code-test-ecg_1">CODE Test ecg_1</h3>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="example-ecg-1.png" class="img-fluid figure-img" style="width:100.0%" alt="CODE Test ecg_1: twelve-lead tracing used in the recorded evaluation"></p>
+<p><img src="example-ecg-1.png" class="img-fluid figure-img" style="width:100.0%" alt="CODE Test ecg_1: twelve-lead tracing used in the recorded evaluation" width="1000" height="504" decoding="async" loading="lazy"></p>
 <figcaption>CODE Test ecg_1, the twelve-lead ECG input used by both models.</figcaption>
 </figure>
 </div>
@@ -642,7 +664,7 @@ NO:  {condition} is absent</code></pre>
 <h2 class="anchored" data-anchor-id="results">Results</h2>
 <div class="column-screen-inset">
 <div style="overflow-x:auto; margin: 1rem auto;">
-<p><img src="roc_calibration.svg" alt="ROC and calibration results for six ECG findings, comparing Jev and GPT Decisions with bootstrap uncertainty bands." style="width:100%; min-width:1150px; height:auto; display:block;"></p>
+<p><img src="roc_calibration.svg" alt="ROC and calibration results for six ECG findings, comparing Jev and GPT Decisions with bootstrap uncertainty bands." style="width:100%; min-width:1150px; height:auto; display:block;" decoding="async" loading="lazy"></p>
 </div>
 </div>
 <p><em>Figure 1.</em> <strong>Top:</strong> ROC curves for the six findings. The values marked <strong>AUROC</strong> show the area under each curve. <strong>Bottom:</strong> predicted versus observed probabilities, with score histograms. The dashed line marks perfect calibration. Shaded regions show pointwise 95% bootstrap intervals from 1,000 stratified resamples. Calibration curves use shape-preserving PCHIP interpolation between observed bin means, without extrapolating beyond the data. The interpolation changes the display, not the model predictions.</p>
@@ -851,7 +873,7 @@ NO:  {condition} is absent</code></pre>
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/fmenegui\.com");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

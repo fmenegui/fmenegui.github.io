@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss version="2.0">
+  <channel>
+    <title>Blog | Felipe Dias</title>
+    <link>https://fmenegui.com/blog/</link>
+    <description>Notes on experiments, research, and tools I find interesting. I include the code and methods whenever possible.</description>
+    <language>en</language>
+    <item>
+      <title>What Happens When Decision Models Read 21,799 ECG Images?</title>
+      <link>https://fmenegui.com/blog/system-one-ptbxl/</link>
+      <description>A follow-up to CODE Test: Jev and GPT Decisions on PTB-XL, with discrimination, calibration, sensitivity, specificity, precision and F1.</description>
+      <guid isPermaLink="true">https://fmenegui.com/blog/system-one-ptbxl/</guid>
+      <pubDate>Fri, 16 Oct 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Can System-One AI Models Classify ECG Images?</title>
+      <link>https://fmenegui.com/blog/system-one-ecg/</link>
+      <description>Can two general-purpose decision models identify ECG abnormalities from images? A zero-shot evaluation on CODE Test using AUROC and probability calibration.</description>
+      <guid isPermaLink="true">https://fmenegui.com/blog/system-one-ecg/</guid>
+      <pubDate>Thu, 15 Oct 2026 00:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>
