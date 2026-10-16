@@ -186,7 +186,7 @@ ul.task-list li input[type="checkbox"] {
 
 <p>I wanted to try something simple: <strong>what happens when we show an ECG to an AI model that was not built specifically for ECG interpretation?</strong></p>
 <p>There are already good models trained on ECG signals. Here, I was curious about two newer systems that take an image and return a structured decision. Would they recognize common ECG findings? And when they say YES or NO, how meaningful are their probabilities?</p>
-<p>This is an exploratory experiment, not a clinical diagnostic tool. The <a href="https://github.com/fmenegui/sangha-code-test-reproduce">images</a> and <a href="https://github.com/fmenegui/jev-image-tests">code</a> are available.</p>
+<p>This is an exploratory experiment, not a clinical diagnostic tool. The experimental inputs and analysis scripts are retained in private research repositories.</p>
 <section id="the-models" class="level2">
 <h2 class="anchored" data-anchor-id="the-models">The models</h2>
 <p>I tested <strong><a href="https://www.typesafe.ai/">Jev 1.14.0</a></strong> and <strong>GPT-6 Luna Decisions</strong>, accessed through <a href="https://platform.openai.com/docs/">OpenAI’s Decisions API</a>.</p>
@@ -196,7 +196,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="the-ecgs" class="level2">
 <h2 class="anchored" data-anchor-id="the-ecgs">The ECGs</h2>
 <p>I used <strong>827 exams from the CODE Test dataset</strong>. The original recordings are digital signals, but the models only saw images of twelve-lead ECGs.</p>
-<p>The images were created using <a href="https://github.com/dy1901/ecg-plot">ecg-plot</a>, in the same Sangha-style layout used in an earlier ECG image study. You can see <a href="https://github.com/fmenegui/sangha-code-test-reproduce/blob/main/data/images_sangha_style_rendering/ecg_0.png">an example</a> or browse <a href="https://github.com/fmenegui/sangha-code-test-reproduce">all the images and labels</a>.</p>
+<p>The images were created using <a href="https://github.com/dy1901/ecg-plot">ecg-plot</a>, in the same Sangha-style layout used in an earlier ECG image study. The rendered images and labels are retained as research materials.</p>
 <p>We evaluated six findings:</p>
 <table class="caption-top table">
 <thead>
@@ -252,7 +252,7 @@ Evaluate this finding independently of other diagnoses.
 YES: {condition} is present
 NO:  {condition} is absent</code></pre>
 <p>For atrial fibrillation, <code>{condition}</code> becomes <code>Atrial fibrillation</code>. GPT Decisions received the equivalent independent questions, using its own API format.</p>
-<p>The full requests are in the <a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/run.py">Jev script</a> and <a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image-openai/decisions_full.py">GPT Decisions script</a>.</p>
+<p>The complete request payloads and inference scripts are retained privately for reproducibility.</p>
 <p>One example illustrates why the probabilities matter. On ECG <code>ecg_0</code>, both models correctly answered <strong>NO</strong> for LBBB. But Jev assigned <strong>0.49</strong> to YES, while GPT Decisions assigned <strong>0.00</strong>. The decisions matched, but the models expressed very different levels of certainty.</p>
 <p>These are probabilities returned by the APIs, not validated estimates of clinical risk.</p>
 </section>
@@ -382,7 +382,7 @@ NO:  {condition} is absent</code></pre>
 <h2 class="anchored" data-anchor-id="final-thoughts">Final thoughts</h2>
 <p>Both models could read an ECG image and return structured answers. That alone is interesting, but it does not mean they can interpret ECGs reliably.</p>
 <p>GPT Decisions generally performed better in this experiment, while Jev showed strong discrimination for LBBB. More importantly, the experiment reminded me that <strong>making a decision, ranking cases correctly, and assigning useful probabilities are different abilities</strong>.</p>
-<p>All <a href="https://github.com/fmenegui/jev-image-tests/tree/main/experiments">inference code</a>, the <a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/analysis/plot_journal_final.py">figure-generation script</a>, and the <a href="https://github.com/fmenegui/sangha-code-test-reproduce">CODE Test images</a> are available to inspect and reproduce.</p>
+<p>The inference code, figure-generation scripts and rendered CODE Test images are retained privately for reproducibility.</p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
@@ -392,8 +392,8 @@ NO:  {condition} is absent</code></pre>
 <li>Wagner P, Strodthoff N, Bousseljot RD, et al.&nbsp;(2020). <a href="https://doi.org/10.1038/s41597-020-0495-6">PTB-XL, a large publicly available electrocardiography dataset</a>. <em>Scientific Data</em>, 7, 154. Reference for the proposed larger evaluation.</li>
 <li><a href="https://moody-challenge.physionet.org/2024/">George B. Moody PhysioNet Challenge 2024</a>. ECG image digitization and classification challenge.</li>
 <li><a href="https://github.com/dy1901/ecg-plot">ecg-plot</a>. Library used to render ECG signals as images.</li>
-<li><a href="https://github.com/fmenegui/sangha-code-test-reproduce">CODE Test rendered ECG images and labels</a>. Source images used in this experiment.</li>
-<li><a href="https://github.com/fmenegui/jev-image-tests/tree/main/experiments">Jev and GPT Decisions experiment code</a>. Inference and evaluation scripts.</li>
+<li>CODE Test rendered ECG images and labels (private research materials).</li>
+<li>Jev and GPT Decisions experiment code (private research materials).</li>
 <li><a href="https://www.typesafe.ai/">TypeSafe AI</a> and <a href="https://platform.openai.com/docs/">OpenAI API documentation</a>. Model and API references.</li>
 </ol>
 
