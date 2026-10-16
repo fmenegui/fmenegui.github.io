@@ -88,7 +88,12 @@ def enhance(output):
             layout.append(main)
             if toc and rel!='blog/index.html':
                 aside=H.Element('div',attrib={'class':'blog-toc','role':'complementary','aria-label':'On this page'})
-                aside.append(toc[0]);layout.append(aside)
+                contents=H.SubElement(aside,'details',attrib={'open':'open'})
+                summary=H.SubElement(contents,'summary',attrib={'data-i18n':'contents'})
+                summary.text='On this page'
+                for heading in toc[0].xpath('./h2'):
+                    toc[0].remove(heading)
+                contents.append(toc[0]);layout.append(aside)
             for node in H.fragments_fromstring(header(lang,rel)): body.append(node)
             if rel!='blog/index.html':
                 note=H.fragment_fromstring('<p class="wrap article-language" data-i18n="article-language">Article in English · PT / EN changes navigation only.</p>')

@@ -4,8 +4,8 @@
   const body = document.body;
   const isBlog = body.dataset.blogUi === 'true';
   const strings = {
-    pt: {'article-language':'Artigo em inglês · PT / EN altera o idioma da navegação.',search:'Buscar',skip:'Pular para o conteúdo',top:'Voltar ao início',query:'Buscar no site inteiro',english:'Em inglês',filter:'Buscar no texto dos artigos', 'blog-intro':'Experimentos em IA e ECG, com métodos, resultados e código.',empty:'Nenhum resultado. Tente outro termo.',loading:'Carregando busca…',error:'Não foi possível carregar a busca. Tente novamente.',prompt:'Digite um termo para buscar.',close:'Fechar busca',count:n=>`${n} resultado${n===1?'':'s'}`, nav:['Projetos','Currículo','Publicações','Contato']},
-    en: {'article-language':'Article in English · PT / EN changes navigation only.',search:'Search',skip:'Skip to content',top:'Back to top',query:'Search the entire site',english:'In English',filter:'Search within article text','blog-intro':'Experiments in AI and ECG, with methods, results and code.',empty:'No results. Try another term.',loading:'Loading search…',error:'Search could not load. Please try again.',prompt:'Enter a search term.',close:'Close search',count:n=>`${n} result${n===1?'':'s'}`,nav:['Projects','CV','Publications','Contact']}
+    pt: {contents:'Neste artigo','article-language':'Artigo em inglês · PT / EN altera o idioma da navegação.',search:'Buscar',skip:'Pular para o conteúdo',top:'Voltar ao início',query:'Buscar no site inteiro',english:'Em inglês',filter:'Buscar no texto dos artigos', 'blog-intro':'Experimentos em IA e ECG, com métodos, resultados e código.',empty:'Nenhum resultado. Tente outro termo.',loading:'Carregando busca…',error:'Não foi possível carregar a busca. Tente novamente.',prompt:'Digite um termo para buscar.',close:'Fechar busca',count:n=>`${n} resultado${n===1?'':'s'}`, nav:['Projetos','Currículo','Publicações','Contato']},
+    en: {contents:'On this page','article-language':'Article in English · PT / EN changes navigation only.',search:'Search',skip:'Skip to content',top:'Back to top',query:'Search the entire site',english:'In English',filter:'Search within article text','blog-intro':'Experiments in AI and ECG, with methods, results and code.',empty:'No results. Try another term.',loading:'Loading search…',error:'Search could not load. Please try again.',prompt:'Enter a search term.',close:'Close search',count:n=>`${n} result${n===1?'':'s'}`,nav:['Projects','CV','Publications','Contact']}
   };
   let lang=body.dataset.uiLocale || 'en';
   try { if(isBlog) lang=localStorage.getItem('site-language') || lang; } catch (_) {}
@@ -15,6 +15,8 @@
   const results=document.querySelector('#search-results');
   const status=document.querySelector('#search-status');
   const blogInput=document.querySelector('#blog-query');
+  const contents=document.querySelector('.blog-toc details');
+  if(contents){const narrow=matchMedia('(max-width: 900px)');contents.open=!narrow.matches;narrow.addEventListener('change',ev=>{contents.open=!ev.matches;});}
   let indexPromise, opener;
   const normalize=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase();
   function localize() {

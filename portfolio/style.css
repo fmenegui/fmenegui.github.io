@@ -433,3 +433,6 @@ body.blog-page { padding-top: 0 !important; }
 /* Quarto assigns named grid columns to every aside. Reset them in shared layout. */
 .blog-toc { grid-area: auto; min-width: 0; }
 .blog-main { margin: 0; }
+
+.blog-toc summary { font: 600 14px/1.4 SourceSans, sans-serif; cursor: pointer; padding: 8px 0; min-height: 36px; }
+.blog-toc details[open] summary { margin-bottom: 12px; }
