@@ -1,0 +1,130 @@
+{
+  "image": "ecg_1",
+  "input_png_sha256": "e374d47fabdbdaeb943e85ea26354f573ca54c124b01346533c345f508afef30",
+  "reference_labels": {
+    "1dAVb": 0,
+    "RBBB": 0,
+    "LBBB": 1,
+    "SB": 0,
+    "AF": 0,
+    "ST": 0
+  },
+  "jev": {
+    "model": "jev-1.14.0",
+    "answers": {
+      "1dAVb": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.52,
+        "probabilities": {
+          "YES": 0.24,
+          "NO": 0.76
+        }
+      },
+      "RBBB": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.26,
+        "probabilities": {
+          "YES": 0.37,
+          "NO": 0.63
+        }
+      },
+      "LBBB": {
+        "type": "choice",
+        "choice": "YES",
+        "confidence": 0.28,
+        "probabilities": {
+          "YES": 0.64,
+          "NO": 0.36
+        }
+      },
+      "SB": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.66,
+        "probabilities": {
+          "YES": 0.17,
+          "NO": 0.83
+        }
+      },
+      "AF": {
+        "type": "choice",
+        "choice": "YES",
+        "confidence": 0.04,
+        "probabilities": {
+          "YES": 0.52,
+          "NO": 0.48
+        }
+      },
+      "ST": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.22,
+        "probabilities": {
+          "YES": 0.39,
+          "NO": 0.61
+        }
+      }
+    }
+  },
+  "gpt-decisions": {
+    "model": "gpt-6-luna-decisions",
+    "answers": {
+      "1dAVb": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.8,
+        "probabilities": {
+          "YES": 0.1,
+          "NO": 0.9
+        }
+      },
+      "RBBB": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.74,
+        "probabilities": {
+          "YES": 0.13,
+          "NO": 0.87
+        }
+      },
+      "LBBB": {
+        "type": "choice",
+        "choice": "YES",
+        "confidence": 0.06,
+        "probabilities": {
+          "YES": 0.53,
+          "NO": 0.47
+        }
+      },
+      "SB": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.74,
+        "probabilities": {
+          "YES": 0.13,
+          "NO": 0.87
+        }
+      },
+      "AF": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.94,
+        "probabilities": {
+          "YES": 0.03,
+          "NO": 0.97
+        }
+      },
+      "ST": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.92,
+        "probabilities": {
+          "YES": 0.04,
+          "NO": 0.96
+        }
+      }
+    }
+  }
+}
