@@ -36,6 +36,9 @@ jobs:
       - name: Build PTB-XL figures from audited empirical curves
         run: python blog/system-one-ptbxl/build_figures.py
 
+      - name: Prepare real ECG example images
+        run: python blog/build_ecg_examples.py
+
       - name: Render site
         run: quarto render
 
