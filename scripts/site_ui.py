@@ -88,8 +88,8 @@ def enhance(output):
             layout.append(main)
             if toc and rel!='blog/index.html':
                 aside=H.Element('div',attrib={'class':'blog-toc','role':'complementary','aria-label':'On this page'})
-                contents=H.SubElement(aside,'details',attrib={'open':'open'})
-                summary=H.SubElement(contents,'summary',attrib={'data-i18n':'contents'})
+                contents=H.Element('details',attrib={'open':'open'});aside.append(contents)
+                summary=H.Element('summary',attrib={'data-i18n':'contents'});contents.append(summary)
                 summary.text='On this page'
                 for heading in toc[0].xpath('./h2'):
                     toc[0].remove(heading)
