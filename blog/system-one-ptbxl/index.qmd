@@ -1,5 +1,6 @@
 ---
 title: "What Happens When Decision Models Read 21,799 ECG Images?"
+pagetitle: "Jev vs GPT Decisions on PTB-XL: ECG Classification and Calibration"
 description: "A follow-up to CODE Test: Jev and GPT Decisions on PTB-XL, with discrimination, calibration, sensitivity, specificity, precision and F1."
 date: 2026-10-16
 author: "Felipe Meneguitti Dias"

@@ -40,6 +40,7 @@ class Document(HTMLParser):
         self.meta = {}
         self.links = []
         self.images = []
+        self.sources = []
         self.scripts = []
         self.title_parts = []
         self.h1_parts = []
@@ -62,6 +63,8 @@ class Document(HTMLParser):
             self.links.append(a)
         if tag == "img":
             self.images.append(a)
+        if tag == "source":
+            self.sources.append(a)
         if tag == "script":
             self.scripts.append(a)
         if tag in {"script", "style"}:
@@ -227,7 +230,11 @@ def schema(page: Page, articles: list[Page]) -> dict:
 
 
 def optimize_images(html: str, page: Page, output: Path) -> str:
-    """Reserve existing image space, preserving files, URLs and CSS."""
+    """Offer pixel-identical WebP copies, preserving original PNG fallbacks."""
+    # Unwrap our own output so repeated builds never nest picture elements.
+    html = re.sub(r'<picture data-lossless>\s*<source\b[^>]*>\s*(<img\b[^>]*>)\s*</picture>',
+                  r'\1', html, flags=re.I)
+
     def update(match):
         tag = match.group(0)
         parser = Document(tag)
@@ -244,10 +251,21 @@ def optimize_images(html: str, page: Page, output: Path) -> str:
         # Preserve hero loading priority. Blog figures occur after the opening text.
         if page.article and "loading" not in attrs:
             additions.append('loading="lazy"')
-        if not additions:
-            return tag
-        ending = "/>" if tag.endswith("/>") else ">"
-        return tag[:-len(ending)].rstrip() + " " + " ".join(additions) + ending
+        if additions:
+            ending = "/>" if tag.endswith("/>") else ">"
+            tag = tag[:-len(ending)].rstrip() + " " + " ".join(additions) + ending
+        if page.article and target and target.suffix.lower() == ".png":
+            optimized = target.with_suffix(".lossless.webp")
+            with Image.open(target) as original:
+                original.save(optimized, "WEBP", lossless=True, method=6, exact=True)
+                with Image.open(optimized) as compressed:
+                    if original.convert("RGBA").tobytes() != compressed.convert("RGBA").tobytes():
+                        raise ValueError(f"Image pixels changed: {optimized}")
+            if optimized.stat().st_size < target.stat().st_size:
+                src = "/" + optimized.relative_to(output).as_posix()
+                return f'<picture data-lossless><source srcset="{escape(src, quote=True)}" type="image/webp">{tag}</picture>'
+            optimized.unlink()
+        return tag
     return re.sub(r"<img\b[^>]*>", update, html, flags=re.I)
 
 
@@ -283,7 +301,7 @@ def enrich(page: Page, pages: list[Page], output: Path):
         tags.append(f'<meta {attr}="{key}" content="{escape(value, quote=True)}">')
     if not page.description:
         raise ValueError(f"Missing existing description/introductory paragraph in {page.relative}")
-    if not page.doc.meta.get("description"):
+    if not Document(head).meta.get("description"):
         meta("description", page.description)
     tags.append(f'<link rel="canonical" href="{page.url}">')
     for lang, url in alternates(page, {p.url for p in pages}).items():

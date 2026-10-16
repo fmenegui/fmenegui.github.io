@@ -47,6 +47,13 @@ property. Domain properties still require the TXT record at the DNS provider.
 After DNS verification, submit `https://fmenegui.com/sitemap.xml` in Search Console
 and inspect each article URL. Indexing and search positions depend on Google.
 
+Articles can set Quarto's `pagetitle` to describe the dataset and models in the
+HTML/search title while preserving the visible editorial `title`. Search engines
+may choose a different displayed title. PNG illustrations are offered as lossless
+WebP copies using `<picture>`, with byte-for-byte original PNGs retained as
+fallbacks and downloads. The build verifies matching RGBA pixels and dimensions.
+The image sitemap and research example checksums continue to use the originals.
+
 The existing `learning/` sources remain intact. The GitHub Actions workflow renders the configured Quarto pages, overlays the new portfolio, excludes study notes from publication, and publishes `_site` to the existing `gh-pages` target without rendering a second time.
 
 ## PDFs

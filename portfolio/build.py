@@ -133,7 +133,7 @@ def page(lang,kind):
  path=prefix+rel;depth=len(Path(path).parts)-1;base='../'*depth
  homepath=('../' if kind in PROJECTS else '')+'index.html'
  switchpt=base+rel;switchen=base+'en/'+rel
- title='Felipe Dias' if kind=='home' else (c['about'] if kind=='about' else c[kind]['title'])+' | Felipe Dias'
+ title=('Felipe Meneguitti Dias | IA aplicada à saúde' if lang=='pt' else 'Felipe Meneguitti Dias | Healthcare AI') if kind=='home' else (c['about'] if kind=='about' else c[kind]['title'])+' | Felipe Meneguitti Dias'
  desc=c['intro'] if kind=='home' else c['cv_summary'].replace('\n\n',' ') if kind=='about' else c[kind]['summary']
  body=home(c,base,lang) if kind=='home' else about(c,base) if kind=='about' else detail(c,kind,base)
  nav=''

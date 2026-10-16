@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from urllib.parse import unquote, urljoin, urlsplit
 import xml.etree.ElementTree as ET
+from PIL import Image
 
 from site_seo import AUTHOR, ORIGIN, ROOT, SITEMAP_NS, XHTML_NS, Document, alternates, read_pages
 
@@ -26,6 +27,8 @@ class Resources(HTMLParser):
         key = {"a": "href", "link": "href", "img": "src", "script": "src"}.get(tag)
         if key and a.get(key):
             self.targets.append((tag, a[key]))
+        if tag == "source" and a.get("srcset"):
+            self.targets.append((tag, a["srcset"]))
         if tag == "script" and a.get("type") == "application/ld+json":
             self.schema = []
 
@@ -74,6 +77,15 @@ def check(output):
             assert article["datePublished"] == doc.meta["dcterms.date"]
             assert article["mainEntityOfPage"]["@id"] == page.url + "#webpage"
             assert article["image"], page.relative
+            for source in doc.sources:
+                if source.get("type") != "image/webp":
+                    continue
+                path = output / urlsplit(source["srcset"]).path.lstrip("/")
+                original = path.with_name(path.name.replace(".lossless.webp", ".png"))
+                with Image.open(original) as png, Image.open(path) as webp:
+                    assert png.size == webp.size, path
+                    assert png.convert("RGBA").tobytes() == webp.convert("RGBA").tobytes(), path
+                assert path.stat().st_size < original.stat().st_size, path
         for tag, src in resource.targets + [("meta", doc.meta["og:image"])]:
             url = urlsplit(urljoin(page.url, src))
             if url.scheme not in {"http", "https"} or url.netloc != urlsplit(ORIGIN).netloc:

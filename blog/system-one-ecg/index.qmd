@@ -1,5 +1,6 @@
 ---
 title: "Can System-One AI Models Classify ECG Images?"
+pagetitle: "Jev vs GPT Decisions: ECG Classification on CODE Test"
 description: "Can two general-purpose decision models identify ECG abnormalities from images? A zero-shot evaluation on CODE Test using AUROC and probability calibration."
 date: 2026-10-15
 author: "Felipe Meneguitti Dias"
