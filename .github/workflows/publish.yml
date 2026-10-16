@@ -33,6 +33,9 @@ jobs:
         run: |
           pip install -r requeriments.txt
 
+      - name: Build PTB-XL figures from audited empirical curves
+        run: python blog/system-one-ptbxl/build_figures.py
+
       - name: Render site
         run: quarto render
 
