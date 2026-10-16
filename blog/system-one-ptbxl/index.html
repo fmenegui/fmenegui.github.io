@@ -187,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
 <p>This is that follow-up. This time, I wanted to see what happens when we ask the same kind of models to read <strong>21,799 ECGs</strong>, with five broader diagnostic categories. I also wanted to look beyond AUROC: what happens when we actually turn a probability into a YES or NO?</p>
 <section id="the-ecgs-and-the-models" class="level2">
 <h2 class="anchored" data-anchor-id="the-ecgs-and-the-models">The ECGs and the models</h2>
-<p>I used <a href="https://physionet.org/content/ptb-xl/1.0.3/">PTB-XL version 1.0.3</a>, a publicly available collection of 12-lead ECG recordings. Instead of sending raw signals, I used the <strong>clean images already rendered by <a href="https://huggingface.co/datasets/edcci/GenECG">GenECG</a></strong>. The <a href="https://github.com/fmenegui/jev-image-tests/tree/main/experiments/ptbxl-image">experiment code</a> records the image source and SHA-256 checksum for each examination.</p>
+<p>I used <a href="https://physionet.org/content/ptb-xl/1.0.3/">PTB-XL version 1.0.3</a>, a publicly available collection of 12-lead ECG recordings. Instead of sending raw signals, I used the <strong>clean images already rendered by <a href="https://huggingface.co/datasets/edcci/GenECG">GenECG</a></strong>. The experiment records the image source and SHA-256 checksum for each examination.</p>
 <p>I tested <strong>Jev 1.14.0</strong> and <strong>GPT-6 Luna Decisions</strong>. Both received the same ECG PNG and five independent YES/NO questions. No signal samples, patient history or reference labels were included in the requests.</p>
 <table class="caption-top table">
 <colgroup>
@@ -247,7 +247,7 @@ including prior infarction. This does not mean acute STEMI
 specifically.
 
 Return YES or NO.</code></pre>
-<p>The complete, exact instructions and both API request formats are in <a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/ptbxl-image/run.py">run.py</a>. Each model returned a binary answer and a probability for YES.</p>
+<p>The same diagnostic definitions were used in both API requests. Each model returned a binary answer and a probability for YES.</p>
 </section>
 <section id="how-i-evaluated-the-answers" class="level2">
 <h2 class="anchored" data-anchor-id="how-i-evaluated-the-answers">How I evaluated the answers</h2>
@@ -482,14 +482,14 @@ Return YES or NO.</code></pre>
 </section>
 <section id="reproducibility-and-references" class="level2">
 <h2 class="anchored" data-anchor-id="reproducibility-and-references">Reproducibility and references</h2>
-<p>The <a href="https://github.com/fmenegui/jev-image-tests/tree/main/experiments/ptbxl-image">inference implementation</a> and the <a href="https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/analysis/plot_journal_final.py">CODE Test figure-generation reference</a> document the experimental design. The figure here uses the same quantile-binning and shape-preserving interpolation approach.</p>
+<p>The figures follow the same quantile-binning and shape-preserving interpolation approach as the earlier CODE Test experiment. The underlying inference scripts and analysis files are retained privately.</p>
 <ol type="1">
 <li>Wagner P, Strodthoff N, Bousseljot RD, et al.&nbsp;<a href="https://doi.org/10.1038/s41597-020-0495-6">PTB-XL, a large publicly available electrocardiography dataset</a>. <em>Scientific Data</em>. 2020.</li>
 <li>Dias FM, Ribeiro E, Soares QB, Krieger JE, Gutierrez MA. <a href="https://www.cinc.org/archives/2024/pdf/CinC2024-398.pdf">Image-Based Electrocardiogram Classification Using Pre-trained ConvNeXt</a>. <em>Computing in Cardiology</em>. 2024.</li>
 <li>Reyna MA, et al.&nbsp;<a href="https://moody-challenge.physionet.org/2024/papers/cinc_paper.pdf">Digitization and Classification of ECG Images: The George B. Moody PhysioNet Challenge 2024</a>. <em>Computing in Cardiology</em>. 2024.</li>
 <li><a href="https://moody-challenge.physionet.org/2024/results/">Official Challenge 2024 results</a>.</li>
 <li><a href="https://huggingface.co/datasets/edcci/GenECG">GenECG image collection</a>.</li>
-<li><a href="https://github.com/fmenegui/jev-image-tests">Jev and GPT Decisions experiment repository</a>.</li>
+<li>Jev and GPT Decisions experimental implementation (private research repository, not publicly accessible).</li>
 </ol>
 
 
