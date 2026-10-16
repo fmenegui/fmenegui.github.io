@@ -7,3 +7,4 @@ pandas
 matplotlib
 
 scipy
+Pillow>=11,<13
