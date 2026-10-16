@@ -24,7 +24,8 @@
     document.querySelector('.skip').lang=lang;
     const languageNote=document.querySelector('.article-language');
     if(languageNote)languageNote.lang=lang;
-    document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t[el.dataset.i18n];});
+    document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t[el.dataset.i18n];el.lang=lang;});
+    document.querySelectorAll('.blog-date time').forEach(el=>{el.lang=lang;el.textContent=new Intl.DateTimeFormat(lang==='pt'?'pt-BR':'en',{dateStyle:'long',timeZone:'UTC'}).format(new Date(el.dateTime));});
     document.querySelector('[data-search-close]').setAttribute('aria-label',t.close);
     if(isBlog) {
       if(blogInput) document.querySelector('main').lang=lang;

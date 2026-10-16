@@ -135,7 +135,7 @@ def check(output):
             assert dom.xpath('//*[@data-ui-language="pt"]')
             assert all(img.xpath('ancestor::a[@href]') for img in main.xpath('.//img[@src]'))
             for original in (ROOT / Path(page.relative).parent).glob('*'):
-                if original.suffix in {'.png', '.svg'} or original.name.endswith('-outputs.json'):
+                if original.suffix == '.svg' or (original.name.startswith('example') and original.suffix in {'.png', '.json'}):
                     published = output / original.relative_to(ROOT)
                     assert published.read_bytes() == original.read_bytes(), original
     assert len(index_paths) == 1, 'Every page must use the same search revision'
@@ -148,6 +148,16 @@ def check(output):
         dom = H.fromstring((output / rel).read_text())
         links = dom.xpath('//article[contains(@class,"blog-preview")]/*[self::h2 or self::h3]/a/@href')
         assert links == [urlsplit(p.url).path for p in newest[:3]], rel
+
+    not_found = H.fromstring((output / '404.html').read_text())
+    assert not_found.find('body').get('data-search-index') == index_path
+    for href in not_found.xpath('//a/@href'):
+        target = urlsplit(urljoin(ORIGIN+'/404.html', href))
+        if target.netloc == urlsplit(ORIGIN).netloc:
+            local = output / target.path.lstrip('/')
+            if target.path.endswith('/'):
+                local /= 'index.html'
+            assert local.is_file(), href
 
     for rel in ["404.html", "cv/cv.html", "projects/ppg.html", "en/projects/ppg.html"]:
         assert "noindex" in Document((output / rel).read_text()).meta["robots"]

@@ -21,7 +21,7 @@ def header(lang, relative):
     targets = [prefix+'#projects', prefix+'about.html', prefix+'about.html#publications', prefix+'#contact']
     links = ''.join(f'<a data-nav="{i}" href="{url}"'+(' aria-current="page"' if relative == prefix.lstrip('/')+'about.html' and i == 1 else '')+f'>{labels[i]}</a>' for i,url in enumerate(targets))
     links += '<a href="/blog/"'+(' aria-current="page"' if blog else '')+'>Blog</a>'
-    rel = relative.removeprefix('en/')
+    rel = 'index.html' if relative=='404.html' else relative.removeprefix('en/')
     switch = ''.join(f'<a lang="{locale}" '+(f'data-ui-language="{code}" href="#" aria-label="'+('Navegação em português' if code=='pt' else 'Navigation in English')+'"' if blog else f'hreflang="{locale}" href="{prefix2}{rel}"')+(' aria-current="true"' if code==lang else '')+f'>{code.upper()}</a>' for code,locale,prefix2 in [('pt','pt-BR','/'),('en','en','/en/')])
     return f'<a class="skip" href="#main" data-i18n="skip">'+('Pular para o conteúdo' if lang=='pt' else 'Skip to content')+f'</a><header class="header" lang="{lang}"><div class="wrap"><a class="brand" data-home href="{prefix}" aria-label="Felipe Meneguitti Dias">fmenegui</a><nav class="nav" aria-label="'+('Principal' if lang=='pt' else 'Main')+f'">{links}<button class="search-toggle" type="button" data-search-open data-i18n="search">{labels[4]}</button></nav><span class="lang">{switch}</span></div></header>'
 
@@ -40,7 +40,7 @@ def recent_posts(output):
     return sorted(posts,key=lambda p:p['date'],reverse=True)
 
 def cards(posts, lang):
-    return ''.join(f'<article class="blog-preview"><p class="blog-date"><time datetime="{p["date"]}">{p["date"]}</time> · ECG · AI · <span data-i18n="english">'+('Em inglês' if lang=='pt' else 'In English')+f'</span></p><h2><a href="{p["url"]}">{e(p["title"])}</a></h2><p>{e(p["description"])}</p></article>' for p in posts)
+    return ''.join(f'<article class="blog-preview" lang="en"><p class="blog-date"><time datetime="{p["date"]}">{p["date"]}</time> · ECG · AI · <span data-i18n="english">'+('Em inglês' if lang=='pt' else 'In English')+f'</span></p><h2><a href="{p["url"]}">{e(p["title"])}</a></h2><p>{e(p["description"])}</p></article>' for p in posts)
 
 def enhance(output):
     posts = recent_posts(output)
