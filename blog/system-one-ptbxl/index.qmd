@@ -14,7 +14,7 @@ This is that follow-up. This time, I wanted to see what happens when we ask the 
 
 ## The ECGs and the models
 
-I used [PTB-XL version 1.0.3](https://physionet.org/content/ptb-xl/1.0.3/), a publicly available collection of 12-lead ECG recordings. Instead of sending raw signals, I used the **clean images already rendered by [GenECG](https://huggingface.co/datasets/edcci/GenECG)**. The [experiment code](https://github.com/fmenegui/jev-image-tests/tree/main/experiments/ptbxl-image) records the image source and SHA-256 checksum for each examination.
+I used [PTB-XL version 1.0.3](https://physionet.org/content/ptb-xl/1.0.3/), a publicly available collection of 12-lead ECG recordings. Instead of sending raw signals, I used the **clean images already rendered by [GenECG](https://huggingface.co/datasets/edcci/GenECG)**. The experiment records the image source and SHA-256 checksum for each examination.
 
 I tested **Jev 1.14.0** and **GPT-6 Luna Decisions**. Both received the same ECG PNG and five independent YES/NO questions. No signal samples, patient history or reference labels were included in the requests.
 
@@ -48,7 +48,7 @@ specifically.
 Return YES or NO.
 ```
 
-The complete, exact instructions and both API request formats are in [run.py](https://github.com/fmenegui/jev-image-tests/blob/main/experiments/ptbxl-image/run.py). Each model returned a binary answer and a probability for YES.
+The same diagnostic definitions were used in both API requests. Each model returned a binary answer and a probability for YES.
 
 ## How I evaluated the answers
 
@@ -132,11 +132,11 @@ The next experiment should test the models on different ECG acquisition conditio
 
 ## Reproducibility and references
 
-The [inference implementation](https://github.com/fmenegui/jev-image-tests/tree/main/experiments/ptbxl-image) and the [CODE Test figure-generation reference](https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/analysis/plot_journal_final.py) document the experimental design. The figure here uses the same quantile-binning and shape-preserving interpolation approach.
+The figures follow the same quantile-binning and shape-preserving interpolation approach as the earlier CODE Test experiment. The underlying inference scripts and analysis files are retained privately.
 
 1. Wagner P, Strodthoff N, Bousseljot RD, et al. [PTB-XL, a large publicly available electrocardiography dataset](https://doi.org/10.1038/s41597-020-0495-6). *Scientific Data*. 2020.
 2. Dias FM, Ribeiro E, Soares QB, Krieger JE, Gutierrez MA. [Image-Based Electrocardiogram Classification Using Pre-trained ConvNeXt](https://www.cinc.org/archives/2024/pdf/CinC2024-398.pdf). *Computing in Cardiology*. 2024.
 3. Reyna MA, et al. [Digitization and Classification of ECG Images: The George B. Moody PhysioNet Challenge 2024](https://moody-challenge.physionet.org/2024/papers/cinc_paper.pdf). *Computing in Cardiology*. 2024.
 4. [Official Challenge 2024 results](https://moody-challenge.physionet.org/2024/results/).
 5. [GenECG image collection](https://huggingface.co/datasets/edcci/GenECG).
-6. [Jev and GPT Decisions experiment repository](https://github.com/fmenegui/jev-image-tests).
+6. Jev and GPT Decisions experimental implementation (private research repository, not publicly accessible).
