@@ -28,6 +28,39 @@ I tested **Jev 1.14.0** and **GPT-6 Luna Decisions**. Both received the same ECG
 
 These are **multilabel** categories. An ECG may have more than one abnormality. The reference labels were derived from the PTB-XL diagnostic SCP statements, grouped into the five official diagnostic superclasses.
 
+## An example: a PTB-XL ECG and its outputs
+
+This is an actual **GenECG clean rendering of PTB-XL ECG ID 1**. It is the image submitted to both APIs, rather than a synthetic example prepared for the blog.
+
+![Twelve-lead ECG from the PTB-XL GenECG clean-image collection, ECG ID 1.](example-ecg.png){fig-alt="GenECG clean twelve-lead ECG used as an input to both models" width="100%"}
+
+The dataset assigns this ECG to **NORM**. Neither model selected NORM at its default decision threshold. Below is a compact representation of their recorded output, retaining the exact YES probabilities:
+
+```json
+{
+  "ecg_id": 1,
+  "reference_labels": {
+    "NORM": 1, "MI": 0, "STTC": 0, "CD": 0, "HYP": 0
+  },
+  "jev": {
+    "NORM": {"choice": "NO", "p_yes": 0.09},
+    "MI": {"choice": "YES", "p_yes": 0.54},
+    "STTC": {"choice": "YES", "p_yes": 0.81},
+    "CD": {"choice": "NO", "p_yes": 0.34},
+    "HYP": {"choice": "NO", "p_yes": 0.22}
+  },
+  "gpt_decisions": {
+    "NORM": {"choice": "NO", "p_yes": 0.03},
+    "MI": {"choice": "NO", "p_yes": 0.01},
+    "STTC": {"choice": "YES", "p_yes": 0.80},
+    "CD": {"choice": "NO", "p_yes": 0.00},
+    "HYP": {"choice": "NO", "p_yes": 0.00}
+  }
+}
+```
+
+This is an especially useful example because the models' outputs disagree with the reference annotation. **An incorrect decision is not necessarily an API error.** It can be a valid, structured response that does not match the clinical benchmark label. As in the first article, the reference labels were never sent to either model. The original API responses also include the complementary NO probability and other metadata, which are omitted here for readability.
+
 ## The questions
 
 I expanded the prompt from the first CODE Test experiment to make the class definitions less ambiguous. The shared instructions tell the models that the task is multilabel, that MI includes patterns of previous infarction, and that ST-T changes can coexist with other findings.
