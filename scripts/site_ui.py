@@ -87,7 +87,7 @@ def enhance(output):
             layout=H.Element('div',attrib={'class':'blog-layout wrap'})
             layout.append(main)
             if toc and rel!='blog/index.html':
-                aside=H.Element('aside',attrib={'class':'blog-toc','aria-label':'On this page'})
+                aside=H.Element('div',attrib={'class':'blog-toc','role':'complementary','aria-label':'On this page'})
                 aside.append(toc[0]);layout.append(aside)
             for node in H.fragments_fromstring(header(lang,rel)): body.append(node)
             if rel!='blog/index.html':
