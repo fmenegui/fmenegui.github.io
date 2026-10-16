@@ -13,6 +13,7 @@ from email.utils import format_datetime
 from html import escape
 from html.parser import HTMLParser
 import json
+from hashlib import sha256
 from pathlib import Path
 import re
 from urllib.parse import unquote, urljoin, urlsplit
@@ -383,6 +384,20 @@ def build(output: Path):
         {"objectID": p.relative, "href": urlsplit(p.url).path.lstrip("/") or "index.html", "title": p.doc.title,
          "section": "", "text": p.doc.text(p.doc.main_parts or p.doc.body_parts)} for p in pages
     ], ensure_ascii=False), encoding="utf-8")
+    # Content-addressed index avoids stale CDN search data after publication.
+    entries = json.loads((output / "search.json").read_text())
+    by_path = {p.relative: p for p in pages}
+    for entry in entries:
+        entry["description"] = by_path[entry["objectID"]].description
+    payload = json.dumps(entries, ensure_ascii=False).encode("utf-8")
+    index_name = "search-" + sha256(payload).hexdigest()[:12] + ".json"
+    (output / "assets" / index_name).write_bytes(payload)
+    for path in [p.path for p in pages] + [output / "404.html"]:
+        html = path.read_text()
+        html = re.sub(r' data-search-index="[^"]*"', '', html)
+        html = html.replace("<body ", '<body data-search-index="/assets/' + index_name + '" ', 1)
+        path.write_text(html)
+
     # Legacy URLs still redirect for readers but must not become search results.
     for rel in ["404.html", "cv/cv.html", "projects/ppg.html", "en/projects/ppg.html"]:
         path = output / rel

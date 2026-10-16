@@ -338,3 +338,94 @@ tbody th { font-weight: 400; }
 .blog-preview h3 { font-size: clamp(20px, 2.2vw, 25px); line-height: 1.35; margin: 0 0 12px; }
 .blog-preview h3 a { text-decoration: none; }
 .blog-preview > p:not(.blog-date):not(.project-links) { max-width: 680px; }
+
+/* Shared navigation and accessible search, including Quarto pages. */
+button, input { font: inherit; }
+button { cursor: pointer; }
+.search-toggle { margin-left: 20px; border: 0; border-bottom: 1px solid currentColor; border-radius: 0; background: none; color: var(--accent); padding: 8px 0; font-size: inherit; }
+:where(button,input,[tabindex]):focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.nav [aria-current="page"] { color: var(--ink); font-weight: 600; }
+#main:focus { outline: none; }
+#site-search { width: min(680px, calc(100% - 32px)); max-height: 85dvh; padding: 26px; border: 1px solid var(--line); border-radius: 8px; color: var(--body); background: var(--paper); box-shadow: 0 12px 60px #0002; }
+#site-search::backdrop { background: #17233880; }
+.search-dialog-head { display: flex; justify-content: space-between; align-items: center; gap: 24px; margin-bottom: 20px; }
+.search-dialog-head h2 { margin: 0; font-size: 24px; }
+[data-search-close] { width: 44px; height: 44px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); border-radius: 4px; font-size: 26px; }
+#site-search label, .blog-index label { display: block; font-size: 15px; margin-bottom: 8px; }
+#search-query, #blog-query { width: 100%; border: 1px solid #8a8790; background: white; border-radius: 4px; padding: 12px; color: var(--ink); font-size: 17px; }
+#search-status, #blog-status { min-height: 24px; color: var(--muted); font-size: 14px; margin: 12px 0; }
+#search-results { list-style: none; padding: 0; margin: 0; }
+#search-results li { border-top: 1px solid var(--line); padding: 16px 0; }
+#search-results li > a { font-size: 18px; font-weight: 600; }
+#search-results li p { font-size: 15px; margin: 6px 0 0; }
+.blog-preview[hidden] { display: none; }
+.blog-index .blog-preview h2 { font: 600 25px/1.4 SourceSans, sans-serif; margin: 0 0 12px; }
+.blog-preview h2 a { text-decoration: none; }
+
+/* Blog reading keeps original figures and article text. */
+body.blog-page { padding-top: 0 !important; }
+.blog-page .header .nav { padding: 0; }
+.blog-page .header a { text-decoration: underline; }
+.blog-page .header .wrap { min-height: 80px; }
+.blog-layout { display: grid; grid-template-columns: minmax(0, 1fr) 170px; gap: 36px; align-items: start; }
+.blog-layout:has(.blog-index) { display: block; }
+.blog-main { display: block; min-width: 0; width: 100%; padding: 30px 0 50px; grid-area: auto; }
+.blog-main > header { margin: 0 0 30px; }
+.blog-main h1 { font-size: clamp(27px, 3.1vw, 36px); font-weight: 700; letter-spacing: -.6px; }
+.blog-main h2 { margin: 38px 0 18px; padding: 0; border: 0; font-size: 24px; }
+.blog-main h3 { margin: 28px 0 14px; }
+.blog-main p { line-height: 1.75; }
+.blog-main a { color: var(--accent); }
+.blog-main .description { color: var(--muted); font-size: 18px; margin: 18px 0; }
+.blog-main .quarto-title-meta { font-size: 14px; }
+.blog-main .quarto-title-meta-heading { color: var(--muted); font-size: 12px; letter-spacing: .04em; }
+.blog-main .quarto-category { color: var(--muted); border-color: var(--line); }
+.blog-main .column-screen-inset, .blog-main .column-body-outset { width: 100%; margin-inline: 0; }
+.blog-main pre { max-width: 100%; overflow: auto; border: 1px solid var(--line); padding: 14px; background: var(--soft); font-size: 13px; }
+.blog-main div.sourceCode { background: var(--soft); border-color: var(--line); }
+.blog-main details { margin-block: 18px; }
+.blog-main summary { cursor: pointer; padding-block: 10px; }
+.blog-main img { max-width: 100%; height: auto; }
+.blog-main figure, .blog-main .quarto-figure { margin-block: 24px; }
+.blog-main .table-scroll { max-width: 100%; }
+.blog-main table { margin: 0; }
+.blog-main td, .blog-main th { color: var(--body); background: transparent; }
+.blog-toc { position: sticky; top: 24px; padding-top: 38px; font-size: 13px; max-height: calc(100dvh - 48px); overflow: auto; }
+.blog-toc #TOC { position: static; padding: 0; }
+.blog-toc h2 { font: 600 14px/1.4 SourceSans, sans-serif; margin: 0 0 14px; }
+.blog-toc ul { padding-left: 14px; list-style: none; }
+.blog-toc li { margin: 10px 0; }
+.blog-toc a { color: var(--muted); }
+.figure-original { display: block; position: relative; cursor: zoom-in; }
+.figure-original::after { content: 'Open original ↗'; display: inline-block; font-size: 13px; margin: 6px 0 10px; }
+.figure-scroll { max-width: 100%; }
+.figure-scroll::before { content: 'Scroll to explore the figure · Click to open the original'; display: block; width: fit-content; font-size: 13px; color: var(--muted); margin: 0 0 8px; }
+.blog-page .footer { margin-top: 0; }
+/* Less aggressive crops keep the original research assets recognizable. */
+.project-thumb.incor-thumb img { width: 230%; left: -67%; top: -62%; }
+.project-thumb.rpms-thumb img { width: 160%; left: -30%; top: -4%; }
+@media (max-width: 900px) {
+ .header .wrap { flex-wrap: wrap; gap: 8px 18px; }
+ .header .nav { order: 3; width: 100%; margin: 0; flex-wrap: wrap; gap: 0 20px; }
+ .header .nav > a + a, .header .search-toggle { margin-left: 0; }
+ .header .lang { margin-left: auto; }
+ .blog-layout { display: flex; flex-direction: column; gap: 0; }
+ .blog-toc { position: static; order: -1; width: 100%; max-height: none; padding-top: 22px; border-bottom: 1px solid var(--line); }
+ .blog-toc ul { display: flex; flex-wrap: wrap; gap: 8px 18px; padding: 0; }
+ .blog-toc ul ul { display: none; }
+ .blog-toc li { margin: 0 0 12px; }
+ .blog-toc h2 { margin-bottom: 12px; }
+ .blog-main { padding-top: 28px; }
+}
+@media (max-width: 540px) {
+ .header .nav { gap: 0 16px; }
+ .header .nav > a, .header .search-toggle { min-height: 44px; }
+ .header .lang a { min-width: 36px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+ .blog-main .quarto-title-meta { display: block; }
+ .blog-main .quarto-title-meta > div { margin-bottom: 12px; }
+ .blog-main .quarto-title-meta p { margin-bottom: 0; }
+ .blog-main table { min-width: 520px; }
+ #site-search { padding: 18px; }
+}
+
+.article-language { font-size: 13px; color: var(--muted); margin-top: 20px; margin-bottom: 0; }

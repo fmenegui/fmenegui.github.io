@@ -8,3 +8,5 @@ matplotlib
 
 scipy
 Pillow>=11,<13
+
+lxml>=5,<7

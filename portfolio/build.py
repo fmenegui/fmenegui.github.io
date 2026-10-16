@@ -49,12 +49,8 @@ def home(c,base,lang):
   doi=PAPERS[{'gorgona':0,'incor':3,'physionet':2,'rpms':9}[key]][4]
   s+=f'<article class="project">{thumb}<div class="project-copy"><h3><a href="projects/{key}.html">{e(v["title"])}</a></h3><p class="project-info">{e(v["status"])} · {e(v["period"])}</p><p class="desc">{e(v["summary"])}</p><p class="project-links"><a href="projects/{key}.html">{c["read"]}</a><a href="https://doi.org/{doi}">{c["article"]}</a></p></div></article>'
  s+='</section>'
- blog_title='Do blog' if lang=='pt' else 'From the blog'
- blog_intro=('Experimentos e ideias que tenho explorado, com métodos e código para quem quiser acompanhar.' if lang=='pt' else 'Experiments and ideas I have been exploring, with methods and code you can follow.')
- blog_desc=('Um teste com imagens de ECG para comparar as decisões e as probabilidades de Jev e GPT Decisions.' if lang=='pt' else 'An ECG image experiment comparing the decisions and probability scores of Jev and GPT Decisions.')
- blog_read='Ler artigo' if lang=='pt' else 'Read article'
- blog_all='Ver todos os posts' if lang=='pt' else 'All posts'
- s+=f'<section class="section blog-feature" id="blog"><div class="section-head"><h2>{blog_title}</h2></div><p>{blog_intro}</p><article class="blog-preview"><p class="blog-date">15 October 2026 · ECG · AI</p><h3><a href="{base}blog/system-one-ecg/">{e("Can System-One AI Models Classify ECG Images?")}</a></h3><p>{blog_desc}</p><p class="project-links"><a href="{base}blog/system-one-ecg/">{blog_read}</a><a href="{base}blog/">{blog_all}</a></p></article></section>'
+ # Filled from rendered article metadata by the shared UI pass.
+ s+='<section class="section blog-feature" id="blog"></section>'
  return s
 def challenge(c,base,s):
  v=c['physionet']
@@ -161,4 +157,7 @@ for prefix in ["", "en/"]:
 shutil.rmtree(OUT/'learning',ignore_errors=True)
 for stale in ['search.json','sitemap.xml']:
  (OUT/stale).unlink(missing_ok=True)
+sys.path.insert(0, str(ROOT/'scripts'))
+from site_ui import enhance
+enhance(OUT)
 subprocess.run([sys.executable, str(ROOT/'scripts/site_seo.py')], check=True)

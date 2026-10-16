@@ -7,6 +7,8 @@ from pathlib import Path
 from urllib.parse import unquote, urljoin, urlsplit
 import xml.etree.ElementTree as ET
 from PIL import Image
+from lxml import html as H
+from hashlib import sha256
 
 from site_seo import AUTHOR, ORIGIN, ROOT, SITEMAP_NS, XHTML_NS, Document, alternates, canonical, read_pages
 
@@ -115,6 +117,38 @@ def check(output):
             result = urlsplit(urljoin(page.url, offset + entry["href"]))
             assert "//" not in result.path, (page.relative, entry)
             assert canonical(result.path.lstrip("/")) in urls, (page.relative, entry)
+    # Shared UI must work at every nesting depth and use the same fresh index.
+    index_paths = set()
+    for page in pages:
+        dom = H.fromstring(page.path.read_text())
+        assert len(dom.xpath('//main[@id="main"]')) == 1, page.relative
+        assert len(dom.xpath('//header[@class="header"]')) == 1, page.relative
+        assert len(dom.xpath('//dialog[@id="site-search"]')) == 1, page.relative
+        assert dom.xpath('//button[@data-search-open]'), page.relative
+        assert not dom.xpath('//*[@id="quarto-header"]'), page.relative
+        index_path = dom.find('body').get('data-search-index')
+        index_paths.add(index_path)
+        assert (output / index_path.lstrip('/')).is_file(), index_path
+        if page.article:
+            main = dom.xpath('//main')[0]
+            assert main.get('lang') == 'en'
+            assert dom.xpath('//*[@data-ui-language="pt"]')
+            assert all(img.xpath('ancestor::a[@href]') for img in main.xpath('.//img[@src]'))
+            for original in (ROOT / Path(page.relative).parent).glob('*'):
+                if original.suffix in {'.png', '.svg'} or original.name.endswith('-outputs.json'):
+                    published = output / original.relative_to(ROOT)
+                    assert published.read_bytes() == original.read_bytes(), original
+    assert len(index_paths) == 1, 'Every page must use the same search revision'
+    index_path = index_paths.pop()
+    payload = (output / index_path.lstrip('/')).read_bytes()
+    assert sha256(payload).hexdigest()[:12] in index_path
+    assert len(json.loads(payload)) == len(pages)
+    newest = sorted((p for p in pages if p.article),key=lambda p:p.doc.meta['dcterms.date'],reverse=True)
+    for rel in ['index.html','en/index.html','blog/index.html']:
+        dom = H.fromstring((output / rel).read_text())
+        links = dom.xpath('//article[contains(@class,"blog-preview")]/*[self::h2 or self::h3]/a/@href')
+        assert links == [urlsplit(p.url).path for p in newest[:3]], rel
+
     for rel in ["404.html", "cv/cv.html", "projects/ppg.html", "en/projects/ppg.html"]:
         assert "noindex" in Document((output / rel).read_text()).meta["robots"]
     print(f"PASS: {len(pages)} canonical pages, {len(posts)} posts, schemas, languages, local links, RSS and search")

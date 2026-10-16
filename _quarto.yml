@@ -11,7 +11,7 @@ website:
   title: "Felipe Dias"
   site-url: "https://fmenegui.com"
   description: ""
-  search: true
+  search: false
   navbar:
     left:
       - text: Home
