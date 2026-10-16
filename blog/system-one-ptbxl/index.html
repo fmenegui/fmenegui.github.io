@@ -29,6 +29,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -129,6 +164,7 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#the-ecgs-and-the-models" id="toc-the-ecgs-and-the-models" class="nav-link active" data-scroll-target="#the-ecgs-and-the-models">The ECGs and the models</a></li>
+  <li><a href="#an-example-a-ptb-xl-ecg-and-its-outputs" id="toc-an-example-a-ptb-xl-ecg-and-its-outputs" class="nav-link" data-scroll-target="#an-example-a-ptb-xl-ecg-and-its-outputs">An example: a PTB-XL ECG and its outputs</a></li>
   <li><a href="#the-questions" id="toc-the-questions" class="nav-link" data-scroll-target="#the-questions">The questions</a></li>
   <li><a href="#how-i-evaluated-the-answers" id="toc-how-i-evaluated-the-answers" class="nav-link" data-scroll-target="#how-i-evaluated-the-answers">How I evaluated the answers</a></li>
   <li><a href="#discrimination-and-calibration" id="toc-discrimination-and-calibration" class="nav-link" data-scroll-target="#discrimination-and-calibration">Discrimination and calibration</a></li>
@@ -231,6 +267,38 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 <p>These are <strong>multilabel</strong> categories. An ECG may have more than one abnormality. The reference labels were derived from the PTB-XL diagnostic SCP statements, grouped into the five official diagnostic superclasses.</p>
+</section>
+<section id="an-example-a-ptb-xl-ecg-and-its-outputs" class="level2">
+<h2 class="anchored" data-anchor-id="an-example-a-ptb-xl-ecg-and-its-outputs">An example: a PTB-XL ECG and its outputs</h2>
+<p>This is an actual <strong>GenECG clean rendering of PTB-XL ECG ID 1</strong>. It is the image submitted to both APIs, rather than a synthetic example prepared for the blog.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="example-ecg.png" class="img-fluid figure-img" style="width:100.0%" alt="GenECG clean twelve-lead ECG used as an input to both models"></p>
+<figcaption>Twelve-lead ECG from the PTB-XL GenECG clean-image collection, ECG ID 1.</figcaption>
+</figure>
+</div>
+<p>The dataset assigns this ECG to <strong>NORM</strong>. Neither model selected NORM at its default decision threshold. Below is a compact representation of their recorded output, retaining the exact YES probabilities:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"ecg_id"</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"reference_labels"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"NORM"</span><span class="fu">:</span> <span class="dv">1</span><span class="fu">,</span> <span class="dt">"MI"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span> <span class="dt">"STTC"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span> <span class="dt">"CD"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span> <span class="dt">"HYP"</span><span class="fu">:</span> <span class="dv">0</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"jev"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"NORM"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.09</span><span class="fu">},</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"MI"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"YES"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.54</span><span class="fu">},</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"STTC"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"YES"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.81</span><span class="fu">},</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"CD"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.34</span><span class="fu">},</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"HYP"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.22</span><span class="fu">}</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"gpt_decisions"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"NORM"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.03</span><span class="fu">},</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"MI"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.01</span><span class="fu">},</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"STTC"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"YES"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.80</span><span class="fu">},</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"CD"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.00</span><span class="fu">},</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"HYP"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.00</span><span class="fu">}</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is an especially useful example because the models’ outputs disagree with the reference annotation. <strong>An incorrect decision is not necessarily an API error.</strong> It can be a valid, structured response that does not match the clinical benchmark label. As in the first article, the reference labels were never sent to either model. The original API responses also include the complementary NO probability and other metadata, which are omitted here for readability.</p>
 </section>
 <section id="the-questions" class="level2">
 <h2 class="anchored" data-anchor-id="the-questions">The questions</h2>
