@@ -12,7 +12,7 @@ I wanted to try something simple: **what happens when we show an ECG to an AI mo
 
 There are already good models trained on ECG signals. Here, I was curious about two newer systems that take an image and return a structured decision. Would they recognize common ECG findings? And when they say YES or NO, how meaningful are their probabilities?
 
-This is an exploratory experiment, not a clinical diagnostic tool. The [images](https://github.com/fmenegui/sangha-code-test-reproduce) and [code](https://github.com/fmenegui/jev-image-tests) are available.
+This is an exploratory experiment, not a clinical diagnostic tool. The experimental inputs and analysis scripts are retained in private research repositories.
 
 ## The models
 
@@ -26,7 +26,7 @@ Both APIs can look at an image and answer questions such as “Is atrial fibrill
 
 I used **827 exams from the CODE Test dataset**. The original recordings are digital signals, but the models only saw images of twelve-lead ECGs.
 
-The images were created using [ecg-plot](https://github.com/dy1901/ecg-plot), in the same Sangha-style layout used in an earlier ECG image study. You can see [an example](https://github.com/fmenegui/sangha-code-test-reproduce/blob/main/data/images_sangha_style_rendering/ecg_0.png) or browse [all the images and labels](https://github.com/fmenegui/sangha-code-test-reproduce).
+The images were created using [ecg-plot](https://github.com/dy1901/ecg-plot), in the same Sangha-style layout used in an earlier ECG image study. The rendered images and labels are retained as research materials.
 
 We evaluated six findings:
 
@@ -58,7 +58,7 @@ NO:  {condition} is absent
 
 For atrial fibrillation, `{condition}` becomes `Atrial fibrillation`. GPT Decisions received the equivalent independent questions, using its own API format.
 
-The full requests are in the [Jev script](https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/run.py) and [GPT Decisions script](https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image-openai/decisions_full.py).
+The complete request payloads and inference scripts are retained privately for reproducibility.
 
 One example illustrates why the probabilities matter. On ECG `ecg_0`, both models correctly answered **NO** for LBBB. But Jev assigned **0.49** to YES, while GPT Decisions assigned **0.00**. The decisions matched, but the models expressed very different levels of certainty.
 
@@ -134,7 +134,7 @@ Both models could read an ECG image and return structured answers. That alone is
 
 GPT Decisions generally performed better in this experiment, while Jev showed strong discrimination for LBBB. More importantly, the experiment reminded me that **making a decision, ranking cases correctly, and assigning useful probabilities are different abilities**.
 
-All [inference code](https://github.com/fmenegui/jev-image-tests/tree/main/experiments), the [figure-generation script](https://github.com/fmenegui/jev-image-tests/blob/main/experiments/code-test-image/analysis/plot_journal_final.py), and the [CODE Test images](https://github.com/fmenegui/sangha-code-test-reproduce) are available to inspect and reproduce.
+The inference code, figure-generation scripts and rendered CODE Test images are retained privately for reproducibility.
 
 ## References
 
@@ -143,6 +143,6 @@ All [inference code](https://github.com/fmenegui/jev-image-tests/tree/main/exper
 3. Wagner P, Strodthoff N, Bousseljot RD, et al. (2020). [PTB-XL, a large publicly available electrocardiography dataset](https://doi.org/10.1038/s41597-020-0495-6). *Scientific Data*, 7, 154. Reference for the proposed larger evaluation.
 4. [George B. Moody PhysioNet Challenge 2024](https://moody-challenge.physionet.org/2024/). ECG image digitization and classification challenge.
 5. [ecg-plot](https://github.com/dy1901/ecg-plot). Library used to render ECG signals as images.
-6. [CODE Test rendered ECG images and labels](https://github.com/fmenegui/sangha-code-test-reproduce). Source images used in this experiment.
-7. [Jev and GPT Decisions experiment code](https://github.com/fmenegui/jev-image-tests/tree/main/experiments). Inference and evaluation scripts.
+6. CODE Test rendered ECG images and labels (private research materials).
+7. Jev and GPT Decisions experiment code (private research materials).
 8. [TypeSafe AI](https://www.typesafe.ai/) and [OpenAI API documentation](https://platform.openai.com/docs/). Model and API references.
