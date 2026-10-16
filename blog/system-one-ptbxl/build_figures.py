@@ -47,7 +47,7 @@ for i,(code,full) in enumerate(zip(CODES,LONG)):
         ax.set_yticks([0,.25,.5,.75,1])
         ax.tick_params(labelsize=10,pad=3)
         ax.spines[["top","right"]].set_visible(False)
-    roc.set_title(f"{code}\\n{full}",fontsize=12.8,fontweight="bold",pad=11)
+    roc.set_title(f"{code}\n{full}",fontsize=12.8,fontweight="bold",pad=11)
     roc.set_xlabel("False positive rate",fontsize=13)
     if i==0:roc.set_ylabel("True positive rate",fontsize=13)
     cal.set_xlabel("Predicted probability",fontsize=13)
@@ -70,10 +70,10 @@ for i,(code,full) in enumerate(zip(CODES,LONG)):
                          color=color,lw=1.6,zorder=3)
             cal.scatter(x,y,s=12,color=color,zorder=4,
                         edgecolor="white",linewidth=.3)
-    roc.text(.04,.98,f"AUROC\\nJev: {AUCS[code][0]:.3f}\\nGPT: {AUCS[code][1]:.3f}",
+    roc.text(.04,.98,f"AUROC\nJev: {AUCS[code][0]:.3f}\nGPT: {AUCS[code][1]:.3f}",
              transform=roc.transAxes,fontsize=10,ha="left",va="top",
              bbox={"facecolor":"white","edgecolor":"none","alpha":.83,"pad":2})
-    cal.text(.04,.98,f"Brier: Jev {BRIERS[code][0]:.3f}\\nGPT {BRIERS[code][1]:.3f}",
+    cal.text(.04,.98,f"Brier: Jev {BRIERS[code][0]:.3f}\nGPT {BRIERS[code][1]:.3f}",
              transform=cal.transAxes,fontsize=10,ha="left",va="top",
              bbox={"facecolor":"white","edgecolor":"none","alpha":.85,"pad":2})
 fig.text(.055,.965,"A  Discrimination: ROC curves",fontsize=22,
