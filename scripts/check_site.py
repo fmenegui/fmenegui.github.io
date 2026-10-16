@@ -8,7 +8,7 @@ from urllib.parse import unquote, urljoin, urlsplit
 import xml.etree.ElementTree as ET
 from PIL import Image
 
-from site_seo import AUTHOR, ORIGIN, ROOT, SITEMAP_NS, XHTML_NS, Document, alternates, read_pages
+from site_seo import AUTHOR, ORIGIN, ROOT, SITEMAP_NS, XHTML_NS, Document, alternates, canonical, read_pages
 
 
 class Resources(HTMLParser):
@@ -103,7 +103,18 @@ def check(output):
     assert {n.text for n in feed.findall("channel/item/link")} == posts
     search = json.loads((output / "search.json").read_text())
     assert len(search) == len(pages)
-    assert {urljoin(ORIGIN, x["href"]) for x in search} == urls
+    assert {canonical(x["href"]) for x in search} == urls
+    for entry in search:
+        assert not entry["href"].startswith("/"), "Quarto search requires paths relative to the site root"
+        assert "//" not in entry["href"], entry
+        target_page = next(p for p in pages if p.relative == entry["objectID"])
+        assert entry["title"] == target_page.doc.title
+        # Exercise the root offset Quarto applies on every page, not just home.
+        for page in pages:
+            offset = "../" * (len(Path(page.relative).parts) - 1)
+            result = urlsplit(urljoin(page.url, offset + entry["href"]))
+            assert "//" not in result.path, (page.relative, entry)
+            assert canonical(result.path.lstrip("/")) in urls, (page.relative, entry)
     for rel in ["404.html", "cv/cv.html", "projects/ppg.html", "en/projects/ppg.html"]:
         assert "noindex" in Document((output / rel).read_text()).meta["robots"]
     print(f"PASS: {len(pages)} canonical pages, {len(posts)} posts, schemas, languages, local links, RSS and search")

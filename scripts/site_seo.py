@@ -378,7 +378,9 @@ def build(output: Path):
     write_feed(pages, output)
     (output / "robots.txt").write_text("User-agent: *\nAllow: /\n\nSitemap: " + ORIGIN + "/sitemap.xml\n", encoding="utf-8")
     (output / "search.json").write_text(json.dumps([
-        {"objectID": p.relative, "href": urlsplit(p.url).path, "title": p.doc.heading,
+        # Quarto prepends each page's relative root offset. A leading slash
+        # becomes '..//blog/...' and leaks duplicate path separators into links.
+        {"objectID": p.relative, "href": urlsplit(p.url).path.lstrip("/") or "index.html", "title": p.doc.title,
          "section": "", "text": p.doc.text(p.doc.main_parts or p.doc.body_parts)} for p in pages
     ], ensure_ascii=False), encoding="utf-8")
     # Legacy URLs still redirect for readers but must not become search results.
