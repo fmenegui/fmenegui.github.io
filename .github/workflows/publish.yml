@@ -33,10 +33,10 @@ jobs:
         run: |
           pip install -r requeriments.txt
 
-      - name: Build PTB-XL figures from audited empirical curves
-        run: python blog/system-one-ptbxl/build_figures.py
+      - name: Build both ECG figures using the shared renderer
+        run: python blog/ecg_figures.py
 
-      - name: Prepare real ECG example images
+      - name: Verify pinned ECG images and matching JSON outputs
         run: python blog/build_ecg_examples.py
 
       - name: Render site

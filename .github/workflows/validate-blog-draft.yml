@@ -11,10 +11,22 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: quarto-dev/quarto-actions/setup@v2
-      - name: Render draft article only
-        run: quarto render blog/system-one-ecg/index.qmd --to html
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install -r requeriments.txt
+      - name: Build shared figures and verify ECG examples
+        run: |
+          python blog/ecg_figures.py
+          python blog/build_ecg_examples.py
+      - name: Render both articles
+        run: quarto render
       - name: Check article assets
         run: |
-          test -f blog/system-one-ecg/roc.svg
-          test -f blog/system-one-ecg/calibration.svg
           test -f _site/blog/system-one-ecg/index.html
+          test -f _site/blog/system-one-ptbxl/index.html
+          test -f _site/blog/system-one-ecg/example-ecg.png
+          test -f _site/blog/system-one-ptbxl/example-ecg.png
+          test -f _site/blog/system-one-ecg/roc_calibration.svg
+          test -f _site/blog/system-one-ptbxl/ptbxl_roc_calibration.svg

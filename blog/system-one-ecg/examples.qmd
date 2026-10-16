@@ -1,0 +1,341 @@
+These examples are original benchmark inputs. Their saved answer objects are reproduced below with no changes to choices, confidence values or probabilities. Reference labels are evaluation metadata and were never sent to the models. These two illustrative cases are not a representative performance sample.
+
+### CODE Test ecg_0
+
+![CODE Test ecg_0, the twelve-lead ECG input used by both models.](example-ecg.png){fig-alt="CODE Test ecg_0: twelve-lead tracing used in the recorded evaluation" width="100%"}
+
+**Reference labels:** none of the six target labels.
+
+The following compact view retains the exact returned choices and YES probabilities. The model outputs have not been corrected to match the reference labels.
+
+```json
+{
+  "jev": {
+    "1dAVb": {"choice": "NO", "p_yes": 0.42},
+    "RBBB": {"choice": "NO", "p_yes": 0.43},
+    "LBBB": {"choice": "NO", "p_yes": 0.49},
+    "SB": {"choice": "NO", "p_yes": 0.37},
+    "AF": {"choice": "NO", "p_yes": 0.14},
+    "ST": {"choice": "NO", "p_yes": 0.46}
+  },
+  "gpt-decisions": {
+    "1dAVb": {"choice": "NO", "p_yes": 0.14},
+    "RBBB": {"choice": "NO", "p_yes": 0.02},
+    "LBBB": {"choice": "NO", "p_yes": 0.0},
+    "SB": {"choice": "NO", "p_yes": 0.07},
+    "AF": {"choice": "NO", "p_yes": 0.0},
+    "ST": {"choice": "NO", "p_yes": 0.0}
+  }
+}
+```
+
+[Download the saved answer objects and reference labels](example-0-outputs.json).
+
+<details>
+<summary>Show saved JSON with YES/NO probabilities and confidence</summary>
+
+The `answers` and `model` fields below are copied from the saved run records. The outer object pairs both models with the benchmark labels. This is not a complete HTTP response.
+
+```json
+{
+  "image": "ecg_0",
+  "reference_labels": {
+    "1dAVb": 0,
+    "RBBB": 0,
+    "LBBB": 0,
+    "SB": 0,
+    "AF": 0,
+    "ST": 0
+  },
+  "jev": {
+    "model": "jev-1.14.0",
+    "answers": {
+      "1dAVb": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.16,
+        "probabilities": {
+          "YES": 0.42,
+          "NO": 0.58
+        }
+      },
+      "RBBB": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.14,
+        "probabilities": {
+          "YES": 0.43,
+          "NO": 0.57
+        }
+      },
+      "LBBB": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.02,
+        "probabilities": {
+          "YES": 0.49,
+          "NO": 0.51
+        }
+      },
+      "SB": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.26,
+        "probabilities": {
+          "YES": 0.37,
+          "NO": 0.63
+        }
+      },
+      "AF": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.72,
+        "probabilities": {
+          "YES": 0.14,
+          "NO": 0.86
+        }
+      },
+      "ST": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.08,
+        "probabilities": {
+          "YES": 0.46,
+          "NO": 0.54
+        }
+      }
+    }
+  },
+  "gpt-decisions": {
+    "model": "gpt-6-luna-decisions",
+    "answers": {
+      "1dAVb": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.72,
+        "probabilities": {
+          "YES": 0.14,
+          "NO": 0.86
+        }
+      },
+      "RBBB": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.96,
+        "probabilities": {
+          "YES": 0.02,
+          "NO": 0.98
+        }
+      },
+      "LBBB": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 1.0,
+        "probabilities": {
+          "YES": 0.0,
+          "NO": 1.0
+        }
+      },
+      "SB": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.86,
+        "probabilities": {
+          "YES": 0.07,
+          "NO": 0.93
+        }
+      },
+      "AF": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 1.0,
+        "probabilities": {
+          "YES": 0.0,
+          "NO": 1.0
+        }
+      },
+      "ST": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 1.0,
+        "probabilities": {
+          "YES": 0.0,
+          "NO": 1.0
+        }
+      }
+    }
+  }
+}
+```
+
+</details>
+
+### CODE Test ecg_1
+
+![CODE Test ecg_1, the twelve-lead ECG input used by both models.](example-ecg-1.png){fig-alt="CODE Test ecg_1: twelve-lead tracing used in the recorded evaluation" width="100%"}
+
+**Reference labels:** LBBB.
+
+The following compact view retains the exact returned choices and YES probabilities. The model outputs have not been corrected to match the reference labels.
+
+```json
+{
+  "jev": {
+    "1dAVb": {"choice": "NO", "p_yes": 0.24},
+    "RBBB": {"choice": "NO", "p_yes": 0.37},
+    "LBBB": {"choice": "YES", "p_yes": 0.64},
+    "SB": {"choice": "NO", "p_yes": 0.17},
+    "AF": {"choice": "YES", "p_yes": 0.52},
+    "ST": {"choice": "NO", "p_yes": 0.39}
+  },
+  "gpt-decisions": {
+    "1dAVb": {"choice": "NO", "p_yes": 0.1},
+    "RBBB": {"choice": "NO", "p_yes": 0.13},
+    "LBBB": {"choice": "YES", "p_yes": 0.53},
+    "SB": {"choice": "NO", "p_yes": 0.13},
+    "AF": {"choice": "NO", "p_yes": 0.03},
+    "ST": {"choice": "NO", "p_yes": 0.04}
+  }
+}
+```
+
+[Download the saved answer objects and reference labels](example-1-outputs.json).
+
+<details>
+<summary>Show saved JSON with YES/NO probabilities and confidence</summary>
+
+The `answers` and `model` fields below are copied from the saved run records. The outer object pairs both models with the benchmark labels. This is not a complete HTTP response.
+
+```json
+{
+  "image": "ecg_1",
+  "reference_labels": {
+    "1dAVb": 0,
+    "RBBB": 0,
+    "LBBB": 1,
+    "SB": 0,
+    "AF": 0,
+    "ST": 0
+  },
+  "jev": {
+    "model": "jev-1.14.0",
+    "answers": {
+      "1dAVb": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.52,
+        "probabilities": {
+          "YES": 0.24,
+          "NO": 0.76
+        }
+      },
+      "RBBB": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.26,
+        "probabilities": {
+          "YES": 0.37,
+          "NO": 0.63
+        }
+      },
+      "LBBB": {
+        "type": "choice",
+        "choice": "YES",
+        "confidence": 0.28,
+        "probabilities": {
+          "YES": 0.64,
+          "NO": 0.36
+        }
+      },
+      "SB": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.66,
+        "probabilities": {
+          "YES": 0.17,
+          "NO": 0.83
+        }
+      },
+      "AF": {
+        "type": "choice",
+        "choice": "YES",
+        "confidence": 0.04,
+        "probabilities": {
+          "YES": 0.52,
+          "NO": 0.48
+        }
+      },
+      "ST": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.22,
+        "probabilities": {
+          "YES": 0.39,
+          "NO": 0.61
+        }
+      }
+    }
+  },
+  "gpt-decisions": {
+    "model": "gpt-6-luna-decisions",
+    "answers": {
+      "1dAVb": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.8,
+        "probabilities": {
+          "YES": 0.1,
+          "NO": 0.9
+        }
+      },
+      "RBBB": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.74,
+        "probabilities": {
+          "YES": 0.13,
+          "NO": 0.87
+        }
+      },
+      "LBBB": {
+        "type": "choice",
+        "choice": "YES",
+        "confidence": 0.06,
+        "probabilities": {
+          "YES": 0.53,
+          "NO": 0.47
+        }
+      },
+      "SB": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.74,
+        "probabilities": {
+          "YES": 0.13,
+          "NO": 0.87
+        }
+      },
+      "AF": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.94,
+        "probabilities": {
+          "YES": 0.03,
+          "NO": 0.97
+        }
+      },
+      "ST": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.92,
+        "probabilities": {
+          "YES": 0.04,
+          "NO": 0.96
+        }
+      }
+    }
+  }
+}
+```
+
+</details>

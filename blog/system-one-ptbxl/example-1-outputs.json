@@ -1,0 +1,111 @@
+{
+  "image": "PTB-XL 1",
+  "input_png_sha256": "e646a66990f233d4b8d1728bc2eeaf9e722bd4e4e8d525aa9d7536b6d500627f",
+  "reference_labels": {
+    "NORM": 1,
+    "MI": 0,
+    "STTC": 0,
+    "CD": 0,
+    "HYP": 0
+  },
+  "jev": {
+    "model": "jev-1.14.0",
+    "answers": {
+      "NORM": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.82,
+        "probabilities": {
+          "YES": 0.09,
+          "NO": 0.91
+        }
+      },
+      "MI": {
+        "type": "choice",
+        "choice": "YES",
+        "confidence": 0.08,
+        "probabilities": {
+          "YES": 0.54,
+          "NO": 0.46
+        }
+      },
+      "STTC": {
+        "type": "choice",
+        "choice": "YES",
+        "confidence": 0.62,
+        "probabilities": {
+          "YES": 0.81,
+          "NO": 0.19
+        }
+      },
+      "CD": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.32,
+        "probabilities": {
+          "YES": 0.34,
+          "NO": 0.66
+        }
+      },
+      "HYP": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.56,
+        "probabilities": {
+          "YES": 0.22,
+          "NO": 0.78
+        }
+      }
+    }
+  },
+  "gpt-decisions": {
+    "model": "gpt-6-luna",
+    "answers": {
+      "NORM": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.94,
+        "probabilities": {
+          "YES": 0.03,
+          "NO": 0.97
+        }
+      },
+      "MI": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 0.98,
+        "probabilities": {
+          "YES": 0.01,
+          "NO": 0.99
+        }
+      },
+      "STTC": {
+        "type": "choice",
+        "choice": "YES",
+        "confidence": 0.6,
+        "probabilities": {
+          "YES": 0.8,
+          "NO": 0.2
+        }
+      },
+      "CD": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 1.0,
+        "probabilities": {
+          "YES": 0.0,
+          "NO": 1.0
+        }
+      },
+      "HYP": {
+        "type": "choice",
+        "choice": "NO",
+        "confidence": 1.0,
+        "probabilities": {
+          "YES": 0.0,
+          "NO": 1.0
+        }
+      }
+    }
+  }
+}

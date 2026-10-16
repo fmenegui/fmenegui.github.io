@@ -1,0 +1,42 @@
+[
+  {
+    "image": "system-one-ecg/example-ecg.png",
+    "outputs": "system-one-ecg/example-0-outputs.json",
+    "sha256": "2167e09ad13592fa8870249cd7a4c3e5a6647f4081270dc8613a5f8605eea47b",
+    "size": [
+      1000,
+      504
+    ],
+    "verification": "recreated with original image preprocessing and recorded dimensions"
+  },
+  {
+    "image": "system-one-ecg/example-ecg-1.png",
+    "outputs": "system-one-ecg/example-1-outputs.json",
+    "sha256": "e374d47fabdbdaeb943e85ea26354f573ca54c124b01346533c345f508afef30",
+    "size": [
+      1000,
+      504
+    ],
+    "verification": "recreated with original image preprocessing and recorded dimensions"
+  },
+  {
+    "image": "system-one-ptbxl/example-ecg.png",
+    "outputs": "system-one-ptbxl/example-1-outputs.json",
+    "sha256": "e646a66990f233d4b8d1728bc2eeaf9e722bd4e4e8d525aa9d7536b6d500627f",
+    "size": [
+      1358,
+      1000
+    ],
+    "verification": "matches recorded inference PNG hash"
+  },
+  {
+    "image": "system-one-ptbxl/example-ecg-8.png",
+    "outputs": "system-one-ptbxl/example-8-outputs.json",
+    "sha256": "cadc8b930a184605ef2ecb3ef983d5afcf6e2684e15681c91d63568a2e417910",
+    "size": [
+      1358,
+      1000
+    ],
+    "verification": "matches recorded inference PNG hash"
+  }
+]
