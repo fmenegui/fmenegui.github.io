@@ -29,6 +29,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -130,6 +165,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#the-models" id="toc-the-models" class="nav-link active" data-scroll-target="#the-models">The models</a></li>
   <li><a href="#the-ecgs" id="toc-the-ecgs" class="nav-link" data-scroll-target="#the-ecgs">The ECGs</a></li>
+  <li><a href="#an-example-one-ecg-two-structured-answers" id="toc-an-example-one-ecg-two-structured-answers" class="nav-link" data-scroll-target="#an-example-one-ecg-two-structured-answers">An example: one ECG, two structured answers</a></li>
   <li><a href="#what-i-asked" id="toc-what-i-asked" class="nav-link" data-scroll-target="#what-i-asked">What I asked</a></li>
   <li><a href="#how-i-measured-performance" id="toc-how-i-measured-performance" class="nav-link" data-scroll-target="#how-i-measured-performance">How I measured performance</a></li>
   <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
@@ -241,6 +277,41 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <p><strong>This is a multilabel task.</strong> One ECG can have more than one finding. And an ECG with none of these six labels is not necessarily normal.</p>
 <p>I resized each image once, keeping its aspect ratio, and sent the same PNG to both APIs. Neither received the raw signals, clinical history, or correct labels. The resizing itself may hide small details, which is one limitation of this setup.</p>
+</section>
+<section id="an-example-one-ecg-two-structured-answers" class="level2">
+<h2 class="anchored" data-anchor-id="an-example-one-ecg-two-structured-answers">An example: one ECG, two structured answers</h2>
+<p>Here is an actual ECG from the experiment, <strong>CODE Test <code>ecg_0</code></strong>. The image below is the input used for the classification requests, not an AI-generated illustration.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="example-ecg.png" class="img-fluid figure-img" style="width:100.0%" alt="Twelve-lead ECG example from the CODE Test experiment"></p>
+<figcaption>Example of a twelve-lead ECG from CODE Test (ecg_0), shown to Jev and GPT Decisions.</figcaption>
+</figure>
+</div>
+<p>Both models answered six separate binary questions. The following is a <strong>compact transcription of their actual returned choices and YES probabilities</strong>, rather than the complete raw API payload:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode json code-with-copy"><code class="sourceCode json"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"image"</span><span class="fu">:</span> <span class="st">"ecg_0"</span><span class="fu">,</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"reference_labels"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"1dAVb"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span> <span class="dt">"RBBB"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span> <span class="dt">"LBBB"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"SB"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span> <span class="dt">"AF"</span><span class="fu">:</span> <span class="dv">0</span><span class="fu">,</span> <span class="dt">"ST"</span><span class="fu">:</span> <span class="dv">0</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"jev"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"1dAVb"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.42</span><span class="fu">},</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"RBBB"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.43</span><span class="fu">},</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"LBBB"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.49</span><span class="fu">},</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"SB"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.37</span><span class="fu">},</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"AF"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.14</span><span class="fu">},</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"ST"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.46</span><span class="fu">}</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="dt">"gpt_decisions"</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"1dAVb"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.14</span><span class="fu">},</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"RBBB"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.02</span><span class="fu">},</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"LBBB"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.00</span><span class="fu">},</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"SB"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.07</span><span class="fu">},</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"AF"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.00</span><span class="fu">},</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="dt">"ST"</span><span class="fu">:</span> <span class="fu">{</span><span class="dt">"choice"</span><span class="fu">:</span> <span class="st">"NO"</span><span class="fu">,</span> <span class="dt">"p_yes"</span><span class="fu">:</span> <span class="fl">0.00</span><span class="fu">}</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">}</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The reference labels were used <strong>only for evaluation</strong>, never included in the model requests. In the original API format, each class has a <code>choice</code> field and a <code>probabilities</code> object containing <code>YES</code> and <code>NO</code>. Here I show <code>p_yes</code> to keep the example readable. Both models chose NO for every finding, but their probabilities were very different.</p>
 </section>
 <section id="what-i-asked" class="level2">
 <h2 class="anchored" data-anchor-id="what-i-asked">What I asked</h2>
