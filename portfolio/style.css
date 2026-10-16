@@ -429,3 +429,7 @@ body.blog-page { padding-top: 0 !important; }
 }
 
 .article-language { font-size: 13px; color: var(--muted); margin-top: 20px; margin-bottom: 0; }
+
+/* Quarto assigns named grid columns to every aside. Reset them in shared layout. */
+.blog-toc { grid-area: auto; min-width: 0; }
+.blog-main { margin: 0; }

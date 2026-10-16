@@ -71,7 +71,7 @@
     const query=blogInput.value.trim(),t=strings[lang],notice=document.querySelector('#blog-status');
     try {
       const matches=new Set((await loadIndex()).filter(row=>!query||match([row],query,true).length).map(row=>'/'+row.href));
-      let count=0;document.querySelectorAll('#blog-posts article').forEach(el=>{el.hidden=!matches.has(new URL(el.querySelector('a').href).pathname+'index.html');if(!el.hidden)count++;});
+      let count=0;document.querySelectorAll('#blog-posts article').forEach(el=>{el.hidden=!matches.has(new URL(el.querySelector('a').href).pathname.replace(/index\.html$/, ''));if(!el.hidden)count++;});
       notice.textContent=query?(count?t.count(count):t.empty):'';
     } catch(_){notice.textContent=t.error;}
   }
