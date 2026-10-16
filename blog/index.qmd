@@ -1,7 +1,9 @@
 ---
 title: "Blog"
 listing:
-  contents: "system-one-ecg/index.qmd"
+  contents:
+    - "system-one-ecg/index.qmd"
+    - "system-one-ptbxl/index.qmd"
   type: default
   sort: "date desc"
   fields: [title, date, categories, description]
