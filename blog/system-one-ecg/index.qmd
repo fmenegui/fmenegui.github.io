@@ -126,7 +126,7 @@ The CODE Test is a useful starting point, but it is small for this kind of evalu
 
 The **[George B. Moody PhysioNet Challenge 2024](https://moody-challenge.physionet.org/2024/)** is another interesting direction because it includes ECG images with different layouts and visual artifacts. That would test something the clean CODE renderings cannot: how robust the models are to the kinds of images we see outside a controlled benchmark.
 
-Neither dataset is part of the results reported here. Their labels and image formats will need separate evaluation protocols.
+**Update, October 2026:** We have now completed the larger experiment. Read the [PTB-XL follow-up with 21,796 paired ECGs, AUROC, calibration and F1-score](../system-one-ptbxl/index.qmd). The PhysioNet Challenge 2024 remains a separate evaluation protocol.
 
 ## Final thoughts
 
