@@ -148,4 +148,3 @@ Both articles use one shared figure renderer, with identical fonts, colors, empi
 3. Reyna MA, et al. [Digitization and Classification of ECG Images: The George B. Moody PhysioNet Challenge 2024](https://moody-challenge.physionet.org/2024/papers/cinc_paper.pdf). *Computing in Cardiology*. 2024.
 4. [Official Challenge 2024 results](https://moody-challenge.physionet.org/2024/results/).
 5. [GenECG image collection](https://huggingface.co/datasets/edcci/GenECG).
-6. Jev and GPT Decisions experimental implementation (private research repository, not publicly accessible).

@@ -13,7 +13,7 @@ I wanted to try something simple: **what happens when we show an ECG to an AI mo
 
 There are already good models trained on ECG signals. Here, I was curious about two newer systems that take an image and return a structured decision. Would they recognize common ECG findings? And when they say YES or NO, how meaningful are their probabilities?
 
-This is an exploratory experiment, not a clinical diagnostic tool. The experimental inputs and analysis scripts are retained in private research repositories.
+This is an exploratory experiment, not a clinical diagnostic tool.
 
 ## The models
 
@@ -27,7 +27,7 @@ Both APIs can look at an image and answer questions such as “Is atrial fibrill
 
 I used **827 exams from the CODE Test dataset**. The original recordings are digital signals, but the models only saw images of twelve-lead ECGs.
 
-The images were created using [ecg-plot](https://github.com/dy1901/ecg-plot), in the same Sangha-style layout used in an earlier ECG image study. The rendered images and labels are retained as research materials.
+The images were created using [ecg-plot](https://github.com/dy1901/ecg-plot), in the same Sangha-style layout used in an earlier ECG image study. The rendered images and reference labels are available in the [public CODE Test repository](https://github.com/fmenegui/sangha-code-test-reproduce).
 
 We evaluated six findings:
 
@@ -139,8 +139,6 @@ Both models could read an ECG image and return structured answers. That alone is
 
 GPT Decisions generally performed better in this experiment, while Jev showed strong discrimination for LBBB. More importantly, the experiment reminded me that **making a decision, ranking cases correctly, and assigning useful probabilities are different abilities**.
 
-The inference code, figure-generation scripts and rendered CODE Test images are retained privately for reproducibility.
-
 ## References
 
 1. Sangha V, Mortazavi BJ, Haimovich AD, et al. (2022). [Automated multilabel diagnosis on electrocardiographic images and signals](https://doi.org/10.1038/s41467-022-29153-3). *Nature Communications*, 13, 1583. Primary source for the specialist model and its CODE Test AUROCs.
@@ -148,6 +146,5 @@ The inference code, figure-generation scripts and rendered CODE Test images are 
 3. Wagner P, Strodthoff N, Bousseljot RD, et al. (2020). [PTB-XL, a large publicly available electrocardiography dataset](https://doi.org/10.1038/s41597-020-0495-6). *Scientific Data*, 7, 154. Reference for the proposed larger evaluation.
 4. [George B. Moody PhysioNet Challenge 2024](https://moody-challenge.physionet.org/2024/). ECG image digitization and classification challenge.
 5. [ecg-plot](https://github.com/dy1901/ecg-plot). Library used to render ECG signals as images.
-6. CODE Test rendered ECG images and labels (private research materials).
-7. Jev and GPT Decisions experiment code (private research materials).
-8. [TypeSafe AI](https://www.typesafe.ai/) and [OpenAI API documentation](https://platform.openai.com/docs/). Model and API references.
+6. [CODE Test rendered ECG images and reference labels](https://github.com/fmenegui/sangha-code-test-reproduce). Public repository with the Sangha-style renderings.
+7. [TypeSafe AI](https://www.typesafe.ai/) and [OpenAI API documentation](https://platform.openai.com/docs/). Model and API references.
