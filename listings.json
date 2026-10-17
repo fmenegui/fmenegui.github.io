@@ -2,6 +2,7 @@
   {
     "listing": "/blog/index.html",
     "items": [
+      "/blog/system-one-fairlens/index.html",
       "/blog/system-one-ptbxl/index.html",
       "/blog/system-one-ecg/index.html"
     ]

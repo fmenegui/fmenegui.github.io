@@ -1,0 +1,37 @@
+{
+  "images": [
+    {
+      "file": "twitter-preview-original.png",
+      "creator": "Tony Arcieri, historical screenshot preserved by Input",
+      "source": "https://www.inverse.com/input/culture/is-twitters-image-cropping-algorithm-racially-biased",
+      "asset_url": "https://imgix.bustle.com/uploads/image/2020/9/21/d77a9865-a86f-4a31-a8c4-06aff78230f5-screen-shot-2020-09-21-at-125049-pm.png",
+      "note": "Historical screenshot, not rerun or recreated. Rights remain with their respective holders.",
+      "sha256": "9887dbe48ab6d0846277523a52acc94ebc2ec3c4c0130c8b6841c1516285d215",
+      "retrieved": "2026-10-16"
+    },
+    {
+      "file": "arcieri-original-1.jpg",
+      "creator": "Tony Arcieri",
+      "source": "https://x.com/bascule/status/1307440596668182528",
+      "asset_url": "https://pbs.twimg.com/media/EiT2SftUMAEjDRH?format=jpg&name=orig",
+      "note": "Original attached image bytes, unchanged.",
+      "sha256": "3efcf0025c59c6e934810343cf01f6fd51e007536f80104ec4952281bed72914",
+      "retrieved": "2026-10-16"
+    },
+    {
+      "file": "arcieri-original-2.jpg",
+      "creator": "Tony Arcieri",
+      "source": "https://x.com/bascule/status/1307440596668182528",
+      "asset_url": "https://pbs.twimg.com/media/EiT2SfuU8AA8gyJ?format=jpg&name=orig",
+      "note": "Original attached image bytes, unchanged.",
+      "sha256": "c1d507e1510639cc91262135c85f87fb77ec3e8a818266180083175a5c8fd52a",
+      "retrieved": "2026-10-16"
+    }
+  ],
+  "deleted_post": {
+    "url": "https://x.com/Jack09philj/status/1307452960960647168",
+    "status": "Deleted by author, as reported by the public tweet endpoint",
+    "contemporaneous_record": "https://petapixel.com/2020/09/21/twitter-photo-algorithm-draws-heat-for-possible-racial-bias/",
+    "note": "No invented recreation of the multiple-Obama image is included."
+  }
+}

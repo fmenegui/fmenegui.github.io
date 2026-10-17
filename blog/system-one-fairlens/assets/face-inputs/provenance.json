@@ -1,0 +1,320 @@
+{
+  "scope": "Illustrative evaluated inputs accompanying the published audit. The response CSV contains no image bytes.",
+  "selection_rule": "Lexicographically smallest image ID per original dataset race and binary gender stratum, excluding conflicting demographic annotations. No model outputs used. The existing API example is the first entry in the original manifest.",
+  "gallery_images": 10,
+  "total_unique_images": 11,
+  "source_dataset_url": "https://susanqq.github.io/UTKFace/",
+  "benchmark_dataset_url": "https://huggingface.co/datasets/vector-institute/fairlens",
+  "image_acquisition": {
+    "source": "hf-mirror",
+    "url": "https://huggingface.co/datasets/py97/UTKFace-Cropped/resolve/e80f21fb21fa3631380c3cb634b79be3ac2f4cba/UTKFace.tar.gz",
+    "archive_sha256": "2c0655397b498e81b82d685ee74bee8c2e4364a5897caf3afec6ea48929024a7",
+    "bytes": 106634631,
+    "original_source": "https://susanqq.github.io/UTKFace/",
+    "terms": "Original non-commercial research restriction applies",
+    "limitation": "Mirror bytes pinned. Byte equality with unavailable original Drive archive is not independently verified",
+    "extracted_images": 23708
+  },
+  "archive_sha256_verified": "2c0655397b498e81b82d685ee74bee8c2e4364a5897caf3afec6ea48929024a7",
+  "demographic_note": "Labels are inherited UTKFace annotations, not inferred here or verified self-identifications. Other is a heterogeneous source category.",
+  "image_note": "All distributed PNGs match the exact evaluated input SHA-256. Display scaling does not change downloaded image bytes.",
+  "images": [
+    {
+      "age": 29,
+      "gender": 0,
+      "race": 0,
+      "dataset_type": "cropped",
+      "filename": "29_0_0_20170104165110771.jpg",
+      "id": "00207b7ecac27db4c062",
+      "image": "images/00207b7ecac27db4c062.png",
+      "source_sha256": "630ebdeae782461fe35d0283fff6b0758fec3d1a73e82f355ebc4c11d87e8513",
+      "png_sha256": "27766a0d37c4e6fa1d1b09ac4ccd26ebd035eadc22e761e580f9e222d54873bf",
+      "size": [
+        280,
+        280
+      ],
+      "source_size": [
+        200,
+        200
+      ],
+      "padding_left_top": [
+        40,
+        40
+      ],
+      "race_annotation": "White",
+      "gallery": true,
+      "api_example": false,
+      "file": "00207b7ecac27db4c062.png"
+    },
+    {
+      "age": 40,
+      "gender": 1,
+      "race": 0,
+      "dataset_type": "cropped",
+      "filename": "40_1_0_20170117003453925.jpg",
+      "id": "00b8f211adbf31f97ca8",
+      "image": "images/00b8f211adbf31f97ca8.png",
+      "source_sha256": "c2f4b415931bda37249c25816d3b19130da03441c4b968a7b9f841463cc81688",
+      "png_sha256": "a54e2512326ee3bc01f5bd7d50d9603b60053f1b3bee0120be80693b738de815",
+      "size": [
+        280,
+        280
+      ],
+      "source_size": [
+        200,
+        200
+      ],
+      "padding_left_top": [
+        40,
+        40
+      ],
+      "race_annotation": "White",
+      "gallery": true,
+      "api_example": false,
+      "file": "00b8f211adbf31f97ca8.png"
+    },
+    {
+      "age": 42,
+      "gender": 0,
+      "race": 1,
+      "dataset_type": "cropped",
+      "filename": "42_0_1_20170117171124190.jpg",
+      "id": "0074163f0f00f2a47b8d",
+      "image": "images/0074163f0f00f2a47b8d.png",
+      "source_sha256": "e9fceb622fee10216ce7dc56f56589e1cce705967e01d2d882e05a5a234bd67c",
+      "png_sha256": "8caf889897ebbb69f8afee08b17af2ab10ec778eda4e5058457c4be20dd45ab2",
+      "size": [
+        280,
+        280
+      ],
+      "source_size": [
+        200,
+        200
+      ],
+      "padding_left_top": [
+        40,
+        40
+      ],
+      "race_annotation": "Black",
+      "gallery": true,
+      "api_example": false,
+      "file": "0074163f0f00f2a47b8d.png"
+    },
+    {
+      "age": 60,
+      "gender": 1,
+      "race": 1,
+      "dataset_type": "cropped",
+      "filename": "60_1_1_20170113185112295.jpg",
+      "id": "0087135769b77ee5436a",
+      "image": "images/0087135769b77ee5436a.png",
+      "source_sha256": "21153af0cdb58273e91e89e9dfa4bc2fe403603ff221604b3346814b409ad5e2",
+      "png_sha256": "367310c81635d9389537505be50441c32c4ceee78585c1cc13ec4bb86299cf34",
+      "size": [
+        280,
+        280
+      ],
+      "source_size": [
+        200,
+        200
+      ],
+      "padding_left_top": [
+        40,
+        40
+      ],
+      "race_annotation": "Black",
+      "gallery": true,
+      "api_example": false,
+      "file": "0087135769b77ee5436a.png"
+    },
+    {
+      "age": 25,
+      "gender": 0,
+      "race": 2,
+      "dataset_type": "cropped",
+      "filename": "25_0_2_20170104021135333.jpg",
+      "id": "0142cee346c5bd459e6a",
+      "image": "images/0142cee346c5bd459e6a.png",
+      "source_sha256": "729c1119e974c7fba547965f94800598048f42866da5558e874cdb1b730c9ed5",
+      "png_sha256": "9f84f7a3a290dd262692815e3517edacb41ded31ac551698fe7aa232fa519e86",
+      "size": [
+        280,
+        280
+      ],
+      "source_size": [
+        200,
+        200
+      ],
+      "padding_left_top": [
+        40,
+        40
+      ],
+      "race_annotation": "Asian",
+      "gallery": true,
+      "api_example": false,
+      "file": "0142cee346c5bd459e6a.png"
+    },
+    {
+      "age": 25,
+      "gender": 1,
+      "race": 2,
+      "dataset_type": "cropped",
+      "filename": "25_1_2_20170116165425465.jpg",
+      "id": "045645ed3d7e5b85ec2f",
+      "image": "images/045645ed3d7e5b85ec2f.png",
+      "source_sha256": "8a73dfa033eeade95131bd7a97f122644e80218c44b04e64ac0b775f0adbe17e",
+      "png_sha256": "eb1cbd001c130ae38eb48f5f4970646c90aab38d8897345f5439e856074e5746",
+      "size": [
+        280,
+        280
+      ],
+      "source_size": [
+        200,
+        200
+      ],
+      "padding_left_top": [
+        40,
+        40
+      ],
+      "race_annotation": "Asian",
+      "gallery": true,
+      "api_example": false,
+      "file": "045645ed3d7e5b85ec2f.png"
+    },
+    {
+      "age": 32,
+      "gender": 0,
+      "race": 3,
+      "dataset_type": "cropped",
+      "filename": "32_0_3_20170119192340778.jpg",
+      "id": "061ddf2f8986edd2a5a2",
+      "image": "images/061ddf2f8986edd2a5a2.png",
+      "source_sha256": "f43a75c6adc822c1cca8314b5a5f92f621b5475d3c67de3ff72c19bf7095b315",
+      "png_sha256": "6af473f19b0cb9f985a3eb279c5931e012ce993b37f7f0152aeaed0b5bb9081a",
+      "size": [
+        280,
+        280
+      ],
+      "source_size": [
+        200,
+        200
+      ],
+      "padding_left_top": [
+        40,
+        40
+      ],
+      "race_annotation": "Indian",
+      "gallery": true,
+      "api_example": false,
+      "file": "061ddf2f8986edd2a5a2.png"
+    },
+    {
+      "age": 26,
+      "gender": 1,
+      "race": 3,
+      "dataset_type": "cropped",
+      "filename": "26_1_3_20170104222805519.jpg",
+      "id": "020dacfc15ed68b4f2a8",
+      "image": "images/020dacfc15ed68b4f2a8.png",
+      "source_sha256": "ea5a39b3fb20369ef51eb1eaf645e3485f6823132e5e9ebb2a62a5b48832d4c3",
+      "png_sha256": "8cb44d5102419f489bb1d80274ee4ea636f14d24e47391b9294faaeb99025d89",
+      "size": [
+        280,
+        280
+      ],
+      "source_size": [
+        200,
+        200
+      ],
+      "padding_left_top": [
+        40,
+        40
+      ],
+      "race_annotation": "Indian",
+      "gallery": true,
+      "api_example": false,
+      "file": "020dacfc15ed68b4f2a8.png"
+    },
+    {
+      "age": 51,
+      "gender": 0,
+      "race": 4,
+      "dataset_type": "cropped",
+      "filename": "51_0_4_20170104211801364.jpg",
+      "id": "02fa29fea00b05fdcd3b",
+      "image": "images/02fa29fea00b05fdcd3b.png",
+      "source_sha256": "f3ef2f2cee97f90e8cbaf9a665b80c352d8f09eb07b565146ceb2b56bb818798",
+      "png_sha256": "abdc15be80f304fe1f0b7a28ac0e2b2f881905c9f407ad8ebddd4dcf86777977",
+      "size": [
+        280,
+        280
+      ],
+      "source_size": [
+        200,
+        200
+      ],
+      "padding_left_top": [
+        40,
+        40
+      ],
+      "race_annotation": "Other",
+      "gallery": true,
+      "api_example": false,
+      "file": "02fa29fea00b05fdcd3b.png"
+    },
+    {
+      "age": 35,
+      "gender": 1,
+      "race": 4,
+      "dataset_type": "cropped",
+      "filename": "35_1_4_20170117201436958.jpg",
+      "id": "00b7430919f7f04f3c03",
+      "image": "images/00b7430919f7f04f3c03.png",
+      "source_sha256": "c12d5a3c407893d78e905aaef611f00644e5c9532ffaa1b02c8547d6079490a6",
+      "png_sha256": "8e94fbf117933d16d64a5f171c96e87c16c491e2607f3aa98e044f755b1baa0b",
+      "size": [
+        280,
+        280
+      ],
+      "source_size": [
+        200,
+        200
+      ],
+      "padding_left_top": [
+        40,
+        40
+      ],
+      "race_annotation": "Other",
+      "gallery": true,
+      "api_example": false,
+      "file": "00b7430919f7f04f3c03.png"
+    },
+    {
+      "age": 25,
+      "gender": 0,
+      "race": 0,
+      "dataset_type": "cropped",
+      "filename": "25_0_0_20170113210126947.jpg",
+      "id": "88769780098acd22bbc5",
+      "image": "images/88769780098acd22bbc5.png",
+      "source_sha256": "96ac2c5c03b557598478df408f5e35a5d1a24e94dff24b074f3e76956cd70912",
+      "png_sha256": "8e40cde78ed94df515e03f4b45ab6ffd615c0c1b89f675cc5519185e9f6b2e0b",
+      "size": [
+        280,
+        280
+      ],
+      "source_size": [
+        200,
+        200
+      ],
+      "padding_left_top": [
+        40,
+        40
+      ],
+      "race_annotation": "White",
+      "gallery": false,
+      "api_example": true,
+      "file": "88769780098acd22bbc5.png"
+    }
+  ]
+}

@@ -6,6 +6,13 @@
     <description>Experiments in AI and ECG, with methods, results and code.</description>
     <language>en</language>
     <item>
+      <title>Bias, Refusals and Language in Jev and GPT Decisions</title>
+      <link>https://fmenegui.com/blog/system-one-fairlens/</link>
+      <description>An exploratory audit of Jev and GPT Decisions on all 38 closed FairLens questions in English and Portuguese, with complete recorded responses and reproducible analyses.</description>
+      <guid isPermaLink="true">https://fmenegui.com/blog/system-one-fairlens/</guid>
+      <pubDate>Sat, 17 Oct 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>What Happens When Decision Models Read 21,799 ECG Images?</title>
       <link>https://fmenegui.com/blog/system-one-ptbxl/</link>
       <description>A follow-up to CODE Test: Jev and GPT Decisions on PTB-XL, with discrimination, calibration, sensitivity, specificity, precision and F1.</description>
