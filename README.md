@@ -6,7 +6,9 @@ Portuguese is served at `/`, English at `/en/`. Each project has a page in both 
 
 The editorial source is `portfolio/content.py`, with the bilingual PhysioNet 2024 story in `portfolio/challenge.py`. Update facts and translations there. Layout and styles are in `portfolio/build.py` and `portfolio/style.css`.
 
-The layout follows a personal research homepage: a white background, ordinary blue links, a candid portrait and locally hosted Merriweather and Source Sans. Color tokens are defined in `:root` in `portfolio/style.css`. Project thumbnails crop the original diagrams and app screenshots in CSS, leaving the source assets intact. The homepage presents the four research projects. At phone widths, the portrait stays visible and project descriptions use the full content width. Navigation, language switching, and downloads work without JavaScript. There are no decorative animations.
+The layout follows a personal research homepage with a graphite background, warm off-white text, muted green links, a candid portrait and locally hosted Merriweather and Source Sans. The four projects appear in bordered panels with circular crops of the original diagrams and screenshots. The layout becomes a single column on smaller screens.
+
+Dark is the default appearance. The sun/moon button offers a warm light theme and remembers the choice across pages and visits. `portfolio/theme-init.js` applies that choice before styles paint. The shared theme controls and search use `portfolio/site-ui.js`, with colors and responsive rules in `portfolio/style.css`. Scientific images retain their original colors and white backgrounds. Navigation, language links, downloads and the dark default work without JavaScript. Reduced-motion preferences are respected, and printing uses light colors.
 
 The builder adds content hashes to the stylesheet and PDF URLs so visitors receive revised styles and downloads after deployment. This does not require changing the publishing workflow.
 

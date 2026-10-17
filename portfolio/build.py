@@ -144,7 +144,7 @@ for lang in CONTENT:
  for kind in ['home','about',*PROJECTS]:page(lang,kind)
 (OUT/'cv').mkdir(exist_ok=True)
 (OUT/'cv/cv.html').write_text('<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=../about.html"><title>Felipe Dias</title><a href="../about.html">Sobre / About</a></html>')
-(OUT/'assets/favicon.svg').write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#fff"/><text x="11" y="44" font-family="Georgia,serif" font-size="35" fill="#244c9f">fd</text></svg>')
+(OUT/'assets/favicon.svg').write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#111614"/><text x="11" y="44" font-family="Georgia,serif" font-size="35" fill="#96d6b5">fd</text></svg>')
 (OUT/'.nojekyll').touch()
 (OUT/'CNAME').write_text('fmenegui.com\n')
 (OUT/'404.html').write_text('<!doctype html><html lang="pt-BR"><meta charset="utf-8"><title>Página não encontrada | Felipe Dias</title><h1>Página não encontrada / Page not found</h1><p><a href="/">Português</a> · <a href="/en/">English</a></p></html>')

@@ -10,6 +10,28 @@
   let lang=body.dataset.uiLocale || 'en';
   try { if(isBlog) lang=localStorage.getItem('site-language') || lang; } catch (_) {}
   if(!strings[lang]) lang='en';
+  const themeToggle=document.querySelector('[data-theme-toggle]');
+  const themeLabels={pt:{dark:'Ativar tema claro',light:'Ativar tema escuro'},en:{dark:'Switch to light theme',light:'Switch to dark theme'}};
+  function updateThemeControl() {
+    const theme=document.documentElement.dataset.theme;
+    const label=themeLabels[lang][theme];
+    themeToggle.setAttribute('aria-label',label);
+    themeToggle.title=label;
+    themeToggle.hidden=false;
+  }
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme=theme;
+    document.querySelector('meta[name="theme-color"]').content=theme==='dark'?'#111614':'#f6f4ef';
+    updateThemeControl();
+  }
+  themeToggle.addEventListener('click',()=>{
+    const next=document.documentElement.dataset.theme==='dark'?'light':'dark';
+    applyTheme(next);
+    try{localStorage.setItem('site-theme',next);}catch(_){}
+  });
+  window.addEventListener('storage',event=>{
+    if(event.key==='site-theme')applyTheme(event.newValue==='light'?'light':'dark');
+  });
   const dialog=document.querySelector('#site-search');
   const input=document.querySelector('#search-query');
   const results=document.querySelector('#search-results');
@@ -21,6 +43,7 @@
   const normalize=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase();
   function localize() {
     const t=strings[lang];
+    updateThemeControl();
     dialog.lang=lang;
     document.querySelector('.footer').lang=lang;
     document.querySelector('.skip').lang=lang;

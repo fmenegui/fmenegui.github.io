@@ -23,7 +23,9 @@ def header(lang, relative):
     links += '<a href="/blog/"'+(' aria-current="page"' if blog else '')+'>Blog</a>'
     rel = 'index.html' if relative=='404.html' else relative.removeprefix('en/')
     switch = ''.join(f'<a lang="{locale}" '+(f'data-ui-language="{code}" href="#" aria-label="'+('Navegação em português' if code=='pt' else 'Navigation in English')+'"' if blog else f'hreflang="{locale}" href="{prefix2}{rel}"')+(' aria-current="true"' if code==lang else '')+f'>{code.upper()}</a>' for code,locale,prefix2 in [('pt','pt-BR','/'),('en','en','/en/')])
-    return f'<a class="skip" href="#main" data-i18n="skip">'+('Pular para o conteúdo' if lang=='pt' else 'Skip to content')+f'</a><header class="header" lang="{lang}"><div class="wrap"><a class="brand" data-home href="{prefix}" aria-label="Felipe Meneguitti Dias">fmenegui</a><nav class="nav" aria-label="'+('Principal' if lang=='pt' else 'Main')+f'">{links}<button class="search-toggle" type="button" data-search-open data-i18n="search">{labels[4]}</button></nav><span class="lang">{switch}</span></div></header>'
+    theme_label = 'Ativar tema claro' if lang == 'pt' else 'Switch to light theme'
+    theme = f'''<button class="theme-toggle" type="button" data-theme-toggle hidden aria-label="{theme_label}" title="{theme_label}"><svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.8"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4L19 5"/></svg><svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 14.1A8.5 8.5 0 0 1 9.9 3.8a8.5 8.5 0 1 0 10.3 10.3Z"/></svg></button>'''
+    return f'<a class="skip" href="#main" data-i18n="skip">'+('Pular para o conteúdo' if lang=='pt' else 'Skip to content')+f'</a><header class="header" lang="{lang}"><div class="wrap"><a class="brand" data-home href="{prefix}" aria-label="Felipe Meneguitti Dias">fmenegui</a><nav class="nav" aria-label="'+('Principal' if lang=='pt' else 'Main')+f'">{links}<button class="search-toggle" type="button" data-search-open data-i18n="search">{labels[4]}</button></nav><span class="header-tools">{theme}<span class="lang">{switch}</span></span></div></header>'
 
 def footer(lang):
     return '<footer class="footer"><div class="wrap"><span>Felipe Meneguitti Dias</span><span><a href="/blog/index.xml">RSS</a> · <a href="#main" data-i18n="top">'+('Voltar ao início' if lang=='pt' else 'Back to top')+'</a></span></div></footer>'
@@ -48,6 +50,9 @@ def enhance(output):
     js = (ROOT/'portfolio/site-ui.js').read_bytes()
     jsname = 'site-ui-'+sha256(js).hexdigest()[:12]+'.js'
     (output/'assets'/jsname).write_bytes(js)
+    theme_js = (ROOT/'portfolio/theme-init.js').read_bytes()
+    theme_name = 'theme-init-'+sha256(theme_js).hexdigest()[:12]+'.js'
+    (output/'assets'/theme_name).write_bytes(theme_js)
     paths = [p for p in output.rglob('*.html') if not any(s in p.parts for s in ['site_libs','learning'])]
     for path in paths:
         rel=path.relative_to(output).as_posix()
@@ -116,6 +121,10 @@ def enhance(output):
                 previews=cards(posts[:3],lang).replace('<h2>','<h3>').replace('</h2>','</h3>')
                 feature=f'<section class="section blog-feature" id="blog"><div class="section-head"><h2>{title}</h2></div><p>{intro}</p>{previews}<p><a href="/blog/">'+('Ver todos os posts' if lang=='pt' else 'All posts')+'</a></p></section>'
                 raw=re.sub(r'<section class="section blog-feature".*?</section>',lambda m:feature,raw,count=1,flags=re.S)
+        raw=re.sub(r'<html\b', '<html data-theme="dark"', raw, count=1)
+        theme_head=f'<meta name="color-scheme" content="dark light"><meta name="theme-color" content="#111614"><script src="/assets/{theme_name}"></script>'
+        # This small initializer must precede styles to avoid a light flash.
+        raw=re.sub(r'(<head\b[^>]*>)', lambda m:m[0]+theme_head, raw, count=1)
         raw=raw.replace('<body ',f'<body data-ui-locale="{lang}" ',1)
         if '<body>' in raw: raw=raw.replace('<body>',f'<body data-ui-locale="{lang}">',1)
         raw=raw.replace('</body>',search_dialog(lang)+f'<script src="/assets/{jsname}" defer></script></body>')
