@@ -3,6 +3,7 @@
 import argparse
 from html.parser import HTMLParser
 import json
+import re
 from pathlib import Path
 from urllib.parse import unquote, urljoin, urlsplit
 import xml.etree.ElementTree as ET
@@ -42,6 +43,21 @@ class Resources(HTMLParser):
         if tag == "script" and self.schema is not None:
             self.schemas.append(json.loads("".join(self.schema)))
             self.schema = None
+
+
+def check_visible_references(main, relative):
+    reference_level = None
+    for node in main.iter():
+        if node.tag in {'h2', 'h3', 'h4', 'h5', 'h6'}:
+            level = int(node.tag[1])
+            if reference_level is not None and level <= reference_level:
+                reference_level = None
+            if re.search(r'\b(?:references|bibliography|referências|bibliografia)\b',
+                         ' '.join(node.itertext()), re.I):
+                reference_level = level
+        if reference_level is not None:
+            blockers = node.xpath('ancestor-or-self::details | ancestor-or-self::*[@hidden or contains(concat(" ", normalize-space(@class), " "), " collapse ")]')
+            assert not blockers, f'References must remain visible outside toggles: {relative}'
 
 
 def check(output):
@@ -131,6 +147,7 @@ def check(output):
         assert (output / index_path.lstrip('/')).is_file(), index_path
         if page.article:
             main = dom.xpath('//main')[0]
+            check_visible_references(main, page.relative)
             citations = main.xpath('./section[@id="cite-this-post"]')
             assert len(citations) == 1, f"Missing or duplicated citation: {page.relative}"
             bibtex = citations[0].xpath('.//code[@id="post-bibtex"]')[0].text_content()

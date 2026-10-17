@@ -152,7 +152,7 @@ The [complete CSV](data/fairlens-responses.csv.gz) contains **228,760 rows and 1
 The [schema](data/csv-schema.json) defines every field. The appendix below explains the protocol and limitations. Analysis code is not distributed.
 
 <details class="technical-appendix" id="technical-appendix">
-<summary>Technical appendix: methods, complete tables, API examples and references</summary>
+<summary>Technical appendix: methods, complete tables and API examples</summary>
 
 ### A1. Scope and image preparation
 
@@ -411,7 +411,7 @@ Blank scores indicate an unavailable or unoffered value. Refusals have no invent
 
 Internal verification reproduced the bilingual statistics and all 36 original metric reports. The public CSV retains the recorded inputs and outputs for independent analysis. Analysis scripts are not distributed. A future hosted API response may differ even for an identical request.
 
-### A8. Original Twitter inputs and references
+### A8. Original Twitter inputs {#a8-original-twitter-inputs-and-references}
 
 <div class="original-inputs">
 <a href="assets/arcieri-original-1.jpg"><img src="assets/arcieri-original-1.jpg" alt="Original Arcieri upload with Mitch McConnell above Barack Obama."></a>
@@ -420,6 +420,10 @@ Internal verification reproduced the bilingual statistics and all 36 original me
 
 *Figure A1.* The unmodified original files attached to Arcieri's post. Click either for its full size. Philipson's original image was not recovered. Historical file URLs and hashes are retained in [image provenance](assets/provenance.json). [1–3]
 
+
+</details>
+
+## References
 
 1. Tony Arcieri. [Original Obama/McConnell experiment](https://x.com/bascule/status/1307440596668182528). Twitter, 19 September 2020.
 2. Matt Wille. [Is Twitter's image-cropping algorithm racially biased?](https://www.inverse.com/input/culture/is-twitters-image-cropping-algorithm-racially-biased). *Input*, 21 September 2020. Source of the historical preview screenshot.
@@ -433,5 +437,5 @@ Internal verification reproduced the bilingual statistics and all 36 original me
 10. [UTKFace original dataset](https://susanqq.github.io/UTKFace/) and [pinned mirror used in this experiment](https://huggingface.co/datasets/py97/UTKFace-Cropped/tree/e80f21fb21fa3631380c3cb634b79be3ac2f4cba).
 
 
-</details>
+
 

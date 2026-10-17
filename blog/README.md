@@ -10,6 +10,11 @@ the file or select the text without JavaScript. Navigation language controls
 also translate the citation controls. `scripts/check_site.py` verifies that
 every published post has one matching export.
 
+References and the "Cite this post" section must always stay visible. Keep
+reference headings and lists outside technical appendix toggles, collapsed
+callouts and hidden containers. `scripts/check_site.py` blocks publication
+when a reference section is placed in one of those containers.
+
 Both ECG articles use `ecg_figures.py`, adapted from the CODE Test journal
 figure implementation. The renderer shares fonts, palette, panel spacing,
 empirical ROC steps, PCHIP calibration, log-count histograms and interval
