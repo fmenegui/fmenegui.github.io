@@ -131,6 +131,15 @@ def check(output):
         assert (output / index_path.lstrip('/')).is_file(), index_path
         if page.article:
             main = dom.xpath('//main')[0]
+            citations = main.xpath('./details[@id="cite-this-post"]')
+            assert len(citations) == 1, f"Missing or duplicated citation: {page.relative}"
+            bibtex = citations[0].xpath('.//code[@id="post-bibtex"]')[0].text_content()
+            assert bibtex.startswith('@misc{'), page.relative
+            assert f'url = {{{page.url}}}' in bibtex, page.relative
+            assert f'Published on {page.doc.meta["dcterms.date"][:10]}' in bibtex, page.relative
+            assert page.path.with_name('citation.bib').read_text() == bibtex, page.relative
+            assert citations[0].xpath('.//button[@data-copy-citation="post-bibtex"]'), page.relative
+            assert citations[0].xpath('.//a[@href="citation.bib"][@download]'), page.relative
             assert main.get('lang') == 'en'
             assert dom.xpath('//*[@data-ui-language="pt"]')
             assert all(img.xpath('ancestor::a[@href]') for img in main.xpath('.//img[@src]'))
@@ -168,3 +177,4 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=ROOT / "_site")
     check(parser.parse_args().output.resolve())
+

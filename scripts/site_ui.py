@@ -7,6 +7,7 @@ from pathlib import Path
 import re
 from lxml import html as H
 from site_seo import Document
+from site_citations import add_citation
 
 ROOT = Path(__file__).resolve().parents[1]
 LABELS = {
@@ -85,6 +86,7 @@ def enhance(output):
                     table.addprevious(wrap);wrap.append(table)
                 after=Document(H.tostring(main,encoding='unicode'))
                 assert before==after.text(after.main_parts), f'Article text changed: {rel}'
+                add_citation(root, main, path, rel)
             else:
                 main=H.fragment_fromstring('<main id="main" class="blog-main blog-index" tabindex="-1"><header class="detail-top"><h1>Blog</h1><p data-i18n="blog-intro">Experiments in AI and ECG, with methods, results and code.</p></header><label for="blog-query" data-i18n="filter">Search within articles</label><input type="search" id="blog-query" autocomplete="off"><p id="blog-status" role="status" aria-live="polite"></p><div id="blog-posts">'+cards(posts,lang)+'</div><p><a href="/blog/index.xml">RSS</a></p></main>')
             for child in list(body): body.remove(child)
@@ -130,3 +132,4 @@ def enhance(output):
         raw=raw.replace('</body>',search_dialog(lang)+f'<script src="/assets/{jsname}" defer></script></body>')
         path.write_text(raw)
     print('Shared navigation, article layout, recent posts and search controls built')
+

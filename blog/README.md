@@ -1,5 +1,15 @@
 # ECG blog figures and examples
 
+Every dated blog post receives a collapsible "Cite this post" section during
+the shared site build. `scripts/site_citations.py` reads its rendered title,
+author metadata and original publication date, then writes a matching
+`citation.bib` beside the page using the canonical public URL. New posts get
+this automatically. The export uses `@misc` and identifies the item as a blog
+post. Titles retain acronym capitalization. Readers can copy BibTeX, download
+the file or select the text without JavaScript. Navigation language controls
+also translate the citation controls. `scripts/check_site.py` verifies that
+every published post has one matching export.
+
 Both ECG articles use `ecg_figures.py`, adapted from the CODE Test journal
 figure implementation. The renderer shares fonts, palette, panel spacing,
 empirical ROC steps, PCHIP calibration, log-count histograms and interval
@@ -44,3 +54,4 @@ Publishing does not depend on downloading examples from external datasets.
 The JSON `answers` objects preserve the stored model fields. They are not
 complete HTTP response payloads. Benchmark labels are separate evaluation
 metadata and were never included in the classification requests.
+
