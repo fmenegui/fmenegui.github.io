@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Package the saved FairLens results for offline reproduction. No API calls."""
+"""Prepare the verified public FairLens CSV. No analysis code is distributed."""
 from hashlib import sha256
 import json
 from pathlib import Path
-import zipfile
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -25,30 +24,11 @@ def build():
             assert sha256(raw).hexdigest() == part["sha256"]
             destination.write(raw)
     assert sha256(csv_path.read_bytes()).hexdigest() == EXPECTED_CSV
-    paths = sorted(
-        path for path in POST.rglob("*")
-        if path.is_file()
-        and path != ARCHIVE
-        and path.name != "checksums.json"
-        and "__pycache__" not in path.parts
-    )
-    checksums = {
-        path.relative_to(POST).as_posix(): sha256(path.read_bytes()).hexdigest()
-        for path in paths
-    }
-    checksum_path = POST / "checksums.json"
-    checksum_path.write_text(json.dumps(checksums, indent=2) + "\n")
-    with zipfile.ZipFile(ARCHIVE, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
-        for path in paths + [checksum_path]:
-            entry = zipfile.ZipInfo(path.relative_to(POST).as_posix(), (2026, 10, 17, 0, 0, 0))
-            entry.compress_type = zipfile.ZIP_STORED if path.suffix == ".gz" else zipfile.ZIP_DEFLATED
-            entry.external_attr = 0o644 << 16
-            archive.writestr(entry, path.read_bytes(), compresslevel=9)
-    with zipfile.ZipFile(ARCHIVE) as archive:
-        assert archive.testzip() is None
-        assert json.loads(archive.read("checksums.json")) == checksums
-    print(json.dumps({"download_files": len(checksums), "archive_bytes": ARCHIVE.stat().st_size,
+    ARCHIVE.unlink(missing_ok=True)
+    (POST / "checksums.json").unlink(missing_ok=True)
+    print(json.dumps({"csv_bytes": csv_path.stat().st_size,
                       "csv_sha256": EXPECTED_CSV, "model_calls": 0}))
+
 
 
 if __name__ == "__main__":

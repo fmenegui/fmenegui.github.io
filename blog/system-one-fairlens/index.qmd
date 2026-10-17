@@ -1,7 +1,7 @@
 ---
 title: "Bias, Refusals and Language in Jev and GPT Decisions"
 pagetitle: "Jev and GPT Decisions on FairLens: Bias, Refusals and Language"
-description: "An exploratory audit of Jev and GPT Decisions on all 38 closed FairLens questions in English and Portuguese, with complete recorded responses and reproducible analyses."
+description: "An exploratory audit of Jev and GPT Decisions on all 38 closed FairLens questions in English and Portuguese, with complete recorded responses and detailed methods."
 date: 2026-10-17
 author: "Felipe Meneguitti Dias"
 categories: [AI, Fairness, Experiments]
@@ -14,7 +14,6 @@ format:
 resources:
   - assets/**
   - data/**
-  - reproducibility/README.md
 ---
 
 Bias in AI matters because an automated decision can affect how someone is seen or treated. A photo preview is a small example. A recommendation about a job candidate, or a label suggesting criminality, carries much higher stakes.
@@ -150,7 +149,7 @@ I would describe this as an exploratory audit of these interfaces on one benchma
 
 The [complete CSV](data/fairlens-responses.csv.gz) contains **228,760 rows and 104 columns**, with separate adjacent rows for Jev and GPT. It includes image IDs and hashes, prompts, reconstructed requests, complete recorded responses, predictions and unpacked option scores. It contains no image bytes or credentials.
 
-The [schema](data/csv-schema.json) defines every field. The [complete reproducibility bundle](data/fairlens-reproducibility.zip) includes all questions, saved statistics and offline analysis code. The appendix below explains the protocol, limitations and exact reproduction steps.
+The [schema](data/csv-schema.json) defines every field. The appendix below explains the protocol and limitations. Analysis code is not distributed.
 
 <details class="technical-appendix" id="technical-appendix">
 <summary>Technical appendix: methods, complete tables, API examples and references</summary>
@@ -402,22 +401,15 @@ Endpoint: `POST https://api.openai.com/v1/decisions`
 Both select **Cannot tell**. Jev returns **0.17** for Criminal and GPT returns **0.00**. The complete input PNG SHA-256 is `8e40cde78ed94df515e03f4b45ab6ffd615c0c1b89f675cc5519185e9f6b2e0b`.
 
 
-Requests are reconstructed from the executed adapter and manifest, not separately captured wire logs. Response bodies are recorded outputs. Image placeholders are bound to the exact PNG hash and can be replaced locally with matching bytes. The companion bundle contains only the eleven illustrated face inputs. The CSV contains no image bytes or credentials.
+Requests are reconstructed from the executed adapter and manifest, not separately captured wire logs. Response bodies are recorded outputs. Image placeholders are bound to the exact PNG hash and can be replaced locally with matching bytes. The CSV contains no image bytes or credentials.
 
-### A7. Reproduce the saved analyses
+### A7. Recorded data
 
 The [complete CSV](data/fairlens-responses.csv.gz) is UTF-8 comma-separated data compressed with gzip. Quoted cells preserve JSON and newlines. One row represents one image, question, language and model. The [two-row sample](data/example-two-models.csv) contains the real example above. The [schema](data/csv-schema.json) defines all 104 fields, including original and padded input hashes, full prompts, reconstructed requests, complete saved responses, labels, native and canonical vectors, 35 option-score columns and cohort metadata.
 
 Blank scores indicate an unavailable or unoffered value. Refusals have no invented score vector. `benchmark_expected_answer` is a logical target, not ground truth about the person's criminality, health or competence.
 
-Extract the companion bundle and run:
-
-```bash
-python reproducibility/verify_blog_csv.py --bundle .
-python reproducibility/reproduce_from_csv.py --bundle . --out /tmp/fairlens-reanalysis
-```
-
-The offline reproduction checked the bilingual statistics and all 36 original metric reports. The [reproduction guide](reproducibility/README.md) specifies dependencies, tolerances, request reconstruction and example preparation. The calculations can be reproduced from saved data without model calls. A future hosted API response may differ even for an identical request.
+Internal verification reproduced the bilingual statistics and all 36 original metric reports. The public CSV retains the recorded inputs and outputs for independent analysis. Analysis scripts are not distributed. A future hosted API response may differ even for an identical request.
 
 ### A8. Original Twitter inputs and references
 
