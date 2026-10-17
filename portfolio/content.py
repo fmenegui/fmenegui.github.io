@@ -73,7 +73,7 @@ CONTENT = {'pt': {'locale': 'pt-BR',
         'nav': ['Projetos', 'Currículo', 'Publicações', 'Contato'],
         'role': 'Engenharia de IA · Pesquisa aplicada',
         'headline': 'Engenharia de IA aplicada à saúde',
-        'intro': 'Sou especialista sênior de P&D na Samsung e doutor pela USP. Trabalho com '
+        'intro': 'Sou especialista sênior de P&D na Samsung e doutor em Engenharia Biomédica pela USP. Trabalho com '
                  'inteligência artificial aplicada à saúde, processamento de sinais e validação de '
                  'modelos, do desenvolvimento à implantação.',
         'bio': 'No InCor, pesquisei a classificação de ECGs por imagem e liderei a implantação do '
@@ -313,7 +313,7 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                    'skip': 'Ir para o conteúdo',
                    'how': 'Como funciona'},
         'professional_title': 'Engenharia de IA aplicada à saúde',
-        'cv_summary': 'Sou engenheiro eletrônico, doutor pela USP e especialista sênior de P&D '
+        'cv_summary': 'Sou engenheiro eletrônico, doutor em Engenharia Biomédica pela USP e especialista sênior de P&D '
                       'na Samsung, em Campinas.\n'
                       '\n'
                       'Antes de entrar na Samsung, trabalhei no InCor com sinais biomédicos e '
@@ -359,7 +359,7 @@ CONTENT = {'pt': {'locale': 'pt-BR',
         'nav': ['Projects', 'CV', 'Publications', 'Contact'],
         'role': 'AI engineering · Applied research',
         'headline': 'AI engineering for healthcare',
-        'intro': 'I am a Senior R&D Specialist at Samsung with a PhD from the University of São '
+        'intro': 'I am a Senior R&D Specialist at Samsung with a PhD in Biomedical Engineering from the University of São '
                  'Paulo. My work spans healthcare AI, signal processing and model validation, from '
                  'development to deployment.',
         'bio': 'At InCor, I studied ECG image classification and led the deployment of Gorgona at '
@@ -591,7 +591,7 @@ CONTENT = {'pt': {'locale': 'pt-BR',
                    'skip': 'Skip to content',
                    'how': 'How it works'},
         'professional_title': 'AI engineering for healthcare',
-        'cv_summary': "I'm an electronics engineer with a PhD from the University of São Paulo. I "
+        'cv_summary': "I'm an electronics engineer with a PhD in Biomedical Engineering from the University of São Paulo. I "
                       'work as a Senior R&D Specialist at Samsung in Campinas, Brazil.\n'
                       '\n'
                       'Before joining Samsung, I worked on biomedical signals and healthcare AI '
