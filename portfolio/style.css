@@ -462,7 +462,7 @@ body.blog-page { padding-top: 0 !important; }
 .blog-main details { margin-block: 18px; }
 .blog-main summary { cursor: pointer; padding-block: 10px; }
 .blog-main .post-citation { margin-top: 40px; padding-top: 12px; border-top: 1px solid var(--line); }
-.post-citation summary { color: var(--ink); font-weight: 600; }
+.blog-main .post-citation h2 { margin: 0 0 16px; font-size: 22px; }
 .blog-main .post-citation pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 .citation-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-block: 16px; }
 .citation-actions button { padding: 8px 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--soft); color: var(--accent); }

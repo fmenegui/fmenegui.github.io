@@ -43,11 +43,11 @@ def add_citation(root, main, path, relative):
     ) + "\n}\n"
     path.with_name("citation.bib").write_text(bibtex, encoding="utf-8")
     # Replace our own block when rebuilding an already enhanced page.
-    for old in main.xpath('./details[@id="cite-this-post"]'):
+    for old in main.xpath('./*[@id="cite-this-post"]'):
         old.drop_tree()
     main.append(H.fragment_fromstring(f'''
-<details class="post-citation" id="cite-this-post">
-  <summary data-i18n="cite-post">Cite this post</summary>
+<section class="post-citation" id="cite-this-post" aria-labelledby="cite-post-heading">
+  <h2 id="cite-post-heading" data-i18n="cite-post">Cite this post</h2>
   <p data-i18n="citation-help">Copy this entry into your .bib file.</p>
   <pre tabindex="0" aria-label="BibTeX"><code id="post-bibtex">{escape(bibtex)}</code></pre>
   <div class="citation-actions">
@@ -56,7 +56,7 @@ def add_citation(root, main, path, relative):
   </div>
   <p class="citation-usage"><span data-i18n="cite-latex">In LaTeX, use</span> <code>\\cite{{{key}}}</code>.</p>
   <p class="citation-status" data-citation-status role="status" aria-live="polite"></p>
-</details>'''))
+</section>'''))
     head = root.find("head")
     for old in head.xpath('./link[@type="application/x-bibtex"]'):
         old.drop_tree()

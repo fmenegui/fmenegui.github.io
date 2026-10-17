@@ -1,7 +1,7 @@
 # ECG blog figures and examples
 
-Every dated blog post receives a collapsible "Cite this post" section during
-the shared site build. `scripts/site_citations.py` reads its rendered title,
+Every dated blog post receives a "Cite this post" section that stays visible
+after the shared site build. `scripts/site_citations.py` reads its rendered title,
 author metadata and original publication date, then writes a matching
 `citation.bib` beside the page using the canonical public URL. New posts get
 this automatically. The export uses `@misc` and identifies the item as a blog

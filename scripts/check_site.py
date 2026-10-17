@@ -131,7 +131,7 @@ def check(output):
         assert (output / index_path.lstrip('/')).is_file(), index_path
         if page.article:
             main = dom.xpath('//main')[0]
-            citations = main.xpath('./details[@id="cite-this-post"]')
+            citations = main.xpath('./section[@id="cite-this-post"]')
             assert len(citations) == 1, f"Missing or duplicated citation: {page.relative}"
             bibtex = citations[0].xpath('.//code[@id="post-bibtex"]')[0].text_content()
             assert bibtex.startswith('@misc{'), page.relative
