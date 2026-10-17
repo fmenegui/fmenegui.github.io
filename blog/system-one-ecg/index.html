@@ -125,7 +125,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- site-discovery:end -->
 </head>
 
-<body data-search-index="/assets/search-e6faabcf0567.json" data-ui-locale="en" class="blog-page" data-blog-ui="true">
+<body data-search-index="/assets/search-ae61869a0fa8.json" data-ui-locale="en" class="blog-page" data-blog-ui="true">
 
 <a class="skip" href="#main" data-i18n="skip">Skip to content</a><header class="header" lang="en"><div class="wrap"><a class="brand" data-home href="/en/" aria-label="Felipe Meneguitti Dias">fmenegui</a><nav class="nav" aria-label="Main"><a data-nav="0" href="/en/#projects">Projects</a><a data-nav="1" href="/en/about.html">CV</a><a data-nav="2" href="/en/about.html#publications">Publications</a><a data-nav="3" href="/en/#contact">Contact</a><a href="/blog/" aria-current="page">Blog</a><button class="search-toggle" type="button" data-search-open data-i18n="search">Search</button></nav><span class="header-tools"><button class="theme-toggle" type="button" data-theme-toggle hidden aria-label="Switch to light theme" title="Switch to light theme"><svg class="theme-sun" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.8"></circle><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4L19 5"></path></svg><svg class="theme-moon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 14.1A8.5 8.5 0 0 1 9.9 3.8a8.5 8.5 0 1 0 10.3 10.3Z"></path></svg></button><span class="lang"><a lang="pt-BR" data-ui-language="pt" href="#" aria-label="Navegação em português">PT</a><a lang="en" data-ui-language="en" href="#" aria-label="Navigation in English" aria-current="true">EN</a></span></span></div></header><p class="wrap article-language" data-i18n="article-language">Article in English · PT / EN changes navigation only.</p><div class="blog-layout wrap"><main class="blog-main content" id="main" tabindex="-1" lang="en">
 
@@ -172,7 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>I wanted to try something simple: <strong>what happens when we show an ECG to an AI model that was not built specifically for ECG interpretation?</strong></p>
 <p>There are already good models trained on ECG signals. Here, I was curious about two newer systems that take an image and return a structured decision. Would they recognize common ECG findings? And when they say YES or NO, how meaningful are their probabilities?</p>
-<p>This is an exploratory experiment, not a clinical diagnostic tool. The experimental inputs and analysis scripts are retained in private research repositories.</p>
+<p>This is an exploratory experiment, not a clinical diagnostic tool.</p>
 <section id="the-models" class="level2">
 <h2 class="anchored" data-anchor-id="the-models">The models</h2>
 <p>I tested <strong><a href="https://www.typesafe.ai/">Jev 1.14.0</a></strong> and <strong>GPT-6 Luna Decisions</strong>, accessed through <a href="https://platform.openai.com/docs/">OpenAI’s Decisions API</a>.</p>
@@ -182,7 +182,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-ecgs" class="level2">
 <h2 class="anchored" data-anchor-id="the-ecgs">The ECGs</h2>
 <p>I used <strong>827 exams from the CODE Test dataset</strong>. The original recordings are digital signals, but the models only saw images of twelve-lead ECGs.</p>
-<p>The images were created using <a href="https://github.com/dy1901/ecg-plot">ecg-plot</a>, in the same Sangha-style layout used in an earlier ECG image study. The rendered images and labels are retained as research materials.</p>
+<p>The images were created using <a href="https://github.com/dy1901/ecg-plot">ecg-plot</a>, in the same Sangha-style layout used in an earlier ECG image study. The rendered images and reference labels are available in the <a href="https://github.com/fmenegui/sangha-code-test-reproduce">public CODE Test repository</a>.</p>
 <p>We evaluated six findings:</p>
 <div class="table-scroll" tabindex="0" role="region" aria-label="Table, scroll horizontally if needed"><table class="caption-top table">
 <thead>
@@ -702,7 +702,6 @@ NO:  {condition} is absent</code></pre>
 <h2 class="anchored" data-anchor-id="final-thoughts">Final thoughts</h2>
 <p>Both models could read an ECG image and return structured answers. That alone is interesting, but it does not mean they can interpret ECGs reliably.</p>
 <p>GPT Decisions generally performed better in this experiment, while Jev showed strong discrimination for LBBB. More importantly, the experiment reminded me that <strong>making a decision, ranking cases correctly, and assigning useful probabilities are different abilities</strong>.</p>
-<p>The inference code, figure-generation scripts and rendered CODE Test images are retained privately for reproducibility.</p>
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
@@ -712,8 +711,7 @@ NO:  {condition} is absent</code></pre>
 <li>Wagner P, Strodthoff N, Bousseljot RD, et al. (2020). <a href="https://doi.org/10.1038/s41597-020-0495-6">PTB-XL, a large publicly available electrocardiography dataset</a>. <em>Scientific Data</em>, 7, 154. Reference for the proposed larger evaluation.</li>
 <li><a href="https://moody-challenge.physionet.org/2024/">George B. Moody PhysioNet Challenge 2024</a>. ECG image digitization and classification challenge.</li>
 <li><a href="https://github.com/dy1901/ecg-plot">ecg-plot</a>. Library used to render ECG signals as images.</li>
-<li>CODE Test rendered ECG images and labels (private research materials).</li>
-<li>Jev and GPT Decisions experiment code (private research materials).</li>
+<li><a href="https://github.com/fmenegui/sangha-code-test-reproduce">CODE Test rendered ECG images and reference labels</a>. Public repository with the Sangha-style renderings.</li>
 <li><a href="https://www.typesafe.ai/">TypeSafe AI</a> and <a href="https://platform.openai.com/docs/">OpenAI API documentation</a>. Model and API references.</li>
 </ol>
 
