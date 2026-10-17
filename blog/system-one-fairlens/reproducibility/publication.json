@@ -1,0 +1,10 @@
+{
+  "status": "public blog supplement",
+  "publication_date": "2026-10-17",
+  "article_url": "https://fmenegui.com/blog/system-one-fairlens/",
+  "source_csv_sha256": "595db4c2563eac7f2f75df059dbe0c6a2111a235dccf8884b3641984988baf94",
+  "source_csv_unchanged": true,
+  "new_model_calls": 0,
+  "historical_validation": "validation.json",
+  "translation_review": "independent human review pending"
+}

@@ -5,3 +5,6 @@ ideas/
 .quarto/
 __pycache__/
 portfolio/print/
+blog/system-one-fairlens/data/fairlens-reproducibility.zip
+blog/system-one-fairlens/checksums.json
+blog/system-one-fairlens/data/fairlens-responses.csv.gz

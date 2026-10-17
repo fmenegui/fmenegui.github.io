@@ -39,6 +39,9 @@ jobs:
       - name: Verify pinned ECG images and matching JSON outputs
         run: python blog/build_ecg_examples.py
 
+      - name: Package the FairLens data and offline reproduction code
+        run: python scripts/build_fairlens_downloads.py
+
       - name: Render site
         run: quarto render
 

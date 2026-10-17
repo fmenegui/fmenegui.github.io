@@ -1,0 +1,49 @@
+{
+  "format": "Concatenate listed byte ranges, in order, to recover the original gzip CSV. The website build exposes a single verified CSV download.",
+  "size_bytes": 60272317,
+  "sha256": "595db4c2563eac7f2f75df059dbe0c6a2111a235dccf8884b3641984988baf94",
+  "parts": [
+    {
+      "filename": "part-000",
+      "size_bytes": 9000000,
+      "sha256": "415401f430b0cf33e92f2bb4005ca9bbec3d2dca61dce28c79b7232f8a342c04",
+      "git_blob_sha": "7ee7693e2e3ffb3f959c5613371298bff9f66042"
+    },
+    {
+      "filename": "part-001",
+      "size_bytes": 9000000,
+      "sha256": "595bdbb4db2f395bf90ced4996ff295a8e0d7defc99e02eb12cfae567434a9f5",
+      "git_blob_sha": "cb06dfd3178afc75b8ad6c720c03ee26dec6c2f7"
+    },
+    {
+      "filename": "part-002",
+      "size_bytes": 9000000,
+      "sha256": "274060f4ffb8024feeeedb419c25291d49f5a053fcd11c2150211956ced3db9f",
+      "git_blob_sha": "46014c7af5a6956a9b63d80939ef23988a0dc3a3"
+    },
+    {
+      "filename": "part-003",
+      "size_bytes": 9000000,
+      "sha256": "c517d98aa1f390840224ee1aca7bbbcc7953de5e7d39acb5336e0633cfd78ef2",
+      "git_blob_sha": "17ded80700d71e3df1fe4938df2da7a417ce3640"
+    },
+    {
+      "filename": "part-004",
+      "size_bytes": 9000000,
+      "sha256": "bfc8662a6adff2a58416afdb65882cdc48ebe202cf4b0e85f324c07953232949",
+      "git_blob_sha": "722ca9a97d464360dc824f8d932eaddfb26bdd20"
+    },
+    {
+      "filename": "part-005",
+      "size_bytes": 9000000,
+      "sha256": "d533d22c355a62ac191d880c8ba36f26f65d9a031c7dd0eaa74bef6923851a44",
+      "git_blob_sha": "c0527cb260ed903512dad735fcd0d2e6ac0aeeaa"
+    },
+    {
+      "filename": "part-006",
+      "size_bytes": 6272317,
+      "sha256": "a462b4732a79efd087e5aff4b105e70ff5641eac0fb1311979babde3bc299ddd",
+      "git_blob_sha": "1144572a1ca17424b98a59c7fed4164420224e30"
+    }
+  ]
+}
