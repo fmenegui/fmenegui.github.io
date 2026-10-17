@@ -7,6 +7,24 @@
     pt: {contents:'Neste artigo','article-language':'Artigo em inglês · PT / EN altera o idioma da navegação.',search:'Buscar',skip:'Pular para o conteúdo',top:'Voltar ao início',query:'Buscar no site inteiro',english:'Em inglês',filter:'Buscar no texto dos artigos', 'blog-intro':'Experimentos em IA e ECG, com métodos, resultados e código.',empty:'Nenhum resultado. Tente outro termo.',loading:'Carregando busca…',error:'Não foi possível carregar a busca. Tente novamente.',prompt:'Digite um termo para buscar.',close:'Fechar busca',count:n=>`${n} resultado${n===1?'':'s'}`, nav:['Projetos','Currículo','Publicações','Contato']},
     en: {contents:'On this page','article-language':'Article in English · PT / EN changes navigation only.',search:'Search',skip:'Skip to content',top:'Back to top',query:'Search the entire site',english:'In English',filter:'Search within article text','blog-intro':'Experiments in AI and ECG, with methods, results and code.',empty:'No results. Try another term.',loading:'Loading search…',error:'Search could not load. Please try again.',prompt:'Enter a search term.',close:'Close search',count:n=>`${n} result${n===1?'':'s'}`,nav:['Projects','CV','Publications','Contact']}
   };
+  Object.assign(strings.pt, {
+    'cite-post': 'Citar este post',
+    'citation-help': 'Copie esta referência para seu arquivo .bib.',
+    'copy-bibtex': 'Copiar BibTeX',
+    'download-bibtex': 'Baixar .bib',
+    'cite-latex': 'No LaTeX, use',
+    'citation-copied': 'BibTeX copiado.',
+    'citation-error': 'Não foi possível copiar. Selecione o texto acima ou baixe o arquivo .bib.'
+  })
+  Object.assign(strings.en, {
+    'cite-post': 'Cite this post',
+    'citation-help': 'Copy this entry into your .bib file.',
+    'copy-bibtex': 'Copy BibTeX',
+    'download-bibtex': 'Download .bib',
+    'cite-latex': 'In LaTeX, use',
+    'citation-copied': 'BibTeX copied.',
+    'citation-error': 'Copy failed. Select the text above or download the .bib file.'
+  })
   let lang=body.dataset.uiLocale || 'en';
   try { if(isBlog) lang=localStorage.getItem('site-language') || lang; } catch (_) {}
   if(!strings[lang]) lang='en';
@@ -50,6 +68,11 @@
     const languageNote=document.querySelector('.article-language');
     if(languageNote)languageNote.lang=lang;
     document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t[el.dataset.i18n];el.lang=lang;});
+    const citationStatus=document.querySelector('[data-citation-status]')
+    if(citationStatus) {
+      citationStatus.lang=lang
+      if(citationStatus.dataset.copyState) citationStatus.textContent=t[citationStatus.dataset.copyState]
+    }
     document.querySelectorAll('.blog-date time').forEach(el=>{el.lang=lang;el.textContent=new Intl.DateTimeFormat(lang==='pt'?'pt-BR':'en',{dateStyle:'long',timeZone:'UTC'}).format(new Date(el.dateTime));});
     document.querySelector('[data-search-close]').setAttribute('aria-label',t.close);
     if(isBlog) {
@@ -106,7 +129,34 @@
   dialog.addEventListener('click',ev=>{if(ev.target===dialog){const r=dialog.getBoundingClientRect();if(ev.clientX<r.left||ev.clientX>r.right||ev.clientY<r.top||ev.clientY>r.bottom)dialog.close();}});
   document.addEventListener('keydown',ev=>{if(ev.key==='/'&&!dialog.open&&!ev.ctrlKey&&!ev.metaKey&&!ev.altKey&&!ev.target.closest('input,textarea,[contenteditable]')){ev.preventDefault();opener=document.activeElement;dialog.showModal();runSearch();input.focus();}});
   input.addEventListener('input',runSearch);
+  const citationButton=document.querySelector('[data-copy-citation]')
+  if(citationButton) {
+    citationButton.hidden=false
+    citationButton.addEventListener('click',async()=>{
+      const text=document.getElementById(citationButton.dataset.copyCitation).textContent
+      const notice=document.querySelector('[data-citation-status]')
+      let copied=false
+      try {
+        await navigator.clipboard.writeText(text)
+        copied=true
+      } catch(_) {}
+      if(!copied) {
+        const field=document.createElement('textarea')
+        field.value=text
+        field.setAttribute('aria-label','BibTeX')
+        Object.assign(field.style,{position:'fixed',top:'0',left:'-9999px'})
+        document.body.append(field)
+        field.select()
+        try {copied=document.execCommand('copy')} catch(_) {}
+        field.remove()
+        citationButton.focus({preventScroll:true})
+      }
+      notice.dataset.copyState=copied?'citation-copied':'citation-error'
+      notice.textContent=strings[lang][notice.dataset.copyState]
+    })
+  }
   if(blogInput)blogInput.addEventListener('input',filterBlog);
   document.querySelectorAll('[data-ui-language]').forEach(a=>a.addEventListener('click',ev=>{ev.preventDefault();lang=a.dataset.uiLanguage;localize();if(blogInput)filterBlog();}));
   localize();
 })();
+

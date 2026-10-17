@@ -461,6 +461,14 @@ body.blog-page { padding-top: 0 !important; }
 .blog-main .code-copy-button { color: var(--muted); background: var(--soft); }
 .blog-main details { margin-block: 18px; }
 .blog-main summary { cursor: pointer; padding-block: 10px; }
+.blog-main .post-citation { margin-top: 40px; padding-top: 12px; border-top: 1px solid var(--line); }
+.post-citation summary { color: var(--ink); font-weight: 600; }
+.blog-main .post-citation pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.citation-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-block: 16px; }
+.citation-actions button { padding: 8px 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--soft); color: var(--accent); }
+.citation-actions button:hover { background: var(--raised); }
+.blog-main .citation-usage, .blog-main .citation-status { color: var(--muted); font-size: 14px; margin-bottom: 8px; }
+.citation-status:empty { display: none; }
 .blog-main img { max-width: 100%; height: auto; }
 .blog-main figure, .blog-main .quarto-figure { margin-block: 24px; }
 .blog-main .table-scroll { max-width: 100%; }
@@ -538,3 +546,4 @@ body.blog-page { padding-top: 0 !important; }
   .blog-layout { display: block; }
   .project { break-inside: avoid; }
 }
+
