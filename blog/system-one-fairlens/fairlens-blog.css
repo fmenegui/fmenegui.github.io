@@ -1,5 +1,5 @@
 /* Article figures, evaluated inputs and technical appendix. */
-.original-inputs { display: flex; justify-content: center; gap: 18px; background: #f5f7f8; padding: 18px; margin: 24px 0; }
+.original-inputs { display: flex; justify-content: center; gap: 18px; background: var(--soft, #f5f7f8); padding: 18px; margin: 24px 0; }
 .original-inputs > p { display: flex; gap: 18px; justify-content: center; margin: 0; min-width: 0; }
 .original-inputs a { display: block; flex: 0 1 180px; min-width: 0; }
 .original-inputs img { width: 100%; height: auto; margin: 0; }
@@ -10,7 +10,7 @@ p code { overflow-wrap: anywhere; }
 @media (max-width: 600px) { .figure-scroll img { min-width: 760px; max-width: none; } }
 
 .face-gallery { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 24px 0; }
-.face-group { min-width: 0; border: 1px solid #dde4e8; border-radius: 4px; padding: 8px; }
+.face-group { min-width: 0; border: 1px solid var(--line, #dde4e8); border-radius: 4px; padding: 8px; }
 .face-group h3 { font-size: 16px; margin: 0 0 12px; text-align: center; }
 .face-gallery figure { margin: 0 0 14px; }
 .face-gallery img { width: 100%; height: auto; margin: 0 auto; }
@@ -19,11 +19,11 @@ p code { overflow-wrap: anywhere; }
 .face-api-example img { width: 280px; height: auto; }
 @media (max-width: 600px) { .face-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; } .face-gallery figcaption { font-size: 11px; } }
 
-.technical-appendix { margin-top: 36px; padding: 0; border: 1px solid #dce3e8; border-radius: 5px; }
-.technical-appendix > summary { padding: 16px 20px; background: #f5f7f8; font-size: 16px; line-height: 1.5; }
+.technical-appendix { margin-top: 36px; padding: 0; border: 1px solid var(--line, #dce3e8); border-radius: 5px; }
+.technical-appendix > summary { padding: 16px 20px; background: var(--soft, #f5f7f8); color: var(--ink, inherit); font-size: 16px; line-height: 1.5; }
 .technical-appendix[open] { padding: 0 20px 22px; }
-.technical-appendix[open] > summary { margin: 0 -20px 24px; border-bottom: 1px solid #dce3e8; }
-.technical-appendix > summary:focus-visible { outline: 2px solid #1879b8; outline-offset: 3px; }
+.technical-appendix[open] > summary { margin: 0 -20px 24px; border-bottom: 1px solid var(--line, #dce3e8); }
+.technical-appendix > summary:focus-visible { outline: 2px solid var(--accent, #1879b8); outline-offset: 3px; }
 .technical-appendix h3 { margin-top: 34px; }
 .technical-appendix .face-api-example { margin: 24px auto; }
 @media (max-width: 600px) { .technical-appendix[open] { padding: 0 12px 16px; } .technical-appendix[open] > summary { margin: 0 -12px 18px; } .technical-appendix > summary { padding: 14px 12px; } }
