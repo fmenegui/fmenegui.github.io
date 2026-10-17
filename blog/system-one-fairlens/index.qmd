@@ -208,7 +208,7 @@ The target is fixed across photographs for each question. Correctly interpreting
 
 Demographic annotations are inherited from UTKFace, rather than verified self-identifications. Its binary gender scheme and heterogeneous Other race category limit the analysis. The cohort does not represent the Brazilian population. Removing exact PNG duplicates does not establish independent identities. Racial comparisons are unadjusted for age, gender and visual conditions, so they cannot isolate race as a cause.
 
-The Portuguese version translates context, question, options and instructions. It remains AI-authored without independent human validation. For example, random photo became foto casual, and some role labels introduce grammatical gender. The executed pt-BR-v1 is preserved, without retrospective revision.
+The Portuguese version translates context, question, options and instructions. Independent human validation is still pending. For example, random photo became foto casual, and some role labels introduce grammatical gender. The executed pt-BR-v1 is preserved, without retrospective revision.
 
 GPT receives the prompt in both user input and question instructions. Jev receives it in question instructions. Model architecture, interface, prompt placement and provider policy are therefore not isolated. The actual reason for a refusal is not established by its occurrence.
 
@@ -434,6 +434,4 @@ Internal verification reproduced the bilingual statistics and all 36 original me
 
 
 </details>
-
-*AI assistance was used for implementation, analysis, translation and drafting.*
 
