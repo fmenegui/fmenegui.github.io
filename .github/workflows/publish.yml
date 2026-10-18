@@ -42,6 +42,9 @@ jobs:
       - name: Prepare the verified FairLens CSV download
         run: python scripts/build_fairlens_downloads.py
 
+      - name: Prepare the verified chest X-ray CSV download
+        run: python scripts/build_xray_downloads.py
+
       - name: Render site
         run: quarto render
 

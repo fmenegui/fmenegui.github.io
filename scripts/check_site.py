@@ -173,7 +173,8 @@ def check(output):
     for rel in ['index.html','en/index.html','blog/index.html']:
         dom = H.fromstring((output / rel).read_text())
         links = dom.xpath('//article[contains(@class,"blog-preview")]/*[self::h2 or self::h3]/a/@href')
-        assert links == [urlsplit(p.url).path for p in newest[:3]], rel
+        expected_posts = newest if rel == 'blog/index.html' else newest[:3]
+        assert links == [urlsplit(p.url).path for p in expected_posts], rel
 
     not_found = H.fromstring((output / '404.html').read_text())
     assert not_found.find('body').get('data-search-index') == index_path

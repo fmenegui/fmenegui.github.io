@@ -1,0 +1,22 @@
+{
+  "output": "blog/system-one-xray/data/vinbigdata-responses.csv.gz",
+  "size_bytes": 24482859,
+  "sha256": "b20e4449619ed922b1a070a19a5fe64f04d462d7c068330975f5809f19d09d3a",
+  "parts": [
+    {
+      "filename": "part-000",
+      "size_bytes": 8388606,
+      "sha256": "823830eb5a5e881687240b2bc58b3278694bcd1c246820cb85119d00bd3bf0bb"
+    },
+    {
+      "filename": "part-001",
+      "size_bytes": 8388606,
+      "sha256": "44a89f72877328c77678e0ac054233dcd32b272cb84a5fa2d19f7d31faf41e27"
+    },
+    {
+      "filename": "part-002",
+      "size_bytes": 7705647,
+      "sha256": "8337cfbd897885bbd8875411891d8c0958417f84ba08497d5f34d39e1d287307"
+    }
+  ]
+}

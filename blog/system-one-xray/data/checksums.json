@@ -1,0 +1,41 @@
+{
+  "source_html_sha256": "39dba015e7987d472e0adfa3ee6f96ba3f418da56e09997812ff52c1d6240f5b",
+  "files": [
+    {
+      "path": "assets/rsna-discrimination-calibration.png",
+      "sha256": "5e5a53bb19ec9e12bd096a18304c6c7615b73ebe2fff30599ea69af88cc484ca",
+      "size_bytes": 129443
+    },
+    {
+      "path": "assets/vinbigdata-ea21c8aba30e5357ba8b7bd388651d56.png",
+      "sha256": "faa2c06604c11e75be83aabedfaff532c50590036872f203c59d5325d4693785",
+      "size_bytes": 585638
+    },
+    {
+      "path": "assets/vinbigdata-b5fa2fc3b3e2a3bbf93884481fb08b74.png",
+      "sha256": "2a93155740a93ba946e0a92918679aaa882445dd5bfb3764733ad4d120aa3a0d",
+      "size_bytes": 500789
+    },
+    {
+      "path": "assets/vinbigdata-05c0c802db4f100de8e2a9fa4aa62d14.png",
+      "sha256": "6c9c2396748b6a7bbb5bbc6c8c34acf7e515b49cdfe1e9a821c1168c49467903",
+      "size_bytes": 541819
+    },
+    {
+      "path": "data/rsna-responses.csv.gz",
+      "sha256": "8c3d88b49f77023fc09c086b2537ab216348adbb23e2ce02f62b41948e8f7138",
+      "size_bytes": 3841654,
+      "rows": 53368,
+      "images": 26684,
+      "columns": 30
+    },
+    {
+      "path": "data/vinbigdata-responses.csv.gz",
+      "sha256": "b20e4449619ed922b1a070a19a5fe64f04d462d7c068330975f5809f19d09d3a",
+      "size_bytes": 24482859,
+      "rows": 30000,
+      "images": 15000,
+      "columns": 114
+    }
+  ]
+}
