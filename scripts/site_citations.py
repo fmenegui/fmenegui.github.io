@@ -46,15 +46,15 @@ def add_citation(root, main, path, relative):
     for old in main.xpath('./*[@id="cite-this-post"]'):
         old.drop_tree()
     main.append(H.fragment_fromstring(f'''
-<section class="post-citation" id="cite-this-post" aria-labelledby="cite-post-heading">
-  <h2 id="cite-post-heading" data-i18n="cite-post">Cite this post</h2>
-  <p data-i18n="citation-help">Copy this entry into your .bib file.</p>
+<section class="post-citation" id="cite-this-post" lang="en" aria-labelledby="cite-post-heading">
+  <h2 id="cite-post-heading">Cite this post</h2>
+  <p>Copy this entry into your .bib file.</p>
   <pre tabindex="0" aria-label="BibTeX"><code id="post-bibtex">{escape(bibtex)}</code></pre>
   <div class="citation-actions">
-    <button type="button" hidden data-copy-citation="post-bibtex" data-i18n="copy-bibtex">Copy BibTeX</button>
-    <a href="citation.bib" download="{key}.bib" data-i18n="download-bibtex">Download .bib</a>
+    <button type="button" hidden data-copy-citation="post-bibtex">Copy BibTeX</button>
+    <a href="citation.bib" download="{key}.bib">Download .bib</a>
   </div>
-  <p class="citation-usage"><span data-i18n="cite-latex">In LaTeX, use</span> <code>\\cite{{{key}}}</code>.</p>
+  <p class="citation-usage"><span>In LaTeX, use</span> <code>\\cite{{{key}}}</code>.</p>
   <p class="citation-status" data-citation-status role="status" aria-live="polite"></p>
 </section>'''))
     head = root.find("head")

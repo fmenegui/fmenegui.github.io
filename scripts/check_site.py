@@ -150,6 +150,8 @@ def check(output):
             check_visible_references(main, page.relative)
             citations = main.xpath('./section[@id="cite-this-post"]')
             assert len(citations) == 1, f"Missing or duplicated citation: {page.relative}"
+            assert citations[0].get('lang') == 'en', f"Citation must stay in English: {page.relative}"
+            assert not citations[0].xpath('.//*[@data-i18n]'), f"Navigation must not translate citations: {page.relative}"
             bibtex = citations[0].xpath('.//code[@id="post-bibtex"]')[0].text_content()
             assert bibtex.startswith('@misc{'), page.relative
             assert f'url = {{{page.url}}}' in bibtex, page.relative
