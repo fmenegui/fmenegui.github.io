@@ -6,6 +6,13 @@
     <description>Experiments in AI and ECG, with methods, results and code.</description>
     <language>en</language>
     <item>
+      <title>Jev and GPT Decisions on Chest X-rays</title>
+      <link>https://fmenegui.com/blog/system-one-xray/</link>
+      <description>An evaluation on RSNA and VinBigData, with 41,684 radiographs and a closer look at the probabilities behind each answer.</description>
+      <guid isPermaLink="true">https://fmenegui.com/blog/system-one-xray/</guid>
+      <pubDate>Sun, 18 Oct 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>Bias, Refusals and Language in Jev and GPT Decisions</title>
       <link>https://fmenegui.com/blog/system-one-fairlens/</link>
       <description>An exploratory audit of Jev and GPT Decisions on all 38 closed FairLens questions in English and Portuguese, with complete recorded responses and detailed methods.</description>

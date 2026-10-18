@@ -1,0 +1,1073 @@
+<!doctype html>
+<html data-theme="dark" xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head><meta name="color-scheme" content="dark light"><meta name="theme-color" content="#111614"><script src="/assets/theme-init-5102f15c4534.js"></script>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Felipe Meneguitti Dias">
+<meta name="dcterms.date" content="2026-10-18">
+<meta name="description" content="An evaluation on RSNA and VinBigData, with 41,684 radiographs and a closer look at the probabilities behind each answer.">
+
+<title>Jev vs GPT Decisions on Chest X-rays: RSNA and VinBigData – Felipe Dias</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-5e85189689f64ca0ed64cd76e6b7f848.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.6/css/academicons.min.css">
+<link rel="stylesheet" href="xray-blog.css">
+<link rel="alternate" type="application/x-bibtex" href="https://fmenegui.com/blog/system-one-xray/citation.bib" title="BibTeX"><link rel="stylesheet" href="/assets/style.css?v=25b2251fe4dd"><link rel="icon" href="/assets/favicon.svg">
+<!-- site-discovery:start -->
+<link rel="canonical" href="https://fmenegui.com/blog/system-one-xray/">
+<link rel="alternate" type="application/rss+xml" title="Blog | Felipe Dias" href="https://fmenegui.com/blog/index.xml">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="google-site-verification" content="h6HccuHaE3NZCaV6t7jhLx1lPqosFyi3aunJcjO5xSQ">
+<meta property="og:site_name" content="Felipe Dias">
+<meta property="og:title" content="Jev vs GPT Decisions on Chest X-rays: RSNA and VinBigData – Felipe Dias">
+<meta property="og:description" content="An evaluation on RSNA and VinBigData, with 41,684 radiographs and a closer look at the probabilities behind each answer.">
+<meta property="og:url" content="https://fmenegui.com/blog/system-one-xray/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://fmenegui.com/blog/system-one-xray/assets/rsna-discrimination-calibration.png">
+<meta property="og:image:alt" content="Jev and GPT Decisions on Chest X-rays">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Jev vs GPT Decisions on Chest X-rays: RSNA and VinBigData – Felipe Dias">
+<meta name="twitter:description" content="An evaluation on RSNA and VinBigData, with 41,684 radiographs and a closer look at the probabilities behind each answer.">
+<meta name="twitter:image" content="https://fmenegui.com/blog/system-one-xray/assets/rsna-discrimination-calibration.png">
+<meta name="twitter:image:alt" content="Jev and GPT Decisions on Chest X-rays">
+<meta property="article:published_time" content="2026-10-18">
+<meta property="article:author" content="https://fmenegui.com/about.html">
+<script id="site-discovery" type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://fmenegui.com/#person","name":"Felipe Meneguitti Dias","url":"https://fmenegui.com/about.html","sameAs":["https://orcid.org/0000-0001-7778-4606","https://github.com/fmenegui","https://www.linkedin.com/in/felipe-meneguitti-dias-312570b3/"]},{"@type":"WebSite","@id":"https://fmenegui.com/#website","url":"https://fmenegui.com/","name":"Felipe Dias","publisher":{"@id":"https://fmenegui.com/#person"}},{"@type":"WebPage","@id":"https://fmenegui.com/blog/system-one-xray/#webpage","url":"https://fmenegui.com/blog/system-one-xray/","name":"Jev vs GPT Decisions on Chest X-rays: RSNA and VinBigData – Felipe Dias","description":"An evaluation on RSNA and VinBigData, with 41,684 radiographs and a closer look at the probabilities behind each answer.","inLanguage":"en","isPartOf":{"@id":"https://fmenegui.com/#website"},"breadcrumb":{"@id":"https://fmenegui.com/blog/system-one-xray/#breadcrumb"}},{"@type":"BlogPosting","@id":"https://fmenegui.com/blog/system-one-xray/#article","url":"https://fmenegui.com/blog/system-one-xray/","mainEntityOfPage":{"@id":"https://fmenegui.com/blog/system-one-xray/#webpage"},"headline":"Jev and GPT Decisions on Chest X-rays","description":"An evaluation on RSNA and VinBigData, with 41,684 radiographs and a closer look at the probabilities behind each answer.","author":{"@id":"https://fmenegui.com/#person"},"datePublished":"2026-10-18","inLanguage":"en","isAccessibleForFree":true,"image":["https://fmenegui.com/blog/system-one-xray/assets/rsna-discrimination-calibration.png","https://fmenegui.com/blog/system-one-xray/assets/vinbigdata-ea21c8aba30e5357ba8b7bd388651d56.png","https://fmenegui.com/blog/system-one-xray/assets/vinbigdata-b5fa2fc3b3e2a3bbf93884481fb08b74.png","https://fmenegui.com/blog/system-one-xray/assets/vinbigdata-05c0c802db4f100de8e2a9fa4aa62d14.png"]},{"@type":"BreadcrumbList","@id":"https://fmenegui.com/blog/system-one-xray/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"item":"https://fmenegui.com/","name":"Felipe Dias"},{"@type":"ListItem","position":2,"item":"https://fmenegui.com/blog/","name":"Blog"},{"@type":"ListItem","position":3,"item":"https://fmenegui.com/blog/system-one-xray/","name":"Jev and GPT Decisions on Chest X-rays"}]}]}</script>
+<!-- site-discovery:end -->
+</head>
+
+<body data-search-index="/assets/search-581761b6d008.json" data-ui-locale="en" class="blog-page" data-blog-ui="true">
+
+<a class="skip" href="#main" data-i18n="skip">Skip to content</a><header class="header" lang="en"><div class="wrap"><a class="brand" data-home href="/en/" aria-label="Felipe Meneguitti Dias">fmenegui</a><nav class="nav" aria-label="Main"><a data-nav="0" href="/en/#projects">Projects</a><a data-nav="1" href="/en/about.html">CV</a><a data-nav="2" href="/en/about.html#publications">Publications</a><a data-nav="3" href="/en/#contact">Contact</a><a href="/blog/" aria-current="page">Blog</a><button class="search-toggle" type="button" data-search-open data-i18n="search">Search</button></nav><span class="header-tools"><button class="theme-toggle" type="button" data-theme-toggle hidden aria-label="Switch to light theme" title="Switch to light theme"><svg class="theme-sun" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="3.8"></circle><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4L19 5"></path></svg><svg class="theme-moon" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M20.2 14.1A8.5 8.5 0 0 1 9.9 3.8a8.5 8.5 0 1 0 10.3 10.3Z"></path></svg></button><span class="lang"><a lang="pt-BR" data-ui-language="pt" href="#" aria-label="Navegação em português">PT</a><a lang="en" data-ui-language="en" href="#" aria-label="Navigation in English" aria-current="true">EN</a></span></span></div></header><p class="wrap article-language" data-i18n="article-language">Article in English · PT / EN changes navigation only.</p><div class="blog-layout wrap"><main class="blog-main content" id="main" tabindex="-1" lang="en">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Jev and GPT Decisions on Chest X-rays</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">AI</div>
+    <div class="quarto-category">Radiology</div>
+    <div class="quarto-category">Experiments</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    An evaluation on RSNA and VinBigData, with 41,684 radiographs and a closer look at the probabilities behind each answer.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Felipe Meneguitti Dias </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 18, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>After testing Jev and GPT Decisions on <a href="https://fmenegui.com/blog/system-one-ecg/">ECG images</a>, I wanted to try chest X-rays. The setup was similar: give both models the same image, ask about a finding, and keep the answer and its probabilities.</p>
+<p>I used two public datasets: <strong>26,684 radiographs from RSNA</strong> and <strong>15,000 from VinBigData</strong>. Both models returned valid answers for every image. Their results were more interesting than a single accuracy number would suggest. Jev generally ranked VinBigData findings better, while GPT Decisions had a higher average F1. Both had substantial problems with their probability estimates.</p>
+<section id="what-i-evaluated" class="level2">
+<h2 class="anchored" data-anchor-id="what-i-evaluated">What I evaluated</h2>
+<p>I tested <strong>Jev 1.14.0</strong> and <strong>GPT-6 Luna Decisions</strong>. Each received the same PNG, equivalent finding definitions, and YES/NO options. Neither received the correct labels, a radiology report, or patient history.</p>
+<p>The <a href="https://www.kaggle.com/competitions/rsna-pneumonia-detection-challenge">RSNA Pneumonia Detection Challenge</a> supplied the first cohort. Its target is a lung opacity suspicious for pneumonia. That distinction matters: agreement with this label measures recognition of a radiographic finding. It does not establish a clinical diagnosis of pneumonia. <a href="#ref-1">[1]</a></p>
+<p>For <a href="https://www.kaggle.com/competitions/vinbigdata-chest-xray-abnormalities-detection">VinBigData</a>, I evaluated 14 findings independently, including cardiomegaly, pleural effusion, nodules or masses, and pneumothorax. An additional question asked whether none of the listed findings was visible. The competition labels used here do not include pneumonia. They also differ from the broader VinDr-CXR release described in the dataset paper. <a href="#ref-2">[2]</a></p>
+<p>These are the public labelled training cohorts. I did not train either model on them for this experiment, but previous exposure during model development is unknown. The results describe these cohorts and image conversions.</p>
+</section>
+<section id="rsna-results" class="level2">
+<h2 class="anchored" data-anchor-id="rsna-results">RSNA results</h2>
+<p>Of the 26,684 images, 6,012 had a positive reference label, or 22.5%. I kept that proportion instead of creating a balanced sample.</p>
+<div class="table-scroll">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">RSNA metric</th>
+<th data-quarto-table-cell-role="th" scope="col">Jev</th>
+<th data-quarto-table-cell-role="th" scope="col">GPT Decisions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>AUROC</td>
+<td>0.854 <span class="small">(0.849–0.858)</span></td>
+<td>0.851 <span class="small">(0.845–0.856)</span></td>
+</tr>
+<tr class="even">
+<td>Average precision</td>
+<td>0.596 <span class="small">(0.584–0.609)</span></td>
+<td>0.563 <span class="small">(0.551–0.575)</span></td>
+</tr>
+<tr class="odd">
+<td>Sensitivity</td>
+<td>0.790 <span class="small">(0.780–0.801)</span></td>
+<td>0.815 <span class="small">(0.805–0.825)</span></td>
+</tr>
+<tr class="even">
+<td>Specificity</td>
+<td>0.753 <span class="small">(0.746–0.758)</span></td>
+<td>0.768 <span class="small">(0.763–0.774)</span></td>
+</tr>
+<tr class="odd">
+<td>Precision</td>
+<td>0.482</td>
+<td>0.506</td>
+</tr>
+<tr class="even">
+<td>F1</td>
+<td>0.598 <span class="small">(0.590–0.608)</span></td>
+<td>0.624 <span class="small">(0.616–0.633)</span></td>
+</tr>
+<tr class="odd">
+<td>Brier score ↓</td>
+<td>0.160 <span class="small">(0.158–0.163)</span></td>
+<td>0.176 <span class="small">(0.172–0.180)</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="xray-caption">Intervals in parentheses are 95% paired image bootstrap intervals. Binary metrics use the YES or NO returned by the API. Lower Brier scores indicate less squared probability error.</p>
+<p>The AUROCs were close: 0.854 for Jev and 0.851 for GPT Decisions. The paired interval for their difference included zero, so this experiment does not clearly separate them on AUROC.</p>
+<p>GPT Decisions identified 4,902 of the 6,012 positive images, compared with 4,750 for Jev. It also returned fewer false positives: 4,791 versus 5,115. That gave GPT the higher F1. Jev had higher average precision and a lower Brier score.</p>
+<figure class="xray-scientific-figure figure" tabindex="0" role="region" aria-label="RSNA curves, scroll horizontally on small screens"><a href="assets/rsna-discrimination-calibration.png" class="figure-original" target="_blank" rel="noopener" aria-label="Open original figure in a new tab" title="Open original figure in a new tab"><picture data-lossless><source srcset="/blog/system-one-xray/assets/rsna-discrimination-calibration.lossless.webp" type="image/webp"><img alt="RSNA empirical ROC curves and calibration for Jev and GPT Decisions" class="figure-img" src="assets/rsna-discrimination-calibration.png" loading="lazy" decoding="async" width="1872" height="774"></picture></a><figcaption>Empirical ROC curves and calibration on the complete RSNA cohort. Calibration points show mean scores and observed positive fractions in ten equal-width bins. Connecting segments guide the eye. The plot does not show confidence bands.</figcaption></figure>
+<p>The calibration plot explains why I kept the probabilities. Among GPT scores from 0.9 to 1.0, the mean was 0.976, but only 57.4% of those images had a positive reference label. Jev also overestimated positivity in that range: a mean score of 0.937 corresponded to 77.0% positives. Taking those numbers as reliable probabilities would be misleading.</p>
+</section>
+<section id="vinbigdata-results" class="level2">
+<h2 class="anchored" data-anchor-id="vinbigdata-results">VinBigData results</h2>
+<p>VinBigData has three readers per image. I treated a finding as positive when at least two readers annotated it. The averages below give equal weight to each of the 14 findings. The separate “No finding” question is excluded.</p>
+<div class="table-scroll">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">VinBigData, 14 findings</th>
+<th data-quarto-table-cell-role="th" scope="col">Jev</th>
+<th data-quarto-table-cell-role="th" scope="col">GPT Decisions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Mean AUROC</td>
+<td>0.929</td>
+<td>0.868</td>
+</tr>
+<tr class="even">
+<td>Mean average precision</td>
+<td>0.444</td>
+<td>0.375</td>
+</tr>
+<tr class="odd">
+<td>Mean F1</td>
+<td>0.312</td>
+<td>0.339</td>
+</tr>
+<tr class="even">
+<td>Mean Brier score ↓</td>
+<td>0.110</td>
+<td>0.069</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Jev had the higher AUROC for 13 of the 14 findings. Cardiomegaly was the exception. Yet GPT Decisions had the higher average F1 and lower average Brier score. The models differ in how they rank images and where their YES/NO decisions fall.</p>
+<p>For nodules or masses, Jev had an AUROC of 0.949 and detected 356 of 405 reference-positive images. It also produced 1,604 false positives. GPT detected 131, with 100 false positives. Jev found more of the annotated cases. GPT's positive answers were more selective. Their F1 scores were 0.301 and 0.412, respectively.</p>
+<p>Some findings exposed a much larger gap between ranking and decisions. Jev's AUROC for pulmonary fibrosis was 0.901, but it answered YES for only 64 of the 1,017 positive images. GPT detected 55. For this finding, neither model's native decisions made good use of the ranking information available in its scores.</p>
+<p>The probability errors also need a reference. Assigning every image the observed prevalence of each finding gives a mean Brier score of <strong>0.038</strong>, compared with <strong>0.110 for Jev</strong> and <strong>0.069 for GPT</strong>. This constant reference uses the evaluation cohort itself, so it is a descriptive comparison. Even so, it shows why GPT's lower error should not be read as evidence of dependable probabilities.</p>
+</section>
+<section id="three-images-and-their-recorded-answers" class="level2">
+<h2 class="anchored" data-anchor-id="three-images-and-their-recorded-answers">Three images and their recorded answers</h2>
+<p>These images come from the technical pilot and are included in the full evaluation. I chose them to illustrate different reference findings. They are examples, not a representative sample of model performance. The displayed PNGs match the recorded input hashes. Each table shows one question, while the CSV retains all 15 answers.</p>
+<div class="xray-examples"><figure class="xray-case figure"><h3 class="anchored">No finding</h3><a href="assets/vinbigdata-ea21c8aba30e5357ba8b7bd388651d56.png" class="figure-original" target="_blank" rel="noopener" aria-label="Open original figure in a new tab" title="Open original figure in a new tab"><picture data-lossless><source srcset="/blog/system-one-xray/assets/vinbigdata-ea21c8aba30e5357ba8b7bd388651d56.lossless.webp" type="image/webp"><img alt="Original VinBigData benchmark input with reference labels No finding" class="figure-img" src="assets/vinbigdata-ea21c8aba30e5357ba8b7bd388651d56.png" loading="lazy" decoding="async" width="1024" height="1024"></picture></a><figcaption>Reference labels: No finding.<br><code>ea21c8aba30e5357ba8b7bd388651d56</code></figcaption><div class="table-scroll">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">Model</th>
+<th data-quarto-table-cell-role="th" scope="col">No finding</th>
+<th data-quarto-table-cell-role="th" scope="col">P(YES)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Jev 1.14.0</td>
+<td>NO</td>
+<td>0.36</td>
+</tr>
+<tr class="even">
+<td>GPT-6 Luna Decisions</td>
+<td>NO</td>
+<td>0.10</td>
+</tr>
+</tbody>
+</table>
+</div><details><summary>Recorded answer objects and image hash</summary><p class="hash">SHA-256: <code>faa2c06604c11e75be83aabedfaff532c50590036872f203c59d5325d4693785</code></p><pre>{
+  "jev": {
+    "served_model": "jev-1.14.0",
+    "answer": {
+      "type": "choice",
+      "choice": "NO",
+      "confidence": 0.28,
+      "probabilities": {
+        "YES": 0.36,
+        "NO": 0.64
+      }
+    }
+  },
+  "gpt-decisions": {
+    "served_model": "gpt-6-luna",
+    "answer": {
+      "type": "choice",
+      "name": "no_finding",
+      "choice": "NO",
+      "probabilities": [
+        {
+          "value": "YES",
+          "probability": 0.1
+        },
+        {
+          "value": "NO",
+          "probability": 0.9
+        }
+      ],
+      "confidence": 0.8
+    }
+  }
+}</pre></details></figure><figure class="xray-case figure"><h3 class="anchored">Cardiomegaly</h3><a href="assets/vinbigdata-b5fa2fc3b3e2a3bbf93884481fb08b74.png" class="figure-original" target="_blank" rel="noopener" aria-label="Open original figure in a new tab" title="Open original figure in a new tab"><picture data-lossless><source srcset="/blog/system-one-xray/assets/vinbigdata-b5fa2fc3b3e2a3bbf93884481fb08b74.lossless.webp" type="image/webp"><img alt="Original VinBigData benchmark input with reference labels Cardiomegaly" class="figure-img" src="assets/vinbigdata-b5fa2fc3b3e2a3bbf93884481fb08b74.png" loading="lazy" decoding="async" width="1024" height="1024"></picture></a><figcaption>Reference labels: Cardiomegaly.<br><code>b5fa2fc3b3e2a3bbf93884481fb08b74</code></figcaption><div class="table-scroll">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">Model</th>
+<th data-quarto-table-cell-role="th" scope="col">Cardiomegaly</th>
+<th data-quarto-table-cell-role="th" scope="col">P(YES)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Jev 1.14.0</td>
+<td>YES</td>
+<td>0.92</td>
+</tr>
+<tr class="even">
+<td>GPT-6 Luna Decisions</td>
+<td>YES</td>
+<td>1.00</td>
+</tr>
+</tbody>
+</table>
+</div><details><summary>Recorded answer objects and image hash</summary><p class="hash">SHA-256: <code>2a93155740a93ba946e0a92918679aaa882445dd5bfb3764733ad4d120aa3a0d</code></p><pre>{
+  "jev": {
+    "served_model": "jev-1.14.0",
+    "answer": {
+      "type": "choice",
+      "choice": "YES",
+      "confidence": 0.84,
+      "probabilities": {
+        "YES": 0.92,
+        "NO": 0.08
+      }
+    }
+  },
+  "gpt-decisions": {
+    "served_model": "gpt-6-luna",
+    "answer": {
+      "type": "choice",
+      "name": "cardiomegaly",
+      "choice": "YES",
+      "probabilities": [
+        {
+          "value": "YES",
+          "probability": 1.0
+        },
+        {
+          "value": "NO",
+          "probability": 0.0
+        }
+      ],
+      "confidence": 1.0
+    }
+  }
+}</pre></details></figure><figure class="xray-case figure"><h3 class="anchored">Pleural effusion</h3><a href="assets/vinbigdata-05c0c802db4f100de8e2a9fa4aa62d14.png" class="figure-original" target="_blank" rel="noopener" aria-label="Open original figure in a new tab" title="Open original figure in a new tab"><picture data-lossless><source srcset="/blog/system-one-xray/assets/vinbigdata-05c0c802db4f100de8e2a9fa4aa62d14.lossless.webp" type="image/webp"><img alt="Original VinBigData benchmark input with reference labels Lung Opacity, Pleural effusion, Pulmonary fibrosis" class="figure-img" src="assets/vinbigdata-05c0c802db4f100de8e2a9fa4aa62d14.png" loading="lazy" decoding="async" width="1024" height="1024"></picture></a><figcaption>Reference labels: Lung Opacity, Pleural effusion, Pulmonary fibrosis.<br><code>05c0c802db4f100de8e2a9fa4aa62d14</code></figcaption><div class="table-scroll">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">Model</th>
+<th data-quarto-table-cell-role="th" scope="col">Pleural effusion</th>
+<th data-quarto-table-cell-role="th" scope="col">P(YES)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Jev 1.14.0</td>
+<td>YES</td>
+<td>0.99</td>
+</tr>
+<tr class="even">
+<td>GPT-6 Luna Decisions</td>
+<td>YES</td>
+<td>1.00</td>
+</tr>
+</tbody>
+</table>
+</div><p class="xray-caption">Both models also answered NO for pulmonary fibrosis, which is positive in the majority reference: Jev P(YES) = 0.04, GPT P(YES) = 0.00.</p><details><summary>Recorded answer objects and image hash</summary><p class="hash">SHA-256: <code>6c9c2396748b6a7bbb5bbc6c8c34acf7e515b49cdfe1e9a821c1168c49467903</code></p><pre>{
+  "jev": {
+    "served_model": "jev-1.14.0",
+    "answer": {
+      "type": "choice",
+      "choice": "YES",
+      "confidence": 0.98,
+      "probabilities": {
+        "YES": 0.99,
+        "NO": 0.01
+      }
+    },
+    "pulmonary_fibrosis_answer": {
+      "type": "choice",
+      "choice": "NO",
+      "confidence": 0.92,
+      "probabilities": {
+        "YES": 0.04,
+        "NO": 0.96
+      }
+    }
+  },
+  "gpt-decisions": {
+    "served_model": "gpt-6-luna",
+    "answer": {
+      "type": "choice",
+      "name": "pleural_effusion",
+      "choice": "YES",
+      "probabilities": [
+        {
+          "value": "YES",
+          "probability": 1.0
+        },
+        {
+          "value": "NO",
+          "probability": 0.0
+        }
+      ],
+      "confidence": 1.0
+    },
+    "pulmonary_fibrosis_answer": {
+      "type": "choice",
+      "name": "pulmonary_fibrosis",
+      "choice": "NO",
+      "probabilities": [
+        {
+          "value": "YES",
+          "probability": 0.0
+        },
+        {
+          "value": "NO",
+          "probability": 1.0
+        }
+      ],
+      "confidence": 1.0
+    }
+  }
+}</pre></details></figure></div>
+</section>
+<section id="what-i-take-from-this-experiment" class="level2">
+<h2 class="anchored" data-anchor-id="what-i-take-from-this-experiment">What I take from this experiment</h2>
+<p>The chest X-ray results were stronger than several of the ECG results I obtained earlier, although the datasets and tasks differ. Jev's discrimination on VinBigData was particularly interesting. The same evaluation also showed how much that result can hide: missed findings, large numbers of false positives, and probabilities that do not match observed frequencies.</p>
+<p>For me, the next useful experiment is to select thresholds and calibrate the scores on a separate development set, then evaluate them on new data. That would test how much of the problem can be corrected without changing the models. It would also make the comparison more useful than choosing a winner from AUROC alone.</p>
+</section>
+<section id="data-behind-the-results" class="level2">
+<h2 class="anchored" data-anchor-id="data-behind-the-results">Data behind the results</h2>
+<p>The downloads contain one row per image and model: <strong>53,368 RSNA rows</strong> and <strong>30,000 VinBigData rows</strong>. Each row includes the PNG hash, reference labels, model identity, reconstructed request JSON, the saved output record, and separate columns for choices and probabilities. VinBigData also includes the reader votes and alternative reference definitions.</p>
+<p>The CSVs contain no image bytes. Images remain available through the original dataset sources. The request JSON replaces image bytes with a placeholder tied to the recorded hash. The saved outputs preserve the fields retained by the experiment adapter, rather than claiming to be complete HTTP response logs.</p>
+<p><a class="xray-download" download="rsna-responses.csv.gz" href="data/rsna-responses.csv.gz">Download RSNA CSV · 53,368 rows</a><br><small>SHA-256: <code>8c3d88b49f77023fc09c086b2537ab216348adbb23e2ce02f62b41948e8f7138</code></small></p>
+<p><a class="xray-download" download="vinbigdata-responses.csv.gz" href="data/vinbigdata-responses.csv.gz">Download VinBigData CSV · 30,000 rows</a><br><small>SHA-256: <code>b20e4449619ed922b1a070a19a5fe64f04d462d7c068330975f5809f19d09d3a</code></small></p>
+<details class="technical-appendix"><summary>Technical appendix · methods, all findings, and data notes</summary>
+<h3 class="anchored">Image processing and prompts</h3>
+<p>RSNA DICOM pixels were clipped using each image's 0.5th and 99.5th percentiles, scaled to 8-bit grayscale, inverted for MONOCHROME1 when needed, converted to RGB, and fitted within 1024 × 1024 pixels with aspect ratio preserved. Both models received the same resulting PNG.</p>
+<p>VinBigData used version 1 of <a href="https://www.kaggle.com/datasets/sunghyunjun/vinbigdata-1024-jpg-dataset">sunghyunjun/vinbigdata-1024-jpg-dataset</a>, a participant's 1024 × 1024 JPEG conversion. Its documented conversion applies VOI LUT, monochrome correction, per-image scaling, square resizing, and JPEG compression. I decoded each JPEG to an RGB PNG without another resize. This is an evaluation of that representation, not the original DICOM pixels.</p>
+<p>The exact RSNA question was:</p><blockquote class="blockquote">Assess the supplied frontal chest radiograph image. Does it show a focal pulmonary opacity suspicious for pneumonia? Answer YES if a pulmonary opacity suspicious for pneumonia is present, otherwise NO. Other abnormalities without suspicious pulmonary opacity are NO. Judge the image alone, without patient history. This is a research benchmark, not a clinical diagnosis.</blockquote>
+<p>For VinBigData, all 15 questions were sent in one image request per model. Each finding was assessed independently. The shared instruction was:</p><blockquote class="blockquote">Assess only the supplied frontal chest radiograph. Evaluate each listed radiographic finding independently. Several findings may coexist. For no_finding, answer YES only when none of the other fourteen findings is visible. Judge the image without patient history or a reference report. This is a research image benchmark, not a clinical diagnosis.</blockquote>
+<p>The CSV includes every finding definition, option description, and reconstructed API payload. Requested aliases were <code>jev-preview</code> and <code>gpt-6-luna</code>. The recorded served models were <code>jev-1.14.0</code> and <code>gpt-6-luna</code> for all included records. Scores and native choices are retained separately. No new inference calls were made to prepare this post.</p>
+<h3 class="anchored">Reference labels and denominators</h3>
+<p>RSNA uses all 26,684 unique images in the stage-2 training label file, including 6,012 positives. Blind competition test images are excluded. Multiple boxes from one image do not create additional observations.</p>
+<p>The VinBigData label file contains 67,914 annotation rows for 15,000 images. I collapsed boxes to presence or absence per reader and finding, then used at least two of three readers as the primary reference. The CSV also preserves union and unanimous references. Absence of a box follows the competition's annotation convention. It is not proof of clinical absence. “No finding” remains its own annotated category and is not treated as a clinical declaration of health.</p>
+<p>The three illustrated inputs were selected by the technical pilot's coverage procedure. They were not a separate validation cohort. Their answer objects are copied from the saved records. The displayed images have no added boxes or diagnostic overlays.</p>
+<h3 class="anchored">Metrics and uncertainty</h3>
+<p>AUROC measures ranking across thresholds. Average precision is the value computed by <code>average_precision_score</code>, not trapezoidal integration of a precision-recall curve. Sensitivity, specificity, precision, and F1 use native API choices. No thresholds were optimized and no probability calibration was fitted for the reported results. When P(YES) was exactly 0.50, the returned choice sometimes remained NO. This occurs in 190 RSNA model-image decisions and 807 VinBigData model-image-finding decisions. Native choices are preserved rather than overwritten with a threshold rule.</p>
+<p>Brier score is the mean squared difference between P(YES) and the binary reference label. It measures probability error, which depends on both calibration and discrimination. Lower Brier alone does not establish good calibration. The constant prevalence reference is calculated within this cohort and is not an independently fitted prediction model.</p>
+<p>Both saved analyses use 1,000 bootstrap replicates with seed 42, resampling images while preserving the two models' pairing. VinBigData resamples all findings together for each image. The intervals do not account for unknown repeated-patient clustering. Per-finding comparisons are exploratory and are not adjusted for multiple testing. Macro summaries are descriptive averages, without a separately estimated macro confidence interval.</p>
+<p>For RSNA, the 95% interval for GPT minus Jev AUROC is −0.0067 to 0.0018. The corresponding intervals are −0.0443 to −0.0237 for average precision, 0.0128 to 0.0189 for Brier, and 0.0186 to 0.0334 for F1.</p>
+<h3 class="anchored">All VinBigData findings</h3>
+<div class="table-scroll">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th" scope="col">Finding</th>
+<th data-quarto-table-cell-role="th" scope="col">Positive images</th>
+<th data-quarto-table-cell-role="th" scope="col">Jev AUROC (95% CI)</th>
+<th data-quarto-table-cell-role="th" scope="col">GPT AUROC (95% CI)</th>
+<th data-quarto-table-cell-role="th" scope="col">AP Jev / GPT</th>
+<th data-quarto-table-cell-role="th" scope="col">F1 Jev / GPT</th>
+<th data-quarto-table-cell-role="th" scope="col">Brier Jev / GPT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Aortic enlargement</td>
+<td>2,346</td>
+<td>0.868 (0.861–0.874)</td>
+<td>0.846 (0.839–0.854)</td>
+<td>0.552 / 0.498</td>
+<td>0.537 / 0.514</td>
+<td>0.118 / 0.137</td>
+</tr>
+<tr class="even">
+<td>Atelectasis</td>
+<td>62</td>
+<td>0.882 (0.851–0.909)</td>
+<td>0.876 (0.832–0.915)</td>
+<td>0.022 / 0.025</td>
+<td>0.024 / 0.040</td>
+<td>0.232 / 0.125</td>
+</tr>
+<tr class="odd">
+<td>Calcification</td>
+<td>177</td>
+<td>0.946 (0.929–0.960)</td>
+<td>0.920 (0.899–0.936)</td>
+<td>0.283 / 0.127</td>
+<td>0.052 / 0.099</td>
+<td>0.290 / 0.153</td>
+</tr>
+<tr class="even">
+<td>Cardiomegaly</td>
+<td>1,817</td>
+<td>0.929 (0.924–0.934)</td>
+<td>0.934 (0.929–0.939)</td>
+<td>0.686 / 0.682</td>
+<td>0.537 / 0.629</td>
+<td>0.069 / 0.078</td>
+</tr>
+<tr class="odd">
+<td>Consolidation</td>
+<td>121</td>
+<td>0.973 (0.966–0.980)</td>
+<td>0.963 (0.944–0.981)</td>
+<td>0.268 / 0.281</td>
+<td>0.162 / 0.272</td>
+<td>0.062 / 0.028</td>
+</tr>
+<tr class="even">
+<td>ILD</td>
+<td>152</td>
+<td>0.972 (0.962–0.981)</td>
+<td>0.954 (0.936–0.972)</td>
+<td>0.467 / 0.260</td>
+<td>0.437 / 0.366</td>
+<td>0.014 / 0.013</td>
+</tr>
+<tr class="odd">
+<td>Infiltration</td>
+<td>245</td>
+<td>0.969 (0.961–0.976)</td>
+<td>0.954 (0.941–0.966)</td>
+<td>0.416 / 0.325</td>
+<td>0.173 / 0.303</td>
+<td>0.118 / 0.050</td>
+</tr>
+<tr class="even">
+<td>Lung Opacity</td>
+<td>547</td>
+<td>0.939 (0.930–0.947)</td>
+<td>0.923 (0.911–0.934)</td>
+<td>0.383 / 0.342</td>
+<td>0.136 / 0.211</td>
+<td>0.331 / 0.202</td>
+</tr>
+<tr class="odd">
+<td>Nodule/Mass</td>
+<td>405</td>
+<td>0.949 (0.938–0.959)</td>
+<td>0.834 (0.811–0.855)</td>
+<td>0.486 / 0.388</td>
+<td>0.301 / 0.412</td>
+<td>0.094 / 0.021</td>
+</tr>
+<tr class="even">
+<td>Other lesion</td>
+<td>362</td>
+<td>0.831 (0.810–0.851)</td>
+<td>0.684 (0.657–0.710)</td>
+<td>0.132 / 0.088</td>
+<td>0.192 / 0.081</td>
+<td>0.084 / 0.025</td>
+</tr>
+<tr class="odd">
+<td>Pleural effusion</td>
+<td>634</td>
+<td>0.972 (0.965–0.977)</td>
+<td>0.963 (0.952–0.972)</td>
+<td>0.767 / 0.829</td>
+<td>0.702 / 0.786</td>
+<td>0.022 / 0.015</td>
+</tr>
+<tr class="even">
+<td>Pleural thickening</td>
+<td>882</td>
+<td>0.884 (0.873–0.894)</td>
+<td>0.727 (0.711–0.742)</td>
+<td>0.421 / 0.369</td>
+<td>0.278 / 0.170</td>
+<td>0.054 / 0.051</td>
+</tr>
+<tr class="odd">
+<td>Pneumothorax</td>
+<td>58</td>
+<td>0.998 (0.996–0.999)</td>
+<td>0.939 (0.893–0.978)</td>
+<td>0.818 / 0.810</td>
+<td>0.717 / 0.766</td>
+<td>0.003 / 0.001</td>
+</tr>
+<tr class="even">
+<td>Pulmonary fibrosis</td>
+<td>1,017</td>
+<td>0.901 (0.890–0.911)</td>
+<td>0.628 (0.615–0.642)</td>
+<td>0.518 / 0.232</td>
+<td>0.117 / 0.101</td>
+<td>0.050 / 0.063</td>
+</tr>
+<tr class="odd">
+<td>No finding</td>
+<td>10,606</td>
+<td>0.907 (0.901–0.912)</td>
+<td>0.902 (0.896–0.907)</td>
+<td>0.953 / 0.948</td>
+<td>0.742 / 0.848</td>
+<td>0.195 / 0.147</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p class="xray-caption">Primary reference: at least two readers. AP means average precision. Paired models use the same 15,000 images for every finding. “No finding” is shown for completeness and excluded from the 14-finding averages.</p>
+<p>The small numbers of positives for pneumothorax (58) and atelectasis (62) deserve attention even in a 15,000-image cohort. A large total sample does not make every finding equally well represented.</p>
+<h3 class="anchored">CSV interpretation</h3>
+<p>The downloads are UTF-8 CSV files compressed with gzip. Quoted cells preserve JSON. Every image has one Jev row and one GPT Decisions row. Each finding has a reference label, native choice, binary prediction, P(YES), P(NO), and the API's separate confidence field. The confidence field is retained as returned and should not be substituted for P(YES).</p>
+<p>VinBigData retains the anonymous Kaggle image identifier. RSNA retains the experiment's pseudonymous identifier because the original DICOM identifiers were not included in these result artifacts. The SHA-256 applies to the exact PNG sent to the models, not the source JPEG or DICOM. Matching an RSNA file therefore requires reproducing the documented conversion and comparing its hash.</p>
+<p>Request JSON was reconstructed from the executed adapters. The image placeholder must be replaced with the PNG matching that row's hash. Saved output records contain the returned answer fields and the metadata retained by those adapters. They do not recover discarded HTTP headers or response fields. No API keys, authentication headers, source images, or reproduction scripts are included in the CSVs.</p>
+<p>Successful responses were restored from checkpoints when jobs resumed. This avoids deliberately repeating completed work, but a lost worker before checkpoint upload could still have caused an additional request. The exported files describe the consolidated successful records, not a billing ledger or repeated-sampling study.</p>
+<p>These are retrospective public-cohort evaluations of image-level findings. They do not measure lesion localization, report quality, performance against clinicians on the same cases, or clinical benefit. Public training-set exposure during foundation-model development remains unknown.</p>
+</details>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ol>
+<li id="ref-1">Shih G, Wu CC, Halabi SS, et al. <a href="https://doi.org/10.1148/ryai.2019180041">Augmenting the National Institutes of Health Chest Radiograph Dataset with Expert Annotations of Possible Pneumonia.</a> <em>Radiology: Artificial Intelligence.</em> 2019. <a href="https://www.kaggle.com/competitions/rsna-pneumonia-detection-challenge">RSNA competition data.</a></li>
+<li id="ref-2">Nguyen HQ, Lam K, Le LT, et al. <a href="https://doi.org/10.1038/s41597-022-01498-w">VinDr-CXR: An open dataset of chest X-rays with radiologist's annotations.</a> <em>Scientific Data.</em> 2022. <a href="https://www.kaggle.com/competitions/vinbigdata-chest-xray-abnormalities-detection">VinBigData competition.</a> The experiment uses the competition's reduced finding taxonomy, not all 28 VinDr-CXR labels.</li>
+<li><a href="https://www.kaggle.com/datasets/sunghyunjun/vinbigdata-1024-jpg-dataset">VinBigData 1024 JPG Dataset, version 1.</a> Image representation used for this evaluation. <a href="https://github.com/sunghyunjun/kaggle-vinbigdata-chest-xray-abnormalities-detection/blob/main/prepare_data.py">Uploader's conversion method.</a></li>
+</ol>
+
+
+</section>
+
+<section class="post-citation" id="cite-this-post" aria-labelledby="cite-post-heading">
+  <h2 id="cite-post-heading" data-i18n="cite-post">Cite this post</h2>
+  <p data-i18n="citation-help">Copy this entry into your .bib file.</p>
+  <pre tabindex="0" aria-label="BibTeX"><code id="post-bibtex">@misc{dias2026-system-one-xray,
+  author = {Dias, Felipe Meneguitti},
+  title = {{Jev and GPT Decisions on Chest X-rays}},
+  year = {2026},
+  month = {10},
+  howpublished = {Blog post},
+  url = {https://fmenegui.com/blog/system-one-xray/},
+  note = {Published on 2026-10-18}
+}
+</code></pre>
+  <div class="citation-actions">
+    <button type="button" hidden data-copy-citation="post-bibtex" data-i18n="copy-bibtex">Copy BibTeX</button>
+    <a href="citation.bib" download="dias2026-system-one-xray.bib" data-i18n="download-bibtex">Download .bib</a>
+  </div>
+  <p class="citation-usage"><span data-i18n="cite-latex">In LaTeX, use</span> <code>\cite{dias2026-system-one-xray}</code>.</p>
+  <p class="citation-status" data-citation-status role="status" aria-live="polite"></p>
+</section></main> <div class="blog-toc" role="complementary" aria-label="On this page"><details open="open"><summary data-i18n="contents">On this page</summary><nav id="TOC" role="doc-toc" class="toc-active">
+    <ul class="collapse">
+  <li><a href="#what-i-evaluated" id="toc-what-i-evaluated" class="nav-link active" data-scroll-target="#what-i-evaluated">What I evaluated</a></li>
+  <li><a href="#rsna-results" id="toc-rsna-results" class="nav-link" data-scroll-target="#rsna-results">RSNA results</a></li>
+  <li><a href="#vinbigdata-results" id="toc-vinbigdata-results" class="nav-link" data-scroll-target="#vinbigdata-results">VinBigData results</a></li>
+  <li><a href="#three-images-and-their-recorded-answers" id="toc-three-images-and-their-recorded-answers" class="nav-link" data-scroll-target="#three-images-and-their-recorded-answers">Three images and their recorded answers</a></li>
+  <li><a href="#what-i-take-from-this-experiment" id="toc-what-i-take-from-this-experiment" class="nav-link" data-scroll-target="#what-i-take-from-this-experiment">What I take from this experiment</a></li>
+  <li><a href="#data-behind-the-results" id="toc-data-behind-the-results" class="nav-link" data-scroll-target="#data-behind-the-results">Data behind the results</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </details></div></div><footer class="footer"><div class="wrap"><span>Felipe Meneguitti Dias</span><span><a href="/blog/index.xml">RSS</a> · <a href="#main" data-i18n="top">Back to top</a></span></div></footer><script data-goatcounter="https://fmenegui.goatcounter.com/count" async="" src="https://gc.zgo.at/count.js">
+</script>
+
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/fmenegui\.com");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+<dialog id="site-search" aria-labelledby="search-heading"><div class="search-dialog-head"><h2 id="search-heading" data-i18n="search">Search</h2><button type="button" data-search-close aria-label="Close search">×</button></div><label for="search-query" data-i18n="query">Search the entire site</label><input id="search-query" type="search" autocomplete="off" spellcheck="false"><p id="search-status" role="status" aria-live="polite"></p><ol id="search-results"></ol></dialog><script src="/assets/site-ui-a60a5e7f168e.js" defer></script></body></html>

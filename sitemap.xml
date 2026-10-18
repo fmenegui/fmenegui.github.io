@@ -85,6 +85,21 @@
     </image:image>
   </url>
   <url>
+    <loc>https://fmenegui.com/blog/system-one-xray/</loc>
+    <image:image>
+      <image:loc>https://fmenegui.com/blog/system-one-xray/assets/rsna-discrimination-calibration.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/blog/system-one-xray/assets/vinbigdata-ea21c8aba30e5357ba8b7bd388651d56.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/blog/system-one-xray/assets/vinbigdata-b5fa2fc3b3e2a3bbf93884481fb08b74.png</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/blog/system-one-xray/assets/vinbigdata-05c0c802db4f100de8e2a9fa4aa62d14.png</image:loc>
+    </image:image>
+  </url>
+  <url>
     <loc>https://fmenegui.com/en/about.html</loc>
     <xhtml:link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/about.html" />
     <xhtml:link rel="alternate" hreflang="en" href="https://fmenegui.com/en/about.html" />
