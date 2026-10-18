@@ -125,6 +125,9 @@
     <image:image>
       <image:loc>https://fmenegui.com/assets/rpms-app.jpeg</image:loc>
     </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/books/the-proof-in-the-code.webp?v=111f9bd0a2a8</image:loc>
+    </image:image>
   </url>
   <url>
     <loc>https://fmenegui.com/en/projects/gorgona.html</loc>
@@ -214,6 +217,9 @@
     </image:image>
     <image:image>
       <image:loc>https://fmenegui.com/assets/rpms-app.jpeg</image:loc>
+    </image:image>
+    <image:image>
+      <image:loc>https://fmenegui.com/assets/books/the-proof-in-the-code.webp?v=111f9bd0a2a8</image:loc>
     </image:image>
   </url>
   <url>
