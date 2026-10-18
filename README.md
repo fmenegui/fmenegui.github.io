@@ -58,6 +58,19 @@ The image sitemap and research example checksums continue to use the originals.
 
 The existing `learning/` sources remain intact. The GitHub Actions workflow renders the configured Quarto pages, overlays the new portfolio, excludes study notes from publication, and publishes `_site` to the existing `gh-pages` target without rendering a second time.
 
+## Livro que estou lendo
+
+O bloco discreto no final das duas páginas iniciais usa apenas
+[`portfolio/current-reading.json`](portfolio/current-reading.json).
+Para trocar de livro, altere `title`, `author`, `cover` e `url` nesse arquivo.
+Envie a nova capa para `portfolio/assets/books/` e use em `cover` o caminho
+relativo a `portfolio/assets/`, por exemplo `books/novo-livro.webp`.
+Use a capa na proporção 2:3 para evitar cortes. Para ocultar o bloco,
+troque `enabled` para `false`.
+
+Salve as alterações na branch `main`. O GitHub Actions reconstrói e publica
+automaticamente as versões em português e inglês, sem editar HTML ou CSS.
+
 ## PDFs
 
 The site links to `portfolio/downloads/Felipe_Dias_Portfolio_PT.pdf` and `Felipe_Dias_Portfolio_EN.pdf`. Print layouts share the same editorial source:

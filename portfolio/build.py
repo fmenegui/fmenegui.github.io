@@ -3,6 +3,7 @@
 from pathlib import Path
 from html import escape as e
 from hashlib import sha256
+import json
 import shutil
 import subprocess
 import sys
@@ -12,6 +13,7 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'_site'
 ASSETS=Path(__file__).parent/'assets'
 PROJECTS=('gorgona','incor','physionet','rpms')
+READING=json.loads((Path(__file__).parent/'current-reading.json').read_text(encoding='utf-8'))
 OUT.mkdir(exist_ok=True)
 shutil.copytree(ASSETS,OUT/'assets',dirs_exist_ok=True,ignore=shutil.ignore_patterns('README.md'))
 for withdrawn in ['README.md']:
@@ -123,6 +125,16 @@ def about(c,base):
  s+=f'<section class="article-section" id="awards"><h2>{"Premiações" if pt else "Awards"}</h2><ul class="cv-awards">'+''.join(f'<li><strong>{yr}</strong> · {e(text)}</li>' for yr,text in c['awards'])+f'</ul><a href="{LINKS["challenge"]}">{l["official"]}: PhysioNet Challenge 2024</a></section>'
  s+=f'<section class="section" id="publications"><h2>{c["papers"]}</h2>{publications(cv=True)}</section>'
  return s
+def current_reading(lang,base):
+ if not READING['enabled']:return ''
+ label='Lendo agora' if lang=='pt' else 'Currently reading'
+ newtab='abre em nova aba' if lang=='pt' else 'opens in a new tab'
+ title=e(READING['title']);author=e(READING['author'])
+ cover=ASSETS/READING['cover']
+ if not cover.is_file():raise FileNotFoundError(f'Current reading cover not found: {cover}')
+ version=sha256(cover.read_bytes()).hexdigest()[:12]
+ return f'<aside class="current-reading" aria-label="{label}"><a class="reading-item" href="{e(READING["url"])}" target="_blank" rel="noopener noreferrer" aria-label="{label}: {title}, {author} ({newtab})"><img class="reading-cover" src="{base}assets/{e(READING["cover"])}?v={version}" alt="" width="36" height="54" loading="lazy" decoding="async"><span class="reading-copy"><span class="reading-label">{label}</span><span class="reading-title" lang="en">{title}</span><span class="reading-author">{author}</span></span></a></aside>'
+
 def page(lang,kind):
  c=CONTENT[lang];prefix='' if lang=='pt' else 'en/'
  rel='index.html' if kind=='home' else 'about.html' if kind=='about' else f'projects/{kind}.html'
@@ -137,7 +149,7 @@ def page(lang,kind):
   target=(('../' if kind not in ['home','about'] else '')+'about.html#'+anchor) if anchor in ['about','publications'] else homepath+'#'+anchor
   nav+=f'<a href="{target}">{label}</a>'
  nav+=f'<a href="{base}blog/">Blog</a>'
- html=f'''<!doctype html><html lang="{c['locale']}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="https://fmenegui.com/{path}"><link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/{rel}"><link rel="alternate" hreflang="en" href="https://fmenegui.com/en/{rel}"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:type" content="website"><meta property="og:image" content="https://fmenegui.com/assets/felipe.jpg"><link rel="icon" href="{base}assets/favicon.svg"><link rel="stylesheet" href="{base}assets/style.css?v={CSS_VERSION}"></head><body class="{'home-page' if kind=='home' else 'about-page' if kind=='about' else 'project-page'}"><a class="skip" href="#main">{c['labels']['skip']}</a><header class="header"><div class="wrap"><a class="brand" href="{homepath}">fmenegui</a><nav class="nav" aria-label="{c['labels']['home']}">{nav}</nav><span class="lang"><a lang="pt-BR" hreflang="pt-BR" href="{switchpt}" {'aria-current="page"' if lang=='pt' else ''}>PT</a><a lang="en" hreflang="en" href="{switchen}" {'aria-current="page"' if lang=='en' else ''}>EN</a></span></div></header><main id="main" class="wrap">{body}<section class="contact" id="contact"><h2>{e(c['contact'])}</h2><p class="contact-email"><a href="{LINKS['email']}">f.meneguittidias@gmail.com</a></p>{social()}<p class="contact-download"><a href="{base}downloads/Felipe_Dias_Portfolio_{lang.upper()}.pdf?v={PDF_VERSIONS[lang]}">{c['download']} (PDF)</a></p></section></main><footer class="footer"><div class="wrap"><span>Felipe Meneguitti Dias</span><span>{c['updated']} · PT / EN</span></div></footer></body></html>'''
+ html=f'''<!doctype html><html lang="{c['locale']}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{e(title)}</title><meta name="description" content="{e(desc)}"><link rel="canonical" href="https://fmenegui.com/{path}"><link rel="alternate" hreflang="pt-BR" href="https://fmenegui.com/{rel}"><link rel="alternate" hreflang="en" href="https://fmenegui.com/en/{rel}"><meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}"><meta property="og:type" content="website"><meta property="og:image" content="https://fmenegui.com/assets/felipe.jpg"><link rel="icon" href="{base}assets/favicon.svg"><link rel="stylesheet" href="{base}assets/style.css?v={CSS_VERSION}"></head><body class="{'home-page' if kind=='home' else 'about-page' if kind=='about' else 'project-page'}"><a class="skip" href="#main">{c['labels']['skip']}</a><header class="header"><div class="wrap"><a class="brand" href="{homepath}">fmenegui</a><nav class="nav" aria-label="{c['labels']['home']}">{nav}</nav><span class="lang"><a lang="pt-BR" hreflang="pt-BR" href="{switchpt}" {'aria-current="page"' if lang=='pt' else ''}>PT</a><a lang="en" hreflang="en" href="{switchen}" {'aria-current="page"' if lang=='en' else ''}>EN</a></span></div></header><main id="main" class="wrap">{body}<section class="contact" id="contact"><h2>{e(c['contact'])}</h2><p class="contact-email"><a href="{LINKS['email']}">f.meneguittidias@gmail.com</a></p>{social()}<p class="contact-download"><a href="{base}downloads/Felipe_Dias_Portfolio_{lang.upper()}.pdf?v={PDF_VERSIONS[lang]}">{c['download']} (PDF)</a></p></section>{current_reading(lang,base) if kind=='home' else ''}</main><footer class="footer"><div class="wrap"><span>Felipe Meneguitti Dias</span><span>{c['updated']} · PT / EN</span></div></footer></body></html>'''
  dest=OUT/path;dest.parent.mkdir(exist_ok=True,parents=True);dest.write_text(html,encoding='utf-8')
 
 for lang in CONTENT:
