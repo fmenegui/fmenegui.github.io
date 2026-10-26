@@ -109,6 +109,11 @@ CHALLENGE = {'pt': {'kicker': 'Classificação de imagens de ECG · 2024',
         'split_note': 'Retiramos o CINC21 do pré-treinamento porque ele contém o PTB-XL. Também '
                       'passamos de 10 para 5 folds de validação cruzada para respeitar os limites '
                       'computacionais do desafio.',
+        'repository_title': 'Código e modelos',
+        'repository_text': 'Reorganizei o código da AIMED em um repositório público com tutoriais '
+                           'de instalação, inferência e treinamento, além de um manifesto dos '
+                           'pesos e da configuração de inferência.',
+        'repository_link': 'Acessar código e documentação da AIMED no GitHub',
         'results_title': 'Primeiro lugar: equipe AIMED',
         'results_text': 'A AIMED ficou em primeiro lugar entre as 16 entradas oficiais da tarefa '
                         'de classificação, com macro F1 de 0,817. Estes foram os três primeiros '
@@ -267,6 +272,11 @@ CHALLENGE = {'pt': {'kicker': 'Classificação de imagens de ECG · 2024',
         'split_note': 'We left CINC21 out of pretraining because it contains PTB-XL. We also '
                       'reduced cross-validation from 10 to 5 folds to stay within the challenge '
                       'computing limits.',
+        'repository_title': 'Code and models',
+        'repository_text': 'I reorganized the AIMED code into a public repository with tutorials '
+                           'for installation, inference and training, plus a manifest of the '
+                           'weights and inference configuration.',
+        'repository_link': 'View AIMED code and documentation on GitHub',
         'results_title': 'First place: team AIMED',
         'results_text': 'AIMED finished first among the 16 official classification entries, with a '
                         'macro F1 of 0.817. These were the top three results published by the '
@@ -323,6 +333,7 @@ CHALLENGE = {'pt': {'kicker': 'Classificação de imagens de ECG · 2024',
 CHALLENGE_LINKS = {'saudebusiness': 'https://www.saudebusiness.com/artigos/incor-ganha-premio-internacional-por-inovacao-em-diagnostico-de-arritmias-com-ia/',
  'itportal': 'https://itportal.com.br/incor-ganha-premio-internacional-por-inovacao-em-diagnostico-de-arritmias-com-ia/',
  'pptasaude': 'https://www.pptasaude.com.br/noticias/21020/incor-ganha-premio-internacional-por-inovacao-em-diagnostico-de-arritmias-com-ia/',
+ 'repository': 'https://github.com/fmenegui/aimed_physionet2024',
  'paper': 'https://cinc.org/archives/2024/pdf/CinC2024-398.pdf',
  'thesis': 'https://doi.org/10.11606/T.3.2025.tde-16012026-084015',
  'official': 'https://moody-challenge.physionet.org/2024/',
